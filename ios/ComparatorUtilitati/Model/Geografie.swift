@@ -13,6 +13,8 @@ struct Locatie: Equatable {
     var judetAnre: String?
     /// Localitatea cu rețea de gaz (din cod sau aleasă de utilizator); nil = nu apare în lista ANRE.
     var siruta: Int?
+    /// Numele localității cu rețea de gaz folosite la calcul (poate fi aleasă manual).
+    var localitateGaz: String?
     /// Tariful de distribuție gaz al localității, lei/MWh.
     var t0: Double?
     var operatorGaz: String?

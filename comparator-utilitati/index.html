@@ -286,7 +286,7 @@ async function arata(cpText) {
   const optiuni = listaLoc.slice().sort((a, b) => a[1].localeCompare(b[1], "ro"))
     .map((x) => `<option value="${x[0]}"${x[0] === siruta ? " selected" : ""}>${esc(titlu(x[1]))}${x[2] && x[2] !== x[1] ? ` (${esc(titlu(x[2]))})` : ""}</option>`).join("");
   $("loc").style.display = "block";
-  $("loc").innerHTML = `Cod poștal <b>${cp}</b> → <b>${esc(numeLoc ? titlu(numeLoc) + ", " : "")}${esc(numeJud)}</b>
+  $("loc").innerHTML = `Cod poștal <b>${cp}</b> → <b>${esc(numeLoc && !buc ? titlu(numeLoc) + ", " : "")}${esc(numeJud)}</b>
     <div class="net">
       <div class="op">⚡ Rețeaua de curent din zona ta<b>${esc(OPD_EL[zona])}</b>zona de distribuție ${esc(zona)}</div>
       <div class="op">🔥 Rețeaua de gaz${t0 != null ? `<b>${esc(opGaz)}</b>tarif de distribuție ${lei(t0 / 1000 * 1.21, 4)} lei/kWh cu TVA` : `<b>Nu apare în lista ANRE</b>${esc(numeLoc ? titlu(numeLoc) : "Localitatea")} nu figurează cu rețea de gaz`}
@@ -308,7 +308,7 @@ async function arata(cpText) {
     .map((o) => ({...o, kwh: (o.pg + o.tt + t0Calc + (o.acc || 0)) * (1 + (o.tva || 21) / 100) / 1000}))
     .sort((a, b) => (a.kwh * kgas + a.fz) - (b.kwh * kgas + b.fz));
   $("sub-gas").textContent = t0 != null
-    ? `${gz.length} oferte disponibile în ${titlu(numeLoc || numeJud)}, rețeaua ${opGaz}. Estimare pentru ${kgas} kWh pe lună.`
+    ? `${gz.length} oferte disponibile în ${titlu(locGaz?.[1] || numeLoc || numeJud)}, rețeaua ${opGaz}. Estimare pentru ${kgas} kWh pe lună.`
     : `Localitatea ta nu apare cu rețea de gaz în lista ANRE. Mai jos, prețurile pentru reședința de județ; alege localitatea de mai sus dacă ai gaz. Estimare pentru ${kgas} kWh pe lună.`;
   $("t-gas").innerHTML = tabelEnergie("gas", gz, kgas, `Nu am găsit oferte de gaz pentru județul tău. Verifică în <a href="https://posf.ro/comparator?comparatorType=gas" target="_blank" rel="noopener">comparatorul ANRE</a>.`);
 

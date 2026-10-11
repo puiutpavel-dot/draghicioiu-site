@@ -295,7 +295,7 @@ private struct SectiuneView: View {
             if loc.t0 == nil {
                 return "Localitatea ta nu apare cu rețea de gaz în lista ANRE. Mai jos, prețurile pentru reședința de județ. Estimare pentru \(Int(kwhGaz)) kWh pe lună."
             }
-            let unde = loc.localitate.map { " în \(Geografie.titlu($0))" } ?? ""
+            let unde = (loc.localitateGaz ?? loc.localitate).map { " în \(Geografie.titlu($0))" } ?? ""
             return "\(rezultat.gaz.count) oferte ANRE\(unde), cu tariful de distribuție al localității. Estimare pentru \(Int(kwhGaz)) kWh pe lună."
         case .internet:
             return "Disponibilitatea depinde de adresa exactă. Verifică pe site-ul operatorului înainte de a comanda."

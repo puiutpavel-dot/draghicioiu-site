@@ -59,6 +59,7 @@ final class Store {
         let lista = loc.judetAnre.flatMap { localitati?.judete[$0] } ?? []
         loc.localitatiGaz = lista.sorted { $0.nume.localizedCompare($1.nume) == .orderedAscending }
         if let s = loc.siruta {
+            loc.localitateGaz = lista.first(where: { $0.siruta == s })?.nume ?? loc.localitate
             loc.t0 = lista.first(where: { $0.siruta == s })?.t0
                 ?? (s == 999_999 ? anre?.gaz?.judete["BUCURESTI"]?.t0 : nil)
             if loc.t0 == nil, !lista.contains(where: { $0.siruta == s }), s != 999_999 { loc.siruta = nil }
