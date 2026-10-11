@@ -7,7 +7,7 @@
 import { readFile, writeFile, rename } from "node:fs/promises";
 
 const OUT = new URL("../comparator-mobila/preturi.json", import.meta.url);
-const MIN_REDUCERE = 5; // %
+const MIN_REDUCERE = 15; // % – sub acest prag produsele nu apar pe pagină
 
 // Colecțiile Mobexpert urmărite. La o campanie nouă, adaugă numele din
 // linkul mobexpert.ro/collections/NUME.
@@ -176,6 +176,6 @@ if (!items.length) { log("Nicio dată – preturi.json rămâne neschimbat"); pr
 
 const out = { updated: acum, updated_store: actualizat, count: items.length, items };
 const tmp = new URL("../comparator-mobila/preturi.json.tmp", import.meta.url);
-await writeFile(tmp, JSON.stringify(out, null, 1));
+await writeFile(tmp, JSON.stringify(out));
 await rename(tmp, OUT);
 log(`Salvat preturi.json: ${items.length} produse (Mobexpert ${mob.length}, IKEA ${ik.length})`);
