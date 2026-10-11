@@ -74,6 +74,8 @@ h2{font-size:22px;margin:36px 0 12px;letter-spacing:-.01em}
 .list a{text-decoration:none;font-weight:600}
 .list a:hover{text-decoration:underline}
 
+.morebtn{display:block;margin:14px auto 0;font:inherit;font-size:15px;font-weight:600;padding:11px 22px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer}
+.morebtn:hover{border-color:var(--ink)}
 .note{margin-top:30px;font-size:13px;color:var(--muted);background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px}
 @media (max-width:640px){.hide-sm{display:none}.cmp th,.cmp td{padding:9px 8px}}
 </style>
@@ -115,6 +117,7 @@ h2{font-size:22px;margin:36px 0 12px;letter-spacing:-.01em}
     <span class="count" id="count"></span>
   </div>
   <div class="tablewrap"><table class="cmp list" id="list"></table></div>
+  <button id="more" class="morebtn" hidden>Arată mai multe</button>
 
   <div class="note">
     Prețurile se actualizează automat în fiecare dimineață. Sunt preluate de pe mobexpert.ro (campaniile „Ce bine e acasă”, Outlet și oferte) și de pe ikea.com/ro (produsele cu preț redus, fără ofertele exclusive IKEA Family). Pot apărea modificări între timp, iar stocul e limitat — verifică prețul final pe site-ul magazinului înainte de cumpărare. Reducerea e calculată față de prețul vechi afișat de magazin.
@@ -274,16 +277,21 @@ document.getElementById("cats").innerHTML =
   }).join("");
 
 // Full list
-const st = {q:"",store:"all",cat:"all",sort:"pct"};
+const st = {q:"",store:"all",cat:"all",sort:"pct",limit:60};
+const norm = t => t.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");
+items.forEach(i=>{i.key = norm(i.name+" "+i.desc+" "+i.cat);});
 const catSel = document.getElementById("cat");
 catSel.innerHTML = `<option value="all">Toate categoriile</option>`+cats.map(c=>`<option>${esc(c)}</option>`).join("");
 function render(){
-  const q = st.q.trim().toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"");
-  let r = items.filter(i=>(st.store==="all"||i.store===st.store)&&(st.cat==="all"||i.cat===st.cat)&&
-    (!q||(i.name+" "+i.desc+" "+i.cat).toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"").includes(q)));
+  const q = norm(st.q.trim());
+  let r = items.filter(i=>(st.store==="all"||i.store===st.store)&&(st.cat==="all"||i.cat===st.cat)&&(!q||i.key.includes(q)));
   const s = {pct:(a,b)=>b.pct-a.pct, save:(a,b)=>b.save-a.save, low:(a,b)=>a.price-b.price, high:(a,b)=>b.price-a.price}[st.sort];
   r.sort(s);
-  document.getElementById("count").textContent = r.length+" produse";
+  document.getElementById("count").textContent = r.length.toLocaleString("ro-RO")+" produse";
+  const total = r.length; r = r.slice(0, st.limit);
+  const more = document.getElementById("more");
+  more.hidden = total <= st.limit;
+  more.textContent = "Arată mai multe (" + (total - st.limit > 0 ? (total - st.limit).toLocaleString("ro-RO") : 0) + " rămase)";
   document.getElementById("list").innerHTML =
     `<tr><th>Produs</th><th>Magazin</th><th class="hide-sm">Categorie</th><th>Preț</th><th>Reducere</th></tr>` +
     (r.length? r.map(i=>`<tr>
@@ -294,13 +302,14 @@ function render(){
       <td><b style="color:var(--hot)">-${i.pct}%</b><div class="bar"><i style="width:${Math.min(100,i.pct*2)}%"></i></div><span class="save">−${fmt(i.save)}</span></td>
     </tr>`).join("") : `<tr><td colspan="5" class="na">Niciun produs nu se potrivește căutării.</td></tr>`);
 }
-document.getElementById("q").addEventListener("input",e=>{st.q=e.target.value;render()});
-catSel.addEventListener("change",e=>{st.cat=e.target.value;render()});
-document.getElementById("sort").addEventListener("change",e=>{st.sort=e.target.value;render()});
+document.getElementById("q").addEventListener("input",e=>{st.q=e.target.value;st.limit=60;render()});
+catSel.addEventListener("change",e=>{st.cat=e.target.value;st.limit=60;render()});
+document.getElementById("sort").addEventListener("change",e=>{st.sort=e.target.value;st.limit=60;render()});
 document.querySelectorAll("#store button").forEach(b=>b.addEventListener("click",()=>{
   document.querySelectorAll("#store button").forEach(x=>x.classList.remove("on"));
-  b.classList.add("on"); st.store=b.dataset.v; render();
+  b.classList.add("on"); st.store=b.dataset.v; st.limit=60; render();
 }));
+document.getElementById("more").addEventListener("click",()=>{st.limit+=120;render();});
 render();
 }
 
