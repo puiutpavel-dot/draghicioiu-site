@@ -1,0 +1,153 @@
+# Codemagic — aplicația iOS „Utilități” (comparator utilități), build în cloud fără Mac.
+# Codul aplicației e în ios/. Bundle: ro.draghicioiu.utilitati
+# Ordine la primul TestFlight:
+#   1. „Utilități — Configurare (bundle ID + profil)” o singură dată
+#   2. fișa aplicației în App Store Connect (Apps › + › New App, bundle ro.draghicioiu.utilitati)
+#   3. „Utilități — TestFlight”
+# „Utilități — Verificare” rulează automat doar când se schimbă ceva în ios/ (nu la actualizările zilnice de prețuri).
+workflows:
+  utilitati-check:
+    name: Utilități — Verificare (build + capturi în simulator)
+    instance_type: mac_mini_m4
+    max_build_duration: 30
+    working_directory: ios
+    environment:
+      xcode: latest
+      vars:
+        BUNDLE: ro.draghicioiu.utilitati
+    triggering:
+      events:
+        - push
+      branch_patterns:
+        - pattern: '*'
+          include: true
+    when:
+      changeset:
+        includes:
+          - 'ios/**'
+    scripts:
+      - name: Copiază ofertele curente de pe site
+        script: cp ../comparator-utilitati/oferte.json ComparatorUtilitati/Resources/oferte.json
+      - name: Build pentru simulator
+        script: |
+          set -o pipefail
+          xcodebuild -version
+          xcodebuild -project ComparatorUtilitati.xcodeproj -scheme ComparatorUtilitati -configuration Debug \
+            -sdk iphonesimulator -destination 'generic/platform=iOS Simulator' \
+            -derivedDataPath build CODE_SIGNING_ALLOWED=NO build 2>&1 | tee build.log \
+            | grep -E "error:|warning: .*Swift|BUILD (SUCCEEDED|FAILED)" || true
+          grep -q "BUILD SUCCEEDED" build.log
+      - name: Capturi în simulator (București, Iași, Mehedinți)
+        script: |
+          APP=build/Build/Products/Debug-iphonesimulator/ComparatorUtilitati.app
+          UDID=$(xcrun simctl list devices available -j | python3 -c "
+          import json, sys, re
+          best = None
+          for rt, devs in json.load(sys.stdin)['devices'].items():
+              if 'iOS' not in rt: continue
+              ver = tuple(int(x) for x in re.findall(r'(\d+)', rt.split('iOS')[-1])[:2])
+              for dev in devs:
+                  if dev['name'].startswith('iPhone') and 'Pro Max' in dev['name']:
+                      key = (ver, dev['name'])
+                      if best is None or key > best[0]: best = (key, dev['udid'])
+          print(best[1])")
+          echo "Simulator: $UDID"
+          xcrun simctl boot "$UDID" || true
+          xcrun simctl bootstatus "$UDID" -b
+          xcrun simctl install "$UDID" "$APP"
+          mkdir -p shots
+          xcrun simctl launch "$UDID" "$BUNDLE"; sleep 6
+          xcrun simctl io "$UDID" screenshot shots/00-start.png
+          xcrun simctl terminate "$UDID" "$BUNDLE" || true
+          for cp in 060042 700259 220001; do
+            xcrun simctl launch "$UDID" "$BUNDLE" -codPostal $cp; sleep 7
+            xcrun simctl io "$UDID" screenshot "shots/$cp.png"
+            xcrun simctl terminate "$UDID" "$BUNDLE" || true
+          done
+          echo "===== crash reports ====="
+          ls ~/Library/Logs/DiagnosticReports/ 2>/dev/null | grep -i comparator && exit 1 || true
+          cd shots && zip -q ../utilitati-shots.zip *.png
+    artifacts:
+      - "**/build.log"
+      - "**/utilitati-shots.zip"
+
+  utilitati-setup:
+    name: Utilități — Configurare (bundle ID + profil)
+    instance_type: mac_mini_m2
+    max_build_duration: 10
+    working_directory: ios
+    integrations:
+      app_store_connect: kino_ledger_asc_key
+    environment:
+      xcode: latest
+    scripts:
+      - name: Înregistrează bundle ID (dacă lipsește)
+        script: |
+          set -e
+          FOUND=$(app-store-connect bundle-ids list --bundle-id-identifier ro.draghicioiu.utilitati --strict-match-identifier --json | python3 -c "import sys,json; print(len(json.load(sys.stdin)))")
+          if [ "$FOUND" = "0" ]; then
+            app-store-connect bundle-ids create ro.draghicioiu.utilitati --name "Utilitati" --platform IOS
+          else
+            echo "Bundle ID ro.draghicioiu.utilitati există deja"
+          fi
+      - name: Creează profil App Store
+        script: |
+          BUNDLE_RES=$(app-store-connect bundle-ids list --bundle-id-identifier ro.draghicioiu.utilitati --strict-match-identifier --json | python3 -c "import sys,json; print(json.load(sys.stdin)[0]['id'])")
+          EXISTING=$(app-store-connect profiles list --bundle-id-resource-id "$BUNDLE_RES" --type IOS_APP_STORE --json 2>/dev/null | python3 -c "import sys,json
+          try:
+              print(len(json.load(sys.stdin)))
+          except Exception:
+              print(0)")
+          if [ "$EXISTING" != "0" ]; then
+            echo "Profilul App Store există deja"
+            exit 0
+          fi
+          CERTS=""
+          for T in DISTRIBUTION IOS_DISTRIBUTION; do
+            IDS=$(app-store-connect certificates list --type $T --json 2>/dev/null | python3 -c "import sys,json
+          try:
+              print(' '.join(c['id'] for c in json.load(sys.stdin)))
+          except Exception:
+              pass")
+            CERTS="$CERTS $IDS"
+          done
+          CERTS=$(echo $CERTS)
+          echo "Certificates: $CERTS"
+          app-store-connect profiles create "$BUNDLE_RES" --certificate-ids $CERTS --type IOS_APP_STORE --name "Utilitati App Store"
+
+  utilitati-testflight:
+    name: Utilități — TestFlight
+    instance_type: mac_mini_m4
+    max_build_duration: 30
+    working_directory: ios
+    integrations:
+      app_store_connect: kino_ledger_asc_key
+    environment:
+      xcode: latest
+      ios_signing:
+        distribution_type: app_store
+        bundle_identifier: ro.draghicioiu.utilitati
+      vars:
+        XCODE_PROJECT: ComparatorUtilitati.xcodeproj
+        XCODE_SCHEME: ComparatorUtilitati
+    scripts:
+      - name: Copiază ofertele curente de pe site
+        script: cp ../comparator-utilitati/oferte.json ComparatorUtilitati/Resources/oferte.json
+      - name: Aplică profilurile de semnare
+        script: xcode-project use-profiles --project "$XCODE_PROJECT"
+      - name: Număr de build
+        script: |
+          echo "Build number: $BUILD_NUMBER"
+          sed -i '' "s/CURRENT_PROJECT_VERSION = [0-9]*;/CURRENT_PROJECT_VERSION = $BUILD_NUMBER;/g" "$XCODE_PROJECT/project.pbxproj"
+      - name: Build IPA
+        script: |
+          xcode-project build-ipa \
+            --project "$XCODE_PROJECT" \
+            --scheme "$XCODE_SCHEME"
+    artifacts:
+      - "**/build/ios/ipa/*.ipa"
+      - /tmp/xcodebuild_logs/*.log
+    publishing:
+      app_store_connect:
+        auth: integration
+        submit_to_testflight: true

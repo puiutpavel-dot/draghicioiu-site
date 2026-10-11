@@ -1,0 +1,127 @@
+{
+  "actualizat": "2026-10-11",
+  "curs_eur": 5.2777,
+  "curs_data": "2026-10-01",
+  "_cum_actualizezi": "Editează prețurile de mai jos și schimbă 'actualizat'. Ofertele cu 'pana_la' trecut dispar automat de pe pagină. Prețurile la curent și gaz sunt în lei/kWh, finale (energie + tarife rețea + taxe + TVA). Telecom: 'eur' = preț lunar în euro cu TVA (se convertește cu curs_eur) sau 'ron' = preț în lei.",
+
+  "electricitate": [
+    {
+      "furnizor": "OMV Petrom",
+      "oferta": "Ofertă energie electrică casnic",
+      "pret": { "Banat": 1.04, "Dobrogea": 1.04, "Muntenia Sud": 1.04, "Oltenia": 1.06, "Muntenia Nord": 1.09, "Transilvania Nord": 1.09, "Transilvania Sud": 1.09, "Moldova": 1.13 },
+      "pana_la": "2026-10-31",
+      "nota": "Fără abonament. Contract pe durată nedeterminată, prețul se poate revizui. Oferta din august cerea garanție egală cu 3 luni de consum.",
+      "link": "https://posf.ro/comparator?comparatorType=electric"
+    },
+    {
+      "furnizor": "Hidroelectrica",
+      "oferta": "Viitor Hidro (preț fix 12 luni)",
+      "pret": { "Banat": 1.19, "Dobrogea": 1.19, "Muntenia Sud": 1.19, "Oltenia": 1.21, "Muntenia Nord": 1.23, "Transilvania Nord": 1.23, "Transilvania Sud": 1.23, "Moldova": 1.27 },
+      "nota": "Fără abonament. Preț fix 12 luni.",
+      "link": "https://www.hidroelectrica.ro/"
+    },
+    {
+      "furnizor": "Hidroelectrica",
+      "oferta": "HIDROFIX",
+      "pret": { "Banat": 1.23, "Dobrogea": 1.23, "Muntenia Sud": 1.23, "Oltenia": 1.25, "Muntenia Nord": 1.28, "Transilvania Nord": 1.28, "Transilvania Sud": 1.28, "Moldova": 1.32 },
+      "nota": "Fără abonament.",
+      "link": "https://www.hidroelectrica.ro/"
+    },
+    {
+      "furnizor": "PPC Energie",
+      "oferta": "Fix Online (14 luni)",
+      "pret": { "Muntenia Sud": 1.39 },
+      "nota": "Preț fix 14 luni, contractare online.",
+      "link": "https://www.ppcenergy.ro/"
+    },
+    {
+      "furnizor": "MVM Energie",
+      "oferta": "Ofertă EE tip casnic general",
+      "pret": { "Muntenia Sud": 1.39 },
+      "pana_la": "2026-10-31",
+      "nota": "Fără abonament.",
+      "link": "https://posf.ro/comparator?comparatorType=electric"
+    },
+    {
+      "furnizor": "Hidroelectrica",
+      "oferta": "Serviciu Universal",
+      "pret": { "Banat": 1.33, "Dobrogea": 1.33, "Muntenia Sud": 1.33, "Oltenia": 1.35, "Muntenia Nord": 1.37, "Transilvania Nord": 1.37, "Transilvania Sud": 1.37, "Moldova": 1.41 },
+      "nota": "Fără abonament, fără perioadă minimă.",
+      "link": "https://www.hidroelectrica.ro/"
+    },
+    {
+      "furnizor": "Electrica Furnizare",
+      "oferta": "Electrica Casa",
+      "pret": { "Muntenia Sud": 1.45 },
+      "nota": "Durată nedeterminată, preț garantat până la 31.12.2026.",
+      "link": "https://www.electricafurnizare.ro/"
+    }
+  ],
+
+  "gaze": [
+    {
+      "furnizor": "Nova Power & Gas",
+      "oferta": "NOVA Casnic (preț fix)",
+      "arii": ["Distrigaz Sud Rețele", "Delgaz Grid"],
+      "pret": 0.2954,
+      "pana_la": "2026-10-12",
+      "link": "https://posf.ro/comparator?comparatorType=gas"
+    },
+    {
+      "furnizor": "MVM Energie",
+      "oferta": "Casnic – preț de la 1 octombrie 2026 (fix)",
+      "arii": ["Distrigaz Sud Rețele", "Delgaz Grid"],
+      "pret": 0.2972,
+      "pana_la": "2026-10-31",
+      "link": "https://posf.ro/comparator?comparatorType=gas"
+    },
+    {
+      "furnizor": "Gaz Est",
+      "oferta": "Ofertă-tip casnici (variabil)",
+      "arii": ["Distrigaz Sud Rețele"],
+      "pret": 0.3135,
+      "pana_la": "2026-10-31",
+      "link": "https://posf.ro/comparator?comparatorType=gas"
+    },
+    {
+      "furnizor": "Premier Energy",
+      "oferta": "Ofertă standard C1–C2 (variabil)",
+      "arii": ["Distrigaz Sud Rețele", "Delgaz Grid"],
+      "pret": 0.3281,
+      "link": "https://posf.ro/comparator?comparatorType=gas"
+    },
+    {
+      "furnizor": "Hagag",
+      "oferta": "Preț valabil de la 1 aprilie 2026 (fix)",
+      "arii": ["Distrigaz Sud Rețele", "Delgaz Grid"],
+      "pret": 0.3329,
+      "pana_la": "2027-03-31",
+      "link": "https://posf.ro/comparator?comparatorType=gas"
+    }
+  ],
+
+  "internet": [
+    { "operator": "Digi", "oferta": "Fiberlink 500", "eur": 6.25, "include": "Până la 500/250 Mbps, router inclus", "contract": "de obicei 24 luni", "link": "https://www.digi.ro/" },
+    { "operator": "Orange", "oferta": "Orange Extra (internet + TV)", "ron": 35.5, "include": "Fibră până la 940 Mbps + 167 canale TV, Wi-Fi 6, instalare gratuită", "contract": "24 luni, doar online", "link": "https://www.orange.ro/love/" },
+    { "operator": "Vodafone", "oferta": "Ultra Home (internet + TV)", "eur": 7.5, "include": "Până la 500 sau 940 Mbps (după adresă) + 162 canale", "contract": "24 luni, preț fix", "link": "https://www.vodafone.ro/" },
+    { "operator": "Digi", "oferta": "Fiberlink 1000", "eur": 8.25, "include": "Până la 940/450 Mbps", "contract": "de obicei 24 luni", "link": "https://www.digi.ro/" }
+  ],
+
+  "tv": [
+    { "operator": "Digi", "oferta": "Digi TV Popular (satelit)", "ron": 17.29, "include": "Zeci de canale, oriunde în țară (antenă satelit)", "nota": "Preț înainte de trecerea Digi la euro (iulie 2026); poate fi puțin mai mare acum.", "link": "https://www.digi.ro/" },
+    { "operator": "Digi", "oferta": "Digi TV Bază (satelit)", "ron": 25.42, "include": "Sute de canale, oriunde în țară", "nota": "Preț înainte de iulie 2026; poate fi puțin mai mare acum.", "link": "https://www.digi.ro/" },
+    { "operator": "Digi", "oferta": "Digi TV Analogic (cablu)", "eur": 5.5, "include": "Canale locale și regionale", "link": "https://www.digi.ro/" },
+    { "operator": "Vodafone", "oferta": "TV Start", "eur": 6, "include": "Grilă de bază; varianta digitală cere box (+1 €/lună)", "link": "https://www.vodafone.ro/" },
+    { "operator": "Digi", "oferta": "Digi TV Digital (cablu)", "eur": 6.25, "include": "Sute de canale, majoritatea HD", "link": "https://www.digi.ro/" }
+  ],
+
+  "mobil": [
+    { "operator": "Digi", "oferta": "Optim 2 (abonament)", "eur": 2, "include": "200 min naționale/internaționale, date nelimitate (fair use), nelimitat în rețeaua Digi", "contract": "de obicei 24 luni", "link": "https://www.digi.ro/" },
+    { "operator": "Yoxo", "oferta": "Plan de bază (fără contract)", "eur": 2.9, "include": "5 GB, minute naționale nelimitate, 50 min internaționale", "contract": "fără contract, se reînnoiește la 30 zile", "link": "https://www.yoxo.ro/" },
+    { "operator": "Digi", "oferta": "Digi Național 2.5 (cartelă)", "eur": 3.03, "include": "300 minute, 100 GB", "contract": "cartelă, fără contract", "nota": "2,5 € fără TVA.", "link": "https://www.digi.ro/" },
+    { "operator": "Orange", "oferta": "Fun (abonament)", "eur": 3, "eur_dupa": 5, "luni_promo": 12, "include": "10 GB 5G, minute naționale nelimitate", "contract": "24 luni", "link": "https://www.orange.ro/abonamente/" },
+    { "operator": "Vodafone", "oferta": "RED Unlimited (portare 2+ numere)", "eur": 3, "eur_dupa": 4, "luni_promo": 12, "include": "Date 5G nelimitate, minute și SMS naționale nelimitate, 200 min internaționale", "contract": "24 luni, doar la portare", "link": "https://www.vodafone.ro/" },
+    { "operator": "Digi", "oferta": "Optim 3 (abonament)", "eur": 3, "include": "300 minute, date nelimitate (fair use)", "contract": "de obicei 24 luni", "link": "https://www.digi.ro/" },
+    { "operator": "Vodafone", "oferta": "RED Unlimited (portare 1 număr)", "eur": 4, "include": "Date 5G nelimitate, minute naționale nelimitate", "contract": "24 luni, doar la portare", "link": "https://www.vodafone.ro/" }
+  ]
+}
