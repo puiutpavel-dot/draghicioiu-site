@@ -1,0 +1,39 @@
+name: Comparator mobilă – actualizare prețuri
+
+on:
+  schedule:
+    - cron: "17 3 * * *"   # zilnic, ~06:17 ora României
+  workflow_dispatch:        # buton „Run workflow” pentru rulare manuală
+
+permissions:
+  contents: write
+
+concurrency:
+  group: comparator-preturi
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Preia prețurile Mobexpert și IKEA
+        run: node scripts/comparator-preturi.mjs
+
+      - name: Salvează dacă s-au schimbat prețurile
+        run: |
+          if git diff --quiet -- comparator-mobila/preturi.json; then
+            echo "Prețuri neschimbate."
+            exit 0
+          fi
+          git config user.name  "comparator-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add comparator-mobila/preturi.json
+          git commit -m "Comparator mobilă: prețuri $(date -u +%Y-%m-%d)"
+          git push

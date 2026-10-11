@@ -1,0 +1,320 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Comparator mobilă – Mobexpert vs IKEA | draghicioiu.ro</title>
+<meta name="description" content="Compară prețurile și reducerile de la Mobexpert și IKEA România. Cele mai mari reduceri în procente, pe categorii.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f6f5f2; --card:#ffffff; --ink:#1b1b1f; --muted:#6b6b74; --line:#e6e3dd;
+  --mob:#ff6a13; --mob-soft:#fff0e6; --ikea:#0058a3; --ikea-soft:#e7f0fa;
+  --hot:#d6281f; --hot-soft:#fde9e7; --ok:#1d8a4e; --radius:14px;
+}
+@media (prefers-color-scheme: dark){
+  :root{--bg:#121214;--card:#1c1c20;--ink:#f1f1f3;--muted:#a0a0aa;--line:#2c2c33;
+    --mob-soft:#3a2416;--ikea-soft:#152536;--hot-soft:#3a1715;}
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.45}
+a{color:inherit}
+.wrap{max-width:1180px;margin:0 auto;padding:28px 16px 60px}
+.back{display:inline-block;margin-bottom:14px;font-size:14px;color:var(--muted);text-decoration:none}
+.back:hover{color:var(--ink)}
+header h1{font-size:clamp(26px,4vw,40px);margin:0 0 6px;letter-spacing:-.02em;font-weight:800}
+header p{margin:0;color:var(--muted);max-width:720px}
+.stamp{display:inline-block;margin-top:10px;font-size:13px;color:var(--muted);background:var(--card);border:1px solid var(--line);border-radius:999px;padding:4px 12px}
+.badge{display:inline-block;font-size:12px;font-weight:700;padding:3px 9px;border-radius:999px;white-space:nowrap}
+.b-mob{background:var(--mob-soft);color:var(--mob)}
+.b-ikea{background:var(--ikea-soft);color:var(--ikea)}
+@media (prefers-color-scheme: dark){.b-ikea{color:#6fb1ff}}
+
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin:24px 0}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:16px}
+.kpi .l{font-size:13px;color:var(--muted)}
+.kpi .v{font-size:28px;font-weight:800;margin-top:4px;letter-spacing:-.02em}
+.kpi .s{font-size:13px;color:var(--muted);margin-top:2px}
+
+h2{font-size:22px;margin:36px 0 12px;letter-spacing:-.01em}
+.sub{color:var(--muted);margin:-6px 0 14px;font-size:14px}
+
+.top{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
+.tcard{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;display:flex;flex-direction:column;gap:8px;text-decoration:none;transition:transform .12s,border-color .12s}
+.tcard:hover{transform:translateY(-2px);border-color:var(--hot)}
+.tcard .row{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.pct{font-weight:800;font-size:22px;color:var(--hot)}
+.rank{font-size:12px;color:var(--muted);font-weight:600}
+.tcard .name{font-weight:600;font-size:15px}
+.tcard .desc{font-size:13px;color:var(--muted)}
+.prices{display:flex;gap:8px;align-items:baseline;margin-top:auto}
+.new{font-weight:800;font-size:18px}
+.old{color:var(--muted);text-decoration:line-through;font-size:14px}
+.save{font-size:12px;color:var(--ok);font-weight:600}
+
+.cmp{width:100%;border-collapse:separate;border-spacing:0;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;font-size:14px}
+.cmp th,.cmp td{padding:11px 12px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+.cmp th{font-size:12px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);background:var(--bg)}
+.cmp tr:last-child td{border-bottom:none}
+.cmp .na{color:var(--muted);font-style:italic}
+.win{font-weight:700;color:var(--ok)}
+.tablewrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+
+.controls{display:flex;flex-wrap:wrap;gap:10px;margin:8px 0 14px;align-items:center}
+.controls input,.controls select{font:inherit;font-size:14px;padding:9px 12px;border:1px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink)}
+.controls input{flex:1 1 220px}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--card)}
+.seg button{font:inherit;font-size:14px;border:0;background:transparent;color:var(--ink);padding:9px 14px;cursor:pointer}
+.seg button.on{background:var(--ink);color:var(--bg)}
+.count{font-size:13px;color:var(--muted);margin-left:auto}
+.list .bar{height:6px;background:var(--line);border-radius:4px;margin-top:6px;overflow:hidden;width:110px}
+.list .bar i{display:block;height:100%;background:var(--hot)}
+.list td.p{white-space:nowrap}
+.list a{text-decoration:none;font-weight:600}
+.list a:hover{text-decoration:underline}
+
+.note{margin-top:30px;font-size:13px;color:var(--muted);background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px}
+@media (max-width:640px){.hide-sm{display:none}.cmp th,.cmp td{padding:9px 8px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="back" href="/">← draghicioiu.ro</a>
+    <h1>Comparator mobilă</h1>
+    <p>Prețuri și reduceri de la <span class="badge b-mob">Mobexpert</span> și <span class="badge b-ikea">IKEA</span>, puse una lângă alta. Vezi unde sunt cele mai mari reduceri în procente și cine e mai ieftin pe fiecare categorie.</p>
+    <span class="stamp" id="stamp"></span>
+  </header>
+
+  <section class="kpis" id="kpis"></section>
+
+  <h2>🔥 Top 10 cele mai mari reduceri</h2>
+  <p class="sub">Ordonate după procentul de reducere față de prețul vechi afișat de magazin.</p>
+  <div class="top" id="top"></div>
+
+  <h2>Mobexpert vs IKEA pe categorii</h2>
+  <p class="sub">Cel mai ieftin produs redus din fiecare categorie și reducerea medie la fiecare magazin.</p>
+  <div class="tablewrap"><table class="cmp" id="cats"></table></div>
+
+  <h2>Toate produsele reduse</h2>
+  <div class="controls">
+    <input id="q" type="search" placeholder="Caută: canapea, KALLAX, saltea…">
+    <div class="seg" id="store">
+      <button data-v="all" class="on">Toate</button>
+      <button data-v="Mobexpert">Mobexpert</button>
+      <button data-v="IKEA">IKEA</button>
+    </div>
+    <select id="cat"></select>
+    <select id="sort">
+      <option value="pct">Reducere % (mare → mic)</option>
+      <option value="save">Economie în lei</option>
+      <option value="low">Preț (mic → mare)</option>
+      <option value="high">Preț (mare → mic)</option>
+    </select>
+    <span class="count" id="count"></span>
+  </div>
+  <div class="tablewrap"><table class="cmp list" id="list"></table></div>
+
+  <div class="note">
+    Prețurile se actualizează automat în fiecare dimineață. Sunt preluate de pe mobexpert.ro (campaniile „Ce bine e acasă”, Outlet și oferte) și de pe ikea.com/ro (produsele cu preț redus, fără ofertele exclusive IKEA Family). Pot apărea modificări între timp, iar stocul e limitat — verifică prețul final pe site-ul magazinului înainte de cumpărare. Reducerea e calculată față de prețul vechi afișat de magazin.
+  </div>
+</div>
+
+<script>
+const UPDATED = "11 octombrie 2026";
+const M = "https://mobexpert.ro/products/";
+const I = "https://www.ikea.com/ro/ro/p/";
+// [magazin, nume, descriere, categorie, pret nou, pret vechi, link]
+const DATA = [
+// ---------- MOBEXPERT ----------
+["Mobexpert","WOLTAN","Birou","Birouri",357,714,M+"ulk01-birou"],
+["Mobexpert","NOEK","Birou","Birouri",457,914,M+"ulk02-noek-birou"],
+["Mobexpert","SAGRAMD","Pahar cocktail, sticlă, 500ml","Bucătărie & veselă",18,36,M+"soh413100181-sagramd-pahar-cocktail-5400ml"],
+["Mobexpert","SAGRAMD","Pahar diverse băuturi, sticlă, 500ml","Bucătărie & veselă",10.5,21,M+"soh413100182-sagramd-pahar-diverse-bauturi-5400ml"],
+["Mobexpert","CANBERRA","Pahar whisky, sticlă, 275ml","Bucătărie & veselă",6.5,13,M+"soh11190015-canberra-pahar-whisky-275ml"],
+["Mobexpert","NOLE","Canapea 3 locuri, 2 reclinere manuale, stofă","Canapele & fotolii",3722.4,6204,M+"outczd056-nole-canapea-3-locuri-cu-2-reclinere"],
+["Mobexpert","NOLE","Fotoliu recliner manual, stofă","Canapele & fotolii",1908,3180,M+"outczd054-nole-fotoliu-recliner-manual"],
+["Mobexpert","NOLE","Canapea 2 reclinere manuale, consolă și sertar","Canapele & fotolii",3147,5245,M+"outczd055-nole-canapea-2-reclinere-manuale-consola-si-sertar"],
+["Mobexpert","RAUL","Colțar extensibil, șezlong și ladă depozitare, stofă","Canapele & fotolii",3747.1,5353,M+"outmbl019-raul"],
+["Mobexpert","MIRA","Colțar extensibil, șezlong interschimbabil, stofă","Canapele & fotolii",2994.6,4278,M+"104812151605000-mira-canapea-extensibila-sezlong-interschimbabil"],
+["Mobexpert","SOFIA","Canapea extensibilă cu ladă depozitare, stofă","Canapele & fotolii",3038.7,4341,M+"nit250-sofia"],
+["Mobexpert","NEBRASKA","Canapea 3 locuri, 2 reclinere electrice, USB, stofă","Canapele & fotolii",5008.5,7155,M+"uef18-nebraska-canapea-3-locuri-cu-reclinere-actionate-electric-si-port-usb"],
+["Mobexpert","NEBRASKA","Canapea 2 locuri, reclinere electrice, USB, stofă","Canapele & fotolii",4037.6,5768,M+"uef17-nebraska-canapea-2-locuri-cu-reclinere-actionate-electric-si-port-usb"],
+["Mobexpert","NEBRASKA","Fotoliu, recliner electric, USB, stofă","Canapele & fotolii",2424.1,3463,M+"uef16-nebraska-fotoliu-cu-recliner-actionat-electric-si-port-usb"],
+["Mobexpert","TOKYO","Colțar extensibil, șezlong stânga/dreapta, stofă","Canapele & fotolii",5689.9,6694,M+"dmi01-tokyo-coltar-extensibil-cu-sezlong-dreapta"],
+["Mobexpert","AMIRA","Canapea extensibilă, 3 locuri, stofă","Canapele & fotolii",4190.5,4930,M+"102142156400800"],
+["Mobexpert","GOMEZ","Canapea extensibilă, 3 locuri, ladă depozitare","Canapele & fotolii",4264,5330,M+"103812146500800-gomez-canapea-3-locuri-extensibila-cu-lada-depozitare"],
+["Mobexpert","THOMSON","Canapea 3 locuri, reclinere electrice, piele","Canapele & fotolii",12889.6,16112,M+"u334355a0bu"],
+["Mobexpert","SANTIAGO","Canapea 3 locuri, 2 reclinere electrice, piele","Canapele & fotolii",12930.4,16163,M+"u10803-santiago-canapea-3-locuri-cu-2-reclinere-electrice"],
+["Mobexpert","NESTOR","Pat tapițat 160x200 cm, somieră inclusă","Dormitor (paturi, comode)",2325,3875,M+"skf12-nestor-pat"],
+["Mobexpert","NESTOR","Noptieră, 2 sertare","Dormitor (paturi, comode)",1060.8,1768,M+"skf13-nestor-noptiera"],
+["Mobexpert","NESTOR","Comodă, 7 sertare","Dormitor (paturi, comode)",3117,5195,M+"skf14-nestor-comoda-cu-4-usi"],
+["Mobexpert","NESTOR","Oglindă","Dormitor (paturi, comode)",607.2,1012,M+"skf15-nestor-oglinda"],
+["Mobexpert","NESTOR","Comodă, 5 sertare","Dormitor (paturi, comode)",2656.2,4427,M+"skf16-nestor-comoda-inalta"],
+["Mobexpert","NOREGON","Pat","Dormitor (paturi, comode)",2629.9,3757,M+"nrg01-noregon-pat"],
+["Mobexpert","NOREGON","Noptieră, 3 sertare","Dormitor (paturi, comode)",1265.6,1808,M+"nrg03-noregon-noptiera"],
+["Mobexpert","NOREGON","Comodă, 9 sertare","Dormitor (paturi, comode)",3480.4,4972,M+"nrg04-noregon-comoda-lata"],
+["Mobexpert","NOREGON","Oglindă","Dormitor (paturi, comode)",879.9,1257,M+"nrg05-noregon-oglinda"],
+["Mobexpert","NOREGON","Comodă, 5 sertare","Dormitor (paturi, comode)",2556.4,3652,M+"nrg06-noregon-comoda-inalta"],
+["Mobexpert","KASPAR","Noptieră, 2 sertare","Dormitor (paturi, comode)",445.4,524,M+"ksp01-kaspar-noptiera-2-sertare"],
+["Mobexpert","KASPAR","Comodă, 5 sertare","Dormitor (paturi, comode)",1167.9,1374,M+"ksp03-kaspar-comoda-5-sertare"],
+["Mobexpert","JENNIFER","Noptieră, 2 sertare","Dormitor (paturi, comode)",982.96,1117,M+"jen06-jennifer-noptiera"],
+["Mobexpert","JENNIFER","Masă de toaletă","Dormitor (paturi, comode)",1283.04,1458,M+"jen10-jennifer-masuta-toaleta-consola"],
+["Mobexpert","KASPAR","Birou","Birouri",830.45,977,M+"ksp10-kaspar-birou"],
+["Mobexpert","KASPAR","Etajeră, 3 sertare","Biblioteci & depozitare",1057.4,1244,M+"ksp09-kaspar-etajera"],
+["Mobexpert","LOUIS PHILIPPE","Poliță lată","Biblioteci & depozitare",364.32,414,M+"sms740-60"],
+["Mobexpert","JENNIFER","Comodă TV, 2 uși","Living (comode TV)",1569.04,1783,M+"jen09-jennifer-comoda-tv"],
+["Mobexpert","JENNIFER","Comodă TV, 2 uși (varianta mică)","Living (comode TV)",1393.92,1584,M+"jen01-jennifer-comoda-tv"],
+["Mobexpert","KATE","Scaun","Mese & scaune",446.25,595,M+"mh017"],
+["Mobexpert","KATE","Masă fixă","Mese & scaune",1062,1416,M+"mh016"],
+["Mobexpert","OSIRIS","Scaun","Mese & scaune",437.51,653,M+"hme08-osiris-scaun"],
+["Mobexpert","DAX","Scaun","Mese & scaune",550.4,688,M+"ulk063-dax-scaun"],
+["Mobexpert","NOVARA","Masă fixă rotundă","Mese & scaune",443.52,616,M+"snr21-novara-masa-rotunda"],
+["Mobexpert","MELIO","Scaun","Mese & scaune",249.12,346,M+"syw33-melio-scaun"],
+["Mobexpert","MELIO","Masă fixă","Mese & scaune",573.12,796,M+"syw32-melio-masa"],
+["Mobexpert","DALMAR","Scaun","Mese & scaune",240.1,343,M+"syw35-nucelo-scaun"],
+["Mobexpert","DALMAR","Masă fixă","Mese & scaune",1094.1,1563,M+"syw34-nucelo-masa"],
+["Mobexpert","LIRA","Scaun","Mese & scaune",514.4,643,M+"mh23-lira-scaun"],
+["Mobexpert","LIRA","Masă extensibilă","Mese & scaune",2997.6,3747,M+"mh03"],
+["Mobexpert","EDITH","Scaun","Mese & scaune",430.5,615,M+"mh08"],
+["Mobexpert","EDITH","Masă extensibilă","Mese & scaune",2196.6,3138,M+"mh07"],
+["Mobexpert","NOVY","Masă extensibilă","Mese & scaune",1037.52,1572,M+"prx055wh"],
+["Mobexpert","SION","Scaun","Mese & scaune",107.26,173,M+"snr06-sion-scaun"],
+["Mobexpert","SION","Scaun bar","Mese & scaune",194.06,313,M+"snr08-sion-scaun-bar"],
+["Mobexpert","RAMON","Scaun bar","Mese & scaune",284.08,424,M+"anji07"],
+["Mobexpert","TYLER","Set masă și 2 scaune","Mese & scaune",845.06,1363,M+"syw04"],
+["Mobexpert","NEVADA","Scaun","Mese & scaune",755.2,944,M+"ash76901-nevada-scaun"],
+["Mobexpert","MARINE","Set mobilier baie cu lavoar și dulap cu oglindă","Baie",1589,2270,M+"sv9531set-marine-set-corp-2-sertare-lavoar-ceramica-si-corp-suspendat-cu-oglinda"],
+["Mobexpert","PURE BLISS","Set mobilier baie, 4 piese","Baie",2522.8,3604,M+"233730142set-pure-bliss-set-4-piese"],
+["Mobexpert","VULCANO","Set mobilier baie, 3 piese","Baie",3875.9,5537,M+"sv5077set-vulcano-set-3-piese"],
+["Mobexpert","VENUS","Set mobilier baie, lavoar marmură","Baie",6357.4,9082,M+"hgd615011set-hgd615011set"],
+["Mobexpert","Kit piele","Set curățare și întreținere piele naturală","Altele",162.8,185,M+"set-curatare-is-intretinere-suprafete-din-piele-naturala"],
+// ---------- IKEA ----------
+["IKEA","IKEA 365+","Pahar cu picior, sticlă, 30 cl","Bucătărie & veselă",5.9,7.9,I+"ikea-365-pahar-cu-picior-sticla-transparenta-70278363/"],
+["IKEA","DRÖNA","Cutie, gri închis, 33x38x33 cm","Biblioteci & depozitare",12.9,16.9,I+"droena-cutie-gri-inchis-10443974/"],
+["IKEA","VALEVÅG","Saltea cu arcuri împachetate, fermă, 160x200 cm","Saltele",999,1299,I+"valevag-saltea-cu-arcuri-impachetate-ferma-bleu-40450680/"],
+["IKEA","HEMNES","Bibliotecă, gri-verde, 90x197 cm","Biblioteci & depozitare",999,1299,I+"hemnes-biblioteca-gri-verde-maro-deschis-vopsit-40596159/"],
+["IKEA","FLISAT","Raft suspendat, pin, 70x9x16 cm","Biblioteci & depozitare",54.9,69.9,I+"flisat-depozitare-suspendata-pin-lacuit-nuanta-naturala-00290778/"],
+["IKEA","POÄNG","Fotoliu, furnir mesteacăn, Knisa bej deschis","Canapele & fotolii",299,379.9,I+"poaeng-fotoliu-furnir-mesteacan-knisa-bej-deschis-s39240787/"],
+["IKEA","DRÖNA","Cutie, alb, 25x35x25 cm","Biblioteci & depozitare",11.9,14.9,I+"droena-cutie-alb-50467067/"],
+["IKEA","KALLAX","Etajeră, alb, 112x147 cm","Biblioteci & depozitare",399,499,I+"kallax-etajera-alb-10409932/"],
+["IKEA","GULLABERG","Dulap pantofi, 4 compartimente, alb","Biblioteci & depozitare",399,499,I+"gullaberg-dulap-pantofi-cu-4-compartimente-alb-50587710/"],
+["IKEA","IKEA 365+","Set vase 6 piese, inox","Bucătărie & veselă",159.9,199.9,I+"ikea-365-set-vase-6-piese-inox-80484329/"],
+["IKEA","IKEA 365+","Tigaie inox cu strat antiaderent, 28 cm","Bucătărie & veselă",79.9,99.9,I+"ikea-365-tigaie-inox-strat-antiaderent-70580703/"],
+["IKEA","IKEA 365+","Tigaie inox, 28 cm","Bucătărie & veselă",79.9,99.9,I+"ikea-365-tigaie-inox-50582736/"],
+["IKEA","FLISAT","Suport cărți","Biblioteci & depozitare",79.9,99.9,I+"flisat-suport-carti-80614566/"],
+["IKEA","KALLAX","Etajeră, alb, 42x147 cm","Biblioteci & depozitare",189.9,229,I+"kallax-etajera-alb-00275848/"],
+["IKEA","IKEA 365+","Caserolă pătrată, sticlă, 600 ml","Bucătărie & veselă",9.9,11.9,I+"ikea-365-caserola-patrat-sticla-00359206/"],
+["IKEA","IKEA 365+","Carafă cu dop, sticlă, 1 l","Bucătărie & veselă",16.9,19.9,I+"ikea-365-carafa-cu-dop-sticla-transparenta-pluta-90279719/"],
+["IKEA","ALEX","Comodă, alb, 36x70 cm","Dormitor (paturi, comode)",300,350,I+"alex-comoda-alb-00473546/"],
+["IKEA","IKEA 365+","Caserole sticlă 1 l, set 3 buc","Bucătărie & veselă",59.9,69.9,I+"ikea-365-caserola-cu-capac-dreptunghiular-sticla-90623829/"],
+["IKEA","IKEA 365+","Set vase 9 piese, inox","Bucătărie & veselă",299,349,I+"ikea-365-set-vase-9-piese-inox-20484332/"],
+["IKEA","KALLAX","Etajeră, alb, 77x147 cm","Biblioteci & depozitare",259,299,I+"kallax-etajera-alb-80275887/"],
+["IKEA","LAGKAPTEN / ALEX","Birou, alb, 140x60 cm","Birouri",679,778,I+"lagkapten-alex-birou-alb-s09521604/"],
+["IKEA","KIVIK","Canapea 3 locuri, Grann/Bomstad negru","Canapele & fotolii",3500,3999,I+"kivik-canapea-3-locuri-grann-bomstad-negru-00519525/"],
+["IKEA","KALLAX","Etajeră, alb, 77x77 cm","Biblioteci & depozitare",159.9,179.9,I+"kallax-etajera-alb-20275814/"],
+["IKEA","LASTARE","Combinație dulap, alb, 80x62x201 cm","Dormitor (paturi, comode)",495,545,I+"lastare-combinatie-dulap-alb-s89602875/"],
+];
+
+// Date de rezervă (folosite doar dacă preturi.json nu poate fi încărcat)
+const FALLBACK = DATA.map(([store,name,desc,cat,price,old,url])=>({store,name,desc,cat,price,old,url}));
+const prep = list => list.filter(i=>i.price>0&&i.old>i.price).map(i=>({...i,
+  pct: Math.round((1-i.price/i.old)*1000)/10, save: Math.round((i.old-i.price)*100)/100}));
+
+const fmt = n => n.toLocaleString("ro-RO",{minimumFractionDigits: n%1?2:0, maximumFractionDigits:2})+" lei";
+const badge = s => `<span class="badge ${s==="IKEA"?"b-ikea":"b-mob"}">${s}</span>`;
+const esc = s => String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+function start(raw, upd){
+const items = prep(raw);
+document.getElementById("stamp").textContent = "Actualizat: " + upd + " · " + items.length + " produse reduse";
+
+// KPIs
+const by = s => items.filter(i=>i.store===s);
+const avg = a => a.reduce((x,i)=>x+i.pct,0)/a.length;
+const maxOf = a => a.reduce((m,i)=>i.pct>m.pct?i:m);
+const mob = by("Mobexpert"), ik = by("IKEA");
+const best = maxOf(items);
+document.getElementById("kpis").innerHTML = [
+  ["Cea mai mare reducere", "-"+best.pct+"%", best.name+" · "+best.store],
+  ["Reducere medie Mobexpert", "-"+avg(mob).toFixed(1)+"%", mob.length+" produse · max -"+maxOf(mob).pct+"%"],
+  ["Reducere medie IKEA", "-"+avg(ik).toFixed(1)+"%", ik.length+" produse · max -"+maxOf(ik).pct+"%"],
+  ["Produse cu ≥ 30% reducere", items.filter(i=>i.pct>=30).length, "din "+items.length+" analizate"],
+].map(([l,v,s])=>`<div class="kpi"><div class="l">${l}</div><div class="v">${v}</div><div class="s">${esc(s)}</div></div>`).join("");
+
+// Top 10
+const top = [...items].sort((a,b)=>b.pct-a.pct||b.save-a.save).slice(0,10);
+document.getElementById("top").innerHTML = top.map((i,k)=>`
+  <a class="tcard" href="${i.url}" target="_blank" rel="noopener">
+    <div class="row"><span class="pct">-${i.pct}%</span><span class="rank">#${k+1}</span></div>
+    <div class="row">${badge(i.store)}</div>
+    <div><div class="name">${esc(i.name)}</div><div class="desc">${esc(i.desc)}</div></div>
+    <div class="prices"><span class="new">${fmt(i.price)}</span><span class="old">${fmt(i.old)}</span></div>
+    <div class="save">Economisești ${fmt(i.save)}</div>
+  </a>`).join("");
+
+// Categories compare
+const cats = [...new Set(items.map(i=>i.cat))].sort((a,b)=>a.localeCompare(b,"ro"));
+const cell = arr => {
+  if(!arr.length) return `<td class="na">—</td><td class="na hide-sm">—</td>`;
+  const c = arr.reduce((m,i)=>i.price<m.price?i:m);
+  return `<td><a href="${c.url}" target="_blank" rel="noopener"><b>${esc(c.name)}</b></a><br><span style="color:var(--muted)">${esc(c.desc)}</span><br><b>${fmt(c.price)}</b> <span class="old">${fmt(c.old)}</span></td>
+          <td class="hide-sm">-${avg(arr).toFixed(1)}%<br><span style="color:var(--muted);font-size:12px">${arr.length} produse</span></td>`;
+};
+document.getElementById("cats").innerHTML =
+  `<tr><th>Categorie</th><th>Cel mai ieftin la Mobexpert</th><th class="hide-sm">Medie Mobexpert</th><th>Cel mai ieftin la IKEA</th><th class="hide-sm">Medie IKEA</th><th>Reducere mai mare</th></tr>` +
+  cats.map(c=>{
+    const m = mob.filter(i=>i.cat===c), k = ik.filter(i=>i.cat===c);
+    let w = "—";
+    if(m.length&&k.length) w = avg(m)>avg(k) ? `<span class="win">Mobexpert</span>` : `<span class="win">IKEA</span>`;
+    else if(m.length) w = `<span style="color:var(--muted)">doar Mobexpert</span>`;
+    else w = `<span style="color:var(--muted)">doar IKEA</span>`;
+    return `<tr><td><b>${esc(c)}</b></td>${cell(m)}${cell(k)}<td>${w}</td></tr>`;
+  }).join("");
+
+// Full list
+const st = {q:"",store:"all",cat:"all",sort:"pct"};
+const catSel = document.getElementById("cat");
+catSel.innerHTML = `<option value="all">Toate categoriile</option>`+cats.map(c=>`<option>${esc(c)}</option>`).join("");
+function render(){
+  const q = st.q.trim().toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"");
+  let r = items.filter(i=>(st.store==="all"||i.store===st.store)&&(st.cat==="all"||i.cat===st.cat)&&
+    (!q||(i.name+" "+i.desc+" "+i.cat).toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"").includes(q)));
+  const s = {pct:(a,b)=>b.pct-a.pct, save:(a,b)=>b.save-a.save, low:(a,b)=>a.price-b.price, high:(a,b)=>b.price-a.price}[st.sort];
+  r.sort(s);
+  document.getElementById("count").textContent = r.length+" produse";
+  document.getElementById("list").innerHTML =
+    `<tr><th>Produs</th><th>Magazin</th><th class="hide-sm">Categorie</th><th>Preț</th><th>Reducere</th></tr>` +
+    (r.length? r.map(i=>`<tr>
+      <td><a href="${i.url}" target="_blank" rel="noopener">${esc(i.name)}</a><br><span style="color:var(--muted);font-size:13px">${esc(i.desc)}</span></td>
+      <td>${badge(i.store)}</td>
+      <td class="hide-sm" style="color:var(--muted)">${esc(i.cat)}</td>
+      <td class="p"><b>${fmt(i.price)}</b><br><span class="old">${fmt(i.old)}</span></td>
+      <td><b style="color:var(--hot)">-${i.pct}%</b><div class="bar"><i style="width:${Math.min(100,i.pct*2)}%"></i></div><span class="save">−${fmt(i.save)}</span></td>
+    </tr>`).join("") : `<tr><td colspan="5" class="na">Niciun produs nu se potrivește căutării.</td></tr>`);
+}
+document.getElementById("q").addEventListener("input",e=>{st.q=e.target.value;render()});
+catSel.addEventListener("change",e=>{st.cat=e.target.value;render()});
+document.getElementById("sort").addEventListener("change",e=>{st.sort=e.target.value;render()});
+document.querySelectorAll("#store button").forEach(b=>b.addEventListener("click",()=>{
+  document.querySelectorAll("#store button").forEach(x=>x.classList.remove("on"));
+  b.classList.add("on"); st.store=b.dataset.v; render();
+}));
+render();
+}
+
+// Încarcă prețurile actualizate zilnic de actualizeaza.php
+fetch("preturi.json?v=" + Date.now(), {cache:"no-store"})
+  .then(r => { if(!r.ok) throw 0; return r.json(); })
+  .then(d => {
+    if(!d.items || d.items.length < 3) throw 0;
+    const dt = new Date(d.updated);
+    const upd = dt.toLocaleDateString("ro-RO",{day:"numeric",month:"long",year:"numeric"}) + ", ora " +
+                dt.toLocaleTimeString("ro-RO",{hour:"2-digit",minute:"2-digit"});
+    start(d.items, upd);
+  })
+  .catch(() => start(FALLBACK, UPDATED));
+</script>
+</body>
+</html>

@@ -1,0 +1,784 @@
+{
+ "updated": "2026-10-11T17:40:00+03:00",
+ "updated_store": {
+  "Mobexpert": "2026-10-11T17:40:00+03:00",
+  "IKEA": "2026-10-11T17:40:00+03:00"
+ },
+ "count": 86,
+ "items": [
+  {
+   "store": "Mobexpert",
+   "name": "WOLTAN",
+   "desc": "Birou",
+   "cat": "Birouri",
+   "price": 357,
+   "old": 714,
+   "url": "https://mobexpert.ro/products/ulk01-birou"
+  },
+  {
+   "store": "Mobexpert",
+   "name": "NOEK",
+   "desc": "Birou",
+   "cat": "Birouri",
+   "price": 457,
+   "old": 914,
+   "url": "https://mobexpert.ro/products/ulk02-noek-birou"
+  },
+  {
+   "store": "Mobexpert",
+   "name": "SAGRAMD",
+   "desc": "Pahar cocktail, sticlă, 500ml",
+   "cat": "Bucătărie & veselă",
+   "price": 18,
+   "old": 36,
+   "url": "https://mobexpert.ro/products/soh413100181-sagramd-pahar-cocktail-5400ml"
+  },
+  {
+   "store": "Mobexpert",
+   "name": "SAGRAMD",
+   "desc": "Pahar diverse băuturi, sticlă, 500ml",
+   "cat": "Bucătărie & veselă",
+   "price": 10.5,
+   "old": 21,
+   "url": "https://mobexpert.ro/products/soh413100182-sagramd-pahar-diverse-bauturi-5400ml"
+  },
+  {
+   "store": "Mobexpert",
+   "name": "CANBERRA",
+   "desc": "Pahar whisky, sticlă, 275ml",
+   "cat": "Bucătărie & veselă",
+   "price": 6.5,
+   "old": 13,
+   "url": "https://mobexpert.ro/products/soh11190015-canberra-pahar-whisky-275ml"
+  },
+  {
+   "store": "Mobexpert",
+   "name": "NOLE",
+   "desc": "Canapea 3 locuri, 2 reclinere manuale, stofă",
+   "cat": "Canapele & fotolii",
+   "price": 3722.4,
+   "old": 6204,
+   "url": "https://mobexpert.ro/products/outczd056-nole-canapea-3-locuri-cu-2-reclinere"
+  },
+  {
+   "store": "Mobexpert",
+   "name": "NOLE",
+   "desc": "Fotoliu recliner manual, stofă",
+   "cat": "Canapele & fotolii",
+   "price": 1908,
+   "old": 3180,
+   "url": "https://mobexpert.ro/products/outczd054-nole-fotoliu-recliner-manual"
+  },
+  {
+   "store": "Mobexpert",
+   "name": "NOLE",
+   "desc": "Canapea 2 reclinere manuale, consolă și sertar",
+   "cat": "Canapele & fotolii",
+   "price": 3147,
+   "old": 5245,
+   "url": "https://mobexpert.ro/products/outczd055-nole-canapea-2-reclinere-manuale-consola-si-sertar"
+  },
+  {
+   "store": "Mobexpert",
+   "name": "RAUL",
+   "desc": "Colțar extensibil, șezlong și ladă depozitare, stofă",
+   "cat": "Canapele & fotolii",
+   "price": 3747.1,
+   "old": 5353,
+   "url": "https://mobexpert.ro/products/outmbl019-raul"
+  },
+  {
+   "store": "Mobexpert",
+   "name": "MIRA",
+   "desc": "Colțar extensibil, șezlong interschimbabil, stofă",
+   "cat": "Canapele & fotolii",
+   "price": 2994.6,
+   "old": 4278,
+   "url": "https://mobexpert.ro/products/104812151605000-mira-canapea-extensibila-sezlong-interschimbabil"
+  },
+  {
+   "store": "Mobexpert",
+   "name": "SOFIA",
+   "desc": "Canapea extensibilă cu ladă depozitare, stofă",
+   "cat": "Canapele & fotolii",
+   "price": 3038.7,
+   "old": 4341,
+   "url": "https://mobexpert.ro/products/nit250-sofia"
+  },
+  {
+   "store": "Mobexpert",
+   "name": "NEBRASKA",
+   "desc": "Canapea 3 locuri, 2 reclinere electrice, USB, stofă",
+   "cat": "Canapele & fotolii",
+   "price": 5008.5,
+   "old": 7155,
+   "url": "https://mobexpert.ro/products/uef18-nebraska-canapea-3-locuri-cu-reclinere-actionate-electric-si-port-usb"
+  },
+  {
+   "store": "Mobexpert",
+   "name": "NEBRASKA",
+   "desc": "Canapea 2 locuri, reclinere electrice, USB, stofă",
+   "cat": "Canapele & fotolii",
+   "price": 4037.6,
+   "old": 5768,
+   "url": "https://mobexpert.ro/products/uef17-nebraska-canapea-2-locuri-cu-reclinere-actionate-electric-si-port-usb"
+  },
+  {
+   "store": "Mobexpert",
+   "name": "NEBRASKA",
+   "desc": "Fotoliu, recliner electric, USB, stofă",
+   "cat": "Canapele & fotolii",
+   "price": 2424.1,
+   "old": 3463,
+   "url": "https://mobexpert.ro/products/uef16-nebraska-fotoliu-cu-recliner-actionat-electric-si-port-usb"
+  },
+  {
+   "store": "Mobexpert",
+   "name": "TOKYO",
+   "desc": "Colțar extensibil, șezlong stânga/dreapta, stofă",
+   "cat": "Canapele & fotolii",
+   "price": 5689.9,
+   "old": 6694,
+   "url": "https://mobexpert.ro/products/dmi01-tokyo-coltar-extensibil-cu-sezlong-dreapta"
+  },
+  {
+   "store": "Mobexpert",
+   "name": "AMIRA",
+   "desc": "Canapea extensibilă, 3 locuri, stofă",
+   "cat": "Canapele & fotolii",
+   "price": 4190.5,
+   "old": 4930,
+   "url": "https://mobexpert.ro/products/102142156400800"
+  },
+  {
+   "store": "Mobexpert",
+   "name": "GOMEZ",
+   "desc": "Canapea extensibilă, 3 locuri, ladă depozitare",
+   "cat": "Canapele & fotolii",
+   "price": 4264,
+   "old": 5330,
+   "url": "https://mobexpert.ro/products/103812146500800-gomez-canapea-3-locuri-extensibila-cu-lada-depozitare"
+  },
+  {
+   "store": "Mobexpert",
+   "name": "THOMSON",
+   "desc": "Canapea 3 locuri, reclinere electrice, piele",
+   "cat": "Canapele & fotolii",
+   "price": 12889.6,
+   "old": 16112,
+   "url": "https://mobexpert.ro/products/u334355a0bu"
+  },
+  {
+   "store": "Mobexpert",
+   "name": "SANTIAGO",
+   "desc": "Canapea 3 locuri, 2 reclinere electrice, piele",
+   "cat": "Canapele & fotolii",
+   "price": 12930.4,
+   "old": 16163,
+   "url": "https://mobexpert.ro/products/u10803-santiago-canapea-3-locuri-cu-2-reclinere-electrice"
+  },
+  {
+   "store": "Mobexpert",
+   "name": "NESTOR",
+   "desc": "Pat tapițat 160x200 cm, somieră inclusă",
+   "cat": "Dormitor (paturi, comode)",
+   "price": 2325,
+   "old": 3875,
+   "url": "https://mobexpert.ro/products/skf12-nestor-pat"
+  },
+  {
+   "store": "Mobexpert",
+   "name": "NESTOR",
+   "desc": "Noptieră, 2 sertare",
+   "cat": "Dormitor (paturi, comode)",
+   "price": 1060.8,
+   "old": 1768,
+   "url": "https://mobexpert.ro/products/skf13-nestor-noptiera"
+  },
+  {
+   "store": "Mobexpert",
+   "name": "NESTOR",
+   "desc": "Comodă, 7 sertare",
+   "cat": "Dormitor (paturi, comode)",
+   "price": 3117,
+   "old": 5195,
+   "url": "https://mobexpert.ro/products/skf14-nestor-comoda-cu-4-usi"
+  },
+  {
+   "store": "Mobexpert",
+   "name": "NESTOR",
+   "desc": "Oglindă",
+   "cat": "Dormitor (paturi, comode)",
+   "price": 607.2,
+   "old": 1012,
+   "url": "https://mobexpert.ro/products/skf15-nestor-oglinda"
+  },
+  {
+   "store": "Mobexpert",
+   "name": "NESTOR",
+   "desc": "Comodă, 5 sertare",
+   "cat": "Dormitor (paturi, comode)",
+   "price": 2656.2,
+   "old": 4427,
+   "url": "https://mobexpert.ro/products/skf16-nestor-comoda-inalta"
+  },
+  {
+   "store": "Mobexpert",
+   "name": "NOREGON",
+   "desc": "Pat",
+   "cat": "Dormitor (paturi, comode)",
+   "price": 2629.9,
+   "old": 3757,
+   "url": "https://mobexpert.ro/products/nrg01-noregon-pat"
+  },
+  {
+   "store": "Mobexpert",
+   "name": "NOREGON",
+   "desc": "Noptieră, 3 sertare",
+   "cat": "Dormitor (paturi, comode)",
+   "price": 1265.6,
+   "old": 1808,
+   "url": "https://mobexpert.ro/products/nrg03-noregon-noptiera"
+  },
+  {
+   "store": "Mobexpert",
+   "name": "NOREGON",
+   "desc": "Comodă, 9 sertare",
+   "cat": "Dormitor (paturi, comode)",
+   "price": 3480.4,
+   "old": 4972,
+   "url": "https://mobexpert.ro/products/nrg04-noregon-comoda-lata"
+  },
+  {
+   "store": "Mobexpert",
+   "name": "NOREGON",
+   "desc": "Oglindă",
+   "cat": "Dormitor (paturi, comode)",
+   "price": 879.9,
+   "old": 1257,
+   "url": "https://mobexpert.ro/products/nrg05-noregon-oglinda"
+  },
+  {
+   "store": "Mobexpert",
+   "name": "NOREGON",
+   "desc": "Comodă, 5 sertare",
+   "cat": "Dormitor (paturi, comode)",
+   "price": 2556.4,
+   "old": 3652,
+   "url": "https://mobexpert.ro/products/nrg06-noregon-comoda-inalta"
+  },
+  {
+   "store": "Mobexpert",
+   "name": "KASPAR",
+   "desc": "Noptieră, 2 sertare",
+   "cat": "Dormitor (paturi, comode)",
+   "price": 445.4,
+   "old": 524,
+   "url": "https://mobexpert.ro/products/ksp01-kaspar-noptiera-2-sertare"
+  },
+  {
+   "store": "Mobexpert",
+   "name": "KASPAR",
+   "desc": "Comodă, 5 sertare",
+   "cat": "Dormitor (paturi, comode)",
+   "price": 1167.9,
+   "old": 1374,
+   "url": "https://mobexpert.ro/products/ksp03-kaspar-comoda-5-sertare"
+  },
+  {
+   "store": "Mobexpert",
+   "name": "JENNIFER",
+   "desc": "Noptieră, 2 sertare",
+   "cat": "Dormitor (paturi, comode)",
+   "price": 982.96,
+   "old": 1117,
+   "url": "https://mobexpert.ro/products/jen06-jennifer-noptiera"
+  },
+  {
+   "store": "Mobexpert",
+   "name": "JENNIFER",
+   "desc": "Masă de toaletă",
+   "cat": "Dormitor (paturi, comode)",
+   "price": 1283.04,
+   "old": 1458,
+   "url": "https://mobexpert.ro/products/jen10-jennifer-masuta-toaleta-consola"
+  },
+  {
+   "store": "Mobexpert",
+   "name": "KASPAR",
+   "desc": "Birou",
+   "cat": "Birouri",
+   "price": 830.45,
+   "old": 977,
+   "url": "https://mobexpert.ro/products/ksp10-kaspar-birou"
+  },
+  {
+   "store": "Mobexpert",
+   "name": "KASPAR",
+   "desc": "Etajeră, 3 sertare",
+   "cat": "Biblioteci & depozitare",
+   "price": 1057.4,
+   "old": 1244,
+   "url": "https://mobexpert.ro/products/ksp09-kaspar-etajera"
+  },
+  {
+   "store": "Mobexpert",
+   "name": "LOUIS PHILIPPE",
+   "desc": "Poliță lată",
+   "cat": "Biblioteci & depozitare",
+   "price": 364.32,
+   "old": 414,
+   "url": "https://mobexpert.ro/products/sms740-60"
+  },
+  {
+   "store": "Mobexpert",
+   "name": "JENNIFER",
+   "desc": "Comodă TV, 2 uși",
+   "cat": "Living (comode TV)",
+   "price": 1569.04,
+   "old": 1783,
+   "url": "https://mobexpert.ro/products/jen09-jennifer-comoda-tv"
+  },
+  {
+   "store": "Mobexpert",
+   "name": "JENNIFER",
+   "desc": "Comodă TV, 2 uși (varianta mică)",
+   "cat": "Living (comode TV)",
+   "price": 1393.92,
+   "old": 1584,
+   "url": "https://mobexpert.ro/products/jen01-jennifer-comoda-tv"
+  },
+  {
+   "store": "Mobexpert",
+   "name": "KATE",
+   "desc": "Scaun",
+   "cat": "Mese & scaune",
+   "price": 446.25,
+   "old": 595,
+   "url": "https://mobexpert.ro/products/mh017"
+  },
+  {
+   "store": "Mobexpert",
+   "name": "KATE",
+   "desc": "Masă fixă",
+   "cat": "Mese & scaune",
+   "price": 1062,
+   "old": 1416,
+   "url": "https://mobexpert.ro/products/mh016"
+  },
+  {
+   "store": "Mobexpert",
+   "name": "OSIRIS",
+   "desc": "Scaun",
+   "cat": "Mese & scaune",
+   "price": 437.51,
+   "old": 653,
+   "url": "https://mobexpert.ro/products/hme08-osiris-scaun"
+  },
+  {
+   "store": "Mobexpert",
+   "name": "DAX",
+   "desc": "Scaun",
+   "cat": "Mese & scaune",
+   "price": 550.4,
+   "old": 688,
+   "url": "https://mobexpert.ro/products/ulk063-dax-scaun"
+  },
+  {
+   "store": "Mobexpert",
+   "name": "NOVARA",
+   "desc": "Masă fixă rotundă",
+   "cat": "Mese & scaune",
+   "price": 443.52,
+   "old": 616,
+   "url": "https://mobexpert.ro/products/snr21-novara-masa-rotunda"
+  },
+  {
+   "store": "Mobexpert",
+   "name": "MELIO",
+   "desc": "Scaun",
+   "cat": "Mese & scaune",
+   "price": 249.12,
+   "old": 346,
+   "url": "https://mobexpert.ro/products/syw33-melio-scaun"
+  },
+  {
+   "store": "Mobexpert",
+   "name": "MELIO",
+   "desc": "Masă fixă",
+   "cat": "Mese & scaune",
+   "price": 573.12,
+   "old": 796,
+   "url": "https://mobexpert.ro/products/syw32-melio-masa"
+  },
+  {
+   "store": "Mobexpert",
+   "name": "DALMAR",
+   "desc": "Scaun",
+   "cat": "Mese & scaune",
+   "price": 240.1,
+   "old": 343,
+   "url": "https://mobexpert.ro/products/syw35-nucelo-scaun"
+  },
+  {
+   "store": "Mobexpert",
+   "name": "DALMAR",
+   "desc": "Masă fixă",
+   "cat": "Mese & scaune",
+   "price": 1094.1,
+   "old": 1563,
+   "url": "https://mobexpert.ro/products/syw34-nucelo-masa"
+  },
+  {
+   "store": "Mobexpert",
+   "name": "LIRA",
+   "desc": "Scaun",
+   "cat": "Mese & scaune",
+   "price": 514.4,
+   "old": 643,
+   "url": "https://mobexpert.ro/products/mh23-lira-scaun"
+  },
+  {
+   "store": "Mobexpert",
+   "name": "LIRA",
+   "desc": "Masă extensibilă",
+   "cat": "Mese & scaune",
+   "price": 2997.6,
+   "old": 3747,
+   "url": "https://mobexpert.ro/products/mh03"
+  },
+  {
+   "store": "Mobexpert",
+   "name": "EDITH",
+   "desc": "Scaun",
+   "cat": "Mese & scaune",
+   "price": 430.5,
+   "old": 615,
+   "url": "https://mobexpert.ro/products/mh08"
+  },
+  {
+   "store": "Mobexpert",
+   "name": "EDITH",
+   "desc": "Masă extensibilă",
+   "cat": "Mese & scaune",
+   "price": 2196.6,
+   "old": 3138,
+   "url": "https://mobexpert.ro/products/mh07"
+  },
+  {
+   "store": "Mobexpert",
+   "name": "NOVY",
+   "desc": "Masă extensibilă",
+   "cat": "Mese & scaune",
+   "price": 1037.52,
+   "old": 1572,
+   "url": "https://mobexpert.ro/products/prx055wh"
+  },
+  {
+   "store": "Mobexpert",
+   "name": "SION",
+   "desc": "Scaun",
+   "cat": "Mese & scaune",
+   "price": 107.26,
+   "old": 173,
+   "url": "https://mobexpert.ro/products/snr06-sion-scaun"
+  },
+  {
+   "store": "Mobexpert",
+   "name": "SION",
+   "desc": "Scaun bar",
+   "cat": "Mese & scaune",
+   "price": 194.06,
+   "old": 313,
+   "url": "https://mobexpert.ro/products/snr08-sion-scaun-bar"
+  },
+  {
+   "store": "Mobexpert",
+   "name": "RAMON",
+   "desc": "Scaun bar",
+   "cat": "Mese & scaune",
+   "price": 284.08,
+   "old": 424,
+   "url": "https://mobexpert.ro/products/anji07"
+  },
+  {
+   "store": "Mobexpert",
+   "name": "TYLER",
+   "desc": "Set masă și 2 scaune",
+   "cat": "Mese & scaune",
+   "price": 845.06,
+   "old": 1363,
+   "url": "https://mobexpert.ro/products/syw04"
+  },
+  {
+   "store": "Mobexpert",
+   "name": "NEVADA",
+   "desc": "Scaun",
+   "cat": "Mese & scaune",
+   "price": 755.2,
+   "old": 944,
+   "url": "https://mobexpert.ro/products/ash76901-nevada-scaun"
+  },
+  {
+   "store": "Mobexpert",
+   "name": "MARINE",
+   "desc": "Set mobilier baie cu lavoar și dulap cu oglindă",
+   "cat": "Baie",
+   "price": 1589,
+   "old": 2270,
+   "url": "https://mobexpert.ro/products/sv9531set-marine-set-corp-2-sertare-lavoar-ceramica-si-corp-suspendat-cu-oglinda"
+  },
+  {
+   "store": "Mobexpert",
+   "name": "PURE BLISS",
+   "desc": "Set mobilier baie, 4 piese",
+   "cat": "Baie",
+   "price": 2522.8,
+   "old": 3604,
+   "url": "https://mobexpert.ro/products/233730142set-pure-bliss-set-4-piese"
+  },
+  {
+   "store": "Mobexpert",
+   "name": "VULCANO",
+   "desc": "Set mobilier baie, 3 piese",
+   "cat": "Baie",
+   "price": 3875.9,
+   "old": 5537,
+   "url": "https://mobexpert.ro/products/sv5077set-vulcano-set-3-piese"
+  },
+  {
+   "store": "Mobexpert",
+   "name": "VENUS",
+   "desc": "Set mobilier baie, lavoar marmură",
+   "cat": "Baie",
+   "price": 6357.4,
+   "old": 9082,
+   "url": "https://mobexpert.ro/products/hgd615011set-hgd615011set"
+  },
+  {
+   "store": "Mobexpert",
+   "name": "Kit piele",
+   "desc": "Set curățare și întreținere piele naturală",
+   "cat": "Altele",
+   "price": 162.8,
+   "old": 185,
+   "url": "https://mobexpert.ro/products/set-curatare-is-intretinere-suprafete-din-piele-naturala"
+  },
+  {
+   "store": "IKEA",
+   "name": "IKEA 365+",
+   "desc": "Pahar cu picior, sticlă, 30 cl",
+   "cat": "Bucătărie & veselă",
+   "price": 5.9,
+   "old": 7.9,
+   "url": "https://www.ikea.com/ro/ro/p/ikea-365-pahar-cu-picior-sticla-transparenta-70278363/"
+  },
+  {
+   "store": "IKEA",
+   "name": "DRÖNA",
+   "desc": "Cutie, gri închis, 33x38x33 cm",
+   "cat": "Biblioteci & depozitare",
+   "price": 12.9,
+   "old": 16.9,
+   "url": "https://www.ikea.com/ro/ro/p/droena-cutie-gri-inchis-10443974/"
+  },
+  {
+   "store": "IKEA",
+   "name": "VALEVÅG",
+   "desc": "Saltea cu arcuri împachetate, fermă, 160x200 cm",
+   "cat": "Saltele",
+   "price": 999,
+   "old": 1299,
+   "url": "https://www.ikea.com/ro/ro/p/valevag-saltea-cu-arcuri-impachetate-ferma-bleu-40450680/"
+  },
+  {
+   "store": "IKEA",
+   "name": "HEMNES",
+   "desc": "Bibliotecă, gri-verde, 90x197 cm",
+   "cat": "Biblioteci & depozitare",
+   "price": 999,
+   "old": 1299,
+   "url": "https://www.ikea.com/ro/ro/p/hemnes-biblioteca-gri-verde-maro-deschis-vopsit-40596159/"
+  },
+  {
+   "store": "IKEA",
+   "name": "FLISAT",
+   "desc": "Raft suspendat, pin, 70x9x16 cm",
+   "cat": "Biblioteci & depozitare",
+   "price": 54.9,
+   "old": 69.9,
+   "url": "https://www.ikea.com/ro/ro/p/flisat-depozitare-suspendata-pin-lacuit-nuanta-naturala-00290778/"
+  },
+  {
+   "store": "IKEA",
+   "name": "POÄNG",
+   "desc": "Fotoliu, furnir mesteacăn, Knisa bej deschis",
+   "cat": "Canapele & fotolii",
+   "price": 299,
+   "old": 379.9,
+   "url": "https://www.ikea.com/ro/ro/p/poaeng-fotoliu-furnir-mesteacan-knisa-bej-deschis-s39240787/"
+  },
+  {
+   "store": "IKEA",
+   "name": "DRÖNA",
+   "desc": "Cutie, alb, 25x35x25 cm",
+   "cat": "Biblioteci & depozitare",
+   "price": 11.9,
+   "old": 14.9,
+   "url": "https://www.ikea.com/ro/ro/p/droena-cutie-alb-50467067/"
+  },
+  {
+   "store": "IKEA",
+   "name": "KALLAX",
+   "desc": "Etajeră, alb, 112x147 cm",
+   "cat": "Biblioteci & depozitare",
+   "price": 399,
+   "old": 499,
+   "url": "https://www.ikea.com/ro/ro/p/kallax-etajera-alb-10409932/"
+  },
+  {
+   "store": "IKEA",
+   "name": "GULLABERG",
+   "desc": "Dulap pantofi, 4 compartimente, alb",
+   "cat": "Biblioteci & depozitare",
+   "price": 399,
+   "old": 499,
+   "url": "https://www.ikea.com/ro/ro/p/gullaberg-dulap-pantofi-cu-4-compartimente-alb-50587710/"
+  },
+  {
+   "store": "IKEA",
+   "name": "IKEA 365+",
+   "desc": "Set vase 6 piese, inox",
+   "cat": "Bucătărie & veselă",
+   "price": 159.9,
+   "old": 199.9,
+   "url": "https://www.ikea.com/ro/ro/p/ikea-365-set-vase-6-piese-inox-80484329/"
+  },
+  {
+   "store": "IKEA",
+   "name": "IKEA 365+",
+   "desc": "Tigaie inox cu strat antiaderent, 28 cm",
+   "cat": "Bucătărie & veselă",
+   "price": 79.9,
+   "old": 99.9,
+   "url": "https://www.ikea.com/ro/ro/p/ikea-365-tigaie-inox-strat-antiaderent-70580703/"
+  },
+  {
+   "store": "IKEA",
+   "name": "IKEA 365+",
+   "desc": "Tigaie inox, 28 cm",
+   "cat": "Bucătărie & veselă",
+   "price": 79.9,
+   "old": 99.9,
+   "url": "https://www.ikea.com/ro/ro/p/ikea-365-tigaie-inox-50582736/"
+  },
+  {
+   "store": "IKEA",
+   "name": "FLISAT",
+   "desc": "Suport cărți",
+   "cat": "Biblioteci & depozitare",
+   "price": 79.9,
+   "old": 99.9,
+   "url": "https://www.ikea.com/ro/ro/p/flisat-suport-carti-80614566/"
+  },
+  {
+   "store": "IKEA",
+   "name": "KALLAX",
+   "desc": "Etajeră, alb, 42x147 cm",
+   "cat": "Biblioteci & depozitare",
+   "price": 189.9,
+   "old": 229,
+   "url": "https://www.ikea.com/ro/ro/p/kallax-etajera-alb-00275848/"
+  },
+  {
+   "store": "IKEA",
+   "name": "IKEA 365+",
+   "desc": "Caserolă pătrată, sticlă, 600 ml",
+   "cat": "Bucătărie & veselă",
+   "price": 9.9,
+   "old": 11.9,
+   "url": "https://www.ikea.com/ro/ro/p/ikea-365-caserola-patrat-sticla-00359206/"
+  },
+  {
+   "store": "IKEA",
+   "name": "IKEA 365+",
+   "desc": "Carafă cu dop, sticlă, 1 l",
+   "cat": "Bucătărie & veselă",
+   "price": 16.9,
+   "old": 19.9,
+   "url": "https://www.ikea.com/ro/ro/p/ikea-365-carafa-cu-dop-sticla-transparenta-pluta-90279719/"
+  },
+  {
+   "store": "IKEA",
+   "name": "ALEX",
+   "desc": "Comodă, alb, 36x70 cm",
+   "cat": "Dormitor (paturi, comode)",
+   "price": 300,
+   "old": 350,
+   "url": "https://www.ikea.com/ro/ro/p/alex-comoda-alb-00473546/"
+  },
+  {
+   "store": "IKEA",
+   "name": "IKEA 365+",
+   "desc": "Caserole sticlă 1 l, set 3 buc",
+   "cat": "Bucătărie & veselă",
+   "price": 59.9,
+   "old": 69.9,
+   "url": "https://www.ikea.com/ro/ro/p/ikea-365-caserola-cu-capac-dreptunghiular-sticla-90623829/"
+  },
+  {
+   "store": "IKEA",
+   "name": "IKEA 365+",
+   "desc": "Set vase 9 piese, inox",
+   "cat": "Bucătărie & veselă",
+   "price": 299,
+   "old": 349,
+   "url": "https://www.ikea.com/ro/ro/p/ikea-365-set-vase-9-piese-inox-20484332/"
+  },
+  {
+   "store": "IKEA",
+   "name": "KALLAX",
+   "desc": "Etajeră, alb, 77x147 cm",
+   "cat": "Biblioteci & depozitare",
+   "price": 259,
+   "old": 299,
+   "url": "https://www.ikea.com/ro/ro/p/kallax-etajera-alb-80275887/"
+  },
+  {
+   "store": "IKEA",
+   "name": "LAGKAPTEN / ALEX",
+   "desc": "Birou, alb, 140x60 cm",
+   "cat": "Birouri",
+   "price": 679,
+   "old": 778,
+   "url": "https://www.ikea.com/ro/ro/p/lagkapten-alex-birou-alb-s09521604/"
+  },
+  {
+   "store": "IKEA",
+   "name": "KIVIK",
+   "desc": "Canapea 3 locuri, Grann/Bomstad negru",
+   "cat": "Canapele & fotolii",
+   "price": 3500,
+   "old": 3999,
+   "url": "https://www.ikea.com/ro/ro/p/kivik-canapea-3-locuri-grann-bomstad-negru-00519525/"
+  },
+  {
+   "store": "IKEA",
+   "name": "KALLAX",
+   "desc": "Etajeră, alb, 77x77 cm",
+   "cat": "Biblioteci & depozitare",
+   "price": 159.9,
+   "old": 179.9,
+   "url": "https://www.ikea.com/ro/ro/p/kallax-etajera-alb-20275814/"
+  },
+  {
+   "store": "IKEA",
+   "name": "LASTARE",
+   "desc": "Combinație dulap, alb, 80x62x201 cm",
+   "cat": "Dormitor (paturi, comode)",
+   "price": 495,
+   "old": 545,
+   "url": "https://www.ikea.com/ro/ro/p/lastare-combinatie-dulap-alb-s89602875/"
+  }
+ ]
+}
