@@ -151,3 +151,58 @@ workflows:
       app_store_connect:
         auth: integration
         submit_to_testflight: true
+
+  utilitati-store:
+    name: Utilități — Fișa App Store (texte + capturi iPhone)
+    instance_type: mac_mini_m4
+    max_build_duration: 40
+    working_directory: ios
+    integrations:
+      app_store_connect: kino_ledger_asc_key
+    environment:
+      xcode: latest
+    scripts:
+      - name: Copiază ofertele curente de pe site
+        script: cp ../comparator-utilitati/oferte.json ../comparator-utilitati/anre.json ../comparator-utilitati/gaz-localitati.json ComparatorUtilitati/Resources/
+      - name: Build pentru simulator
+        script: |
+          set -o pipefail
+          xcodebuild -project ComparatorUtilitati.xcodeproj -scheme ComparatorUtilitati -configuration Debug \
+            -sdk iphonesimulator -destination 'generic/platform=iOS Simulator' \
+            -derivedDataPath build CODE_SIGNING_ALLOWED=NO build 2>&1 | tee build.log \
+            | grep -E "error:|BUILD (SUCCEEDED|FAILED)" || true
+          grep -q "BUILD SUCCEEDED" build.log
+      - name: Capturi de ecran
+        script: |
+          python3 -m pip install --quiet --user pillow 2>/dev/null || python3 -m pip install --quiet --break-system-packages pillow
+          ./ci/store_shots.sh
+      - name: Completează fișa (texte, categorii, vârstă, review, build) și încarcă capturile
+        script: |
+          python3 -m pip install --quiet --user pyjwt cryptography requests 2>/dev/null || python3 -m pip install --quiet --break-system-packages pyjwt cryptography requests
+          python3 store/asc_publica.py metadata
+          python3 store/asc_publica.py screenshots storeshots
+          python3 store/asc_publica.py verifica
+    artifacts:
+      - "**/storeshots/**/*.png"
+      - "**/build.log"
+
+  utilitati-submit:
+    name: Utilități — Trimite la App Review (lansare manuală)
+    instance_type: mac_mini_m2
+    max_build_duration: 10
+    working_directory: ios
+    integrations:
+      app_store_connect: kino_ledger_asc_key
+    environment:
+      xcode: latest
+    scripts:
+      - name: Verifică fișa și trimite la review
+        script: |
+          python3 -m pip install --quiet --user pyjwt cryptography requests 2>/dev/null || python3 -m pip install --quiet --break-system-packages pyjwt cryptography requests
+          python3 store/asc_publica.py metadata
+          python3 store/asc_publica.py verifica
+          if [ "$TRIMITE" = "1" ]; then
+            python3 store/asc_publica.py trimite
+          else
+            echo "Doar verificare (TRIMITE != 1) — nu trimit la review."
+          fi

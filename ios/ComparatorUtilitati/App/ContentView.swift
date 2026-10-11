@@ -52,6 +52,14 @@ struct ContentView: View {
                     .padding(.bottom, 32)
                 }
                 .scrollDismissesKeyboard(.interactively)
+                .onChange(of: locatie) { _, nou in
+                    // Doar pentru capturile App Store: -captura gaz|curent|internet|tv|mobil
+                    guard nou != nil, let c = UserDefaults.standard.string(forKey: "captura"),
+                          let cat = Categorie(rawValue: c) else { return }
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
+                        proxy.scrollTo(cat.id, anchor: .top)
+                    }
+                }
                 .background(Color(.systemGroupedBackground))
                 .refreshable { await store.reincarca() }
             }
@@ -73,6 +81,7 @@ struct ContentView: View {
             }
         }
         .task {
+            if UserDefaults.standard.bool(forKey: "capturaSetari") { setari = true }
             if !codSalvat.isEmpty, locatie == nil {
                 cod = codSalvat
                 compara(ascundeTastatura: false)

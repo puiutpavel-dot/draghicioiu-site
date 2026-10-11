@@ -1,0 +1,50 @@
+{
+ "primaryLocale": "ro",
+ "copyright": "2026 Daniel Draghicioiu",
+ "primaryCategory": "UTILITIES",
+ "secondaryCategory": "FINANCE",
+ "ageRating": {
+  "alcoholTobaccoOrDrugUseOrReferences": "NONE",
+  "contests": "NONE",
+  "gamblingSimulated": "NONE",
+  "horrorOrFearThemes": "NONE",
+  "matureOrSuggestiveThemes": "NONE",
+  "medicalOrTreatmentInformation": "NONE",
+  "profanityOrCrudeHumor": "NONE",
+  "sexualContentGraphicAndNudity": "NONE",
+  "sexualContentOrNudity": "NONE",
+  "violenceCartoonOrFantasy": "NONE",
+  "violenceRealistic": "NONE",
+  "violenceRealisticProlongedGraphicOrSadistic": "NONE",
+  "gambling": false,
+  "unrestrictedWebAccess": false
+ },
+ "review": {
+  "contactFirstName": "Daniel",
+  "contactLastName": "Draghicioiu",
+  "contactPhone": "+40765572113",
+  "contactEmail": "danieldraghicioiu@gmail.com",
+  "demoAccountRequired": false,
+  "notes": "Utilități compares household utility offers in Romania. Enter any Romanian postal code (for example 060042 for Bucharest, 400001 for Cluj-Napoca or 700259 for Iasi). The app shows the electricity and gas distribution network operator for that area and ranks all household electricity and natural gas offers from the official price comparator of the Romanian Energy Regulatory Authority (ANRE, posf.ro), plus the cheapest internet, TV and mobile plans.\n\nThe offer data is public information published by ANRE and by the operators; it is refreshed daily and downloaded as plain JSON files from https://draghicioiu.ro/comparator-utilitati/. Tapping an offer opens the supplier's official page.\n\nNo account, no ads, no in-app purchases, no tracking. The postal code and the consumption values stay on the device. The app is not affiliated with ANRE or with any supplier."
+ },
+ "locales": {
+  "ro": {
+   "name": "Utilități – Comparator",
+   "subtitle": "Curent, gaz, internet, mobil",
+   "promotionalText": "Scrii codul poștal și vezi pe loc cel mai ieftin furnizor de curent și gaz din zona ta, după comparatorul oficial ANRE, actualizat zilnic.",
+   "keywords": "curent,gaz,ANRE,furnizor,energie,factura,pret,kWh,internet,mobil,abonament,economie,utilitati",
+   "description": "Plătești prea mult la curent sau la gaz? Scrie codul poștal și află în câteva secunde cine e cel mai ieftin furnizor din zona ta.\n\nCE ÎȚI ARATĂ\n• Operatorul rețelei de curent și al rețelei de gaz din localitatea ta\n• Toate ofertele de energie electrică pentru clienți casnici din zona ta de distribuție, ordonate după factura lunară estimată\n• Toate ofertele de gaze naturale disponibile în localitatea ta, calculate cu tariful de distribuție al localității\n• Cele mai ieftine abonamente de internet, cablu TV și telefonie mobilă\n• Un total lunar estimat cu cele mai ieftine variante\n\nDATE OFICIALE, LA ZI\nOfertele de curent și gaz sunt preluate în fiecare dimineață din comparatorul oficial ANRE (posf.ro). Prețurile sunt finale: energie, distribuție, transport, taxe și TVA incluse. Estimarea lunară include și componenta fixă, acolo unde există.\n\nPE MĂSURA TA\n• Îți reglezi consumul lunar de curent și de gaz\n• Dacă locuiești într-un sat cu nume comun, îți alegi singur localitatea\n• Atingi o ofertă și ajungi direct pe pagina furnizorului sau la oferta-tip în PDF\n\nSIMPLU ȘI DISCRET\n• Fără cont, fără reclame, fără cumpărături în aplicație\n• Codul poștal și consumul rămân doar pe telefonul tău\n• Ultimele prețuri descărcate rămân disponibile și fără internet\n\nAplicația are rol informativ și nu este afiliată ANRE sau vreunui furnizor. Verifică întotdeauna condițiile ofertei la furnizor înainte de a semna.",
+   "supportUrl": "https://draghicioiu.ro/aplicatii/utilitati/",
+   "privacyPolicyUrl": "https://draghicioiu.ro/aplicatii/utilitati/confidentialitate.html"
+  },
+  "en-US": {
+   "name": "Utilități – Comparator",
+   "subtitle": "Energy & telecom deals, RO",
+   "promotionalText": "Type a Romanian postal code and instantly see the cheapest electricity and gas supplier in your area, from the official ANRE price comparator, updated daily.",
+   "keywords": "Romania,electricity,gas,ANRE,energy,supplier,bill,price,kWh,internet,mobile,utility,savings",
+   "description": "Paying too much for electricity or gas in Romania? Type your postal code and find the cheapest supplier in your area in seconds.\n\nWHAT YOU GET\n• The electricity and gas distribution network operator for your locality\n• Every household electricity offer in your distribution zone, ranked by estimated monthly bill\n• Every natural gas offer available in your locality, priced with your locality's distribution tariff\n• The cheapest internet, cable TV and mobile plans\n• An estimated monthly total with the cheapest options\n\nOFFICIAL, UP-TO-DATE DATA\nElectricity and gas offers are refreshed every morning from the official price comparator of the Romanian Energy Regulatory Authority (ANRE, posf.ro). Prices are final: energy, distribution, transport, taxes and VAT included.\n\nMADE FOR YOU\n• Set your own monthly electricity and gas consumption\n• Pick your locality manually if the village name is shared by several communes\n• Tap an offer to open the supplier's page or the official offer PDF\n\nSIMPLE AND PRIVATE\n• No account, no ads, no in-app purchases\n• Your postal code and consumption stay on your phone\n• The last downloaded prices stay available offline\n\nThe app is informational and is not affiliated with ANRE or any supplier. Always check the offer terms with the supplier before signing.",
+   "supportUrl": "https://draghicioiu.ro/aplicatii/utilitati/",
+   "privacyPolicyUrl": "https://draghicioiu.ro/aplicatii/utilitati/confidentialitate.html"
+  }
+ }
+}
