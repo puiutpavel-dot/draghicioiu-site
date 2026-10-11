@@ -73,7 +73,7 @@ workflows:
 
   utilitati-setup:
     name: Utilități — Configurare (bundle ID + profil)
-    instance_type: mac_mini_m2
+    instance_type: mac_mini_m4
     max_build_duration: 10
     working_directory: ios
     integrations:
@@ -188,7 +188,7 @@ workflows:
 
   utilitati-submit:
     name: Utilități — Trimite la App Review (lansare manuală)
-    instance_type: mac_mini_m2
+    instance_type: mac_mini_m4
     max_build_duration: 10
     working_directory: ios
     integrations:
