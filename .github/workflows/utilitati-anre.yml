@@ -1,0 +1,49 @@
+name: Comparator utilități – prețuri ANRE
+
+on:
+  schedule:
+    - cron: "41 3 * * *"   # zilnic, ~06:41 ora României
+  workflow_dispatch:
+    inputs:
+      complet:
+        description: "Reconstruiește și localitățile de gaz + codurile poștale"
+        type: boolean
+        default: false
+  push:
+    branches: [main]
+    paths:
+      - scripts/utilitati-anre.mjs
+      - .github/workflows/utilitati-anre.yml
+
+permissions:
+  contents: write
+
+concurrency:
+  group: utilitati-anre
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Preia ofertele de curent și gaz din comparatorul ANRE
+        run: node scripts/utilitati-anre.mjs ${{ (github.event_name == 'workflow_dispatch' && inputs.complet) && '--complet' || '' }}
+
+      - name: Salvează
+        run: |
+          git add comparator-utilitati/anre.json comparator-utilitati/gaz-localitati.json comparator-utilitati/cp 2>/dev/null || true
+          if git diff --cached --quiet; then
+            echo "Nimic nou."
+            exit 0
+          fi
+          git config user.name  "comparator-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Comparator utilități: prețuri ANRE $(date -u +%Y-%m-%d)"
+          for i in 1 2 3; do git pull --rebase -q && git push && break; sleep 5; done
