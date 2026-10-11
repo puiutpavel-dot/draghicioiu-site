@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Comparator utilități – curent, gaz, internet, TV, mobil | draghicioiu.ro</title>
-<meta name="description" content="Introdu codul poștal și vezi cel mai ieftin furnizor de energie electrică, gaze naturale, internet, cablu TV și telefonie mobilă din zona ta.">
+<meta name="description" content="Introdu codul poștal și vezi operatorul de rețea și cel mai ieftin furnizor de energie electrică și gaze naturale din zona ta, după comparatorul oficial ANRE, plus cele mai ieftine oferte de internet, cablu TV și telefonie mobilă.">
 <link rel="canonical" href="https://draghicioiu.ro/comparator-utilitati/">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -80,6 +80,16 @@ section.cat h2 i{width:12px;height:12px;border-radius:4px;background:var(--c);di
 .note{margin-top:34px;font-size:13px;color:var(--muted);background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px}
 .note p{margin:0 0 8px}.note p:last-child{margin:0}
 #rez{display:none}
+.net{margin-top:10px;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px}
+.net .op{background:var(--card);border-radius:10px;padding:10px 12px;font-size:13px;color:var(--muted)}
+.net .op b{display:block;color:var(--ink);font-size:15px;margin-top:2px}
+.net .op select{font:inherit;font-size:14px;margin-top:6px;width:100%;padding:7px 8px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink)}
+.morebtn{display:block;margin:10px auto 0;font:inherit;font-size:14px;font-weight:600;padding:9px 18px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer}
+.morebtn:hover{border-color:var(--ink)}
+.src{font-size:12px;color:var(--muted);margin-top:8px}
+.src a{color:inherit}
+.tag.su{background:var(--acc-soft);color:var(--acc)}
+
 @media (max-width:640px){.hide-sm{display:none}.cmp th,.cmp td{padding:9px 8px}.search input{width:100%}.search form .btn{width:100%}}
 </style>
 </head>
@@ -88,14 +98,14 @@ section.cat h2 i{width:12px;height:12px;border-radius:4px;background:var(--c);di
   <header>
     <a class="back" href="/">← draghicioiu.ro</a>
     <h1>Comparator utilități</h1>
-    <p>Introdu codul poștal și vezi cel mai ieftin furnizor din zona ta pentru energie electrică, gaze naturale, internet, cablu TV și telefonie mobilă.</p>
-    <span class="stamp" id="stamp"></span>
+    <p>Introdu codul poștal și vezi operatorul de rețea din zona ta și cel mai ieftin furnizor de energie electrică și gaze naturale, după comparatorul oficial ANRE. Plus cele mai ieftine oferte de internet, cablu TV și telefonie mobilă.</p>
+    <span class="stamp" id="stamp">Se încarcă ofertele…</span>
   </header>
 
   <div class="search">
-    <label class="big" for="cp">Codul tău poștal</label>
+    <label class="big" for="cp">Codul tău poștal din România</label>
     <form id="f" autocomplete="off">
-      <input id="cp" inputmode="numeric" pattern="[0-9]*" maxlength="6" placeholder="ex. 060042" aria-describedby="err">
+      <input id="cp" inputmode="numeric" pattern="[0-9]*" maxlength="6" placeholder="ex. 060042 (6 cifre)" aria-describedby="err">
       <button class="btn" type="submit">Compară</button>
     </form>
     <div class="err" id="err" role="alert"></div>
@@ -144,9 +154,10 @@ section.cat h2 i{width:12px;height:12px;border-radius:4px;background:var(--c);di
   </div>
 
   <div class="note">
-    <p>Prețurile la energie electrică și gaze sunt finale, pe kWh: energie, distribuție, transport, taxe și TVA incluse. Sunt preluate din comparatorul oficial ANRE (posf.ro) și de pe site-urile furnizorilor. Pentru gaze, până la 31 martie 2027 (OUG 12/2026) se facturează cel mai mic dintre prețul din contract și prețul stabilit de lege.</p>
+    <p>Ofertele de energie electrică și gaze naturale sunt preluate automat, în fiecare dimineață, din <a href="https://posf.ro/comparator" target="_blank" rel="noopener">comparatorul oficial ANRE (posf.ro)</a>, pentru clienți casnici. Prețurile sunt finale, pe kWh: energie, distribuție, transport, taxe și TVA incluse. Estimarea lunară include și componenta fixă, acolo unde furnizorul are una.</p>
+    <p>La gaze, tariful de distribuție e cel al localității tale. Până la 31 martie 2027 (OUG 12/2026) se facturează cel mai mic dintre prețul din contract și prețul stabilit de lege.</p>
     <p>Operatorii telecom (Digi, Orange, Vodafone, Yoxo) au prețurile în euro. Le-am convertit în lei la cursul BNR, iar suma de pe factură poate varia puțin. Multe oferte sunt promoții online sau la portare, cu contract de 24 de luni.</p>
-    <p>Comparatorul are rol informativ. Ofertele se schimbă des, așa că verifică prețul final la furnizor înainte de a semna.</p>
+    <p>Codurile poștale: <a href="https://www.geonames.org/" target="_blank" rel="noopener">GeoNames</a> (CC BY 4.0). Comparatorul are rol informativ; verifică oferta și condițiile la furnizor înainte de a semna.</p>
   </div>
 </div>
 
@@ -166,7 +177,7 @@ const JUD = {
   "80":["Galați","GL"],"81":["Brăila","BR"],"82":["Tulcea","TL"],
   "90":["Constanța","CT"],"91":["Călărași","CL"],"92":["Ialomița","IL"]
 };
-// Județ → zonă de distribuție energie electrică
+// Județ → zonă de distribuție a energiei electrice și operatorul rețelei
 const ZONA_EL = {
   "Muntenia Sud":["B","IF","GR"], "Muntenia Nord":["PH","BZ","DB","GL","BR","VN"],
   "Transilvania Nord":["CJ","BH","BN","MM","SM","SJ"], "Transilvania Sud":["BV","AB","CV","HR","MS","SB"],
@@ -176,40 +187,48 @@ const ZONA_EL = {
 const OPD_EL = {"Muntenia Sud":"Rețele Electrice Muntenia","Banat":"Rețele Electrice Banat","Dobrogea":"Rețele Electrice Dobrogea",
   "Muntenia Nord":"Distribuție Energie Electrică România","Transilvania Nord":"Distribuție Energie Electrică România",
   "Transilvania Sud":"Distribuție Energie Electrică România","Oltenia":"Distribuție Energie Oltenia","Moldova":"Delgaz Grid"};
-// Județ → operator principal de distribuție gaze
+// Operatorii mari de distribuție gaz, pe județe
 const DGSR = ["AG","BR","BV","BZ","CL","CT","CV","DB","DJ","GL","GR","GJ","IL","IF","OT","PH","TL","VL","VN","TR","B"];
-const PARTIAL_GAS = ["DB","CV","SV"]; // județe cu zone deservite și de operatori mici
-const opGaz = (j) => j === "MH" ? null : DGSR.includes(j) ? "Distrigaz Sud Rețele" : "Delgaz Grid";
 const zonaEl = (j) => Object.keys(ZONA_EL).find((z) => ZONA_EL[z].includes(j));
 
 const LUNI = ["ianuarie","februarie","martie","aprilie","mai","iunie","iulie","august","septembrie","octombrie","noiembrie","decembrie"];
-const dataRo = (s) => { const [y,m,d] = s.split("-").map(Number); return `${d} ${LUNI[m-1]} ${y}`; };
+const dataRo = (s, an = true) => { const [y,m,d] = s.slice(0,10).split("-").map(Number); return an ? `${d} ${LUNI[m-1]} ${y}` : `${d} ${LUNI[m-1]}`; };
 const lei = (v, dec = 2) => v.toLocaleString("ro-RO", {minimumFractionDigits: dec, maximumFractionDigits: dec});
 const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const titlu = (s) => String(s).toLowerCase().replace(/(^|[\s\-(])(\p{L})/gu, (m, a, b) => a + b.toUpperCase());
+const furnizor = (s) => /[a-z]/.test(s) ? s : titlu(s).replace(/\b(Sa|Srl|S\.a\.|S\.r\.l\.)\b\.?/g, (m) => m.toUpperCase());
 const $ = (id) => document.getElementById(id);
 const AZI = new Date().toISOString().slice(0, 10);
-const activa = (o) => !o.pana_la || o.pana_la >= AZI;
-const valabil = (o) => o.pana_la ? ` <span class="tag w">până pe ${dataRo(o.pana_la).replace(/ \d{4}$/, "")}</span>` : "";
+const activa = (o) => !o.pana || o.pana >= AZI;
+const PAS = 8; // câte oferte arătăm înainte de „Arată toate”
 
-let D = null;
+let T = null, A = null, LOC = null;        // telecom, ANRE, localități gaz
+const CP = {};                              // cache cp/<NN>.json
+const stare = { cp: "", loc: null, siruta: null, toate: {el: false, gas: false} };
 
-function ronLunar(o) { return o.ron ?? o.eur * D.curs_eur; }
-function ronDupa(o) { return o.eur_dupa != null ? o.eur_dupa * D.curs_eur : null; }
+const json = (u) => fetch(u, {cache: "no-cache"}).then((r) => { if (!r.ok) throw new Error(r.status); return r.json(); });
+async function cpFisier(pref) { if (!(pref in CP)) CP[pref] = await json(`cp/${pref}.json`).catch(() => null); return CP[pref]; }
+async function localitati() { if (!LOC) LOC = await json("gaz-localitati.json").catch(() => ({judete: {}})); return LOC; }
 
-function tabelEnergie(lista, kwh) {
-  if (!lista.length) return `<div class="empty">Nu avem oferte active pentru zona ta în acest moment. Verifică direct în <a href="https://posf.ro/comparator">comparatorul ANRE</a>.</div>`;
-  const rows = lista.map((o, i) => `<tr${i ? "" : ' class="win"'}>
+function ronLunar(o) { return o.ron ?? o.eur * T.curs_eur; }
+function ronDupa(o) { return o.eur_dupa != null ? o.eur_dupa * T.curs_eur : null; }
+
+function tabelEnergie(id, lista, kwh, notaGol) {
+  if (!lista.length) return `<div class="empty">${notaGol}</div>`;
+  const toate = stare.toate[id], arat = toate ? lista : lista.slice(0, PAS);
+  const rows = arat.map((o, i) => `<tr${i ? "" : ' class="win"'}>
     <td>${i + 1}</td>
-    <td><a href="${esc(o.link)}" target="_blank" rel="noopener">${esc(o.furnizor)}</a>${i ? "" : '<span class="tag">Cel mai ieftin</span>'}<div class="muted">${esc(o.oferta)}${valabil(o)}</div></td>
-    <td class="n">${lei(o.p, 4)} lei</td>
-    <td class="n big">${lei(o.p * kwh, 0)} lei</td>
-    <td class="hide-sm muted">${esc(o.nota || "")}</td></tr>`).join("");
-  return `<div class="tablewrap"><table class="cmp"><tr><th>#</th><th>Furnizor</th><th>lei / kWh</th><th>Estimat / lună</th><th class="hide-sm">Detalii</th></tr>${rows}</table></div>`;
+    <td>${o.link ? `<a href="${esc(o.link)}" target="_blank" rel="noopener">${esc(furnizor(o.f))}</a>` : `<b>${esc(furnizor(o.f))}</b>`}${i ? "" : '<span class="tag">Cel mai ieftin</span>'}${o.su ? '<span class="tag su">Serviciu universal</span>' : ""}
+      <div class="muted">${esc(o.o)}${o.pana ? ` <span class="tag w">până pe ${dataRo(o.pana, false)}</span>` : ""}</div></td>
+    <td class="n">${lei(o.kwh, 4)} lei${o.fz ? `<div class="muted">+ ${lei(o.fz)} lei/lună fix</div>` : ""}</td>
+    <td class="n big">${lei(o.kwh * kwh + (o.fz || 0), 0)} lei</td>
+    <td class="hide-sm muted">${esc([o.tip, o.durata && "contract " + o.durata, o.garantii].filter(Boolean).join(" · "))}${o.pdf ? `<div><a href="${esc(o.pdf)}" target="_blank" rel="noopener">Oferta (PDF)</a></div>` : ""}</td></tr>`).join("");
+  const more = lista.length > PAS ? `<button class="morebtn" data-more="${id}">${toate ? "Arată mai puține" : `Arată toate cele ${lista.length} oferte`}</button>` : "";
+  return `<div class="tablewrap"><table class="cmp"><tr><th>#</th><th>Furnizor</th><th>lei / kWh</th><th>Estimat / lună</th><th class="hide-sm">Detalii</th></tr>${rows}</table></div>${more}`;
 }
 
-function tabelTelecom(lista, sortDupaAn) {
-  const L = lista.map((o) => ({...o, lunar: ronLunar(o), dupa: ronDupa(o)}))
-    .sort((a, b) => a.lunar - b.lunar);
+function tabelTelecom(lista) {
+  const L = lista.map((o) => ({...o, lunar: ronLunar(o), dupa: ronDupa(o)})).sort((a, b) => a.lunar - b.lunar);
   const rows = L.map((o, i) => `<tr${i ? "" : ' class="win"'}>
     <td>${i + 1}</td>
     <td><a href="${esc(o.link)}" target="_blank" rel="noopener">${esc(o.operator)}</a>${i ? "" : '<span class="tag">Cel mai ieftin</span>'}<div class="muted">${esc(o.oferta)}</div></td>
@@ -219,70 +238,117 @@ function tabelTelecom(lista, sortDupaAn) {
   return [L[0], `<div class="tablewrap"><table class="cmp"><tr><th>#</th><th>Operator</th><th>Preț / lună</th><th>Ce include</th><th class="hide-sm">Contract</th></tr>${rows}</table></div>`];
 }
 
-function kpi(id, culoare, eticheta, valoare, furnizor, detaliu) {
-  return `<a class="kpi" href="#${id}" style="--c:var(${culoare})"><div class="l">${eticheta}</div><div class="v">${valoare}</div><div class="s">${esc(furnizor)}</div><div class="s2">${esc(detaliu)}</div></a>`;
+function kpi(id, culoare, eticheta, valoare, furn, detaliu) {
+  return `<a class="kpi" href="#${id}" style="--c:var(${culoare})"><div class="l">${eticheta}</div><div class="v">${valoare}</div><div class="s">${esc(furn)}</div><div class="s2">${esc(detaliu)}</div></a>`;
 }
 
-function arata(cp) {
+/** Operatorul de distribuție gaz după tariful de distribuție al localității. */
+function operatorGaz(codJud, t0) {
+  const ref = (j) => A?.gaz?.judete?.[j]?.t0;
+  if (t0 == null) return null;
+  if (DGSR.includes(codJud) && Math.abs(t0 - ref("BUCURESTI")) < 0.01) return "Distrigaz Sud Rețele";
+  if (!DGSR.includes(codJud) && Math.abs(t0 - ref("CLUJ")) < 0.01) return "Delgaz Grid";
+  return "operator local de distribuție";
+}
+
+async function arata(cpText) {
   $("err").textContent = "";
-  cp = String(cp || "").replace(/\D/g, "");
+  const cp = String(cpText || "").replace(/\D/g, "");
   if (cp.length !== 6) { $("err").textContent = "Codul poștal are 6 cifre (ex. 060042)."; return; }
-  const j = JUD[cp.slice(0, 2)];
+  const pref = cp.slice(0, 2), j = JUD[pref];
   if (!j) { $("err").textContent = "Nu recunoaștem acest cod poștal. Verifică-l pe posta-romana.ro."; return; }
   const [numeJud, cod] = j;
-  const zona = zonaEl(cod), og = opGaz(cod);
+  const buc = cod === "B";
+
+  // localitatea din codul poștal + localitățile cu rețea de gaz din județ
+  let numeLoc = buc ? "București" : null, judPosf = buc ? "BUCURESTI" : null, siruta = buc ? 999999 : null;
+  if (!buc) {
+    const f = await cpFisier(pref);
+    if (f) {
+      judPosf = f.judet;
+      const e = f.cp[cp];
+      if (!e) { $("err").textContent = "Codul poștal nu există în nomenclator. Verifică-l pe posta-romana.ro."; return; }
+      numeLoc = e[0]; siruta = e[1] ?? null;
+    }
+  }
+  if (stare.cp === cp && stare.siruta !== undefined && stare.alesManual) siruta = stare.siruta;
+  else stare.alesManual = false;
+  stare.cp = cp; stare.siruta = siruta;
+  const L = await localitati();
+  const listaLoc = (judPosf && L.judete?.[judPosf]) || [];
+  const locGaz = listaLoc.find((x) => x[0] === siruta) || null;
+  const t0 = locGaz?.[3] ?? (siruta === 999999 ? A?.gaz?.judete?.BUCURESTI?.t0 : null);
+
+  const zona = zonaEl(cod);
+  const opGaz = operatorGaz(cod, t0);
   const kel = Math.max(0, +$("kel").value || 0), kgas = Math.max(0, +$("kgas").value || 0);
 
+  const optiuni = listaLoc.slice().sort((a, b) => a[1].localeCompare(b[1], "ro"))
+    .map((x) => `<option value="${x[0]}"${x[0] === siruta ? " selected" : ""}>${esc(titlu(x[1]))}${x[2] && x[2] !== x[1] ? ` (${esc(titlu(x[2]))})` : ""}</option>`).join("");
   $("loc").style.display = "block";
-  $("loc").innerHTML = `Cod poștal <b>${cp}</b> → <b>${esc(numeJud)}</b>
-    <div class="z"><span>⚡ Zonă curent: <b>${esc(zona)}</b> (${esc(OPD_EL[zona])})</span>
-    <span>🔥 Distribuție gaz: <b>${esc(og || "operatori locali")}</b></span></div>`;
+  $("loc").innerHTML = `Cod poștal <b>${cp}</b> → <b>${esc(numeLoc ? titlu(numeLoc) + ", " : "")}${esc(numeJud)}</b>
+    <div class="net">
+      <div class="op">⚡ Rețeaua de curent din zona ta<b>${esc(OPD_EL[zona])}</b>zona de distribuție ${esc(zona)}</div>
+      <div class="op">🔥 Rețeaua de gaz${t0 != null ? `<b>${esc(opGaz)}</b>tarif de distribuție ${lei(t0 / 1000 * 1.21, 4)} lei/kWh cu TVA` : `<b>Nu apare în lista ANRE</b>${esc(numeLoc ? titlu(numeLoc) : "Localitatea")} nu figurează cu rețea de gaz`}
+        ${!buc && listaLoc.length ? `<select id="locgaz" aria-label="Alege localitatea pentru gaz"><option value="">${t0 != null ? "Altă localitate…" : "Alege localitatea…"}</option>${optiuni}</select>` : ""}</div>
+    </div>`;
+  $("locgaz")?.addEventListener("change", (e) => { if (!e.target.value) return; stare.siruta = +e.target.value; stare.alesManual = true; arata(cp); });
 
-  // Curent
-  const el = D.electricitate.filter(activa).filter((o) => o.pret[zona] != null)
-    .map((o) => ({...o, p: o.pret[zona]})).sort((a, b) => a.p - b.p);
-  $("sub-el").textContent = `Zona ${zona}. Estimare pentru ${kel} kWh pe lună.`;
-  $("t-el").innerHTML = tabelEnergie(el, kel);
+  // Curent: toate ofertele ANRE din zonă
+  const el = (A?.curent?.[zona] || []).filter(activa).map((o) => ({...o, kwh: o.p}))
+    .sort((a, b) => (a.kwh * kel + a.fz) - (b.kwh * kel + b.fz));
+  $("sub-el").textContent = `${el.length} oferte pentru clienți casnici în zona ${zona}, rețeaua ${OPD_EL[zona]}. Estimare pentru ${kel} kWh pe lună.`;
+  $("t-el").innerHTML = tabelEnergie("el", el, kel, `Nu am putut încărca ofertele ANRE. Verifică direct în <a href="https://posf.ro/comparator?comparatorType=electric" target="_blank" rel="noopener">comparatorul ANRE</a>.`);
 
-  // Gaz
-  let gz = D.gaze.filter(activa).filter((o) => !og || o.arii.includes(og)).map((o) => ({...o, p: o.pret})).sort((a, b) => a.p - b.p);
-  $("sub-gas").textContent = `${og ? "Rețeaua " + og + "." : "Județul tău e deservit de operatori locali de distribuție."} Estimare pentru ${kgas} kWh pe lună.`;
-  let gasHtml = tabelEnergie(gz, kgas);
-  if (!og || PARTIAL_GAS.includes(cod)) gasHtml += `<div class="hint">În ${esc(numeJud)} unele localități au alt operator de distribuție decât cel principal. Prețul final poate diferi ușor; verifică adresa în <a href="https://posf.ro/comparator?comparatorType=gas" target="_blank" rel="noopener">comparatorul ANRE</a>.</div>`;
-  $("t-gas").innerHTML = gasHtml;
+  // Gaz: ofertele disponibile în județ, cu tariful de distribuție al localității
+  const gj = A?.gaz?.judete?.[judPosf];
+  const t0Calc = t0 ?? gj?.t0;
+  const oferteGaz = new Map((A?.gaz?.oferte || []).map((o) => [o.c, o]));
+  const gz = (gj?.oferte || []).map((c) => oferteGaz.get(c)).filter(Boolean).filter(activa)
+    .map((o) => ({...o, kwh: (o.pg + o.tt + t0Calc + (o.acc || 0)) * (1 + (o.tva || 21) / 100) / 1000}))
+    .sort((a, b) => (a.kwh * kgas + a.fz) - (b.kwh * kgas + b.fz));
+  $("sub-gas").textContent = t0 != null
+    ? `${gz.length} oferte disponibile în ${titlu(numeLoc || numeJud)}, rețeaua ${opGaz}. Estimare pentru ${kgas} kWh pe lună.`
+    : `Localitatea ta nu apare cu rețea de gaz în lista ANRE. Mai jos, prețurile pentru reședința de județ; alege localitatea de mai sus dacă ai gaz. Estimare pentru ${kgas} kWh pe lună.`;
+  $("t-gas").innerHTML = tabelEnergie("gas", gz, kgas, `Nu am găsit oferte de gaz pentru județul tău. Verifică în <a href="https://posf.ro/comparator?comparatorType=gas" target="_blank" rel="noopener">comparatorul ANRE</a>.`);
 
   // Telecom
-  const [bn, hn] = tabelTelecom(D.internet); $("t-net").innerHTML = hn;
-  const [bt, ht] = tabelTelecom(D.tv); $("t-tv").innerHTML = ht;
-  const [bm, hm] = tabelTelecom(D.mobil); $("t-mob").innerHTML = hm;
+  const [bn, hn] = tabelTelecom(T.internet); $("t-net").innerHTML = hn;
+  const [bt, ht] = tabelTelecom(T.tv); $("t-tv").innerHTML = ht;
+  const [bm, hm] = tabelTelecom(T.mobil); $("t-mob").innerHTML = hm;
 
   // Sumar
-  const e0 = el[0], g0 = gz[0];
-  const total = (e0 ? e0.p * kel : 0) + (g0 ? g0.p * kgas : 0) + bn.lunar + bt.lunar + bm.lunar;
+  const e0 = el[0], g0 = t0 != null ? gz[0] : null;
+  const total = (e0 ? e0.kwh * kel + e0.fz : 0) + (g0 ? g0.kwh * kgas + g0.fz : 0) + bn.lunar + bt.lunar + bm.lunar;
   $("kpis").innerHTML =
-    (e0 ? kpi("s-el", "--el", "⚡ Curent", `${lei(e0.p * kel, 0)} <small>lei/lună</small>`, e0.furnizor, `${lei(e0.p, 2)} lei/kWh`) : "") +
-    (g0 ? kpi("s-gas", "--gas", "🔥 Gaz", `${lei(g0.p * kgas, 0)} <small>lei/lună</small>`, g0.furnizor, `${lei(g0.p, 3)} lei/kWh`) : "") +
+    (e0 ? kpi("s-el", "--el", "⚡ Curent", `${lei(e0.kwh * kel + e0.fz, 0)} <small>lei/lună</small>`, furnizor(e0.f), `${lei(e0.kwh, 2)} lei/kWh`) : "") +
+    (g0 ? kpi("s-gas", "--gas", "🔥 Gaz", `${lei(g0.kwh * kgas + g0.fz, 0)} <small>lei/lună</small>`, furnizor(g0.f), `${lei(g0.kwh, 3)} lei/kWh`) : "") +
     kpi("s-net", "--net", "🌐 Internet", `${lei(bn.lunar, 0)} <small>lei/lună</small>`, bn.operator, bn.oferta) +
     kpi("s-tv", "--tv", "📺 TV", `${lei(bt.lunar, 0)} <small>lei/lună</small>`, bt.operator, bt.oferta) +
     kpi("s-mob", "--mob", "📱 Mobil", `${lei(bm.lunar, 0)} <small>lei/lună</small>`, bm.operator, bm.oferta) +
-    `<div class="kpi total"><div class="l">Total estimat</div><div class="v">${lei(total, 0)} <small style="color:inherit;opacity:.7">lei/lună</small></div><div class="s2">cu cele mai ieftine oferte din zona ta</div></div>`;
+    `<div class="kpi total"><div class="l">Total estimat</div><div class="v">${lei(total, 0)} <small style="color:inherit;opacity:.7">lei/lună</small></div><div class="s2">cu cele mai ieftine oferte din zona ta${g0 ? "" : ", fără gaz"}</div></div>`;
 
   $("rez").style.display = "block";
   try { localStorage.setItem("util_cp", cp); } catch {}
   const u = new URL(location.href); u.searchParams.set("cp", cp); history.replaceState(null, "", u);
 }
 
-fetch("oferte.json", {cache: "no-cache"}).then((r) => r.json()).then((d) => {
-  D = d;
-  $("stamp").textContent = `Prețuri verificate pe ${dataRo(d.actualizat)}`;
+document.addEventListener("click", (e) => {
+  const b = e.target.closest("[data-more]"); if (!b) return;
+  stare.toate[b.dataset.more] = !stare.toate[b.dataset.more]; arata(stare.cp);
+});
+
+Promise.all([json("oferte.json"), json("anre.json").catch(() => null)]).then(([t, a]) => {
+  T = t; A = a;
+  $("stamp").textContent = A ? `Prețuri ANRE la zi: ${dataRo(A.zi || A.actualizat)}` : `Ofertele ANRE nu s-au putut încărca`;
   let cp = new URLSearchParams(location.search).get("cp");
   if (!cp) { try { cp = localStorage.getItem("util_cp"); } catch {} }
   if (cp) { $("cp").value = cp; arata(cp); }
 }).catch(() => { $("err").textContent = "Nu am putut încărca ofertele. Reîncarcă pagina."; });
 
-$("f").addEventListener("submit", (e) => { e.preventDefault(); if (D) arata($("cp").value); });
+$("f").addEventListener("submit", (e) => { e.preventDefault(); if (T) { stare.alesManual = false; arata($("cp").value); } });
 $("cp").addEventListener("input", (e) => { e.target.value = e.target.value.replace(/\D/g, "").slice(0, 6); });
-["kel", "kgas"].forEach((id) => $(id).addEventListener("change", () => { if (D && $("rez").style.display === "block") arata($("cp").value); }));
+["kel", "kgas"].forEach((id) => $(id).addEventListener("change", () => { if (T && $("rez").style.display === "block") arata(stare.cp); }));
 </script>
 </body>
 </html>

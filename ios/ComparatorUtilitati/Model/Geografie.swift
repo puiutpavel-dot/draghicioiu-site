@@ -1,16 +1,25 @@
 import Foundation
 
-/// Unde se află un cod poștal: județ, zonă de distribuție curent și rețea de gaz.
+/// Unde se află un cod poștal: județ, zonă de distribuție curent, localitate și rețea de gaz.
 struct Locatie: Equatable {
     let codPostal: String
     let judet: String
     let codJudet: String
     let zonaCurent: String
     let operatorCurent: String
-    /// nil = județ deservit doar de operatori locali de distribuție gaz
-    let operatorGaz: String?
-    /// Județ în care unele localități au alt operator de gaz decât cel principal.
-    let gazPartial: Bool
+    /// Localitatea din nomenclatorul de coduri poștale.
+    var localitate: String?
+    /// Numele județului în comparatorul ANRE (ex. „CLUJ”).
+    var judetAnre: String?
+    /// Localitatea cu rețea de gaz (din cod sau aleasă de utilizator); nil = nu apare în lista ANRE.
+    var siruta: Int?
+    /// Tariful de distribuție gaz al localității, lei/MWh.
+    var t0: Double?
+    var operatorGaz: String?
+    /// Localitățile din județ cu rețea de gaz, pentru alegere manuală.
+    var localitatiGaz: [LocalitateGaz] = []
+
+    var esteBucuresti: Bool { codJudet == "B" }
 }
 
 enum Geografie {
@@ -50,29 +59,45 @@ enum Geografie {
     static let judeteDistrigaz: Set<String> = [
         "AG", "BR", "BV", "BZ", "CL", "CT", "CV", "DB", "DJ", "GL", "GR", "GJ", "IL", "IF", "OT", "PH", "TL", "VL", "VN", "TR", "B",
     ]
-    static let judeteGazPartial: Set<String> = ["DB", "CV", "SV"]
 
     enum Eroare: Error, Equatable {
         case lungime
         case necunoscut
     }
 
+    /// Partea care nu depinde de date descărcate: județul și zona de curent.
     static func localizeaza(_ text: String) -> Result<Locatie, Eroare> {
         let cp = text.filter(\.isNumber)
         guard cp.count == 6 else { return .failure(.lungime) }
         guard let jud = judete[String(cp.prefix(2))] else { return .failure(.necunoscut) }
         let (judet, cod) = jud
         guard let zona = zoneCurent.first(where: { $0.judete.contains(cod) }) else { return .failure(.necunoscut) }
+        var loc = Locatie(codPostal: cp, judet: judet, codJudet: cod, zonaCurent: zona.zona, operatorCurent: zona.distribuitor)
+        if cod == "B" {
+            loc.localitate = "București"
+            loc.judetAnre = "BUCURESTI"
+            loc.siruta = 999_999
+        }
+        return .success(loc)
+    }
 
-        let gaz: String? = cod == "MH" ? nil : (judeteDistrigaz.contains(cod) ? distrigaz : delgaz)
-        return .success(Locatie(
-            codPostal: cp,
-            judet: judet,
-            codJudet: cod,
-            zonaCurent: zona.zona,
-            operatorCurent: zona.distribuitor,
-            operatorGaz: gaz,
-            gazPartial: gaz == nil || judeteGazPartial.contains(cod)
-        ))
+    /// Operatorul de distribuție gaz, recunoscut după tariful de distribuție al localității.
+    static func operatorGaz(codJudet: String, t0: Double?, anre: Anre?) -> String? {
+        guard let t0 else { return nil }
+        let ref = { (j: String) in anre?.gaz?.judete[j]?.t0 }
+        if judeteDistrigaz.contains(codJudet), let r = ref("BUCURESTI"), abs(t0 - r) < 0.01 { return distrigaz }
+        if !judeteDistrigaz.contains(codJudet), let r = ref("CLUJ"), abs(t0 - r) < 0.01 { return delgaz }
+        return "operator local de distribuție"
+    }
+
+    /// „DROBETA-TURNU SEVERIN” → „Drobeta-Turnu Severin”
+    static func titlu(_ s: String) -> String {
+        var rez = ""
+        var mare = true
+        for ch in s.lowercased() {
+            rez += mare ? String(ch).uppercased() : String(ch)
+            mare = ch == " " || ch == "-" || ch == "("
+        }
+        return rez
     }
 }

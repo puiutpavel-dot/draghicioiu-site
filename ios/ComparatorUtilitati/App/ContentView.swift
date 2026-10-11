@@ -9,13 +9,14 @@ struct ContentView: View {
 
     @State private var cod = ""
     @State private var locatie: Locatie?
+    @State private var sirutaAleasa: Int?
     @State private var eroare: String?
     @State private var setari = false
     @FocusState private var tastatura: Bool
 
     private var rezultat: Rezultat? {
         guard let locatie, let d = store.oferte else { return nil }
-        return Comparator.calculeaza(d, locatie, kwhCurent: kwhCurent, kwhGaz: kwhGaz)
+        return Comparator.calculeaza(telecom: d, anre: store.anre, locatie, kwhCurent: kwhCurent, kwhGaz: kwhGaz)
     }
 
     var body: some View {
@@ -25,7 +26,10 @@ struct ContentView: View {
                     VStack(alignment: .leading, spacing: 16) {
                         cautare
                         if let rezultat {
-                            LocatieCard(locatie: rezultat.locatie)
+                            LocatieCard(locatie: rezultat.locatie) { siruta in
+                                sirutaAleasa = siruta
+                                compara(ascundeTastatura: false)
+                            }
                             Sumar(rezultat: rezultat) { c in
                                 withAnimation { proxy.scrollTo(c.id, anchor: .top) }
                             }
@@ -33,7 +37,7 @@ struct ContentView: View {
                                 SectiuneView(categorie: c, rezultat: rezultat, kwhCurent: kwhCurent, kwhGaz: kwhGaz)
                                     .id(c.id)
                             }
-                            NotaSurse(actualizat: store.oferte?.actualizat)
+                            NotaSurse(actualizatAnre: store.anre?.zi ?? store.anre?.actualizat, actualizatTelecom: store.oferte?.actualizat)
                         } else if store.oferte == nil {
                             ContentUnavailableView {
                                 Label("Nu am putut încărca ofertele", systemImage: "wifi.exclamationmark")
@@ -65,7 +69,7 @@ struct ContentView: View {
                 }
             }
             .sheet(isPresented: $setari) {
-                SetariView(kwhCurent: $kwhCurent, kwhGaz: $kwhGaz, actualizat: store.oferte?.actualizat)
+                SetariView(kwhCurent: $kwhCurent, kwhGaz: $kwhGaz, actualizat: store.anre?.zi ?? store.oferte?.actualizat)
             }
         }
         .task {
@@ -74,17 +78,18 @@ struct ContentView: View {
                 compara(ascundeTastatura: false)
             }
             await store.reincarca()
+            if locatie != nil { compara(ascundeTastatura: false) } // cu datele proaspete
         }
     }
 
     private var cautare: some View {
         Card {
             VStack(alignment: .leading, spacing: 10) {
-                Text("Cel mai ieftin furnizor de curent, gaz, internet, TV și mobil din zona ta.")
+                Text("Operatorul de rețea și cel mai ieftin furnizor de curent și gaz din zona ta, după comparatorul ANRE, plus internet, TV și mobil.")
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
                 HStack(spacing: 10) {
-                    TextField("Cod poștal, ex. 060042", text: $cod)
+                    TextField("Cod poștal din România, ex. 060042", text: $cod)
                         .keyboardType(.numberPad)
                         .textContentType(.postalCode)
                         .font(.title3.monospacedDigit())
@@ -95,9 +100,9 @@ struct ContentView: View {
                         .onChange(of: cod) { _, nou in
                             let curat = String(nou.filter(\.isNumber).prefix(6))
                             if curat != nou { cod = curat }
-                            if curat.count == 6, curat != locatie?.codPostal { compara() }
+                            if curat.count == 6, curat != locatie?.codPostal { sirutaAleasa = nil; compara() }
                         }
-                    Button(action: { compara() }) {
+                    Button(action: { sirutaAleasa = nil; compara() }) {
                         Text("Compară").bold().padding(.vertical, 4)
                     }
                     .buttonStyle(.borderedProminent)
@@ -113,11 +118,19 @@ struct ContentView: View {
 
     private func compara(ascundeTastatura: Bool = true) {
         switch Geografie.localizeaza(cod) {
-        case .success(let loc):
-            eroare = nil
-            withAnimation(.snappy) { locatie = loc }
-            codSalvat = loc.codPostal
+        case .success(let baza):
             if ascundeTastatura { tastatura = false }
+            let aleasa = sirutaAleasa
+            Task {
+                switch await store.completeaza(baza, sirutaAleasa: aleasa) {
+                case .success(let loc):
+                    eroare = nil
+                    withAnimation(.snappy) { locatie = loc }
+                    codSalvat = loc.codPostal
+                case .failure:
+                    eroare = "Codul poștal nu există în nomenclator. Verifică-l pe posta-romana.ro."
+                }
+            }
         case .failure(.lungime):
             eroare = "Codul poștal are 6 cifre (ex. 060042)."
         case .failure(.necunoscut):
@@ -152,19 +165,67 @@ private struct Introducere: View {
 
 private struct LocatieCard: View {
     let locatie: Locatie
+    let alegeLocalitate: (Int) -> Void
+
     var body: some View {
         Card {
-            VStack(alignment: .leading, spacing: 6) {
+            VStack(alignment: .leading, spacing: 12) {
                 Label {
-                    Text("\(locatie.codPostal) · \(locatie.judet)").font(.headline)
+                    Text(titluLoc).font(.headline)
                 } icon: {
                     Image(systemName: "mappin.and.ellipse").foregroundStyle(.tint)
                 }
-                Text("Zonă curent: **\(locatie.zonaCurent)** (\(locatie.operatorCurent))")
-                Text("Distribuție gaz: **\(locatie.operatorGaz ?? "operatori locali")**")
+                Retea(categorie: .curent, eticheta: "Rețeaua de curent", numeOperator: locatie.operatorCurent,
+                      detaliu: "zona de distribuție \(locatie.zonaCurent)")
+                if let op = locatie.operatorGaz, let t0 = locatie.t0 {
+                    Retea(categorie: .gaz, eticheta: "Rețeaua de gaz", numeOperator: op,
+                          detaliu: "tarif de distribuție \(Format.lei(t0 / 1000 * 1.21, zecimale: 4)) lei/kWh cu TVA")
+                } else {
+                    Retea(categorie: .gaz, eticheta: "Rețeaua de gaz", numeOperator: "Nu apare în lista ANRE",
+                          detaliu: "\(locatie.localitate.map(Geografie.titlu) ?? "Localitatea") nu figurează cu rețea de gaz. Dacă ai gaz, alege localitatea.")
+                }
+                if !locatie.esteBucuresti, !locatie.localitatiGaz.isEmpty {
+                    Menu {
+                        ForEach(locatie.localitatiGaz) { l in
+                            Button(numeLoc(l)) { alegeLocalitate(l.siruta) }
+                        }
+                    } label: {
+                        Label(locatie.t0 == nil ? "Alege localitatea pentru gaz" : "Altă localitate pentru gaz", systemImage: "chevron.up.chevron.down")
+                            .font(.footnote.weight(.semibold))
+                    }
+                }
             }
-            .font(.footnote)
-            .foregroundStyle(.secondary)
+        }
+    }
+
+    private var titluLoc: String {
+        let l = locatie.localitate.map(Geografie.titlu)
+        return "\(locatie.codPostal) · " + (l.map { $0 == "București" ? locatie.judet : "\($0), \(locatie.judet)" } ?? locatie.judet)
+    }
+
+    private func numeLoc(_ l: LocalitateGaz) -> String {
+        let n = Geografie.titlu(l.nume)
+        return l.principala != l.nume && !l.principala.isEmpty ? "\(n) (\(Geografie.titlu(l.principala)))" : n
+    }
+
+    private struct Retea: View {
+        let categorie: Categorie
+        let eticheta: String
+        let numeOperator: String
+        let detaliu: String
+        var body: some View {
+            HStack(alignment: .top, spacing: 10) {
+                Image(systemName: categorie.simbol)
+                    .font(.footnote)
+                    .foregroundStyle(.white)
+                    .frame(width: 26, height: 26)
+                    .background(categorie.culoare, in: RoundedRectangle(cornerRadius: 7, style: .continuous))
+                VStack(alignment: .leading, spacing: 1) {
+                    Text(eticheta).font(.caption).foregroundStyle(.secondary)
+                    Text(numeOperator).font(.subheadline.weight(.semibold))
+                    Text(detaliu).font(.caption).foregroundStyle(.secondary)
+                }
+            }
         }
     }
 }
@@ -222,15 +283,20 @@ private struct SectiuneView: View {
     let rezultat: Rezultat
     let kwhCurent: Double
     let kwhGaz: Double
+    @State private var toate = false
+    private let pas = 8
 
     private var subtitlu: String {
         let loc = rezultat.locatie
         switch categorie {
         case .curent:
-            return "Zona \(loc.zonaCurent). Estimare pentru \(Int(kwhCurent)) kWh pe lună, toate taxele incluse."
+            return "\(rezultat.curent.count) oferte ANRE pentru casnici în zona \(loc.zonaCurent). Estimare pentru \(Int(kwhCurent)) kWh pe lună, toate taxele incluse."
         case .gaz:
-            let retea = loc.operatorGaz.map { "Rețeaua \($0)." } ?? "Județul tău are operatori locali de distribuție."
-            return "\(retea) Estimare pentru \(Int(kwhGaz)) kWh pe lună."
+            if loc.t0 == nil {
+                return "Localitatea ta nu apare cu rețea de gaz în lista ANRE. Mai jos, prețurile pentru reședința de județ. Estimare pentru \(Int(kwhGaz)) kWh pe lună."
+            }
+            let unde = loc.localitate.map { " în \(Geografie.titlu($0))" } ?? ""
+            return "\(rezultat.gaz.count) oferte ANRE\(unde), cu tariful de distribuție al localității. Estimare pentru \(Int(kwhGaz)) kWh pe lună."
         case .internet:
             return "Disponibilitatea depinde de adresa exactă. Verifică pe site-ul operatorului înainte de a comanda."
         case .tv:
@@ -241,7 +307,8 @@ private struct SectiuneView: View {
     }
 
     var body: some View {
-        let randuri = rezultat.randuri(categorie)
+        let toateRandurile = rezultat.randuri(categorie)
+        let randuri = toate ? toateRandurile : Array(toateRandurile.prefix(pas))
         VStack(alignment: .leading, spacing: 10) {
             Label(categorie.titlu, systemImage: categorie.simbol)
                 .font(.title3.bold())
@@ -262,15 +329,14 @@ private struct SectiuneView: View {
                     }
                 }
                 .background(Color(.secondarySystemGroupedBackground), in: RoundedRectangle(cornerRadius: 16, style: .continuous))
-            }
 
-            if categorie == .gaz, rezultat.locatie.gazPartial {
-                Text("În \(rezultat.locatie.judet) unele localități au alt operator de distribuție. Prețul final poate diferi puțin.")
-                    .font(.footnote)
-                    .foregroundStyle(.orange)
-                    .padding(12)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .background(Color.orange.opacity(0.12), in: RoundedRectangle(cornerRadius: 12, style: .continuous))
+                if toateRandurile.count > pas {
+                    Button(toate ? "Arată mai puține" : "Arată toate cele \(toateRandurile.count) oferte") {
+                        withAnimation { toate.toggle() }
+                    }
+                    .font(.subheadline.weight(.semibold))
+                    .frame(maxWidth: .infinity)
+                }
             }
         }
     }
@@ -306,9 +372,10 @@ private struct RandView: View {
                             Text(unitate).font(.caption2).foregroundStyle(.secondary)
                         }
                     }
-                    if pozitie == 1 || rand.expira != nil {
+                    if pozitie == 1 || rand.expira != nil || rand.serviciuUniversal {
                         HStack(spacing: 6) {
                             if pozitie == 1 { Eticheta(text: "Cel mai ieftin") }
+                            if rand.serviciuUniversal { Eticheta(text: "Serviciu universal", culoare: .accentColor, plin: false) }
                             if let e = rand.expira { Eticheta(text: "până pe \(Format.data(e))", culoare: .orange, plin: false) }
                         }
                     }
@@ -324,6 +391,11 @@ private struct RandView: View {
                     if let c = rand.contract {
                         Label(c, systemImage: "doc.text").font(.caption).foregroundStyle(.secondary)
                     }
+                    if let pdf = rand.pdf {
+                        Link(destination: pdf) {
+                            Label("Oferta-tip (PDF)", systemImage: "doc.richtext").font(.caption.weight(.semibold))
+                        }
+                    }
                 }
             }
             .padding(14)
@@ -335,15 +407,16 @@ private struct RandView: View {
 }
 
 private struct NotaSurse: View {
-    let actualizat: String?
+    let actualizatAnre: String?
+    let actualizatTelecom: String?
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
-            if let actualizat {
-                Text("Prețuri verificate pe \(Format.data(actualizat, cuAn: true)).").bold()
+            if let actualizatAnre {
+                Text("Prețuri ANRE la zi: \(Format.data(String(actualizatAnre.prefix(10)), cuAn: true)).").bold()
             }
-            Text("Curent și gaz: prețuri finale pe kWh (energie, distribuție, transport, taxe, TVA), după comparatorul ANRE și site-urile furnizorilor. La gaze, până la 31 martie 2027 se facturează cel mai mic dintre prețul din contract și cel stabilit prin OUG 12/2026.")
-            Text("Telecom: prețurile în euro sunt convertite la cursul BNR; suma de pe factură poate varia puțin. Multe oferte sunt promoții online sau la portare, cu contract de 24 de luni.")
-            Text("Informațiile au rol orientativ. Verifică prețul final la furnizor înainte de a semna.")
+            Text("Curent și gaz: toate ofertele pentru clienți casnici din comparatorul oficial ANRE (posf.ro), preluate în fiecare dimineață. Prețuri finale pe kWh, cu energie, distribuție, transport, taxe și TVA; estimarea lunară include și componenta fixă. La gaze se folosește tariful de distribuție al localității tale; până la 31 martie 2027 se facturează cel mai mic dintre prețul din contract și cel stabilit prin OUG 12/2026.")
+            Text("Telecom\(actualizatTelecom.map { " (verificat pe \(Format.data($0, cuAn: true)))" } ?? ""): prețurile în euro sunt convertite la cursul BNR; suma de pe factură poate varia puțin. Multe oferte sunt promoții online sau la portare, cu contract de 24 de luni.")
+            Text("Coduri poștale: GeoNames (CC BY 4.0). Informațiile au rol orientativ; verifică oferta la furnizor înainte de a semna.")
         }
         .font(.caption)
         .foregroundStyle(.secondary)

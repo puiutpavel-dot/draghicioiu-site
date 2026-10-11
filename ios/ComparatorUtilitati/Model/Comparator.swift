@@ -15,6 +15,8 @@ struct Rand: Identifiable, Hashable {
     let contract: String?
     let expira: String?
     let link: URL?
+    var pdf: URL? = nil
+    var serviciuUniversal = false
 }
 
 enum Categorie: String, CaseIterable, Identifiable {
@@ -72,36 +74,47 @@ struct Rezultat {
 
     /// Suma celor mai ieftine oferte din fiecare categorie.
     var total: Double {
-        Categorie.allCases.compactMap { randuri($0).first?.lunar }.reduce(0, +)
+        Categorie.allCases
+            .filter { $0 != .gaz || locatie.t0 != nil }
+            .compactMap { randuri($0).first?.lunar }
+            .reduce(0, +)
     }
 }
 
 enum Comparator {
-    static func calculeaza(_ d: Oferte, _ loc: Locatie, kwhCurent: Double, kwhGaz: Double, azi: Date = .now) -> Rezultat {
+    static func calculeaza(telecom d: Oferte, anre: Anre?, _ loc: Locatie, kwhCurent: Double, kwhGaz: Double, azi: Date = .now) -> Rezultat {
         let ziua = Format.iso(azi)
         func activa(_ panaLa: String?) -> Bool { panaLa.map { $0 >= ziua } ?? true }
+        func url(_ s: String?) -> URL? { s.flatMap { URL(string: $0) } }
 
-        let curent = d.electricitate
-            .filter { activa($0.panaLa) }
-            .compactMap { o -> Rand? in
-                guard let p = o.pret[loc.zonaCurent] else { return nil }
-                return Rand(id: "el-\(o.furnizor)-\(o.oferta)", furnizor: o.furnizor, oferta: o.oferta,
-                            lunar: p * kwhCurent, pretUnitar: "\(Format.lei(p, zecimale: 4)) lei/kWh",
-                            dupaPromo: nil, detalii: o.nota, contract: nil, expira: o.panaLa,
-                            link: o.link.flatMap { URL(string: $0) })
+        let curent = (anre?.curent?[loc.zonaCurent] ?? [])
+            .filter { activa($0.pana) }
+            .map { o -> Rand in
+                Rand(id: "el-\(o.c)-\(o.f)", furnizor: Format.furnizor(o.f), oferta: o.o,
+                     lunar: o.p * kwhCurent + o.fz,
+                     pretUnitar: "\(Format.lei(o.p, zecimale: 4)) lei/kWh" + (o.fz > 0 ? " + \(Format.lei(o.fz)) lei/lună fix" : ""),
+                     dupaPromo: nil, detalii: o.tip, contract: o.durata.map { "contract \($0)" }, expira: o.pana,
+                     link: url(o.link), pdf: url(o.pdf), serviciuUniversal: o.su ?? false)
             }
             .sorted { $0.lunar < $1.lunar }
 
-        let gaz = d.gaze
-            .filter { activa($0.panaLa) }
-            .filter { o in loc.operatorGaz.map { o.arii.contains($0) } ?? true }
-            .map { o in
-                Rand(id: "gaz-\(o.furnizor)-\(o.oferta)", furnizor: o.furnizor, oferta: o.oferta,
-                     lunar: o.pret * kwhGaz, pretUnitar: "\(Format.lei(o.pret, zecimale: 4)) lei/kWh",
-                     dupaPromo: nil, detalii: o.nota, contract: nil, expira: o.panaLa,
-                     link: o.link.flatMap { URL(string: $0) })
-            }
-            .sorted { $0.lunar < $1.lunar }
+        var gaz: [Rand] = []
+        if let g = anre?.gaz, let j = loc.judetAnre, let jg = g.judete[j] {
+            let t0 = loc.t0 ?? jg.t0
+            let dupaCod = Dictionary(g.oferte.map { ($0.c, $0) }, uniquingKeysWith: { a, _ in a })
+            gaz = jg.oferte.compactMap { dupaCod[$0] }
+                .filter { activa($0.pana) }
+                .map { o -> Rand in
+                    let p = o.pret(t0: t0)
+                    let fz = o.fz ?? 0
+                    return Rand(id: "gaz-\(o.c)-\(o.f)", furnizor: Format.furnizor(o.f), oferta: o.o,
+                                lunar: p * kwhGaz + fz,
+                                pretUnitar: "\(Format.lei(p, zecimale: 4)) lei/kWh" + (fz > 0 ? " + \(Format.lei(fz)) lei/lună fix" : ""),
+                                dupaPromo: nil, detalii: [o.tip, o.garantii].compactMap { $0 }.filter { !$0.isEmpty }.joined(separator: " · "),
+                                contract: o.durata.map { "contract \($0)" }, expira: o.pana, link: url(o.link))
+                }
+                .sorted { $0.lunar < $1.lunar }
+        }
 
         func telecom(_ lista: [OfertaTelecom], _ prefix: String) -> [Rand] {
             lista.compactMap { o -> Rand? in
@@ -114,7 +127,7 @@ enum Comparator {
                 return Rand(id: "\(prefix)-\(o.operatorName)-\(o.oferta)", furnizor: o.operatorName, oferta: o.oferta,
                             lunar: lunar, pretUnitar: o.eur.map { "\(Format.lei($0)) €" },
                             dupaPromo: dupa, detalii: detalii, contract: o.contract, expira: nil,
-                            link: o.link.flatMap { URL(string: $0) })
+                            link: url(o.link))
             }
             .sorted { $0.lunar < $1.lunar }
         }
@@ -139,6 +152,16 @@ enum Format {
     }()
 
     static func iso(_ d: Date) -> String { isoFmt.string(from: d) }
+
+    /// „SPEEH HIDROELECTRICA” → „Speeh Hidroelectrica”; numele scrise deja cu litere mici rămân cum sunt.
+    static func furnizor(_ s: String) -> String {
+        if s.contains(where: \.isLowercase) { return s }
+        var t = Geografie.titlu(s)
+        for (a, b) in [(" Srl", " SRL"), (" Sa", " SA"), (" S.r.l.", " S.R.L."), (" S.a.", " S.A.")] where t.hasSuffix(a) {
+            t = String(t.dropLast(a.count)) + b
+        }
+        return t
+    }
 
     /// „2026-10-31” → „31 oct.” (sau „31 octombrie 2026” cu an)
     static func data(_ s: String, cuAn: Bool = false) -> String {

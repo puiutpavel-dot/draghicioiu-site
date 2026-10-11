@@ -27,7 +27,7 @@ workflows:
           - 'ios/**'
     scripts:
       - name: Copiază ofertele curente de pe site
-        script: cp ../comparator-utilitati/oferte.json ComparatorUtilitati/Resources/oferte.json
+        script: cp ../comparator-utilitati/oferte.json ../comparator-utilitati/anre.json ../comparator-utilitati/gaz-localitati.json ComparatorUtilitati/Resources/
       - name: Build pentru simulator
         script: |
           set -o pipefail
@@ -132,7 +132,7 @@ workflows:
         XCODE_SCHEME: ComparatorUtilitati
     scripts:
       - name: Copiază ofertele curente de pe site
-        script: cp ../comparator-utilitati/oferte.json ComparatorUtilitati/Resources/oferte.json
+        script: cp ../comparator-utilitati/oferte.json ../comparator-utilitati/anre.json ../comparator-utilitati/gaz-localitati.json ComparatorUtilitati/Resources/
       - name: Aplică profilurile de semnare
         script: xcode-project use-profiles --project "$XCODE_PROJECT"
       - name: Număr de build
