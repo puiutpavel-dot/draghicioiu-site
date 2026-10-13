@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Atelierul Moșului · admin</title>
+<style>
+:root{--bg:#f6f2ec;--card:#fff;--ink:#22201e;--ink-2:#6b645d;--line:#e4ddd3;--red:#b3202a;--red-deep:#8a141c;--ok:#2f6d4b;--ok-soft:#e6f2ea;--gold:#c9a24b}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#141211;--card:#1f1c1a;--ink:#f1ece6;--ink-2:#aaa197;--line:#37312d;--red:#e0545c;--red-deep:#c23b44;--ok:#7fc29b;--ok-soft:#1a2a21;--gold:#e1c071;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#141211;--card:#1f1c1a;--ink:#f1ece6;--ink-2:#aaa197;--line:#37312d;--red:#e0545c;--red-deep:#c23b44;--ok:#7fc29b;--ok-soft:#1a2a21;--gold:#e1c071;color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,sans-serif}
+.wrap{max-width:860px;margin:0 auto;padding:20px 16px 60px}
+h1{font-size:24px;margin:0 0 4px}
+.sub{color:var(--ink-2);margin:0 0 20px;font-size:14px}
+input,textarea{font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:10px 12px;width:100%}
+textarea{min-height:150px;resize:vertical}
+.btn{border:0;background:var(--red);color:#fff;font:600 14px inherit;font-family:inherit;padding:10px 16px;border-radius:999px;cursor:pointer;white-space:nowrap}
+.btn:hover{background:var(--red-deep)}
+.btn.ghost{background:transparent;color:var(--ink-2);border:1px solid var(--line)}
+.btn:disabled{opacity:.5}
+.login{display:flex;gap:10px;max-width:460px}
+.bar{display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-bottom:16px}
+.stats{display:flex;gap:16px;font-size:14px;color:var(--ink-2)}
+.stats b{color:var(--ink);font-size:18px}
+.filters{display:flex;gap:6px}
+.filters button{border:1px solid var(--line);background:var(--card);color:var(--ink-2);border-radius:999px;padding:6px 12px;font:inherit;font-size:13px;cursor:pointer}
+.filters button[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.item{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;margin-bottom:14px}
+.item.answered{border-left:4px solid var(--ok)}
+.item.open{border-left:4px solid var(--gold)}
+.meta{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:13px;color:var(--ink-2);margin-bottom:8px}
+.meta .name{font-weight:700;color:var(--ink);font-size:16px}
+.meta code{font-size:13px}
+.letter{white-space:pre-wrap;overflow-wrap:anywhere;background:var(--bg);border-radius:10px;padding:12px;margin-bottom:12px}
+.actions{display:flex;gap:8px;align-items:center;margin-top:8px;flex-wrap:wrap}
+.saved{font-size:13px;color:var(--ok)}
+.msg{background:#fbe9ea;color:var(--red);border-radius:10px;padding:10px 12px;margin-top:10px;font-size:14px}
+.empty{color:var(--ink-2);text-align:center;padding:40px 0}
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Atelierul Moșului 🎅</h1>
+  <p class="sub">Scrisorile de pe draghicioiu.ro/scrisori-mos-craciun. Răspunsul apare imediat la copil când introduce codul.</p>
+
+  <form class="login" id="login">
+    <input type="password" id="key" placeholder="Parola de admin" autocomplete="current-password" aria-label="Parola de admin">
+    <button class="btn" type="submit">Intră</button>
+  </form>
+  <div class="msg" id="err" hidden></div>
+
+  <div id="app" hidden>
+    <div class="bar">
+      <div class="stats"><span><b id="s-open">0</b> fără răspuns</span><span><b id="s-done">0</b> cu răspuns</span></div>
+      <div class="filters">
+        <button type="button" data-f="open" aria-pressed="true">Fără răspuns</button>
+        <button type="button" data-f="done" aria-pressed="false">Cu răspuns</button>
+        <button type="button" data-f="all" aria-pressed="false">Toate</button>
+        <button type="button" id="refresh" title="Reîncarcă">↻</button>
+      </div>
+    </div>
+    <div id="list"></div>
+  </div>
+</div>
+
+<script>
+const SB_URL = "https://qvyesymawktcrtiofroj.supabase.co";
+const SB_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF2eWVzeW1hd2t0Y3J0aW9mcm9qIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTEwMTkwODYsImV4cCI6MjEwNjU5NTA4Nn0.oUSgTlBqvcpK52E8B74IEFNatGXB1K1AtbiFbtf88Zk";
+async function rpc(fn, body){
+  const r = await fetch(`${SB_URL}/rest/v1/rpc/${fn}`, {method:"POST",
+    headers:{"apikey":SB_KEY,"Authorization":`Bearer ${SB_KEY}`,"Content-Type":"application/json"}, body:JSON.stringify(body)});
+  const data = await r.json().catch(()=>null);
+  if(!r.ok) throw new Error((data && data.message) || "network");
+  return data;
+}
+const $ = id => document.getElementById(id);
+let KEY = ""; let letters = []; let filter = "open";
+try{ KEY = sessionStorage.getItem("santa_admin") || ""; }catch(_){}
+
+function fmt(d){ return new Date(d).toLocaleString("ro-RO",{day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"}); }
+function el(tag, cls, text){ const e=document.createElement(tag); if(cls) e.className=cls; if(text!=null) e.textContent=text; return e; }
+
+async function load(){
+  $("err").hidden = true;
+  try{
+    letters = await rpc("santa_admin_list", {p_key:KEY}) || [];
+    try{ sessionStorage.setItem("santa_admin", KEY); }catch(_){}
+    $("login").hidden = true; $("app").hidden = false; render();
+  }catch(ex){
+    $("err").textContent = ex.message === "not_authorized" ? "Parolă greșită." : "Nu m-am putut conecta: " + ex.message;
+    $("err").hidden = false; $("login").hidden = false; $("app").hidden = true;
+    try{ sessionStorage.removeItem("santa_admin"); }catch(_){}
+  }
+}
+
+function render(){
+  $("s-open").textContent = letters.filter(l=>!l.reply).length;
+  $("s-done").textContent = letters.filter(l=>l.reply).length;
+  const list = $("list"); list.replaceChildren();
+  const shown = letters.filter(l => filter==="all" || (filter==="open" ? !l.reply : !!l.reply));
+  if(!shown.length){ list.append(el("p","empty", filter==="open" ? "Nicio scrisoare fără răspuns. 🎉" : "Nimic aici încă.")); return; }
+  for(const l of shown){
+    const it = el("article", "item " + (l.reply ? "answered" : "open"));
+    const meta = el("div","meta");
+    meta.append(el("span","name",l.child_name));
+    if(l.age) meta.append(el("span",null,l.age+" ani"));
+    if(l.city) meta.append(el("span",null,l.city));
+    meta.append(el("span",null,fmt(l.created_at)));
+    const c = el("code",null,l.code); meta.append(c);
+    if(l.replied_at) meta.append(el("span",null,"răspuns " + fmt(l.replied_at)));
+    const ta = el("textarea"); ta.value = l.reply || ""; ta.placeholder = `Dragă ${l.child_name},\n\n…\n\nCu drag,\nMoș Crăciun`;
+    ta.setAttribute("aria-label","Răspunsul Moșului pentru " + l.child_name);
+    const save = el("button","btn", l.reply ? "Actualizează răspunsul" : "Trimite răspunsul"); save.type="button";
+    const del = el("button","btn ghost","Șterge scrisoarea"); del.type="button";
+    const ok = el("span","saved");
+    save.onclick = async () => {
+      save.disabled = true; ok.textContent = "";
+      try{ await rpc("santa_admin_reply",{p_key:KEY,p_id:l.id,p_reply:ta.value});
+        l.reply = ta.value.trim() || null; l.replied_at = l.reply ? new Date().toISOString() : null;
+        ok.textContent = "Salvat ✓"; setTimeout(render, 700);
+      }catch(ex){ ok.textContent = "Eroare: " + ex.message; }
+      finally{ save.disabled = false; }
+    };
+    del.onclick = async () => {
+      if(!confirm(`Ștergi definitiv scrisoarea lui ${l.child_name} (${l.code})?`)) return;
+      try{ await rpc("santa_admin_delete",{p_key:KEY,p_id:l.id}); letters = letters.filter(x=>x.id!==l.id); render(); }
+      catch(ex){ alert("Nu am putut șterge: " + ex.message); }
+    };
+    const act = el("div","actions"); act.append(save, del, ok);
+    it.append(meta, el("div","letter",l.letter), ta, act);
+    list.append(it);
+  }
+}
+
+$("login").addEventListener("submit", e => { e.preventDefault(); KEY = $("key").value; load(); });
+document.querySelectorAll("[data-f]").forEach(b => b.onclick = () => {
+  filter = b.dataset.f; document.querySelectorAll("[data-f]").forEach(x=>x.setAttribute("aria-pressed", x===b)); render();
+});
+$("refresh").onclick = load;
+if(KEY) load();
+</script>
+</body>
+</html>
