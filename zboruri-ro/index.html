@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zboruri RO – bilete de avion sub 500 lei din România | draghicioiu.ro</title>
+<meta name="description" content="Cele mai ieftine zboruri Ryanair, Wizz Air și HiSky cu plecare sau sosire pe orice aeroport din România, sub prețul pe care îl alegi. Prețuri actualizate la fiecare 10 minute.">
+<link rel="canonical" href="https://draghicioiu.ro/zboruri-ro/">
+<meta property="og:title" content="Zboruri RO – bilete de avion sub 500 lei">
+<meta property="og:description" content="Ryanair, Wizz Air și HiSky, spre și dinspre România, sub prețul ales de tine.">
+<meta property="og:url" content="https://draghicioiu.ro/zboruri-ro/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f6f5f2; --card:#ffffff; --ink:#1b1b1f; --muted:#6b6b74; --line:#e6e3dd;
+  --sky:#0a66d8; --sky-soft:#e8f1fd; --ok:#1d8a4e; --ok-soft:#e5f4ec; --radius:14px;
+  --fr:#073590; --fr-soft:#e6ecf8; --w6:#c6007e; --w6-soft:#fbe6f3; --h4:#00857a; --h4-soft:#e2f4f2;
+}
+@media (prefers-color-scheme: dark){
+  :root{--bg:#121214;--card:#1c1c20;--ink:#f1f1f3;--muted:#a0a0aa;--line:#2c2c33;
+    --sky:#5aa2ff;--sky-soft:#15253a;--ok:#4cc584;--ok-soft:#14301f;
+    --fr:#8fb0ff;--fr-soft:#18213a;--w6:#ff6fc3;--w6-soft:#3a1630;--h4:#4fd1c5;--h4-soft:#123330;}
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.45}
+a{color:inherit}
+.wrap{max-width:1180px;margin:0 auto;padding:28px 16px 60px}
+.back{display:inline-block;margin-bottom:14px;font-size:14px;color:var(--muted);text-decoration:none}
+.back:hover{color:var(--ink)}
+.hero{display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center}
+.hero h1{font-size:clamp(28px,4.4vw,44px);margin:0 0 8px;letter-spacing:-.02em;font-weight:800}
+.hero p{margin:0;color:var(--muted);max-width:680px;font-size:17px}
+.cta{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px;align-items:center}
+.btn{display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:15px;padding:11px 18px;border-radius:12px;text-decoration:none;border:1px solid var(--line);background:var(--card)}
+.btn.primary{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.btn svg{width:18px;height:18px}
+.soon{font-size:13px;color:var(--muted)}
+.plane{width:120px;height:120px;border-radius:30px;background:linear-gradient(140deg,#0a66d8,#38b6ff);display:grid;place-items:center;color:#fff;font-size:58px;box-shadow:0 10px 30px rgba(10,102,216,.25)}
+@media (max-width:640px){.hero{grid-template-columns:1fr}.plane{display:none}}
+
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin:26px 0 8px}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px}
+.kpi .l{font-size:13px;color:var(--muted)}
+.kpi .v{font-size:26px;font-weight:800;margin-top:2px;letter-spacing:-.02em}
+
+h2{font-size:22px;margin:36px 0 12px;letter-spacing:-.01em}
+.sub{color:var(--muted);margin:-6px 0 14px;font-size:14px}
+
+.controls{display:flex;flex-wrap:wrap;gap:10px;margin:8px 0 14px;align-items:center}
+.controls select,.controls input{font:inherit;font-size:14px;padding:9px 12px;border:1px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink)}
+.controls input[type=search]{flex:1 1 200px}
+.price{display:flex;align-items:center;gap:8px;font-size:14px;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:6px 12px}
+.price input{width:130px;padding:0;border:0;accent-color:var(--sky)}
+.price b{min-width:62px;text-align:right}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--card)}
+.seg button{font:inherit;font-size:14px;border:0;background:transparent;color:var(--ink);padding:9px 13px;cursor:pointer}
+.seg button.on{background:var(--ink);color:var(--bg)}
+.count{font-size:13px;color:var(--muted);margin-left:auto}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:12px}
+.fl{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;display:flex;flex-direction:column;gap:8px;text-decoration:none;transition:transform .12s,border-color .12s}
+.fl:hover{transform:translateY(-2px);border-color:var(--sky)}
+.fl .row{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.route{font-weight:700;font-size:16px;letter-spacing:-.01em}
+.cities{font-size:13px;color:var(--muted)}
+.when{font-size:13px;color:var(--muted)}
+.lei{font-weight:800;font-size:22px;color:var(--ok)}
+.drop{font-size:12px;font-weight:700;color:var(--ok);background:var(--ok-soft);border-radius:999px;padding:2px 8px}
+.old{font-size:13px;color:var(--muted);text-decoration:line-through}
+.badge{display:inline-block;font-size:12px;font-weight:700;padding:3px 9px;border-radius:999px;white-space:nowrap}
+.b-FR{background:var(--fr-soft);color:var(--fr)}
+.b-W6{background:var(--w6-soft);color:var(--w6)}
+.b-H4{background:var(--h4-soft);color:var(--h4)}
+.go{margin-top:auto;font-size:13px;font-weight:600;color:var(--sky)}
+.state{padding:28px 16px;text-align:center;color:var(--muted);background:var(--card);border:1px dashed var(--line);border-radius:var(--radius)}
+.morebtn{display:block;margin:14px auto 0;font:inherit;font-size:15px;font-weight:600;padding:11px 22px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer}
+.morebtn:hover{border-color:var(--ink)}
+
+.feat{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+.f{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:16px}
+.f h3{margin:0 0 6px;font-size:16px}
+.f p{margin:0;font-size:14px;color:var(--muted)}
+.note{margin-top:30px;font-size:13px;color:var(--muted);background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="/">← draghicioiu.ro</a>
+
+  <section class="hero">
+    <div>
+      <h1>Zboruri RO</h1>
+      <p>Cele mai ieftine bilete <b>Ryanair</b>, <b>Wizz Air</b> și <b>HiSky</b> cu plecare sau sosire pe orice aeroport din România, sub prețul pe care îl alegi. Implicit 500 lei.</p>
+      <div class="cta">
+        <a class="btn primary" href="https://apps.apple.com/ro/app/zboruri-ro/id6819670954" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.37 12.6c-.02-2.2 1.8-3.26 1.88-3.31-1.03-1.5-2.62-1.7-3.18-1.72-1.35-.14-2.64.8-3.33.8-.69 0-1.74-.78-2.86-.76-1.47.02-2.83.86-3.59 2.17-1.53 2.66-.39 6.6 1.1 8.76.73 1.06 1.6 2.24 2.73 2.2 1.1-.04 1.51-.71 2.84-.71 1.32 0 1.7.71 2.86.69 1.18-.02 1.93-1.08 2.65-2.14.83-1.22 1.18-2.41 1.2-2.47-.03-.01-2.3-.88-2.3-3.51zM14.2 6.13c.6-.73 1.01-1.75.9-2.76-.87.04-1.92.58-2.54 1.31-.56.65-1.05 1.68-.92 2.68.97.07 1.96-.49 2.56-1.23z"/></svg>
+          Descarcă din App Store
+        </a>
+        <span class="soon">Android: în curând pe Google Play</span>
+      </div>
+    </div>
+    <div class="plane" aria-hidden="true">✈</div>
+  </section>
+
+  <section class="kpis" id="kpis">
+    <div class="kpi"><div class="l">Bilete urmărite</div><div class="v" id="k-fares">–</div></div>
+    <div class="kpi"><div class="l">Rute directe</div><div class="v" id="k-routes">–</div></div>
+    <div class="kpi"><div class="l">Cel mai ieftin acum</div><div class="v" id="k-min">–</div></div>
+    <div class="kpi"><div class="l">Ultima actualizare</div><div class="v" id="k-upd" style="font-size:20px">–</div></div>
+  </section>
+
+  <h2>Oferte live sub prag</h2>
+  <p class="sub">Cel mai mic preț pe fiecare rută în următoarele luni, pentru 1 adult, fără bagaj de cală. Apasă pe un zbor ca să-l rezervi pe site-ul companiei.</p>
+  <div class="controls">
+    <select id="ap" aria-label="Aeroport din România"><option value="">Toate aeroporturile din România</option></select>
+    <div class="seg" id="dir">
+      <button data-v="any" class="on">Ambele sensuri</button>
+      <button data-v="from_ro">Plecări</button>
+      <button data-v="to_ro">Sosiri</button>
+    </div>
+    <div class="seg" id="air">
+      <button data-v="" class="on">Toate</button>
+      <button data-v="FR">Ryanair</button>
+      <button data-v="W6">Wizz</button>
+      <button data-v="H4">HiSky</button>
+    </div>
+    <label class="price">Max <input id="max" type="range" min="50" max="1000" step="25" value="500"><b id="maxv">500 lei</b></label>
+    <input id="q" type="search" placeholder="Destinație: Roma, Londra, BCN…">
+    <span class="count" id="count"></span>
+  </div>
+  <div class="grid" id="list"></div>
+  <div class="state" id="state">Se încarcă ofertele…</div>
+  <button id="more" class="morebtn" hidden>Arată mai multe</button>
+
+  <h2>Ce face aplicația</h2>
+  <div class="feat">
+    <div class="f"><h3>🔔 Alerte push</h3><p>Primești notificare când apare un bilet nou sub pragul tău sau când prețul unei rute scade cu cel puțin 10%.</p></div>
+    <div class="f"><h3>⏱ Actualizat continuu</h3><p>Prețurile Ryanair și Wizz Air se verifică la fiecare 10 minute, iar cele HiSky la câteva ore.</p></div>
+    <div class="f"><h3>🇷🇴 Toată România</h3><p>Toate rutele directe care pleacă din sau ajung pe un aeroport din România, în ambele sensuri.</p></div>
+    <div class="f"><h3>💶 Totul în lei</h3><p>Prețurile în euro sunt convertite zilnic la cursul BNR, ca să compari ușor.</p></div>
+    <div class="f"><h3>↔ Dus-întors</h3><p>Pentru fiecare zbor vezi cele mai ieftine variante de întoarcere și prețul total.</p></div>
+    <div class="f"><h3>🔒 Fără cont, fără reclame</h3><p>Nu cere date personale și nu afișează reclame. Rezervarea se face direct la companie.</p></div>
+  </div>
+
+  <div class="note">
+    Prețurile sunt tariful minim pe zi pentru 1 adult, fără bagaj de cală, preluate de pe site-urile publice Ryanair, Wizz Air și HiSky. Se pot schimba oricând, așa că prețul final se confirmă pe site-ul companiei. Pentru HiSky sunt incluse doar zborurile directe. Zboruri RO nu este afiliată cu nicio companie aeriană.
+  </div>
+</div>
+
+<script>
+const API = "https://qvyesymawktcrtiofroj.supabase.co/rest/v1/rpc/";
+const KEY = "sb_publishable_50ds6i1jNH-8KNIO8Mq2jw_NwVQIt_k";
+const AIRLINE = {FR:"Ryanair", W6:"Wizz Air", H4:"HiSky"};
+const PAGE = 24;
+const st = {ap:"", dir:"any", air:"", max:500, q:"", shown:PAGE, rows:[]};
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const lei = n => Math.round(Number(n)).toLocaleString("ro-RO") + " lei";
+const dayFmt = new Intl.DateTimeFormat("ro-RO", {weekday:"short", day:"numeric", month:"short"});
+
+async function rpc(fn, body){
+  const r = await fetch(API + fn, {method:"POST", headers:{apikey:KEY, "Content-Type":"application/json"}, body:JSON.stringify(body || {})});
+  if(!r.ok) throw new Error("HTTP " + r.status);
+  return r.json();
+}
+
+async function loadMeta(){
+  try{
+    const [s] = await rpc("zb_status");
+    if(s){
+      $("k-fares").textContent = Number(s.fares).toLocaleString("ro-RO");
+      $("k-routes").textContent = Number(s.routes).toLocaleString("ro-RO");
+      if(s.last_scan){
+        const d = new Date(s.last_scan);
+        $("k-upd").textContent = d.toLocaleString("ro-RO", {day:"numeric", month:"short", hour:"2-digit", minute:"2-digit"});
+      }
+    }
+  }catch(e){}
+  try{
+    const aps = await rpc("zb_airports");
+    aps.sort((a,b) => (a.city||a.name).localeCompare(b.city||b.name, "ro"));
+    $("ap").insertAdjacentHTML("beforeend", aps.map(a => `<option value="${esc(a.iata)}">${esc(a.city || a.name)} (${esc(a.iata)})</option>`).join(""));
+  }catch(e){}
+}
+
+let seq = 0;
+async function load(){
+  const my = ++seq;
+  $("state").hidden = false; $("state").textContent = "Se încarcă ofertele…";
+  try{
+    const rows = await rpc("zb_search_v2", {
+      p_ro_airport: st.ap || null, p_direction: st.dir, p_max_price: st.max,
+      p_airline: st.air || null, p_cheapest_per_route: true, p_limit: 400
+    });
+    if(my !== seq) return;
+    rows.sort((a,b) => a.price_ron - b.price_ron);
+    st.rows = rows; st.shown = PAGE;
+    if(!st.ap && !st.air && rows.length) $("k-min").textContent = lei(rows[0].price_ron);
+    render();
+  }catch(e){
+    if(my !== seq) return;
+    st.rows = []; $("list").innerHTML = ""; $("more").hidden = true; $("count").textContent = "";
+    $("state").textContent = "Ofertele nu s-au putut încărca acum. Reîncearcă peste câteva minute.";
+  }
+}
+
+function render(){
+  const q = st.q.trim().toLowerCase();
+  const rows = q ? st.rows.filter(r => [r.origin, r.dest, r.origin_city, r.dest_city, r.origin_name, r.dest_name, r.dest_country, r.origin_country].some(x => String(x||"").toLowerCase().includes(q))) : st.rows;
+  $("count").textContent = rows.length ? rows.length + (rows.length === 1 ? " rută" : " rute") : "";
+  $("state").hidden = rows.length > 0;
+  if(!rows.length) $("state").textContent = "Nicio rută sub " + st.max + " lei cu filtrele alese. Mărește prețul maxim sau schimbă aeroportul.";
+  $("list").innerHTML = rows.slice(0, st.shown).map(r => {
+    const d = new Date(r.dep_date + "T12:00:00");
+    const drop = r.prev_price_ron && Number(r.prev_price_ron) > Number(r.price_ron) ? Math.round((1 - r.price_ron / r.prev_price_ron) * 100) : 0;
+    return `<a class="fl" href="${esc(r.booking_url)}" target="_blank" rel="noopener nofollow">
+      <div class="row"><span class="route">${esc(r.origin)} → ${esc(r.dest)}</span><span class="badge b-${esc(r.airline)}">${esc(AIRLINE[r.airline] || r.airline)}</span></div>
+      <div class="cities">${esc(r.origin_city || r.origin_name)} → ${esc(r.dest_city || r.dest_name)}</div>
+      <div class="when">${esc(dayFmt.format(d))}${r.dep_time ? " · " + esc(r.dep_time) : ""}${r.arr_time ? "–" + esc(r.arr_time) : ""}</div>
+      <div class="row"><span><span class="lei">${lei(r.price_ron)}</span>${drop >= 5 ? ` <span class="old">${lei(r.prev_price_ron)}</span>` : ""}</span>${drop >= 5 ? `<span class="drop">−${drop}%</span>` : ""}</div>
+      <span class="go">Rezervă pe site-ul companiei →</span>
+    </a>`;
+  }).join("");
+  $("more").hidden = rows.length <= st.shown;
+}
+
+function seg(id, key){
+  $(id).addEventListener("click", e => {
+    const b = e.target.closest("button"); if(!b) return;
+    $(id).querySelectorAll("button").forEach(x => x.classList.toggle("on", x === b));
+    st[key] = b.dataset.v; load();
+  });
+}
+seg("dir", "dir"); seg("air", "air");
+$("ap").addEventListener("change", e => { st.ap = e.target.value; load(); });
+let t;
+$("max").addEventListener("input", e => { st.max = +e.target.value; $("maxv").textContent = st.max + " lei"; clearTimeout(t); t = setTimeout(load, 300); });
+$("q").addEventListener("input", e => { st.q = e.target.value; st.shown = PAGE; render(); });
+$("more").addEventListener("click", () => { st.shown += PAGE; render(); });
+
+loadMeta(); load();
+</script>
+</body>
+</html>
