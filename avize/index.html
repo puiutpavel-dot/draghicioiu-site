@@ -1,0 +1,522 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cereri avize din Certificatul de Urbanism – completare online | draghicioiu.ro</title>
+<meta name="description" content="Completezi o singură dată datele din Certificatul de Urbanism, bifezi avizele cerute și descarci cererile gata completate pentru toți avizatorii: ISU, DSP, mediu, Apele Române, rețele electrice și gaze, drumuri, poliție, MAI, MApN, SRI și alții, în toate județele. Gratuit, fără cont.">
+<link rel="canonical" href="https://draghicioiu.ro/avize/">
+<meta property="og:title" content="Cereri avize din Certificatul de Urbanism – toți avizatorii din România">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://draghicioiu.ro/avize/">
+<meta property="og:description" content="Completezi o dată, bifezi avizele din CU, descarci toate cererile completate. Gratuit, fără cont.">
+<meta name="theme-color" content="#000000">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f6f5f2; --card:#ffffff; --ink:#1b1b1f; --muted:#6b6b74; --line:#e6e3dd;
+  --acc:#0071e3; --acc-soft:#e8f1fc; --ok:#1d8a4e; --ok-soft:#e5f4ec; --warn:#a15c00; --warn-soft:#fdf2e1; --radius:14px;
+}
+@media (prefers-color-scheme: dark){
+  :root{--bg:#121214;--card:#1c1c20;--ink:#f1f1f3;--muted:#a0a0aa;--line:#2c2c33;
+    --acc:#4a9dff;--acc-soft:#16263a;--ok:#46c07f;--ok-soft:#15291e;--warn:#f0a94a;--warn-soft:#33240f;}
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.45}
+a{color:inherit}
+.wrap{max-width:900px;margin:0 auto;padding:28px 16px 40px}
+.back{display:inline-block;margin-bottom:14px;font-size:14px;color:var(--muted);text-decoration:none}
+.back:hover{color:var(--ink)}
+header h1{font-size:clamp(26px,4vw,40px);margin:0 0 6px;letter-spacing:-.02em;font-weight:800}
+header p{margin:0;color:var(--muted);max-width:740px}
+.stamps{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.stamp{display:inline-block;font-size:13px;color:var(--muted);background:var(--card);border:1px solid var(--line);border-radius:999px;padding:4px 12px}
+
+form{margin-top:24px}
+fieldset{margin:0 0 16px;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px;min-width:0}
+legend{float:left;width:100%;padding:0;margin:0 0 4px;font-size:18px;font-weight:700;letter-spacing:-.01em;display:flex;align-items:center;gap:10px}
+legend .n{width:24px;height:24px;border-radius:7px;background:var(--acc);color:#fff;font-size:13px;display:inline-flex;align-items:center;justify-content:center;flex:none}
+legend + *{clear:both}
+.sub{color:var(--muted);margin:0 0 14px;font-size:14px}
+.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:12px}
+.f{display:flex;flex-direction:column;gap:5px;grid-column:span 12;min-width:0}
+.c6{grid-column:span 6}.c4{grid-column:span 4}.c3{grid-column:span 3}.c8{grid-column:span 8}.c9{grid-column:span 9}
+@media (max-width:640px){.c6,.c4,.c8,.c9{grid-column:span 12}.c3{grid-column:span 6}}
+label.l{font-size:13px;font-weight:600;color:var(--muted)}
+label.l b{color:#d6281f;font-weight:700}
+.f small{font-size:12px;color:var(--muted)}
+input,select,textarea{font:inherit;font-size:15px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink);width:100%;min-width:0}
+textarea{resize:vertical;min-height:72px}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--acc);outline-offset:1px}
+[aria-invalid="true"]{border-color:#d6281f!important}
+
+.seg{display:flex;flex-wrap:wrap;gap:8px}
+.seg label{position:relative;cursor:pointer}
+.seg input{position:absolute;opacity:0;pointer-events:none}
+.seg span{display:inline-flex;flex-direction:column;padding:9px 14px;border:1px solid var(--line);border-radius:10px;background:var(--bg);font-weight:700;font-size:15px}
+.seg span em{font-style:normal;font-weight:500;font-size:12px;color:var(--muted);margin-top:1px}
+.seg input:checked + span{border-color:var(--acc);background:var(--acc-soft);box-shadow:inset 0 0 0 1px var(--acc)}
+.seg input:focus-visible + span{outline:2px solid var(--acc);outline-offset:2px}
+.check{display:flex;align-items:center;gap:8px;font-size:14px;color:var(--muted);cursor:pointer;grid-column:span 12}
+.check input{width:16px;height:16px;padding:0;accent-color:var(--acc);flex:none}
+
+/* avize */
+.grp{margin-top:18px}
+.grp h3{font-size:13px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin:0 0 8px;font-weight:700}
+.av{border:1px solid var(--line);border-radius:12px;background:var(--bg);margin-bottom:8px;overflow:hidden}
+.av > label{display:flex;align-items:center;gap:10px;padding:11px 14px;cursor:pointer;font-weight:600;font-size:15px}
+.av > label input{width:18px;height:18px;padding:0;accent-color:var(--acc);flex:none}
+.av > label .who{margin-left:auto;font-weight:500;font-size:12px;color:var(--muted);text-align:right;max-width:45%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.av.on{border-color:var(--acc);background:var(--card)}
+@media (max-width:640px){.av > label .who{display:none}}
+.av .body{padding:0 14px 14px;display:none}
+.av.on .body{display:block}
+.av .info{font-size:13px;color:var(--muted);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin:2px 0 12px}
+.av .info b{color:var(--ink);font-weight:600}
+.av .info a{color:var(--acc);word-break:break-all}
+.badge{display:inline-block;font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px;margin-left:6px;vertical-align:1px}
+.badge.ok{background:var(--ok-soft);color:var(--ok)}
+.badge.w{background:var(--warn-soft);color:var(--warn)}
+.av .row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;align-items:center}
+.mini{font:inherit;font-size:14px;font-weight:600;padding:8px 14px;border-radius:9px;border:1px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer}
+.mini:hover{border-color:var(--ink)}
+.tools{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 4px}
+.tools .mini{font-size:13px;padding:6px 12px;font-weight:500}
+
+.bar{position:sticky;bottom:0;margin:20px -16px 0;padding:14px 16px calc(14px + env(safe-area-inset-bottom,0px));background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-top:1px solid var(--line);display:flex;gap:10px;flex-wrap:wrap;align-items:center;z-index:5}
+.btn{font:inherit;font-size:16px;font-weight:600;padding:12px 20px;border-radius:10px;border:0;background:var(--acc);color:#fff;cursor:pointer}
+.btn:hover{filter:brightness(1.08)}
+.btn:disabled{opacity:.6;cursor:progress}
+.btn.ghost{background:var(--card);color:var(--ink);border:1px solid var(--line);font-size:14px;padding:10px 14px}
+.btn.ghost:hover{border-color:var(--ink);filter:none}
+.count{font-size:14px;font-weight:600}
+.msg{font-size:14px;flex:1 1 200px}
+.msg.err{color:#d6281f}.msg.ok{color:var(--ok)}
+
+.note{margin-top:28px;font-size:13px;color:var(--muted);background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px}
+.note p{margin:0 0 8px}.note p:last-child{margin:0}
+.note b{color:var(--ink);font-weight:600}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="back" href="/">← draghicioiu.ro</a>
+    <h1>Cereri avize din Certificatul de Urbanism</h1>
+    <p>Completezi o singură dată datele din Certificatul de Urbanism, bifezi avizele cerute și descarci cererile gata completate, câte una pentru fiecare avizator. Avizatorii se aleg automat după județul amplasamentului.</p>
+    <div class="stamps">
+      <span class="stamp">42 de județe, peste 350 de avizatori</span>
+      <span class="stamp">Gratuit, fără cont</span>
+      <span class="stamp">Datele rămân în browserul tău</span>
+    </div>
+  </header>
+
+  <form id="f" novalidate autocomplete="on">
+    <fieldset>
+      <legend><span class="n">1</span>Solicitant</legend>
+      <p class="sub">Poate fi persoană fizică sau juridică și poate fi diferit de beneficiarul investiției.</p>
+      <div class="grid">
+        <div class="f"><div class="seg">
+          <label><input type="radio" name="tip_entitate" value="pfiz" checked><span>Persoană fizică</span></label>
+          <label><input type="radio" name="tip_entitate" value="pjur"><span>Persoană juridică</span></label>
+        </div></div>
+        <div class="f c8"><label class="l" for="nume" id="lnume">Nume și prenume <b>*</b></label><input id="nume" name="nume" required autocomplete="name"></div>
+        <div class="f c4"><label class="l" for="cnp" id="lcnp">CNP</label><input id="cnp" name="cnp" inputmode="numeric" autocomplete="off"><small>Opțional. Nu se salvează în ciornă.</small></div>
+        <div class="f" id="wrep" hidden><label class="l" for="reprezentant">Reprezentant (nume, prenume, calitate)</label><input id="reprezentant" name="reprezentant" placeholder="ex. primar Ion Popescu / administrator Ana Ionescu"></div>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend><span class="n">2</span>Adresă de corespondență și contact</legend>
+      <p class="sub">Aici primești răspunsurile avizatorilor.</p>
+      <div class="grid">
+        <div class="f c6"><label class="l" for="c_loc">Localitate <b>*</b></label><input id="c_loc" name="c_loc" required placeholder="municipiu/oraș/comună și sat" autocomplete="address-level2"></div>
+        <div class="f c6"><label class="l" for="c_judet">Județ / Sector <b>*</b></label><input id="c_judet" name="c_judet" required list="judete" autocomplete="address-level1"></div>
+        <div class="f c9"><label class="l" for="c_str">Stradă</label><input id="c_str" name="c_str" autocomplete="address-line1"></div>
+        <div class="f c3"><label class="l" for="c_nr">Nr.</label><input id="c_nr" name="c_nr"></div>
+        <div class="f c3"><label class="l" for="c_bl">Bl.</label><input id="c_bl" name="c_bl"></div>
+        <div class="f c3"><label class="l" for="c_sc">Sc.</label><input id="c_sc" name="c_sc"></div>
+        <div class="f c3"><label class="l" for="c_et">Et.</label><input id="c_et" name="c_et"></div>
+        <div class="f c3"><label class="l" for="c_ap">Ap.</label><input id="c_ap" name="c_ap"></div>
+        <div class="f"><label class="l" for="c_rest">Rest adresă</label><input id="c_rest" name="c_rest" placeholder="cod poștal, alte detalii"></div>
+        <div class="f c6"><label class="l" for="tel">Telefon <b>*</b></label><input id="tel" name="tel" type="tel" required autocomplete="tel"></div>
+        <div class="f c6"><label class="l" for="email">E-mail</label><input id="email" name="email" type="email" autocomplete="email"></div>
+        <div class="f"><label class="l">Cum vrei să primești avizele</label><div class="seg">
+          <label><input type="radio" name="primire" value="email" checked><span>Prin e-mail</span></label>
+          <label><input type="radio" name="primire" value="posta"><span>Prin poștă</span></label>
+          <label><input type="radio" name="primire" value="ridicare"><span>Ridic personal</span></label>
+        </div></div>
+        <div class="f" hidden><label class="l" for="destinatar">Destinatar</label><input id="destinatar" name="destinatar"></div>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend><span class="n">3</span>Certificatul de Urbanism și lucrarea</legend>
+      <p class="sub">Copiază datele exact cum apar pe certificat.</p>
+      <div class="grid">
+        <div class="f c4"><label class="l" for="cu_nr">Nr. certificat <b>*</b></label><input id="cu_nr" name="cu_nr" required></div>
+        <div class="f c4"><label class="l" for="cu_data">Din data <b>*</b></label><input id="cu_data" name="cu_data" type="date" required></div>
+        <div class="f c4"><label class="l" for="cu_valab">Valabil până la</label><input id="cu_valab" name="cu_valab" type="date"></div>
+        <div class="f c8"><label class="l" for="cu_emis">Emis de <b>*</b></label><input id="cu_emis" name="cu_emis" required placeholder="ex. Primăria Comunei Morunglav"></div>
+        <div class="f c4"><label class="l" for="cu_prel">Prelungit până la</label><input id="cu_prel" name="cu_prel" type="date"></div>
+        <div class="f c4"><label class="l" for="tip_dc">Documentație</label>
+          <select id="tip_dc" name="tip_dc">
+            <option value="dtac">D.T.A.C. – autorizație de construire</option><option value="dtad">D.T.A.D. – autorizație de desființare</option>
+            <option value="pud">P.U.D.</option><option value="puz">P.U.Z.</option><option value="pug">P.U.G.</option>
+            <option value="patz">P.A.T.Z.</option><option value="patj">P.A.T.J.</option><option value="patn">P.A.T.N.</option>
+          </select></div>
+        <div class="f c8"><label class="l" for="proiectant">Proiectant</label><input id="proiectant" name="proiectant" placeholder="opțional"></div>
+        <div class="f"><label class="l" for="continut">Denumirea lucrării <b>*</b></label><textarea id="continut" name="continut" required placeholder="Titlul documentației / scopul, conform Certificatului de Urbanism"></textarea></div>
+        <div class="f"><label class="l" for="beneficiari">Beneficiar(i) <b>*</b></label><input id="beneficiari" name="beneficiari" required></div>
+        <label class="check"><input type="checkbox" id="benesol"> Beneficiarul este chiar solicitantul</label>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend><span class="n">4</span>Amplasamentul lucrării</legend>
+      <p class="sub">Județul alege automat avizatorii competenți.</p>
+      <div class="grid">
+        <div class="f c6"><label class="l" for="a_judet">Județ <b>*</b></label>
+          <select id="a_judet" name="a_judet" required><option value="">Alege județul…</option></select></div>
+        <div class="f c6"><label class="l" for="a_loc">Localitate <b>*</b></label><input id="a_loc" name="a_loc" required placeholder="municipiu/oraș/comună și sat"></div>
+        <div class="f c9"><label class="l" for="a_str">Stradă</label><input id="a_str" name="a_str"></div>
+        <div class="f c3"><label class="l" for="a_nr">Nr.</label><input id="a_nr" name="a_nr"></div>
+        <div class="f"><label class="l" for="a_rest">Rest adresă</label><input id="a_rest" name="a_rest" placeholder="tarla/parcelă, km drum, intravilan/extravilan"></div>
+        <div class="f c6"><label class="l" for="a_cad">Nr. cadastral</label><input id="a_cad" name="a_cad"></div>
+        <div class="f c6"><label class="l" for="a_cf">Carte funciară nr.</label><input id="a_cf" name="a_cf"></div>
+        <label class="check"><input type="checkbox" id="adrsame"> Amplasamentul e la adresa de corespondență</label>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend><span class="n">5</span>Avizele cerute prin CU</legend>
+      <p class="sub">Bifează avizele de pe certificat. La fiecare vezi cui se adresează cererea și cum se depune. Poți corecta datele avizatorului înainte de descărcare.</p>
+      <div class="tools">
+        <button type="button" class="mini" id="pick-base">Bifează uzualele (ISU, DSP, mediu, energie, gaze, apă)</button>
+        <button type="button" class="mini" id="pick-none">Debifează tot</button>
+      </div>
+      <div id="avize"></div>
+    </fieldset>
+
+    <fieldset>
+      <legend><span class="n">6</span>Documente anexate</legend>
+      <p class="sub">Apar bifate în fiecare cerere. Avizele cu cerințe speciale adaugă singure documentele lor.</p>
+      <div class="grid" id="docs"></div>
+    </fieldset>
+
+    <div class="bar">
+      <span class="count" id="count">0 cereri</span>
+      <button class="btn" type="submit" id="go" data-mode="zip">Descarcă toate (ZIP)</button>
+      <button class="btn ghost" type="button" id="go1">Un singur PDF</button>
+      <div class="msg" id="msg" role="status" aria-live="polite"></div>
+      <button class="btn ghost" type="button" id="reset">Golește</button>
+    </div>
+  </form>
+
+  <div class="note">
+    <p><b>Cum funcționează.</b> Pentru avizul MAI se completează formularul oficial (Anexa 2). Pentru ceilalți avizatori se generează o cerere tip adresată lor, cu toate datele din CU. Unii avizatori cer depunerea pe portalul lor sau pe formularul propriu; la fiecare aviz vezi cum se depune.</p>
+    <p><b>Datele avizatorilor</b> sunt preluate de pe site-urile oficiale ale instituțiilor (octombrie 2026). Cele marcate „de confirmat” n-au putut fi verificate pe sursa oficială; sună sau verifică site-ul înainte de depunere. Rețelele de energie și gaze sunt alese după operatorul concesionar din județ; în unele zone rețeaua poate fi a altui operator.</p>
+    <p><b>Confidențialitate.</b> PDF-urile se generează direct în browserul tău. Datele nu sunt trimise nicăieri; ciorna (fără CNP) rămâne doar pe acest dispozitiv, până apeși „Golește”. Instrument informativ, fără legătură cu instituțiile menționate.</p>
+  </div>
+</div>
+
+<datalist id="judete"></datalist>
+
+<script src="pdf-lib.min.js" defer></script>
+<script src="fontkit.umd.min.js" defer></script>
+<script src="jszip.min.js" defer></script>
+<script src="aviz-mai.js" defer></script>
+<script src="cereri.js" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', async function () {
+  'use strict';
+  var KEY = 'avize-ciorna-v1';
+  var $ = function (id) { return document.getElementById(id); };
+  var f = $('f'), msg = $('msg'), AV = Cereri.AVIZE;
+  var CAT = await fetch('catalog.json').then(function (r) { return r.json(); });
+  var JUD = CAT.judete;
+  var USUAL = ['isu_psi', 'dsp', 'mediu', 'energie', 'gaze', 'apa'];
+
+  // județe
+  var codes = Object.keys(JUD).sort(function (a, b) { return JUD[a].localeCompare(JUD[b], 'ro'); });
+  codes.forEach(function (c) {
+    var o = document.createElement('option'); o.value = c; o.textContent = JUD[c]; $('a_judet').appendChild(o);
+  });
+  ['Sector 1', 'Sector 2', 'Sector 3', 'Sector 4', 'Sector 5', 'Sector 6'].concat(codes.filter(function (c) { return c !== 'B'; }).map(function (c) { return JUD[c]; }))
+    .forEach(function (n) { var o = document.createElement('option'); o.value = n; $('judete').appendChild(o); });
+
+  // documente comune
+  Object.keys(Cereri.DOCS).forEach(function (k) {
+    var l = document.createElement('label'); l.className = 'check';
+    l.innerHTML = '<input type="checkbox" name="doc_' + k + '"' + (Cereri.BASE.indexOf(k) >= 0 ? ' checked' : '') + '> <span></span>';
+    l.querySelector('span').textContent = Cereri.DOCS[k];
+    $('docs').appendChild(l);
+  });
+
+  function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+  function link(u) { return /^https?:\/\//.test(u) ? '<a href="' + esc(u) + '" target="_blank" rel="noopener">' + esc(u.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '')) + '</a>' : esc(u); }
+  function linkify(s) { return esc(s).replace(/https?:\/\/[^\s;,)]+/g, function (u) { return '<a href="' + u + '" target="_blank" rel="noopener">' + u.replace(/^https?:\/\/(www\.)?/, '') + '</a>'; }); }
+
+  // opțiunile de avizator pentru un aviz, după județ
+  function options(a, j) {
+    var s = a.src, kind = s.slice(0, 1), arg = s.slice(2);
+    if (kind === 'f') return [arg];
+    if (kind === 'o') return arg.split(',');
+    if (kind === 'j') {
+      var k = j && CAT.harta[arg] && CAT.harta[arg][j];
+      var out = k ? [k] : [];
+      if (a.id === 'drum_national') out.push('cnair');
+      if (a.id === 'apele' && j && CAT.harta.aba[j]) out.push(CAT.harta.aba[j]);
+      return out;
+    }
+    if (kind === 'l') return (j && CAT.harta[arg] && CAT.harta[arg][j]) || [];
+    return [];
+  }
+
+  // stare per aviz: {on, pick, ov:{nume,adresa,telefon,email}, det, aviz}
+  var S = {};
+  AV.forEach(function (a) { S[a.id] = { on: false, pick: '', manual: false, ov: {}, det: '', aviz: a.aviz }; });
+
+  function render() {
+    var j = $('a_judet').value, host = $('avize'), g = null, box;
+    host.innerHTML = '';
+    AV.forEach(function (a) {
+      if (a.g !== g) {
+        g = a.g; box = document.createElement('div'); box.className = 'grp';
+        box.innerHTML = '<h3>' + esc(g) + '</h3>'; host.appendChild(box);
+      }
+      var st = S[a.id], opts = options(a, j);
+      if (st.manual) st.pick = '_m';
+      else if (opts.indexOf(st.pick) < 0) st.pick = opts[0] || '_m';
+      var cat = st.pick !== '_m' ? (CAT.avizatori[st.pick] || {}) : {};
+      var el = document.createElement('div'); el.className = 'av' + (st.on ? ' on' : ''); el.dataset.id = a.id;
+      var who = st.ov.nume || cat.nume || (a.src === 'm' ? 'completezi tu avizatorul' : (j ? 'de completat' : 'alege județul'));
+      var h = '<label><input type="checkbox" data-k="on"' + (st.on ? ' checked' : '') + '> <span>' + esc(a.t) + '</span><span class="who">' + esc(who) + '</span></label><div class="body">';
+      if (a.custom) {
+        h += '<div class="f" style="margin-bottom:10px"><label class="l">Denumirea avizului (cum apare în CU) <b>*</b></label><input data-k="aviz" value="' + esc(st.aviz) + '" placeholder="ex. avizul Ocolului Silvic"></div>';
+      }
+      if (opts.length > 1 || (a.src.charAt(0) === 'l')) {
+        h += '<div class="f" style="margin-bottom:10px"><label class="l">Avizator</label><select data-k="pick">';
+        opts.forEach(function (k) { h += '<option value="' + esc(k) + '"' + (st.pick === k ? ' selected' : '') + '>' + esc((CAT.avizatori[k] || {}).nume || k) + '</option>'; });
+        h += '<option value="_m"' + (st.pick === '_m' ? ' selected' : '') + '>Alt avizator (completez eu)</option></select></div>';
+      }
+      if (st.pick !== '_m' && cat.nume) {
+        h += '<div class="info"><b>' + esc(cat.nume) + '</b>' + (cat.verificat ? '<span class="badge ok">verificat pe site-ul oficial</span>' : '<span class="badge w">de confirmat</span>');
+        if (cat.depunere) h += '<br>Depunere: ' + linkify(cat.depunere);
+        if (cat.site) h += '<br>Site: ' + link(cat.site);
+        if (cat.sursa && cat.sursa !== cat.site) h += '<br>Sursa datelor: ' + link(cat.sursa);
+        h += '</div>';
+      } else if (a.src === 'm' || st.pick === '_m') {
+        h += '<div class="info">Completează avizatorul' + (a.hint ? ' (' + esc(a.hint) + ')' : '') + '. Îl găsești de obicei menționat în CU sau la primărie.</div>';
+      } else if (!j) {
+        h += '<div class="info">Alege județul amplasamentului la pasul 4.</div>';
+      }
+      var v = function (k) { return st.ov[k] != null ? st.ov[k] : (cat[k] || ''); };
+      h += '<div class="grid">' +
+        '<div class="f"><label class="l">Către (avizator)' + (st.pick === '_m' ? ' <b>*</b>' : '') + '</label><input data-k="nume" value="' + esc(v('nume')) + '"></div>' +
+        '<div class="f"><label class="l">Adresa avizatorului</label><input data-k="adresa" value="' + esc(v('adresa')) + '"></div>' +
+        '<div class="f c6"><label class="l">Telefon</label><input data-k="telefon" value="' + esc(v('telefon')) + '"></div>' +
+        '<div class="f c6"><label class="l">E-mail</label><input data-k="email" value="' + esc(v('email')) + '"></div>' +
+        '<div class="f"><label class="l">Precizări în cerere (opțional)</label><input data-k="det" value="' + esc(st.det) + '" placeholder="ex. traversare DJ 644 km 28+300"></div>' +
+        '</div>';
+      if (a.extra) h += '<div class="info" style="margin-top:10px">Se anexează în plus: ' + a.extra.map(esc).join('; ') + '.</div>';
+      h += '<div class="row"><button type="button" class="mini" data-k="one">Descarcă doar această cerere</button>' + (a.oficial ? '<span class="badge ok">formular oficial</span>' : '') + '</div></div>';
+      el.innerHTML = h; box.appendChild(el);
+    });
+    count();
+  }
+
+  $('avize').addEventListener('input', function (e) {
+    var el = e.target.closest('.av'); if (!el) return;
+    var st = S[el.dataset.id], k = e.target.dataset.k;
+    if (['nume', 'adresa', 'telefon', 'email'].indexOf(k) >= 0) { st.ov[k] = e.target.value; e.target.removeAttribute('aria-invalid'); }
+    if (k === 'det') st.det = e.target.value;
+    if (k === 'aviz') { st.aviz = e.target.value; e.target.removeAttribute('aria-invalid'); }
+    save();
+  });
+  $('avize').addEventListener('change', function (e) {
+    var el = e.target.closest('.av'); if (!el) return;
+    var st = S[el.dataset.id], k = e.target.dataset.k;
+    if (k === 'on') { st.on = e.target.checked; el.classList.toggle('on', st.on); count(); }
+    if (k === 'pick') { st.pick = e.target.value; st.manual = st.pick === '_m'; st.ov = {}; render(); }
+    save();
+  });
+  $('avize').addEventListener('click', function (e) {
+    if (e.target.dataset.k !== 'one') return;
+    var id = e.target.closest('.av').dataset.id;
+    generate([id], 'one');
+  });
+  $('pick-base').addEventListener('click', function () { USUAL.forEach(function (id) { S[id].on = true; }); render(); save(); });
+  $('pick-none').addEventListener('click', function () { AV.forEach(function (a) { S[a.id].on = false; }); render(); save(); });
+
+  function count() {
+    var n = AV.filter(function (a) { return S[a.id].on; }).length;
+    $('count').textContent = n + (n === 1 ? ' cerere' : ' cereri');
+  }
+
+  /* ciornă */
+  function collect() {
+    var d = {};
+    new FormData(f).forEach(function (v, k) { d[k] = String(v); });
+    f.querySelectorAll('#docs input').forEach(function (i) { d[i.name] = i.checked; });
+    d._benesol = $('benesol').checked; d._adrsame = $('adrsame').checked;
+    return d;
+  }
+  function save() {
+    try {
+      var d = collect(); delete d.cnp;
+      localStorage.setItem(KEY, JSON.stringify({ d: d, s: S }));
+    } catch (e) {}
+  }
+  function restore() {
+    var x; try { x = JSON.parse(localStorage.getItem(KEY) || 'null'); } catch (e) {}
+    if (!x) return;
+    var d = x.d || {};
+    Object.keys(d).forEach(function (k) {
+      if (k[0] === '_') return;
+      var els = f.elements[k]; if (!els) return;
+      if (els instanceof RadioNodeList) els.forEach(function (r) { r.checked = r.value === d[k]; });
+      else if (els.type === 'checkbox') els.checked = !!d[k];
+      else els.value = d[k];
+    });
+    $('benesol').checked = !!d._benesol; $('adrsame').checked = !!d._adrsame;
+    if (x.s) Object.keys(x.s).forEach(function (id) { if (S[id]) Object.assign(S[id], x.s[id]); });
+  }
+
+  function sync() {
+    var pj = f.elements.tip_entitate.value === 'pjur';
+    $('wrep').hidden = !pj;
+    $('lnume').firstChild.nodeValue = pj ? 'Denumire firmă / instituție ' : 'Nume și prenume ';
+    $('lcnp').textContent = pj ? 'CUI' : 'CNP';
+    if ($('benesol').checked) $('beneficiari').value = $('nume').value;
+    $('beneficiari').readOnly = $('benesol').checked;
+    if ($('adrsame').checked) {
+      $('a_loc').value = $('c_loc').value; $('a_str').value = $('c_str').value; $('a_nr').value = $('c_nr').value;
+      var p = [['bl.', 'c_bl'], ['sc.', 'c_sc'], ['et.', 'c_et'], ['ap.', 'c_ap']]
+        .filter(function (x) { return $(x[1]).value.trim(); }).map(function (x) { return x[0] + ' ' + $(x[1]).value.trim(); });
+      $('a_rest').value = p.join(', ');
+    }
+    ['a_loc', 'a_str', 'a_nr', 'a_rest'].forEach(function (k) { $(k).readOnly = $('adrsame').checked; });
+  }
+
+  restore(); sync(); render();
+  f.addEventListener('input', function (e) {
+    if (e.target.closest('#avize')) return;
+    e.target.removeAttribute('aria-invalid'); sync(); save();
+  });
+  f.addEventListener('change', function (e) {
+    if (e.target.closest('#avize')) return;
+    if (e.target.id === 'a_judet') render();
+    sync(); save();
+  });
+
+  $('reset').addEventListener('click', function () {
+    if (!confirm('Ștergi toate datele introduse?')) return;
+    try { localStorage.removeItem(KEY); } catch (e) {}
+    location.reload();
+  });
+
+  /* generare */
+  function ro(date) { var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(date || ''); return m ? m[3] + '.' + m[2] + '.' + m[1] : (date || ''); }
+  function slug(s) { return String(s || '').normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^A-Za-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 50); }
+  var cache = null;
+  function assets() {
+    if (!cache) cache = Promise.all(['carlito.ttf', 'carlito-bold.ttf', 'cerere-aviz-mai.pdf'].map(function (u) {
+      return fetch(u).then(function (r) { if (!r.ok) throw new Error(u); return r.arrayBuffer(); });
+    })).catch(function (e) { cache = null; throw e; });
+    return cache;
+  }
+
+  function validate(ids) {
+    f.querySelectorAll('[aria-invalid]').forEach(function (el) { el.removeAttribute('aria-invalid'); });
+    var bad = Array.prototype.filter.call(f.querySelectorAll('fieldset [required]'), function (el) { return !el.value.trim(); });
+    ids.forEach(function (id) {
+      var el = document.querySelector('.av[data-id="' + id + '"]'), st = S[id], a = AV.filter(function (x) { return x.id === id; })[0];
+      var n = el.querySelector('[data-k="nume"]');
+      if (!n.value.trim()) bad.push(n);
+      var av = el.querySelector('[data-k="aviz"]');
+      if (a.custom && !av.value.trim()) bad.push(av);
+    });
+    bad.forEach(function (el) { el.setAttribute('aria-invalid', 'true'); });
+    if (bad.length) {
+      var av = bad[0].closest('.av'); if (av && !av.classList.contains('on')) av.classList.add('on');
+      bad[0].focus();
+      msg.className = 'msg err';
+      msg.textContent = 'Mai ai de completat ' + bad.length + (bad.length === 1 ? ' câmp obligatoriu.' : ' câmpuri obligatorii.');
+    }
+    return !bad.length;
+  }
+
+  function common() {
+    var d = collect();
+    d.a_judet_cod = d.a_judet; d.a_judet = JUD[d.a_judet] || d.a_judet;
+    if (d.a_judet_cod === 'B') d.a_judet = 'Municipiul București';
+    d.destinatar = d.nume;
+    if (d.tip_entitate !== 'pjur') d.reprezentant = '';
+    ['cu_data', 'cu_valab', 'cu_prel'].forEach(function (k) { d[k] = ro(d[k]); });
+    var t = new Date(); d.data = ('0' + t.getDate()).slice(-2) + '.' + ('0' + (t.getMonth() + 1)).slice(-2) + '.' + t.getFullYear();
+    d.docs = Object.keys(Cereri.DOCS).filter(function (k) { return d['doc_' + k]; }).map(function (k) { return Cereri.DOCS[k]; });
+    return d;
+  }
+
+  async function one(a, d, fx, flatten) {
+    var st = S[a.id], el = document.querySelector('.av[data-id="' + a.id + '"]');
+    var g = function (k) { return el.querySelector('[data-k="' + k + '"]').value.trim(); };
+    var avizator = { nume: g('nume'), adresa: g('adresa'), telefon: g('telefon'), email: g('email') };
+    var bytes;
+    if (a.oficial === 'mai') {
+      var dm = Object.assign({}, d, { a_judet: d.a_judet });
+      bytes = await AvizMAI.buildPdf(PDFLib, fontkit, fx[2], fx[0], dm, { flatten: flatten });
+    } else {
+      bytes = await Cereri.buildCerere(PDFLib, fontkit, { reg: fx[0], bold: fx[1] }, d, {
+        aviz: a.custom ? st.aviz : a.aviz, titlu: a.t, avizator: avizator, detalii: st.det,
+        docs: d.docs.concat(a.extra || [])
+      });
+    }
+    return { name: 'Cerere-' + slug(a.custom ? avizator.nume : a.t.split(' – ')[0]) + '.pdf', bytes: bytes };
+  }
+
+  function download(blob, name) {
+    var url = URL.createObjectURL(blob), l = document.createElement('a');
+    l.href = url; l.download = name; document.body.appendChild(l); l.click(); l.remove();
+    setTimeout(function () { URL.revokeObjectURL(url); }, 30000);
+  }
+
+  async function generate(ids, mode) {
+    if (!ids.length) { msg.className = 'msg err'; msg.textContent = 'Bifează cel puțin un aviz la pasul 5.'; $('avize').scrollIntoView({ behavior: 'smooth' }); return; }
+    if (!validate(ids)) return;
+    var btns = [$('go'), $('go1')]; btns.forEach(function (b) { b.disabled = true; });
+    msg.className = 'msg'; msg.textContent = 'Se generează ' + (ids.length === 1 ? 'cererea' : ids.length + ' cereri') + '…';
+    try {
+      var fx = await assets(), d = common(), files = [];
+      for (var i = 0; i < ids.length; i++) {
+        var a = AV.filter(function (x) { return x.id === ids[i]; })[0];
+        files.push(await one(a, d, fx, mode === 'pdf'));
+      }
+      var who = slug(d.nume) || 'solicitant';
+      if (mode === 'one') download(new Blob([files[0].bytes], { type: 'application/pdf' }), files[0].name);
+      else if (mode === 'pdf') download(new Blob([await Cereri.merge(PDFLib, files.map(function (x) { return x.bytes; }))], { type: 'application/pdf' }), 'Cereri-avize-' + who + '.pdf');
+      else {
+        var zip = new JSZip(), used = {};
+        files.forEach(function (x, i) { var n = String(i + 1).padStart(2, '0') + '-' + x.name; zip.file(n, x.bytes); });
+        download(await zip.generateAsync({ type: 'blob' }), 'Cereri-avize-' + who + '.zip');
+      }
+      msg.className = 'msg ok'; msg.textContent = 'Gata. Verifică cererile, semnează-le și depune-le la fiecare avizator.';
+    } catch (err) {
+      console.error(err);
+      msg.className = 'msg err'; msg.textContent = 'Nu am putut genera cererile. Reîncarcă pagina și încearcă din nou.';
+    } finally { btns.forEach(function (b) { b.disabled = false; }); }
+  }
+  function selected() { return AV.filter(function (a) { return S[a.id].on; }).map(function (a) { return a.id; }); }
+  f.addEventListener('submit', function (e) { e.preventDefault(); generate(selected(), 'zip'); });
+  $('go1').addEventListener('click', function () { generate(selected(), 'pdf'); });
+
+  // link direct: /avize/?aviz=mai
+  var q = new URLSearchParams(location.search).get('aviz');
+  if (q && S[q] && !S[q].on) { S[q].on = true; render(); }
+});
+</script>
+</body>
+</html>
