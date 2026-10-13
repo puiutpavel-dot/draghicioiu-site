@@ -58,9 +58,26 @@ h2{font-size:22px;margin:36px 0 12px;letter-spacing:-.01em}
 .seg button.on{background:var(--ink);color:var(--bg)}
 .count{font-size:13px;color:var(--muted);margin-left:auto}
 
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:12px}
-.fl{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;display:flex;flex-direction:column;gap:8px;text-decoration:none;transition:transform .12s,border-color .12s}
-.fl:hover{transform:translateY(-2px);border-color:var(--sky)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px;align-items:start}
+.fl{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;display:flex;flex-direction:column;gap:8px;transition:border-color .12s}
+.fl:hover{border-color:var(--sky)}
+.out{display:flex;flex-direction:column;gap:8px;text-decoration:none}
+.ret{border-top:1px solid var(--line);padding-top:10px;margin-top:2px}
+.ret-h{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);margin-bottom:6px}
+.days{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+.day{display:flex;flex-direction:column;align-items:center;gap:1px;padding:6px 2px;border:1px solid var(--line);border-radius:9px;text-decoration:none;font-size:11px;color:var(--muted);text-align:center;min-width:0}
+a.day:hover{border-color:var(--sky);background:var(--sky-soft)}
+.day .dn{font-weight:600;line-height:1.2}
+.day .dp{font-size:12.5px;font-weight:800;color:var(--ink);white-space:nowrap}
+.day .da{font-size:10px;font-weight:700}
+.day.best{border-color:var(--ok);background:var(--ok-soft)}
+.day.best .dp{color:var(--ok)}
+.day.none{opacity:.55}
+.day .dp.sk{display:block;width:30px;height:12px;border-radius:4px;background:var(--line)}
+.ret-f{font-size:12px;color:var(--muted);margin-top:6px}
+.ret-f b{color:var(--ink)}
+.c-FR{color:var(--fr)}.c-W6{color:var(--w6)}.c-H4{color:var(--h4)}
+@media (max-width:380px){.day .dp{font-size:11px}}
 .fl .row{display:flex;justify-content:space-between;align-items:center;gap:8px}
 .route{font-weight:700;font-size:16px;letter-spacing:-.01em}
 .cities{font-size:13px;color:var(--muted)}
@@ -214,16 +231,75 @@ function render(){
   $("list").innerHTML = rows.slice(0, st.shown).map(r => {
     const d = new Date(r.dep_date + "T12:00:00");
     const drop = r.prev_price_ron && Number(r.prev_price_ron) > Number(r.price_ron) ? Math.round((1 - r.price_ron / r.prev_price_ron) * 100) : 0;
-    return `<a class="fl" href="${esc(r.booking_url)}" target="_blank" rel="noopener nofollow">
-      <div class="row"><span class="route">${esc(r.origin)} → ${esc(r.dest)}</span><span class="badge b-${esc(r.airline)}">${esc(AIRLINE[r.airline] || r.airline)}</span></div>
-      <div class="cities">${esc(r.origin_city || r.origin_name)} → ${esc(r.dest_city || r.dest_name)}</div>
-      <div class="when">${esc(dayFmt.format(d))}${r.dep_time ? " · " + esc(r.dep_time) : ""}${r.arr_time ? "–" + esc(r.arr_time) : ""}</div>
-      <div class="row"><span><span class="lei">${lei(r.price_ron)}</span>${drop >= 5 ? ` <span class="old">${lei(r.prev_price_ron)}</span>` : ""}</span>${drop >= 5 ? `<span class="drop">−${drop}%</span>` : ""}</div>
-      <span class="go">Rezervă pe site-ul companiei →</span>
-    </a>`;
+    return `<div class="fl" data-o="${esc(r.origin)}" data-d="${esc(r.dest)}" data-date="${esc(r.dep_date)}" data-p="${esc(r.price_ron)}">
+      <a class="out" href="${esc(r.booking_url)}" target="_blank" rel="noopener nofollow">
+        <div class="row"><span class="route">${esc(r.origin)} → ${esc(r.dest)}</span><span class="badge b-${esc(r.airline)}">${esc(AIRLINE[r.airline] || r.airline)}</span></div>
+        <div class="cities">${esc(r.origin_city || r.origin_name)} → ${esc(r.dest_city || r.dest_name)}</div>
+        <div class="when">${esc(dayFmt.format(d))}${r.dep_time ? " · " + esc(r.dep_time) : ""}${r.arr_time ? "–" + esc(r.arr_time) : ""}</div>
+        <div class="row"><span><span class="lei">${lei(r.price_ron)}</span>${drop >= 5 ? ` <span class="old">${lei(r.prev_price_ron)}</span>` : ""}</span>${drop >= 5 ? `<span class="drop">−${drop}%</span>` : ""}</div>
+        <span class="go">Rezervă dusul pe site-ul companiei →</span>
+      </a>
+      <div class="ret">
+        <div class="ret-h">Întoarcere ${esc(r.dest)} → ${esc(r.origin)}, orice preț</div>
+        <div class="days">${retDays(r.dep_date).map(x => `<div class="day"><span class="dn">${x.lbl}</span><span class="dp sk"></span></div>`).join("")}</div>
+        <div class="ret-f">&nbsp;</div>
+      </div>
+    </div>`;
   }).join("");
   $("more").hidden = rows.length <= st.shown;
+  $("list").querySelectorAll(".fl").forEach(el => io ? io.observe(el) : fillReturns(el));
 }
+
+// ---- Întoarceri: ziua +1 … +7 după dus, fără limită de preț ----
+const wd = new Intl.DateTimeFormat("ro-RO", {weekday:"short"});
+const longFmt = new Intl.DateTimeFormat("ro-RO", {weekday:"long", day:"numeric", month:"long"});
+function addDays(iso, n){ const d = new Date(iso + "T12:00:00Z"); d.setUTCDate(d.getUTCDate() + n); return d.toISOString().slice(0,10); }
+function retDays(iso){
+  return [1,2,3,4,5,6,7].map(n => {
+    const date = addDays(iso, n), d = new Date(date + "T12:00:00");
+    return {n, date, lbl: wd.format(d).replace(".", "") + "<br>" + d.getDate(), long: longFmt.format(d)};
+  });
+}
+const retCache = new Map();
+function getReturns(o, dst, date){
+  const k = o + "|" + dst + "|" + date;
+  if(!retCache.has(k)){
+    const p = rpc("zb_return_options_v2", {p_origin:o, p_dest:dst, p_out_date:date});
+    p.catch(() => retCache.delete(k));
+    retCache.set(k, p);
+  }
+  return retCache.get(k);
+}
+async function fillReturns(el){
+  const {o, d: dst, date, p} = el.dataset;
+  const box = el.querySelector(".ret");
+  let rows;
+  try{ rows = await getReturns(o, dst, date); }
+  catch(e){ box.querySelector(".ret-f").textContent = "Întoarcerile nu s-au putut încărca."; return; }
+  if(!el.isConnected) return;
+  const best = {}, all = {};
+  for(const r of rows){
+    (all[r.ret_date] ||= []).push(r);
+    if(!best[r.ret_date] || Number(r.price_ron) < Number(best[r.ret_date].price_ron)) best[r.ret_date] = r;
+  }
+  const days = retDays(date);
+  const found = days.map(x => best[x.date]).filter(Boolean);
+  const min = found.length ? Math.min(...found.map(r => Number(r.price_ron))) : null;
+  box.querySelector(".days").innerHTML = days.map(x => {
+    const r = best[x.date];
+    if(!r) return `<div class="day none" title="${esc(x.long)}: niciun zbor direct de întoarcere găsit"><span class="dn">${x.lbl}</span><span class="dp">–</span><span class="da">&nbsp;</span></div>`;
+    const isBest = Number(r.price_ron) === min;
+    const t = x.long + "\n" + all[x.date].map(v => `${AIRLINE[v.airline] || v.airline}${v.dep_time ? " " + v.dep_time : ""}${v.arr_time ? "–" + v.arr_time : ""}: ${lei(v.price_ron)}`).join("\n");
+    return `<a class="day${isBest ? " best" : ""}" href="${esc(r.booking_url)}" target="_blank" rel="noopener nofollow" title="${esc(t)}"><span class="dn">${x.lbl}</span><span class="dp">${Math.round(r.price_ron)}</span><span class="da c-${esc(r.airline)}">${esc(r.airline === "W6" ? "Wizz" : r.airline === "FR" ? "Ryan" : r.airline === "H4" ? "HiSky" : r.airline)}</span></a>`;
+  }).join("");
+  const foot = box.querySelector(".ret-f");
+  if(min === null){ foot.textContent = "Nu am găsit zboruri directe de întoarcere în următoarele 7 zile."; return; }
+  const bd = days.find(x => best[x.date] && Number(best[x.date].price_ron) === min);
+  foot.innerHTML = `Dus-întors cel mai ieftin: <b>${lei(Number(p) + min)}</b>, cu întoarcere ${esc(bd.long)}. Prețuri în lei.`;
+}
+const io = "IntersectionObserver" in window ? new IntersectionObserver(es => {
+  for(const e of es){ if(e.isIntersecting){ io.unobserve(e.target); fillReturns(e.target); } }
+}, {rootMargin:"300px"}) : null;
 
 function seg(id, key){
   $(id).addEventListener("click", e => {
