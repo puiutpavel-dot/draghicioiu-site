@@ -164,7 +164,7 @@ workflows:
   utilitati-submit:
     name: Utilități — Trimite la App Review (lansare manuală)
     instance_type: mac_mini_m4
-    max_build_duration: 10
+    max_build_duration: 75
     working_directory: ios
     integrations:
       app_store_connect: kino_ledger_asc_key

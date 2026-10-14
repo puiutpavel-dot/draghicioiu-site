@@ -273,19 +273,34 @@ def trimite():
     # Lansare MANUALĂ: după aprobare, aplicația apare în App Store doar când apeși „Release”.
     call("PATCH", f"/appStoreVersions/{vid}", {"data": {
         "type": "appStoreVersions", "id": vid, "attributes": {"releaseType": "MANUAL"}}})
-    subs = call("GET", "/reviewSubmissions", params={
-        "filter[app]": aid, "filter[platform]": "IOS", "filter[state]": "READY_FOR_REVIEW"})["data"]
-    sub = subs[0] if subs else call("POST", "/reviewSubmissions", {"data": {
-        "type": "reviewSubmissions", "attributes": {"platform": "IOS"},
-        "relationships": {"app": {"data": {"type": "apps", "id": aid}}}}})["data"]
+    # O trimitere respinsă („UNRESOLVED_ISSUES”) se retrimite pe ea însăși; altfel folosim/creăm una nouă.
+    subs = call("GET", "/reviewSubmissions", params={"filter[app]": aid, "filter[platform]": "IOS"})["data"]
+    sub = next((x for x in subs if x["attributes"]["state"] == "UNRESOLVED_ISSUES"), None) \
+        or next((x for x in subs if x["attributes"]["state"] == "READY_FOR_REVIEW"), None)
+    if sub is None:
+        sub = call("POST", "/reviewSubmissions", {"data": {
+            "type": "reviewSubmissions", "attributes": {"platform": "IOS"},
+            "relationships": {"app": {"data": {"type": "apps", "id": aid}}}}})["data"]
     if not call("GET", f"/reviewSubmissions/{sub['id']}/items")["data"]:
         call("POST", "/reviewSubmissionItems", {"data": {
             "type": "reviewSubmissionItems",
             "relationships": {
                 "reviewSubmission": {"data": {"type": "reviewSubmissions", "id": sub["id"]}},
                 "appStoreVersion": {"data": {"type": "appStoreVersions", "id": vid}}}}})
-    res = call("PATCH", f"/reviewSubmissions/{sub['id']}", {"data": {
-        "type": "reviewSubmissions", "id": sub["id"], "attributes": {"submitted": True}}})
+    # Imediat după atașarea unui build, Apple răspunde uneori „Version is not ready to be submitted yet”.
+    for incercare in range(1, 13):
+        r = requests.patch(f"{API}/reviewSubmissions/{sub['id']}",
+                           json={"data": {"type": "reviewSubmissions", "id": sub["id"], "attributes": {"submitted": True}}},
+                           headers={"Authorization": "Bearer " + token(), "Content-Type": "application/json"})
+        if r.ok:
+            res = r.json()
+            break
+        if r.status_code == 409 and "not ready" in r.text and incercare < 12:
+            print(f"Versiunea nu e încă gata de trimitere (încercarea {incercare}); aștept 5 minute…")
+            time.sleep(300)
+            continue
+        print(r.status_code, r.text[:1500])
+        r.raise_for_status()
     print("✓ TRIMIS LA REVIEW — stare:", res["data"]["attributes"].get("state"))
 
 
