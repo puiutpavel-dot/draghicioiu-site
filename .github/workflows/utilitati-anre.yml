@@ -38,7 +38,7 @@ jobs:
 
       - name: Salvează
         run: |
-          git add comparator-utilitati/anre.json comparator-utilitati/gaz-localitati.json comparator-utilitati/cp 2>/dev/null || true
+          git add comparator-utilitati/anre.json comparator-utilitati/istoric.json comparator-utilitati/gaz-localitati.json comparator-utilitati/cp 2>/dev/null || true
           if git diff --cached --quiet; then
             echo "Nimic nou."
             exit 0

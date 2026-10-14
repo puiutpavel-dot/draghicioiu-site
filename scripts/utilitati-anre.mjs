@@ -88,6 +88,11 @@ async function curent() {
         p: r4(p), fz: r2(num(o.valoare_componenta_fixa) * 30 * (1 + tva / 100)), // componenta fixă: lei/zi fără TVA → lei/lună cu TVA
         tip: curat(o.tip_produs), su: /universal/i.test(o.tip_oferta || ""),
         pana: isoDin(o.valabilitate_oferta_stop), dist: r4(num(o.tarif_serviciu_distributie)),
+        // componentele prețului, lei/kWh fără TVA: energie, distribuție, transport, servicii sistem,
+        // cogenerare, certificate verzi, acciză; plus TVA %
+        comp: [num(o.pret_energie), num(o.tarif_serviciu_distributie), num(o.tarif_transport_tl), num(o.tarif_serviciu_sistem),
+          num(o.taxa_cogenerare_inalta_eficienta), num(o.contravaloare_certificate_verzi), num(o.acciza)].map((x) => Math.round(x * 100000) / 100000),
+        tva,
         durata: curat(o.perioada_contract).replace(/^[a-z]\.\s*/i, ""), link: link(o.legatura_oferta) || link(o.furnizor?.website && `https://${String(o.furnizor.website).replace(/^https?:\/\//, "")}`),
         pdf: link(o.oferta_pdf ? encodeURI(o.oferta_pdf) : ""),
       });
@@ -277,3 +282,27 @@ try {
 if (!rez.curent && !rez.gaz) { log("Nicio dată – anre.json rămâne neschimbat"); process.exit(0); }
 await scrieJson("anre.json", rez);
 log("Salvat anre.json");
+
+// Istoric zilnic (istoric.json): cel mai mic preț la curent pe zone și la gaz pe județe.
+// Pentru gaz se păstrează pg+tt (lei/MWh, fără distribuție și TVA), ca să poată fi recalculat cu tariful fiecărei localități.
+function punctIstoric(a) {
+  const curent = {};
+  for (const [z, l] of Object.entries(a.curent || {})) {
+    const act = l.filter((o) => !o.pana || o.pana >= (a.zi || ziIso));
+    if (act.length) curent[z] = Math.min(...act.map((o) => o.p));
+  }
+  const gaz = {};
+  const dupaCod = new Map((a.gaz?.oferte || []).map((o) => [o.c, o]));
+  for (const [j, d] of Object.entries(a.gaz?.judete || {})) {
+    const v = d.oferte.map((c) => dupaCod.get(c)).filter((o) => o && (!o.pana || o.pana >= (a.zi || ziIso))).map((o) => o.pg + o.tt + (o.acc || 0));
+    if (v.length) gaz[j] = r2(Math.min(...v));
+  }
+  return { curent, gaz };
+}
+const ist = (await citesteJson("istoric.json")) || { zile: {} };
+ist.zile[rez.zi] = punctIstoric(rez);
+const zile = Object.keys(ist.zile).sort().slice(-400);
+ist.zile = Object.fromEntries(zile.map((z) => [z, ist.zile[z]]));
+ist.actualizat = rez.actualizat;
+await scrieJson("istoric.json", ist);
+log(`Salvat istoric.json: ${zile.length} zile`);
