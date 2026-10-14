@@ -27,7 +27,7 @@ workflows:
           - 'ios/**'
     scripts:
       - name: Copiază ofertele curente de pe site
-        script: cp ../comparator-utilitati/oferte.json ../comparator-utilitati/anre.json ../comparator-utilitati/gaz-localitati.json ComparatorUtilitati/Resources/
+        script: cp ../comparator-utilitati/oferte.json ../comparator-utilitati/anre.json ../comparator-utilitati/gaz-localitati.json ../comparator-utilitati/istoric.json ComparatorUtilitati/Resources/
       - name: Build pentru simulator
         script: |
           set -o pipefail
@@ -37,36 +37,11 @@ workflows:
             -derivedDataPath build CODE_SIGNING_ALLOWED=NO build 2>&1 | tee build.log \
             | grep -E "error:|warning: .*Swift|BUILD (SUCCEEDED|FAILED)" || true
           grep -q "BUILD SUCCEEDED" build.log
-      - name: Capturi în simulator (București, Iași, Mehedinți)
+      - name: Capturi în simulator (date demonstrative, toate filele)
         script: |
-          APP=build/Build/Products/Debug-iphonesimulator/ComparatorUtilitati.app
-          UDID=$(xcrun simctl list devices available -j | python3 -c "
-          import json, sys, re
-          best = None
-          for rt, devs in json.load(sys.stdin)['devices'].items():
-              if 'iOS' not in rt: continue
-              ver = tuple(int(x) for x in re.findall(r'(\d+)', rt.split('iOS')[-1])[:2])
-              for dev in devs:
-                  if dev['name'].startswith('iPhone') and 'Pro Max' in dev['name']:
-                      key = (ver, dev['name'])
-                      if best is None or key > best[0]: best = (key, dev['udid'])
-          print(best[1])")
-          echo "Simulator: $UDID"
-          xcrun simctl boot "$UDID" || true
-          xcrun simctl bootstatus "$UDID" -b
-          xcrun simctl install "$UDID" "$APP"
-          mkdir -p shots
-          xcrun simctl launch "$UDID" "$BUNDLE"; sleep 6
-          xcrun simctl io "$UDID" screenshot shots/00-start.png
-          xcrun simctl terminate "$UDID" "$BUNDLE" || true
-          for cp in 060042 700259 220001; do
-            xcrun simctl launch "$UDID" "$BUNDLE" -codPostal $cp; sleep 7
-            xcrun simctl io "$UDID" screenshot "shots/$cp.png"
-            xcrun simctl terminate "$UDID" "$BUNDLE" || true
-          done
-          echo "===== crash reports ====="
-          ls ~/Library/Logs/DiagnosticReports/ 2>/dev/null | grep -i comparator && exit 1 || true
-          cd shots && zip -q ../utilitati-shots.zip *.png
+          python3 -m pip install --quiet --user pillow 2>/dev/null || python3 -m pip install --quiet --break-system-packages pillow
+          ./ci/store_shots.sh
+          cd storeshots/iphone && zip -q ../../utilitati-shots.zip *.png
     artifacts:
       - "**/build.log"
       - "**/utilitati-shots.zip"
@@ -132,7 +107,7 @@ workflows:
         XCODE_SCHEME: ComparatorUtilitati
     scripts:
       - name: Copiază ofertele curente de pe site
-        script: cp ../comparator-utilitati/oferte.json ../comparator-utilitati/anre.json ../comparator-utilitati/gaz-localitati.json ComparatorUtilitati/Resources/
+        script: cp ../comparator-utilitati/oferte.json ../comparator-utilitati/anre.json ../comparator-utilitati/gaz-localitati.json ../comparator-utilitati/istoric.json ComparatorUtilitati/Resources/
       - name: Aplică profilurile de semnare
         script: xcode-project use-profiles --project "$XCODE_PROJECT"
       - name: Număr de build
@@ -163,7 +138,7 @@ workflows:
       xcode: latest
     scripts:
       - name: Copiază ofertele curente de pe site
-        script: cp ../comparator-utilitati/oferte.json ../comparator-utilitati/anre.json ../comparator-utilitati/gaz-localitati.json ComparatorUtilitati/Resources/
+        script: cp ../comparator-utilitati/oferte.json ../comparator-utilitati/anre.json ../comparator-utilitati/gaz-localitati.json ../comparator-utilitati/istoric.json ComparatorUtilitati/Resources/
       - name: Build pentru simulator
         script: |
           set -o pipefail

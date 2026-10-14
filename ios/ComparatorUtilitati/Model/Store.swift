@@ -9,12 +9,13 @@ import Observation
 @MainActor
 @Observable
 final class Store {
-    static let baza = URL(string: "https://draghicioiu.ro/comparator-utilitati/")!
-    static let site = baza
+    nonisolated static let baza = URL(string: "https://draghicioiu.ro/comparator-utilitati/")!
+    nonisolated static let site = URL(string: "https://draghicioiu.ro/comparator-utilitati/")!
 
     private(set) var oferte: Oferte?
     private(set) var anre: Anre?
     private(set) var localitati: LocalitatiGaz?
+    private(set) var istoric: Istoric?
     private(set) var seIncarca = false
     private(set) var eroareRetea = false
     private var coduri: [String: FisierCoduri] = [:]
@@ -23,6 +24,7 @@ final class Store {
         oferte = Self.citeste("oferte.json")
         anre = Self.citeste("anre.json")
         localitati = Self.citeste("gaz-localitati.json")
+        istoric = Self.citeste("istoric.json")
     }
 
     var gata: Bool { oferte != nil }
@@ -35,11 +37,20 @@ final class Store {
         async let t: Oferte? = Self.descarca("oferte.json")
         async let a: Anre? = Self.descarca("anre.json")
         async let l: LocalitatiGaz? = Self.descarca("gaz-localitati.json")
-        let (to, ao, lo) = await (t, a, l)
+        async let i: Istoric? = Self.descarca("istoric.json")
+        let (to, ao, lo, io) = await (t, a, l, i)
+        if let io { istoric = io }
         if let to, to.actualizat >= (oferte?.actualizat ?? "") { oferte = to }
         if let ao, ao.actualizat >= (anre?.actualizat ?? "") { anre = ao }
         if let lo, lo.actualizat >= (localitati?.actualizat ?? "") { localitati = lo }
         eroareRetea = to == nil && ao == nil
+    }
+
+    /// Locația completă pentru o locuință salvată.
+    func locatie(pentru l: Locuinta) async -> Locatie? {
+        guard case .success(let b) = Geografie.localizeaza(l.codPostal),
+              case .success(let loc) = await completeaza(b, sirutaAleasa: l.sirutaAleasa) else { return nil }
+        return loc
     }
 
     /// Completează locația cu localitatea din codul poștal și rețeaua de gaz.

@@ -69,6 +69,9 @@ struct OfertaCurent: Codable, Hashable {
     let durata: String?
     let link: String?
     let pdf: String?
+    /// lei/kWh fără TVA: energie, distribuție, transport, servicii de sistem, cogenerare, certificate verzi, acciză
+    let comp: [Double]?
+    let tva: Double?
 }
 
 struct OfertaGaz: Codable, Hashable {
@@ -148,5 +151,20 @@ struct IntrareCod: Codable {
         var c = encoder.unkeyedContainer()
         try c.encode(localitate)
         if let siruta { try c.encode(siruta) }
+    }
+}
+
+// MARK: - Istoric (istoric.json, un punct pe zi)
+
+struct Istoric: Codable {
+    let actualizat: String?
+    /// "yyyy-MM-dd" → cel mai mic preț al zilei
+    let zile: [String: Punct]
+
+    struct Punct: Codable {
+        /// zona de distribuție → cel mai mic preț final la curent, lei/kWh cu TVA
+        let curent: [String: Double]
+        /// județ ANRE → cel mai mic preț gaz + transport + acciză, lei/MWh fără distribuție și TVA
+        let gaz: [String: Double]
     }
 }
