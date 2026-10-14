@@ -287,7 +287,14 @@ def trimite():
             "relationships": {
                 "reviewSubmission": {"data": {"type": "reviewSubmissions", "id": sub["id"]}},
                 "appStoreVersion": {"data": {"type": "appStoreVersions", "id": vid}}}}})
-    # Imediat după atașarea unui build, Apple răspunde uneori „Version is not ready to be submitted yet”.
+    # După o respingere, elementul din trimitere trebuie marcat ca rezolvat, altfel Apple răspunde
+    # „Version is not ready to be submitted yet”.
+    for it in call("GET", f"/reviewSubmissions/{sub['id']}/items")["data"]:
+        if it["attributes"].get("state") == "REJECTED":
+            call("PATCH", f"/reviewSubmissionItems/{it['id']}", {"data": {
+                "type": "reviewSubmissionItems", "id": it["id"], "attributes": {"resolved": True}}})
+            print("✓ respingerea anterioară marcată ca rezolvată")
+    # Imediat după atașarea unui build, Apple poate cere și el câteva minute de procesare.
     for incercare in range(1, 13):
         r = requests.patch(f"{API}/reviewSubmissions/{sub['id']}",
                            json={"data": {"type": "reviewSubmissions", "id": sub["id"], "attributes": {"submitted": True}}},
