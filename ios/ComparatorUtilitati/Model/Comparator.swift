@@ -213,6 +213,7 @@ enum Format {
         guard let d = dinIso(s) else { return s }
         let f = DateFormatter()
         f.locale = ro
+        f.timeZone = TimeZone(identifier: "Europe/Bucharest")
         f.dateFormat = cuAn ? "d MMMM yyyy" : "d MMM"
         return f.string(from: d)
     }
