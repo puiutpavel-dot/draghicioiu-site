@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Coeficienți UEFA 2026/27 – cele 14 ligi, pe țări și cluburi | draghicioiu.ro</title>
+<meta name="description" content="Clasamentul coeficienților UEFA pentru 14 campionate europene: punctele fiecărei țări și ale fiecărui club în sezonul 2026/27, pe competiții.">
+<link rel="canonical" href="https://draghicioiu.ro/coeficienti-uefa/">
+<meta property="og:title" content="Coeficienți UEFA 2026/27 – 14 ligi">
+<meta property="og:description" content="Punctele fiecărei țări și ale fiecărui club în cupele europene, sezonul 2026/27.">
+<meta property="og:url" content="https://draghicioiu.ro/coeficienti-uefa/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f5f6fa; --card:#fff; --ink:#15161c; --muted:#666a78; --line:#e3e5ec;
+  --cl:#2747d8; --cl-soft:#e8ecfd;
+  --el:#d9820b; --el-soft:#fdf1e0;
+  --ecl:#2e8b4e; --ecl-soft:#e4f4ea;
+  --out:#8a8d98; --out-soft:#eeeff2;
+  --accent:#2747d8; --radius:14px;
+}
+@media (prefers-color-scheme: dark){
+  :root{--bg:#111218;--card:#1a1c24;--ink:#eef0f5;--muted:#9da1ae;--line:#2a2d38;
+    --cl:#6f86ff;--cl-soft:#1d2448;--el:#f0a43a;--el-soft:#3a2a12;--ecl:#5cc07e;--ecl-soft:#163323;
+    --out:#8b8e99;--out-soft:#24262e;--accent:#6f86ff}
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.45}
+a{color:inherit}
+.wrap{max-width:1100px;margin:0 auto;padding:28px 16px 60px}
+.back{display:inline-block;margin-bottom:14px;font-size:14px;color:var(--muted);text-decoration:none}
+.back:hover{color:var(--ink)}
+header h1{font-size:clamp(26px,4vw,40px);margin:0 0 6px;letter-spacing:-.02em;font-weight:800}
+header p{margin:0;color:var(--muted);max-width:720px}
+.stamp{display:inline-block;margin-top:12px;font-size:13px;color:var(--muted);background:var(--card);border:1px solid var(--line);border-radius:999px;padding:4px 12px}
+
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin:24px 0 18px}
+.tab{font:inherit;font-size:14px;font-weight:600;cursor:pointer;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:7px 14px;display:inline-flex;align-items:center;gap:8px}
+.tab .dot{width:10px;height:10px;border-radius:50%}
+.tab[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.tab:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+
+.list{display:grid;gap:10px}
+.row{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;display:grid;grid-template-columns:44px 190px 1fr;gap:14px;align-items:center}
+.rank{font-weight:800;font-size:20px;color:var(--muted);text-align:center}
+.country .name{font-weight:700;font-size:16px;display:flex;align-items:center;gap:8px}
+.country .flag{font-size:20px;line-height:1}
+.country .coef{font-weight:800;font-size:22px;letter-spacing:-.01em;font-variant-numeric:tabular-nums}
+.country .meta{font-size:12.5px;color:var(--muted);font-variant-numeric:tabular-nums}
+.clubs{display:flex;flex-wrap:wrap;gap:6px}
+.chip{display:inline-flex;align-items:center;gap:8px;font-size:13.5px;font-weight:600;border-radius:8px;padding:5px 9px;border:1px solid transparent}
+.chip b{font-variant-numeric:tabular-nums;font-weight:800}
+.chip.cl{background:var(--cl-soft);color:var(--cl);border-color:color-mix(in srgb,var(--cl) 30%,transparent)}
+.chip.el{background:var(--el-soft);color:var(--el);border-color:color-mix(in srgb,var(--el) 30%,transparent)}
+.chip.ecl{background:var(--ecl-soft);color:var(--ecl);border-color:color-mix(in srgb,var(--ecl) 30%,transparent)}
+.chip.out{background:var(--out-soft);color:var(--out);text-decoration:line-through;text-decoration-thickness:1px}
+.chip.dim{opacity:.25}
+
+.legend{display:flex;flex-wrap:wrap;gap:14px;font-size:13px;color:var(--muted);margin:6px 0 18px}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{width:12px;height:12px;border-radius:3px;display:inline-block}
+
+.note{margin-top:28px;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:16px 18px;font-size:14px;color:var(--muted)}
+.note h2{font-size:16px;color:var(--ink);margin:0 0 8px}
+.note p{margin:6px 0}
+
+@media (max-width:720px){
+  .row{grid-template-columns:34px 1fr;gap:10px 12px}
+  .clubs{grid-column:1 / -1}
+  .rank{font-size:17px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<a class="back" href="/">← draghicioiu.ro</a>
+<header>
+  <h1>Coeficienți UEFA 2026/27</h1>
+  <p>Punctele adunate în cupele europene de cluburile din 14 campionate. Aceste puncte contează pentru clasamentul pe țări care stabilește câte echipe trimite fiecare campionat în cupele europene din sezonul 2028/29.</p>
+  <span class="stamp">Situația la 4 septembrie 2026</span>
+</header>
+
+<div class="tabs" role="group" aria-label="Filtrează după competiție">
+  <button class="tab" type="button" data-f="all" aria-pressed="true">Toate</button>
+  <button class="tab" type="button" data-f="cl" aria-pressed="false"><span class="dot" style="background:var(--cl)"></span>Champions League</button>
+  <button class="tab" type="button" data-f="el" aria-pressed="false"><span class="dot" style="background:var(--el)"></span>Europa League</button>
+  <button class="tab" type="button" data-f="ecl" aria-pressed="false"><span class="dot" style="background:var(--ecl)"></span>Conference League</button>
+  <button class="tab" type="button" data-f="out" aria-pressed="false"><span class="dot" style="background:var(--out)"></span>Eliminate</button>
+</div>
+
+<div class="list" id="list"></div>
+
+<div class="note">
+  <h2>Cum se citește</h2>
+  <p><strong>Cifra mare</strong> e coeficientul țării pe ultimele cinci sezoane. Sub ea apar punctele din sezonul 2026/27 (media pe club), totalul punctelor adunate de cluburi și câte echipe mai are țara în Champions League, Europa League și Conference League.</p>
+  <p>Lângă fiecare club e numărul de puncte adunate în acest sezon. Datele sunt preluate manual și pot rămâne în urmă față de rezultatele din ultima etapă europeană.</p>
+</div>
+</div>
+
+<script>
+const DATA=[
+ {c:"Anglia",f:"🏴󠁧󠁢󠁥󠁮󠁧󠁿",coef:102.020,s:3.500,pts:31.500,n:"5+3+1",clubs:[["Liverpool",6,"cl"],["Manchester United",6,"cl"],["Arsenal",6,"cl"],["Manchester City",6,"cl"],["Aston Villa",6,"cl"],["Crystal Palace",0,"el"],["Sunderland",0,"el"],["AFC Bournemouth",0,"el"],["Brighton",1.5,"ecl"]]},
+ {c:"Italia",f:"🇮🇹",coef:87.875,s:3.643,pts:25.500,n:"4+2+1",clubs:[["Como",6,"cl"],["Inter",6,"cl"],["Napoli",6,"cl"],["Roma",6,"cl"],["AC Milan",0,"el"],["Juventus",0,"el"],["Atalanta",1.5,"ecl"]]},
+ {c:"Spania",f:"🇪🇸",coef:82.496,s:3.875,pts:31.000,n:"5+2+1",clubs:[["Real Betis",6,"cl"],["Villarreal",6,"cl"],["Atlético Madrid",6,"cl"],["Barcelona",6,"cl"],["Real Madrid",6,"cl"],["Real Sociedad",0,"el"],["Celta Vigo",0,"el"],["Getafe",1,"ecl"]]},
+ {c:"Germania",f:"🇩🇪",coef:80.404,s:3.714,pts:26.000,n:"4+2+1",clubs:[["VfB Stuttgart",6,"cl"],["Bayern München",6,"cl"],["Borussia Dortmund",6,"cl"],["RB Leipzig",6,"cl"],["Bayer Leverkusen",0,"el"],["Hoffenheim",0,"el"],["Freiburg",2,"ecl"]]},
+ {c:"Franța",f:"🇫🇷",coef:68.154,s:3.071,pts:21.500,n:"3+3+1",clubs:[["Lens",6,"cl"],["Paris Saint-Germain",6,"cl"],["Lille",6,"cl"],["Lyon",1.5,"el"],["Rennes",0,"el"],["Marseille",0,"el"],["Monaco",2,"ecl"]]},
+ {c:"Portugalia",f:"🇵🇹",coef:64.550,s:4.300,pts:21.500,n:"2+2+1",clubs:[["Porto",6,"cl"],["Sporting CP",6,"cl"],["Benfica",4.5,"el"],["Torreense",0,"el"],["Braga",5,"ecl"]]},
+ {c:"Belgia",f:"🇧🇪",coef:59.050,s:3.400,pts:17.000,n:"1+2+2",clubs:[["Club Brugge",6,"cl"],["Anderlecht",5.5,"el"],["Union Saint-Gilloise",0.5,"el"],["Gent",4,"ecl"],["Sint-Truiden",1,"ecl"]]},
+ {c:"Olanda",f:"🇳🇱",coef:52.396,s:3.667,pts:22.000,n:"2+2+2",clubs:[["Feyenoord",6,"cl"],["PSV Eindhoven",6,"cl"],["NEC Nijmegen",1.5,"el"],["AZ Alkmaar",0,"el"],["Ajax",5.5,"ecl"],["Twente",3,"ecl"]]},
+ {c:"Turcia",f:"🇹🇷",coef:49.675,s:4.500,pts:22.500,n:"2+1+1",clubs:[["Fenerbahçe",11,"cl"],["Galatasaray",6,"cl"],["Beşiktaş",5,"el"],["Trabzonspor",0,"ecl"],["Başakşehir",0.5,"out"]]},
+ {c:"Polonia",f:"🇵🇱",coef:45.125,s:3.000,pts:15.000,n:"0+2+0",clubs:[["Lech Poznań",4.5,"el"],["Jagiellonia",3.5,"el"],["Raków",4,"out"],["GKS Katowice",2,"out"],["Górnik Zabrze",1,"out"]]},
+ {c:"Cehia",f:"🇨🇿",coef:44.725,s:2.900,pts:14.500,n:"1+2+1",clubs:[["Slavia Praha",6,"cl"],["Sparta Praha",1,"el"],["Viktoria Plzeň",1,"el"],["Jablonec",4,"ecl"],["Hradec Králové",2.5,"out"]]},
+ {c:"Grecia",f:"🇬🇷",coef:43.813,s:3.400,pts:17.000,n:"1+2+1",clubs:[["AEK Atena",7.5,"cl"],["OFI Creta",2,"el"],["Olympiacos",0.5,"el"],["Panathinaikos",4.5,"ecl"],["PAOK",2.5,"out"]]},
+ {c:"Norvegia",f:"🇳🇴",coef:38.613,s:5.000,pts:25.000,n:"2+1+1",clubs:[["Bodø/Glimt",9.5,"cl"],["Viking",7.5,"cl"],["Lillestrøm",1.5,"el"],["Brann",4,"ecl"],["Tromsø",2.5,"out"]]},
+ {c:"Danemarca",f:"🇩🇰",coef:38.306,s:4.000,pts:16.000,n:"0+0+4",clubs:[["FC København",5,"ecl"],["Nordsjælland",5,"ecl"],["Midtjylland",4,"ecl"],["AGF Aarhus",2,"ecl"]]}
+];
+const fmt=v=>v.toLocaleString('ro-RO',{minimumFractionDigits:3,maximumFractionDigits:3});
+const pts=v=>v.toLocaleString('ro-RO',{maximumFractionDigits:1});
+const esc=s=>s.replace(/[&<>"]/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[ch]));
+const list=document.getElementById('list');
+function render(filter){
+  list.innerHTML=DATA.map((d,i)=>{
+    const [cl,el,ecl]=d.n.split('+');
+    const chips=d.clubs.map(([name,p,k])=>`<span class="chip ${k}${filter!=='all'&&filter!==k?' dim':''}" title="${esc(name)} · ${pts(p)} puncte">${esc(name)} <b>${pts(p)}</b></span>`).join('');
+    return `<div class="row"><div class="rank">${i+1}</div>
+<div class="country"><div class="name"><span class="flag" aria-hidden="true">${d.f}</span>${d.c}</div>
+<div class="coef">${fmt(d.coef)}</div>
+<div class="meta">${fmt(d.s)} în 2026/27 · ${pts(d.pts)} pct. cluburi</div>
+<div class="meta" title="Cluburi rămase în Champions League + Europa League + Conference League">În cupe: ${cl} CL · ${el} EL · ${ecl} ECL</div></div>
+<div class="clubs">${chips}</div></div>`;
+  }).join('');
+}
+document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('.tab').forEach(x=>x.setAttribute('aria-pressed',x===b));
+  render(b.dataset.f);
+}));
+render('all');
+</script>
+</body>
+</html>
