@@ -101,6 +101,7 @@ section{scroll-margin-top:48px}
 .chips::-webkit-scrollbar{display:none}
 .chips button{flex:none;border:0;background:var(--bg-2);color:var(--ink);border-radius:980px;padding:8px 16px;font:500 14px var(--sans);cursor:pointer}
 .sec.alt .chips button{background:var(--card)}
+.sec.alt .chips button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
 .chips button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
 .grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:18px}
 .dish{background:var(--card);border-radius:22px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 2px 12px rgba(0,0,0,.06);transition:transform .25s}
