@@ -1,0 +1,360 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Costea Tattoo · Galați – schiță de site</title>
+<meta name="description" content="Schiță de site pregătită de Daniel Drăghicioiu pentru Costea Tattoo din Galați.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#000000">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23000'/%3E%3Cpath d='M7 25l11-11M18 14l3.5-3.5 3.5 3.5-3.5 3.5z' stroke='%23ff453a' stroke-width='2.4' fill='none' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+<style>
+
+:root{
+--bg:#000000;--bg-2:#121214;--ink:#f5f5f7;--ink-2:#a1a1a6;--line:#2c2c2e;--acc:#ff453a;--acc-2:#ff6961;--dark:#000000;--dark-2:#161617;--on-dark:#f5f5f7;--card:#1c1c1e;
+--sans:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Inter","Helvetica Neue",Arial,sans-serif;color-scheme:dark;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.47 var(--sans);letter-spacing:-.01em;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit}
+img{max-width:100%}
+.demo{background:#000;color:#ddd;font-size:12px;text-align:center;padding:8px 16px}
+.demo a{color:#6cb4ff}
+.wrap{max-width:1024px;margin:0 auto;padding:0 22px}
+/* nav */
+nav.top{position:sticky;top:0;z-index:30;background:color-mix(in srgb,var(--bg) 80%,transparent);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);border-bottom:1px solid color-mix(in srgb,var(--line) 60%,transparent)}
+nav.top .wrap{display:flex;align-items:center;gap:28px;height:48px;font-size:12px}
+nav.top .brand{font-weight:600;font-size:14px;text-decoration:none;display:flex;align-items:center;gap:7px;white-space:nowrap}
+nav.top .brand svg{width:18px;height:18px;color:var(--acc)}
+nav.top .links{display:flex;gap:26px;flex:1;justify-content:center}
+nav.top .links a{text-decoration:none;opacity:.8}
+nav.top .links a:hover{opacity:1}
+nav.top .cta{background:var(--acc);color:#fff;text-decoration:none;border-radius:980px;padding:5px 12px;font-weight:500;white-space:nowrap}
+/* sub-nav status */
+.sub{border-bottom:1px solid var(--line)}
+.sub .wrap{display:flex;align-items:center;justify-content:space-between;height:52px;gap:12px}
+.sub h2{margin:0;font-size:21px;font-weight:600;letter-spacing:-.015em;white-space:nowrap}
+.status{font-size:12px;color:var(--ink-2);display:flex;align-items:center;gap:7px;white-space:nowrap}
+.status b{width:8px;height:8px;border-radius:50%;background:#30a46c}
+.status.closed b{background:#e5484d}
+/* type */
+.eyebrow{font-size:17px;font-weight:600;color:var(--acc);margin:0 0 6px}
+.h-xl{font-size:clamp(44px,8vw,80px);line-height:1.05;font-weight:700;letter-spacing:-.03em;margin:0}
+.h-l{font-size:clamp(34px,5.6vw,56px);line-height:1.07;font-weight:700;letter-spacing:-.025em;margin:0}
+.h-m{font-size:clamp(28px,4vw,40px);line-height:1.1;font-weight:700;letter-spacing:-.02em;margin:0}
+.lede{font-size:clamp(19px,2.4vw,24px);line-height:1.3;color:var(--ink-2);margin:10px 0 0;font-weight:500}
+.links-row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:20px}
+.btn{display:inline-flex;align-items:center;justify-content:center;border-radius:980px;padding:11px 22px;font-size:17px;font-weight:500;text-decoration:none;border:0;cursor:pointer;font-family:var(--sans);transition:background .2s}
+.btn-p{background:var(--acc);color:#fff}
+.btn-p:hover{background:var(--acc-2)}
+.btn-s{box-shadow:inset 0 0 0 1px var(--acc);color:var(--acc);background:transparent}
+.more{color:var(--acc);text-decoration:none;font-size:17px}
+.more:after{content:" ›"}
+.more:hover{text-decoration:underline}
+/* hero */
+.hero{text-align:center;padding:64px 0 0;background:var(--bg)}
+.hero .lede{max-width:640px;margin-left:auto;margin-right:auto}
+.hero-img{margin:44px auto 0;max-width:1180px;padding:0 22px}
+.hero-img .frame{border-radius:28px;overflow:hidden;aspect-ratio:16/8;background:linear-gradient(160deg,#000 0%,#2a0d0b 55%,#ff453a 140%);position:relative}
+.hero-img img{width:100%;height:100%;object-fit:cover;display:block}
+.hero-img .leaf{position:absolute;inset:0;display:grid;place-items:center;color:rgba(255,255,255,.85)}
+.hero-img .leaf svg{width:min(34%,260px)}
+.hero-img img+.leaf{display:none}
+/* tiles */
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:12px;max-width:1440px;margin:0 auto}
+.tile{background:var(--bg-2);border-radius:0;text-align:center;padding:56px 28px 0;min-height:580px;display:flex;flex-direction:column;align-items:center;overflow:hidden;position:relative}
+.tile.full{grid-column:1/-1}
+.tile.dark{background:#0a0a0a;color:var(--on-dark)}
+.tile.dark .lede{color:#a1a1a6}
+.tile .lede{font-size:19px;max-width:480px}
+.tile .art{margin-top:auto;width:100%;display:flex;justify-content:center;align-items:flex-end;padding-top:36px}
+@media (min-width:735px){.tile{border-radius:0}}
+/* stats */
+.stats{display:flex;gap:28px;justify-content:center;margin-top:26px;flex-wrap:wrap}
+.stats div{min-width:110px}
+.stats b{display:block;font-size:44px;font-weight:700;letter-spacing:-.03em;line-height:1}
+.stats span{font-size:13px;color:var(--ink-2)}
+.tile.dark .stats span{color:#a1a1a6}
+/* phone */
+.phone{width:250px;aspect-ratio:9/19;border-radius:44px 44px 0 0;background:#1d1d1f;padding:12px 12px 0;box-shadow:0 -10px 50px rgba(0,0,0,.18)}
+.tile.dark .phone{background:#2c2c2e}
+.scr{height:100%;border-radius:34px 34px 0 0;background:#fff;color:#1d1d1f;padding:26px 14px 0;display:flex;flex-direction:column;gap:9px;font-size:12.5px;text-align:left}
+.scr .t{font-weight:700;font-size:20px;letter-spacing:-.02em}
+.scr .n{background:#ffe9e7;border-radius:14px;padding:10px 12px;font-weight:600}
+.scr .n small{display:block;font-weight:500;color:#6e6e73}
+.scr .r{background:#f5f5f7;border-radius:12px;padding:9px 12px;display:flex;justify-content:space-between}
+.scr .r span{color:#6e6e73}
+.scr .go{background:#ff453a;color:#fff;text-align:center;border-radius:12px;padding:10px;font-weight:600}
+/* menu */
+section{scroll-margin-top:48px}
+.sec{padding:96px 0}
+.sec.alt{background:var(--bg-2)}
+.center{text-align:center}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:28px 22px 6px;margin:0 -22px;scrollbar-width:none;justify-content:flex-start}
+.chips::-webkit-scrollbar{display:none}
+.chips button{flex:none;border:0;background:var(--bg-2);color:var(--ink);border-radius:980px;padding:8px 16px;font:500 14px var(--sans);cursor:pointer}
+.sec.alt .chips button{background:var(--card)}
+.chips button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:18px}
+.dish{background:var(--card);border-radius:22px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 2px 12px rgba(0,0,0,.06);transition:transform .25s}
+.dish:hover{transform:scale(1.015)}
+.dish .ph{aspect-ratio:4/3;background:linear-gradient(140deg,#1c1c1e,#2a2a2e);display:grid;place-items:center;font-size:44px;overflow:hidden}
+.dish .ph img{width:100%;height:100%;object-fit:cover;display:block}
+.dish .bd{padding:16px 18px 18px;display:flex;flex-direction:column;gap:4px;flex:1}
+.dish h3{margin:0;font-size:19px;letter-spacing:-.015em}
+.dish p{margin:0;color:var(--ink-2);font-size:14px;flex:1}
+.dish .pr{font-weight:600;font-size:15px;margin-top:8px}
+.dish .pr.tbd{color:var(--ink-2);font-weight:500}
+.note{font-size:12px;color:var(--ink-2);margin-top:22px;text-align:center}
+/* booking */
+.book{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
+.book ul{list-style:none;padding:0;margin:24px 0 0;display:grid;gap:14px}
+.book li{display:flex;gap:12px;font-weight:500}
+.book li:before{content:"";flex:none;width:22px;height:22px;border-radius:50%;background:var(--acc) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6 12.5l4 4 8-9' stroke='white' stroke-width='2.6' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") center/16px no-repeat}
+form.card{background:var(--card);border-radius:28px;padding:28px;display:grid;gap:14px;box-shadow:0 4px 30px rgba(0,0,0,.08)}
+form.card>*{min-width:0}
+.seg{display:grid;grid-template-columns:1fr 1fr;background:var(--bg-2);border-radius:12px;padding:3px}
+.seg button{border:0;background:transparent;color:var(--ink);font:500 14px var(--sans);padding:9px;border-radius:10px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--card);box-shadow:0 1px 4px rgba(0,0,0,.12)}
+label{display:grid;gap:6px;font-size:13px;font-weight:600;color:var(--ink-2)}
+input,select,textarea{font:17px var(--sans);color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:12px 14px;width:100%;min-width:0}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--acc);outline-offset:0;border-color:transparent}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.two>*{min-width:0}
+/* hours */
+.hours{max-width:520px;margin:28px auto 0;border-top:1px solid var(--line)}
+.hr{display:flex;justify-content:space-between;padding:14px 4px;border-bottom:1px solid var(--line);font-size:17px}
+.hr.today{font-weight:700;color:var(--acc)}
+/* visit */
+.visit{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:12px;max-width:1440px;margin:0 auto}
+.visit .tile{min-height:420px;justify-content:center;padding:56px 28px}
+footer{background:var(--bg-2);color:var(--ink-2);font-size:12px;padding:28px 0 40px}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:18px}
+footer a{color:var(--ink)}
+/* reveal */
+.rv{opacity:0;transform:translateY(24px);transition:opacity .8s ease,transform .8s ease}
+.rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}}
+@media (max-width:900px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.book{grid-template-columns:1fr;gap:28px}}
+@media (max-width:734px){
+nav.top .links{display:none}
+nav.top .wrap{justify-content:space-between}
+.tiles,.visit{grid-template-columns:1fr;padding:12px 0;gap:12px}
+.tile{min-height:auto;padding:48px 20px 0}
+.visit .tile{min-height:auto;padding:48px 20px}
+.hero{padding-top:44px}
+.hero-img{padding:0 12px}
+.hero-img .frame{aspect-ratio:4/3;border-radius:22px}
+.sec{padding:64px 0}
+}
+@media (max-width:520px){.grid{grid-template-columns:1fr}.two{grid-template-columns:1fr}.sub h2{font-size:17px}.stats b{font-size:36px}}
+
+.tile{background:var(--bg-2)}
+.styles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:28px}
+.st{aspect-ratio:4/5;border-radius:22px;background:radial-gradient(120% 90% at 30% 20%,#2c2c2e,#0d0d0f);display:flex;flex-direction:column;justify-content:flex-end;padding:20px;position:relative;overflow:hidden}
+.st svg{position:absolute;inset:18% 18% auto;width:64%;opacity:.5;color:#f5f5f7}
+.st h3{margin:0;font-size:21px;position:relative}
+.st p{margin:2px 0 0;color:var(--ink-2);font-size:13px;position:relative}
+.care{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:28px;text-align:left}
+.care div{background:var(--card);border-radius:20px;padding:20px}
+.care b{display:block;font-size:34px;font-weight:700;color:var(--acc);letter-spacing:-.03em}
+.care h3{margin:6px 0 4px;font-size:17px}
+.care p{margin:0;color:var(--ink-2);font-size:14px}
+@media (max-width:900px){.styles{grid-template-columns:repeat(2,minmax(0,1fr))}.care{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:520px){.care{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="demo">Schiță de site pregătită de <a href="https://draghicioiu.ro/">Daniel Drăghicioiu</a> pentru Costea Tattoo, Galați. Nu este site-ul oficial al studioului.</div>
+
+<nav class="top" aria-label="Principal">
+<div class="wrap">
+<a class="brand" href="#top"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20l9.5-9.5M13.5 10.5l3-3 3 3-3 3z" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M19.5 7.5L22 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>Costea Tattoo</a>
+<div class="links"><a href="#portofoliu">Portofoliu</a><a href="#artist">Artistul</a><a href="#idee">Programare</a><a href="#ingrijire">Îngrijire</a><a href="#vizita">Program și contact</a></div>
+<a class="cta" href="#idee">Programează</a>
+</div>
+</nav>
+
+<div class="sub">
+<div class="wrap">
+<h2>Costea Tattoo</h2>
+<span class="status" id="status"><b></b><span id="stTxt">Str. Brăilei 1, Galați</span></span>
+</div>
+</div>
+
+<main id="top">
+<section class="hero">
+<div class="wrap rv">
+<p class="eyebrow">Galați · Str. Brăilei 1</p>
+<h1 class="h-xl">Artă.<br>Pe piele.</h1>
+<p class="lede">Tatuaje și piercing în Galați. Vezi lucrările pe stiluri, trimite-ne ideea ta și programează-te din telefon.</p>
+<div class="links-row">
+<a class="btn btn-p" href="#idee">Trimite-ne ideea</a>
+<a class="btn btn-s" href="#portofoliu">Vezi portofoliul</a>
+</div>
+</div>
+<div class="hero-img rv">
+<div class="frame">
+<div class="leaf" aria-hidden="true"><svg viewBox="0 0 64 64"><path d="M14 52l20-20M34 32l7-7 7 7-7 7z" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M48 18l6-6" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><path d="M10 56c3-1 5-3 6-6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" opacity=".6"/></svg></div>
+</div>
+</div>
+</section>
+
+<div class="tiles" style="margin-top:44px">
+<div class="tile rv">
+<p class="eyebrow">Recenzii</p>
+<h2 class="h-m">133 de clienți au scris despre noi.</h2>
+<p class="lede">4,6 pe Facebook. Clienții apreciază profesionalismul, atenția la detalii și piercing-ul.</p>
+<div class="stats"><div><b>4,6</b><span>pe Facebook</span></div><div><b>133</b><span>recenzii</span></div></div>
+<div class="art" style="padding-bottom:56px"><a class="more" href="#idee">Programează-te</a></div>
+</div>
+<div class="tile dark rv">
+<p class="eyebrow">Piercing</p>
+<h2 class="h-m">Și piercing.<br>Făcut cu grijă.</h2>
+<p class="lede">Pe lângă tatuaje, facem și piercing, recomandat de clienți în recenzii.</p>
+<div class="art" style="padding-bottom:56px"><a class="more" href="#idee">Întreabă-ne</a></div>
+</div>
+</div>
+
+<section class="sec" id="portofoliu">
+<div class="wrap center">
+<div class="rv">
+<p class="eyebrow">Portofoliu</p>
+<h2 class="h-l">Alege stilul. Vezi lucrările.</h2>
+<p class="lede">Fiecare stil, cu lucrările lui, la rezoluție mare.</p>
+</div>
+<div class="styles" id="styles"></div>
+<p class="note">Stilurile sunt orientative. În site-ul final aici intră lucrările voastre reale, pe stilurile pe care le lucrați.</p>
+</div>
+</section>
+
+<section class="sec alt" id="artist">
+<div class="wrap center rv">
+<p class="eyebrow">Artistul</p>
+<h2 class="h-l">Omul din spatele acului.</h2>
+<p class="lede" style="max-width:640px;margin-left:auto;margin-right:auto">Aici apare povestea artistului: de când tatuează, ce stiluri iubește și cum lucrează cu fiecare client, de la schiță la ultima linie. <span style="color:var(--acc)">De completat împreună cu studioul.</span></p>
+</div>
+</section>
+
+<section class="sec" id="idee">
+<div class="wrap book">
+<div class="rv">
+<p class="eyebrow">Ideea ta</p>
+<h2 class="h-l">Spune-ne ce vrei să tatuezi.</h2>
+<ul>
+<li>Stilul, zona și mărimea aproximativă</li>
+<li>Descrierea ideii, cât mai pe larg</li>
+<li>Ziua în care ai vrea să vii</li>
+</ul>
+</div>
+<form class="card rv" id="order">
+<div class="seg" role="radiogroup" aria-label="Tip"><button type="button" data-t="tat" aria-pressed="true">Tatuaj</button><button type="button" data-t="pier" aria-pressed="false">Piercing</button></div>
+<div class="two" id="row-tat">
+<label>Stilul<select id="f-stil"></select></label>
+<label>Mărimea<select id="f-mar"><option>Mic (sub 5 cm)</option><option>Mediu (5–15 cm)</option><option>Mare (peste 15 cm)</option><option>Nu știu încă</option></select></label>
+</div>
+<label>Zona<input type="text" id="f-zona" placeholder="antebraț, umăr, gleznă…" required></label>
+<label id="l-idee">Ideea ta<textarea id="f-idee" rows="3" placeholder="Descrie ce îți dorești. Poți trimite și poze de referință pe WhatsApp."></textarea></label>
+<label>Ziua preferată<input type="date" id="f-data"></label>
+<label>Numele tău<input type="text" id="f-nume" required></label>
+<button class="btn btn-p" type="submit" id="f-go">Trimite ideea pe WhatsApp</button>
+<p class="note" style="margin:0">Preferi la telefon? <a href="tel:+40746429593">0746 429 593</a></p>
+</form>
+</div>
+</section>
+
+<section class="sec alt" id="ingrijire">
+<div class="wrap center">
+<div class="rv">
+<p class="eyebrow">Îngrijire după tatuaj</p>
+<h2 class="h-l">Arată bine. Și peste ani.</h2>
+<p class="lede">Un ghid simplu, mereu la îndemână.</p>
+</div>
+<div class="care">
+<div class="rv"><b>1</b><h3>Primele ore</h3><p>Pasul 1 din ghidul studioului.</p></div>
+<div class="rv"><b>2</b><h3>Curățare</h3><p>Pasul 2 din ghidul studioului.</p></div>
+<div class="rv"><b>3</b><h3>Hidratare</h3><p>Pasul 3 din ghidul studioului.</p></div>
+<div class="rv"><b>4</b><h3>Ce eviți</h3><p>Pasul 4 din ghidul studioului.</p></div>
+</div>
+<p class="note">Pașii și recomandările exacte se completează cu ghidul de îngrijire al studioului.</p>
+</div>
+</section>
+
+<div class="tiles">
+<div class="tile full dark rv" id="aplicatie">
+<p class="eyebrow">Pasul următor · aplicație iPhone</p>
+<h2 class="h-l">Studioul. În buzunar.</h2>
+<p class="lede" style="max-width:620px">Programare cu avans, galerie cu lucrări noi, reamintiri și ghidul de îngrijire în telefon, plus notificări pentru flash days.</p>
+<div class="links-row"><a class="more" href="https://apps.apple.com/ro/app/kineto-bucure%C8%99ti/id6819380873" target="_blank" rel="noopener">Vezi un exemplu în App Store</a></div>
+<div class="art"><div class="phone" aria-hidden="true"><div class="scr">
+<div class="t">Costea Tattoo</div>
+<div class="n">⚡ Flash day sâmbătă<small>notificare, exemplu</small></div>
+<div class="r">Programarea ta <span>joi, 15:00</span></div>
+<div class="r">Avans <span>achitat</span></div>
+<div class="r">Îngrijire <span>ziua 3 din 14</span></div>
+<div class="go">Vezi lucrările noi</div>
+</div></div></div>
+</div>
+</div>
+
+<section class="sec" id="vizita">
+<div class="wrap center rv">
+<p class="eyebrow">Program</p>
+<h2 class="h-l">Când ne găsești.</h2>
+<div class="hours" id="hours"></div>
+<p class="note">Programul e cel din listările publice ale studioului și se confirmă înainte de lansare.</p>
+</div>
+</section>
+
+<div class="visit">
+<div class="tile rv">
+<p class="eyebrow">Studio</p>
+<h2 class="h-m">Str. Brăilei 1</h2>
+<p class="lede">Galați, 800021.</p>
+<div class="links-row"><a class="btn btn-p" href="https://www.google.com/maps/search/?api=1&amp;query=Strada+Brailei+1+Galati" target="_blank" rel="noopener">Deschide în Maps</a><a class="btn btn-s" href="https://www.facebook.com/p/Costea-Tattoo-100063529451418/" target="_blank" rel="noopener">Facebook</a></div>
+</div>
+<div class="tile rv">
+<p class="eyebrow">Programări</p>
+<h2 class="h-m">Sună-ne.</h2>
+<p class="lede">Sau scrie-ne cu ideea ta.</p>
+<div class="links-row"><a class="btn btn-p" href="tel:+40746429593">0746 429 593</a><a class="btn btn-s" href="https://wa.me/40746429593" target="_blank" rel="noopener">WhatsApp</a></div>
+</div>
+</div>
+</main>
+
+<footer>
+<div class="wrap">
+<span>© Costea Tattoo · Str. Brăilei 1, Galați · <a href="tel:+40746429593">0746 429 593</a></span>
+<span>Schiță de <a href="https://draghicioiu.ro/">draghicioiu.ro</a></span>
+</div>
+</footer>
+
+<script>
+const e=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const ST=[["Linework","Linii fine, curate"],["Black & grey","Umbre și volum"],["Color","Culori vii"],["Lettering","Litere și citate"],["Minimalist","Mic și discret"],["Cover-up","Acoperire tatuaje vechi"]];
+const ART=['<svg viewBox="0 0 64 64"><path d="M8 50C20 30 44 34 56 14" stroke="currentColor" stroke-width="1.6" fill="none"/><path d="M14 54C26 36 46 40 58 22" stroke="currentColor" stroke-width="1.6" fill="none"/></svg>','<svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="20" fill="currentColor" opacity=".55"/><circle cx="38" cy="26" r="12" fill="#0d0d0f" opacity=".6"/></svg>','<svg viewBox="0 0 64 64"><circle cx="24" cy="28" r="14" fill="#ff453a"/><circle cx="40" cy="28" r="14" fill="#ffd60a" opacity=".85"/><circle cx="32" cy="42" r="14" fill="#0a84ff" opacity=".8"/></svg>','<svg viewBox="0 0 64 64"><text x="32" y="42" text-anchor="middle" font-family="Georgia,serif" font-style="italic" font-size="26" fill="currentColor">Aa</text></svg>','<svg viewBox="0 0 64 64"><path d="M32 22l3 7 7 3-7 3-3 7-3-7-7-3 7-3z" fill="currentColor"/></svg>','<svg viewBox="0 0 64 64"><rect x="14" y="14" width="36" height="36" rx="6" fill="currentColor" opacity=".25"/><path d="M14 50L50 14" stroke="currentColor" stroke-width="2"/></svg>'];
+document.getElementById("styles").innerHTML=ST.map(([n,d],i)=>`<a class="st rv" href="#idee" style="text-decoration:none;color:inherit">${ART[i]}<h3>${e(n)}</h3><p>${e(d)}</p></a>`).join("");
+const sel=document.getElementById("f-stil");ST.forEach(s=>{const o=document.createElement("option");o.textContent=s[0];sel.appendChild(o)});const o2=document.createElement("option");o2.textContent="Nu știu încă";sel.appendChild(o2);
+let tip="tat";
+document.querySelectorAll(".seg button").forEach(b=>b.onclick=()=>{tip=b.dataset.t;document.querySelectorAll(".seg button").forEach(x=>x.setAttribute("aria-pressed",x===b));
+const t=tip==="tat";document.getElementById("row-tat").hidden=!t;document.getElementById("l-idee").hidden=!t;document.getElementById("f-go").textContent=t?"Trimite ideea pe WhatsApp":"Cere o programare pe WhatsApp"});
+document.getElementById("order").addEventListener("submit",ev=>{ev.preventDefault();const v=id=>document.getElementById(id).value.trim();
+const dt=v("f-data")?new Date(v("f-data")+"T12:00").toLocaleDateString("ro-RO",{weekday:"long",day:"numeric",month:"long"}):"";
+const msg=(tip==="tat"?`Bună ziua! Aș dori un tatuaj:\n• Stil: ${v("f-stil")}\n• Mărime: ${v("f-mar")}\n• Zona: ${v("f-zona")}`+(v("f-idee")?`\n• Ideea: ${v("f-idee")}`:""):`Bună ziua! Aș dori un piercing:\n• Zona: ${v("f-zona")}`)+(dt?`\n• Ziua preferată: ${dt}`:"")+`\n\nNume: ${v("f-nume")}`;
+window.open("https://wa.me/40746429593?text="+encodeURIComponent(msg),"_blank","noopener")});
+const H=[["Luni",660,1140],["Marți",660,1140],["Miercuri",660,1140],["Joi",660,1140],["Vineri",660,1140],["Sâmbătă",null,null],["Duminică",null,null]];
+const f=m=>`${String(Math.floor(m/60)).padStart(2,"0")}:${String(m%60).padStart(2,"0")}`;
+const p=new Intl.DateTimeFormat("en-GB",{timeZone:"Europe/Bucharest",weekday:"short",hour:"2-digit",minute:"2-digit",hour12:false}).formatToParts(new Date());const g=x=>p.find(y=>y.type===x).value;
+const idx=["Mon","Tue","Wed","Thu","Fri","Sat","Sun"].indexOf(g("weekday")),mins=(+g("hour"))*60+(+g("minute"));
+document.getElementById("hours").innerHTML=H.map(([dn,a,b],i)=>`<div class="hr${i===idx?" today":""}"><span>${dn}</span><span>${a==null?"Închis":f(a)+" – "+f(b)}</span></div>`).join("");
+const open=H[idx][1]!=null&&mins>=H[idx][1]&&mins<H[idx][2];const st=document.getElementById("status");st.classList.toggle("closed",!open);document.getElementById("stTxt").textContent=open?"Deschis acum":"Închis acum";
+const io=new IntersectionObserver(es=>es.forEach(x=>{if(x.isIntersecting){x.target.classList.add("in");io.unobserve(x.target)}}),{threshold:.1});
+document.querySelectorAll(".rv").forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
