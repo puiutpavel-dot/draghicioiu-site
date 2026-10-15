@@ -1,0 +1,333 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Casa Tanase · București – schiță de site</title>
+<meta name="description" content="Schiță de site pregătită de Daniel Drăghicioiu pentru Casa Tanase Nepalese &amp; Indian Cuisine din București.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#7a1f2b">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%23ffb020'/%3E%3Cpath d='M3 25l9-15 5 8 3-4 9 11z' fill='%237a1f2b'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700&display=swap">
+<style>
+:root{
+--y:#ffb020;--ink:#161210;--ink-2:#5c534c;--bg:#fffdf6;--bg-2:#fdebd3;--card:#ffffff;--line:#ece3cf;--teal:#9a2a3a;--red:#d6311f;
+--disp:"Archivo Black","Arial Black",Impact,sans-serif;--sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--ink:#fff8e6;--ink-2:#cbbfae;--bg:#141110;--bg-2:#221d12;--card:#1d1916;--line:#352d24;--teal:#ff8a9a;color-scheme:dark}}
+:root[data-theme="dark"]{--ink:#fff8e6;--ink-2:#cbbfae;--bg:#141110;--bg-2:#221d12;--card:#1d1916;--line:#352d24;--teal:#ff8a9a;color-scheme:dark}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit}
+.wrap{max-width:1180px;margin:0 auto;padding:0 16px}
+.demo{background:#000;color:#eee;font-size:13px;text-align:center;padding:8px 16px}
+.demo a{color:#7cc4ff}
+.disp{font-family:var(--disp);font-weight:400;text-transform:uppercase;letter-spacing:-.01em;line-height:.92}
+header{position:sticky;top:0;z-index:30;background:color-mix(in srgb,var(--bg) 90%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.hd{display:flex;align-items:center;gap:20px;height:68px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;font-family:var(--disp);font-size:22px;text-transform:uppercase;white-space:nowrap}
+.logo i{display:grid;place-items:center;width:38px;height:38px;border-radius:12px;background:var(--y);color:#161210}
+.logo i svg{width:24px;height:24px}
+.logo small{font-family:var(--sans);font-size:12px;font-weight:600;text-transform:none;color:var(--ink-2)}
+.hd nav{display:flex;gap:22px;margin-left:12px;font-weight:600;font-size:15px}
+.hd nav a{text-decoration:none}
+.hd nav a:hover{text-decoration:underline;text-decoration-thickness:3px;text-decoration-color:var(--y);text-underline-offset:6px}
+.pill{margin-left:auto;display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;padding:7px 12px;border-radius:999px;background:var(--bg-2);white-space:nowrap}
+.pill b{width:8px;height:8px;border-radius:50%;background:var(--teal);box-shadow:0 0 0 4px color-mix(in srgb,var(--teal) 22%,transparent)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:999px;padding:14px 24px;font-weight:700;font-size:15px;text-decoration:none;border:0;cursor:pointer;font-family:var(--sans);transition:transform .15s}
+.btn:hover{transform:translateY(-2px)}
+.btn-y{background:var(--y);color:#161210}
+.btn-k{background:var(--ink);color:var(--bg)}
+.btn-o{box-shadow:inset 0 0 0 2px currentColor;background:transparent}
+.btn-sm{padding:10px 16px;font-size:14px}
+.hero{background:var(--y);color:#161210;overflow:hidden}
+.hero-in{display:grid;grid-template-columns:1.1fr .9fr;gap:24px;align-items:center;min-height:min(78vh,700px);padding:48px 16px}
+.tagline{font-weight:700;font-size:14px;text-transform:uppercase;letter-spacing:.14em;margin-bottom:18px}
+.hero h1{font-size:clamp(50px,9vw,118px);margin:0 0 18px}
+.hero h1 span{display:block}
+.hero p{font-size:19px;max-width:460px;margin:0 0 28px;font-weight:500}
+.hero .btn-k{background:#161210;color:#ffd400}
+.stage{position:relative;aspect-ratio:1;max-width:500px;width:100%;margin-left:auto}
+.ring{position:absolute;inset:6%;border-radius:50%;background:#161210;display:grid;place-items:center;box-shadow:0 40px 80px rgba(80,50,0,.35)}
+.ring svg{width:62%;height:62%;color:#ffd400;animation:bob 4s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-10px) rotate(-4deg)}}
+.badge{position:absolute;right:0;top:2%;width:136px;height:136px;border-radius:50%;background:#fff;color:#161210;display:grid;place-items:center;text-align:center;font-family:var(--disp);text-transform:uppercase;font-size:34px;line-height:1;transform:rotate(12deg);z-index:3;padding:14px;box-shadow:0 12px 30px rgba(0,0,0,.18)}
+.badge small{display:block;font-family:var(--sans);font-weight:700;font-size:12px;text-transform:none;letter-spacing:0;margin-top:6px}
+.chip{position:absolute;z-index:3;background:#fff;color:#161210;border-radius:999px;padding:10px 16px;font-weight:700;font-size:14px;box-shadow:0 10px 24px rgba(0,0,0,.15);display:flex;gap:8px;align-items:center}
+.chip.c1{left:0;bottom:22%;transform:rotate(-6deg)}
+.chip.c2{right:4%;bottom:6%;transform:rotate(4deg)}
+.mq{background:var(--ink);color:var(--y);overflow:hidden;white-space:nowrap;padding:16px 0}
+.mq-t{display:inline-flex;gap:40px;animation:mq 28s linear infinite;font-size:clamp(28px,4.4vw,48px)}
+.mq-t span:nth-child(even){color:transparent;-webkit-text-stroke:1.5px var(--y)}
+.mq.alt{background:var(--y);color:#161210}
+.mq.alt .mq-t{animation-direction:reverse}
+.mq.alt .mq-t span:nth-child(even){-webkit-text-stroke-color:#161210}
+@keyframes mq{to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion:reduce){.mq-t,.ring svg{animation:none}}
+section{padding:88px 0;scroll-margin-top:68px}
+.eyebrow{font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:.16em;color:var(--teal);margin-bottom:10px}
+h2{font-size:clamp(40px,6.6vw,80px);margin:0 0 28px}
+h2.low{text-transform:lowercase}
+.lead{color:var(--ink-2);font-size:18px;max-width:600px;margin:-12px 0 32px}
+.car-h{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap}
+.arrows{display:flex;gap:8px;margin-bottom:24px}
+.arrows button{width:48px;height:48px;border-radius:50%;border:2px solid var(--ink);background:transparent;color:var(--ink);font-size:20px;cursor:pointer}
+.arrows button:hover{background:var(--y);color:#161210;border-color:var(--y)}
+.track{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding:4px 16px 24px;margin:0 -16px}
+.track::-webkit-scrollbar{display:none}
+.sc{flex:none;width:270px;scroll-snap-align:start;background:var(--card);border:1px solid var(--line);border-radius:28px;padding:24px;display:flex;flex-direction:column;gap:10px;transition:transform .25s,box-shadow .25s}
+.sc:hover{transform:translateY(-6px);box-shadow:0 22px 40px rgba(60,40,0,.12)}
+.ic{width:64px;height:64px;border-radius:20px;background:var(--y);color:#161210;display:grid;place-items:center;margin-bottom:6px}
+.ic svg{width:34px;height:34px}
+.sc h3{margin:0;font-size:20px;line-height:1.2}
+.sc p{margin:0;color:var(--ink-2);font-size:15px}
+.note{color:var(--ink-2);font-size:13px;margin:0}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.st{background:var(--bg-2);border-radius:28px;padding:28px}
+.st b{font-family:var(--disp);font-size:56px;line-height:1;display:block;margin-bottom:12px}
+.st h3{margin:0 0 6px;font-size:20px}
+.st p{margin:0;color:var(--ink-2)}
+.believe{background:var(--ink);color:var(--bg)}
+.believe .eyebrow{color:var(--y)}
+.bel{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.bel div{border:1.5px solid color-mix(in srgb,var(--bg) 22%,transparent);border-radius:28px;padding:28px}
+.bel b{display:block;font-family:var(--disp);text-transform:uppercase;font-size:28px;line-height:1;color:var(--y);margin-bottom:12px}
+.bel p{margin:0;opacity:.82}
+.app{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+.phone{width:min(280px,80%);aspect-ratio:9/18.5;margin:0 auto;border-radius:44px;background:#161210;padding:12px;box-shadow:0 30px 60px rgba(0,0,0,.25)}
+.scr{height:100%;border-radius:34px;background:var(--bg);color:var(--ink);padding:26px 16px;display:flex;flex-direction:column;gap:10px;font-size:13px}
+.scr .t{font-family:var(--disp);text-transform:uppercase;font-size:22px;line-height:1}
+.scr .n{background:var(--y);color:#161210;border-radius:16px;padding:12px;font-weight:600}
+.scr .n small{display:block;font-weight:500;opacity:.75}
+.scr .r{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px 12px;display:flex;justify-content:space-between}
+.scr .r span{color:var(--ink-2)}
+.app ul{list-style:none;padding:0;margin:20px 0 28px;display:grid;gap:12px}
+.app li{display:flex;gap:12px;font-weight:600}
+.app li:before{content:"";flex:none;width:22px;height:22px;border-radius:50%;background:var(--y) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6 12.5l4 4 8-9' stroke='%23161210' stroke-width='3' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/14px no-repeat}
+.visit{display:grid;grid-template-columns:1.2fr .8fr;gap:24px}
+.box{background:var(--bg-2);border-radius:32px;padding:36px}
+.box h3{font-family:var(--disp);text-transform:uppercase;font-size:clamp(34px,5vw,56px);line-height:.95;margin:0 0 18px}
+.box p{margin:0 0 6px;font-size:17px}
+.box .row{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+.box.y{background:var(--y);color:#161210}
+.box.y .btn-k{background:#161210;color:#ffd400}
+.todo{display:inline-block;background:color-mix(in srgb,var(--teal) 14%,transparent);color:var(--teal);border-radius:8px;padding:1px 8px;font-size:14px;font-weight:600}
+.rv{opacity:0;transform:translateY(28px);transition:opacity .7s,transform .7s cubic-bezier(.2,.7,.2,1)}
+.rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}}
+footer{background:var(--ink);color:var(--bg);padding:48px 0 36px}
+.ft-in{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;align-items:flex-end}
+.ft-in .big{font-family:var(--disp);text-transform:uppercase;font-size:clamp(56px,10vw,120px);line-height:.9;color:var(--y)}
+.ft-in p{margin:4px 0;opacity:.8;font-size:14px}
+.ft-in a{color:var(--y)}
+@media (max-width:900px){
+.hd nav{display:none}
+.logo small{display:none}
+.hero-in{grid-template-columns:1fr;min-height:0;padding:32px 16px 48px}
+.stage{max-width:320px;margin:0 auto;order:-1}
+.badge{width:104px;height:104px;font-size:26px}
+.chip{font-size:12px;padding:8px 12px}
+.app,.visit{grid-template-columns:1fr;gap:32px}
+.steps,.bel{grid-template-columns:1fr}
+section{padding:64px 0}
+}
+@media (max-width:420px){.hd .btn-sm{display:none}}
+.hero{background:#7a1f2b;color:#fff3e0}
+.hero h1{font-size:clamp(44px,7.2vw,96px)}
+.hero .btn-k{background:#ffb020;color:#161210}
+.hero .btn-o{color:#fff3e0}
+.ring{background:#ffb020}
+.ring svg{color:#7a1f2b}
+.badge{background:#fff3e0}
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px}
+.filters button{border:2px solid var(--ink);background:transparent;color:var(--ink);border-radius:999px;padding:8px 16px;font:700 14px var(--sans);cursor:pointer}
+.filters button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.sc .ic{font-size:32px}
+.sc p{flex:1}
+.ft{display:flex;align-items:center}
+.hot{font-size:15px;letter-spacing:2px}
+.hot.mild{font-size:13px;font-weight:700;color:var(--ink-2);letter-spacing:0;background:var(--bg-2);padding:3px 10px;border-radius:999px}
+.form-wrap{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
+.ticks{list-style:none;padding:0;margin:0;display:grid;gap:12px}
+.ticks li{display:flex;gap:12px;font-weight:600}
+.ticks li:before{content:"✓";flex:none;width:22px;height:22px;border-radius:50%;background:var(--y);color:#161210;display:grid;place-items:center;font-size:13px;font-weight:800}
+.order{background:var(--card);border:1px solid var(--line);border-radius:32px;padding:28px;display:grid;gap:14px;box-shadow:0 24px 50px rgba(90,20,30,.08)}
+.order label{display:grid;gap:6px;font-weight:600;font-size:14px}
+.order label[hidden]{display:none}
+.order input,.order select,.order textarea{font:16px var(--sans);padding:12px 14px;border-radius:14px;border:1.5px solid var(--line);background:var(--bg);color:var(--ink);width:100%}
+.order input:focus,.order select:focus,.order textarea:focus{outline:none;border-color:var(--teal)}
+.order .two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.order .note a{color:var(--teal);font-weight:600}
+.seg{display:grid;grid-template-columns:1fr 1fr;background:var(--bg-2);border-radius:999px;padding:4px}
+.seg button{border:0;background:transparent;color:var(--ink);font:700 14px var(--sans);padding:10px;border-radius:999px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+@media (max-width:900px){.form-wrap{grid-template-columns:1fr;gap:28px}}
+@media (max-width:440px){.logo{font-size:17px;gap:8px}.logo i{width:32px;height:32px}.pill{font-size:12px;padding:6px 10px;gap:6px}}
+</style>
+
+</head>
+<body>
+<div class="demo">Schiță de site pregătită de <a href="https://draghicioiu.ro/">Daniel Drăghicioiu</a> pentru Casa Tanase Nepalese &amp; Indian Cuisine, București. Nu este site-ul oficial al restaurantului.</div>
+
+<header>
+<div class="wrap hd">
+<a class="logo" href="#top"><i><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M3 25l9-15 5 8 3-4 9 11z" fill="currentColor"/><path d="M10 13.3l2-3.3 2.4 3.8-2 .8z" fill="#fff"/></svg></i>Casa Tanase <small>nepalez &amp; indian · București</small></a>
+<nav aria-label="Secțiuni"><a href="#meniu">Meniu</a><a href="#rezervare">Rezervare</a><a href="#despre">Despre</a><a href="#contact">Contact</a></nav>
+<span class="pill"><b></b>Rezervări la telefon</span>
+<a class="btn btn-y btn-sm" href="tel:+40725177527">0725 177 527</a>
+</div>
+</header>
+
+<main id="top">
+<section class="hero" style="padding:0">
+<div class="wrap hero-in">
+<div class="rv">
+<div class="tagline">Str. Mircea Vulcănescu 11 · București</div>
+<h1 class="disp"><span>Gusturi din</span><span>Himalaya,</span><span>în București.</span></h1>
+<p>Bucătărie nepaleză și indiană. Alegi din meniu, rezervi o masă sau comanzi la pachet, direct de pe telefon.</p>
+<div style="display:flex;gap:10px;flex-wrap:wrap">
+<a class="btn btn-k" href="#rezervare">Rezervă o masă</a>
+<a class="btn btn-o" href="#meniu">Vezi meniul</a>
+</div>
+</div>
+<div class="stage" aria-hidden="true">
+<div class="badge">241<small>recenzii de la clienți</small></div>
+<div class="ring"><svg viewBox="0 0 64 64"><g fill="currentColor"><path d="M8 34h48c0 12-10.7 20-24 20S8 46 8 34z"/><rect x="6" y="31" width="52" height="4" rx="2"/><path d="M24 26c-3-4 3-6 0-11M32 26c-3-4 3-6 0-11M40 26c-3-4 3-6 0-11" stroke="currentColor" stroke-width="2.6" fill="none" stroke-linecap="round"/></g></svg></div>
+<div class="chip c1">🌶️ Alegi cât de picant</div>
+<div class="chip c2">🥟 Momo · Curry · Tandoori</div>
+</div>
+</div>
+</section>
+
+<div class="mq" aria-hidden="true"><div class="mq-t disp" id="mq1"></div></div>
+
+<section id="meniu">
+<div class="wrap">
+<div class="car-h">
+<div class="rv"><div class="eyebrow">Meniu</div><h2 class="disp low" style="margin-bottom:20px">ce gustăm azi?</h2></div>
+<div class="arrows"><button id="prev" aria-label="Înapoi">←</button><button id="next" aria-label="Înainte">→</button></div>
+</div>
+<div class="filters" id="filters"></div>
+<div class="track" id="track"></div>
+<p class="note">Preparatele sunt exemple orientative din bucătăria nepaleză și indiană. În site-ul final aici intră meniul vostru, cu prețuri și poze.</p>
+</div>
+</section>
+
+<div class="mq alt" aria-hidden="true"><div class="mq-t disp" id="mq2"></div></div>
+
+<section id="rezervare">
+<div class="wrap form-wrap">
+<div class="rv">
+<div class="eyebrow">Rezervare sau comandă</div>
+<h2 class="disp low">o masă pentru diseară?</h2>
+<p class="lead" style="margin:0 0 24px">Completezi în câteva secunde și ne trimiți cererea pe WhatsApp. Îți confirmăm noi rezervarea sau ora de ridicare.</p>
+<ul class="ticks">
+<li>Rezervare pentru seara dorită</li>
+<li>Comandă la pachet, cu ora de ridicare</li>
+<li>Spune-ne dacă vrei mai puțin sau mai mult picant</li>
+</ul>
+</div>
+<form class="order rv" id="order">
+<div class="seg" role="radiogroup" aria-label="Tip"><button type="button" data-t="rezervare" aria-pressed="true">Rezervare</button><button type="button" data-t="comanda" aria-pressed="false">Comandă la pachet</button></div>
+<div class="two">
+<label>Data<input type="date" id="f-data" required></label>
+<label>Ora<select id="f-ora"></select></label>
+</div>
+<label id="l-pers">Persoane<input type="number" id="f-pers" min="1" max="30" value="2"></label>
+<label id="l-prod" hidden>Ce comanzi<textarea id="f-prod" rows="3" placeholder="2 × Momo de pui, 1 × Butter chicken, 2 × naan cu usturoi"></textarea></label>
+<label>Observații<input type="text" id="f-obs" placeholder="Mai puțin picant, fără arahide…"></label>
+<label>Numele tău<input type="text" id="f-nume" required></label>
+<button class="btn btn-k" type="submit" id="f-go">Trimite rezervarea pe WhatsApp</button>
+<p class="note" style="margin-top:4px">Preferi la telefon? <a href="tel:+40725177527">0725 177 527</a></p>
+</form>
+</div>
+</section>
+
+<section class="believe" id="despre">
+<div class="wrap">
+<div class="rv"><div class="eyebrow">Despre noi</div><h2 class="disp low">două bucătării, o singură casă.</h2></div>
+<div class="bel">
+<div class="rv"><b>Nepal</b><p>Momo aburinde, dal bhat și gusturile de la poalele Himalayei.</p></div>
+<div class="rv"><b>India</b><p>Curry, tandoori și naan proaspăt, cu condimente alese cu grijă.</p></div>
+<div class="rv"><b>Pe gustul tău</b><p>Ne spui cât de picant vrei, iar noi gătim exact așa.</p></div>
+</div>
+</div>
+</section>
+
+<section id="contact">
+<div class="wrap visit">
+<div class="box rv">
+<div class="eyebrow">Unde ne găsești</div>
+<h3>Str. Mircea Vulcănescu 11</h3>
+<p>București, 010811</p>
+<p>Program: <span class="todo">de completat cu programul restaurantului</span></p>
+<div class="row"><a class="btn btn-k" href="https://www.google.com/maps/search/?api=1&amp;query=Strada+Mircea+Vulcanescu+11+Bucuresti" target="_blank" rel="noopener">Deschide în Maps</a></div>
+</div>
+<div class="box y rv">
+<div class="eyebrow" style="color:#161210">Rezervări</div>
+<h3>Venim cu prietenii?</h3>
+<p>Sună-ne și pregătim masa.</p>
+<div class="row"><a class="btn btn-k" href="tel:+40725177527">0725 177 527</a><a class="btn btn-o" href="#rezervare">Formular</a></div>
+</div>
+</div>
+</section>
+</main>
+
+<footer>
+<div class="wrap ft-in">
+<div class="big">Casa<br>Tanase</div>
+<div style="text-align:right">
+<p><a href="tel:+40725177527">0725 177 527</a></p>
+<p>Str. Mircea Vulcănescu 11, București</p>
+<p>© Casa Tanase · Schiță de <a href="https://draghicioiu.ro/">draghicioiu.ro</a></p>
+</div>
+</div>
+</footer>
+
+<script>
+const e=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const mq=w=>[...w,...w,...w,...w].map(x=>`<span>${e(x)}</span><span>✦</span>`).join("");
+document.getElementById("mq1").innerHTML=mq(["Momo","Curry","Tandoori","Naan","Dal bhat"]);
+document.getElementById("mq2").innerHTML=mq(["241 de recenzii","Rezervă de pe telefon","Comandă la pachet"]);
+const M=[
+["nepal","🥟","Momo de pui","Găluște nepaleze la abur, cu sos de roșii și susan",1],
+["nepal","🥟","Momo vegetariene","Găluște cu legume și brânză, la abur sau prăjite",1],
+["nepal","🍛","Dal bhat","Linte, orez, legume de sezon și achar, ca în Nepal",1],
+["nepal","🍜","Thukpa","Supă cu tăiței, legume și condimente himalayene",2],
+["india","🍛","Butter chicken","Pui tandoori în sos cremos de roșii și unt",1],
+["india","🍛","Chicken tikka masala","Pui marinat, sos de roșii și condimente",2],
+["india","🔥","Lamb vindaloo","Miel în sos picant de ardei și oțet",3],
+["india","🍚","Biryani","Orez basmati cu condimente, carne sau legume",2],
+["veg","🧀","Palak paneer","Brânză paneer în sos de spanac",1],
+["veg","🫘","Chana masala","Năut în sos de roșii și condimente",2],
+["veg","🫓","Naan cu usturoi","Lipie din cuptorul tandoor, cu unt și usturoi",0],
+["veg","🥭","Mango lassi","Băutură din iaurt și mango",0]
+];
+const CATS=[["all","Toate"],["nepal","Nepaleze"],["india","Indiene"],["veg","Vegetariene și extra"]];
+let cat="all";const track=document.getElementById("track"),filters=document.getElementById("filters");
+CATS.forEach(([k,l])=>{const b=document.createElement("button");b.textContent=l;b.setAttribute("aria-pressed",k===cat);b.onclick=()=>{cat=k;[...filters.children].forEach(x=>x.setAttribute("aria-pressed",x===b));render();track.scrollTo({left:0})};filters.appendChild(b)});
+const hot=n=>n?`<span class="hot" title="Nivel picant ${n} din 3">${"🌶️".repeat(n)}</span>`:`<span class="hot mild">blând</span>`;
+function render(){track.innerHTML=M.filter(m=>cat==="all"||m[0]===cat).map(([c,i,n,d,h])=>`<article class="sc"><div class="ic">${i}</div><h3>${e(n)}</h3><p>${e(d)}</p><div class="ft">${hot(h)}</div></article>`).join("")}
+render();
+const step=()=>Math.min(track.clientWidth*.8,560);
+document.getElementById("next").onclick=()=>track.scrollBy({left:step(),behavior:"smooth"});
+document.getElementById("prev").onclick=()=>track.scrollBy({left:-step(),behavior:"smooth"});
+// form
+let tip="rezervare";
+const ora=document.getElementById("f-ora");for(let h=12;h<=22;h++)for(const m of["00","30"]){if(h===22&&m==="30")continue;const o=document.createElement("option");o.textContent=`${h}:${m}`;if(h===20&&m==="00")o.selected=true;ora.appendChild(o)}
+const d=document.getElementById("f-data");const today=new Date().toISOString().slice(0,10);d.min=today;d.value=today;
+document.querySelectorAll(".seg button").forEach(b=>b.onclick=()=>{tip=b.dataset.t;document.querySelectorAll(".seg button").forEach(x=>x.setAttribute("aria-pressed",x===b));
+document.getElementById("l-pers").hidden=tip!=="rezervare";document.getElementById("l-prod").hidden=tip==="rezervare";
+document.getElementById("f-go").textContent=tip==="rezervare"?"Trimite rezervarea pe WhatsApp":"Trimite comanda pe WhatsApp"});
+document.getElementById("order").addEventListener("submit",ev=>{ev.preventDefault();const v=id=>document.getElementById(id).value.trim();
+const dt=new Date(v("f-data")+"T12:00").toLocaleDateString("ro-RO",{weekday:"long",day:"numeric",month:"long"});
+const msg=(tip==="rezervare"?`Bună ziua! Aș dori o rezervare:\n• ${dt}, ora ${v("f-ora")}\n• ${v("f-pers")} persoane`:`Bună ziua! Aș dori o comandă la pachet:\n${v("f-prod")||"(de completat)"}\n• Ridicare: ${dt}, ora ${v("f-ora")}`)+(v("f-obs")?`\n• Observații: ${v("f-obs")}`:"")+`\n\nNume: ${v("f-nume")}`;
+window.open("https://wa.me/40725177527?text="+encodeURIComponent(msg),"_blank","noopener")});
+const io=new IntersectionObserver(es=>es.forEach(x=>{if(x.isIntersecting){x.target.classList.add("in");io.unobserve(x.target)}}),{threshold:.12});
+document.querySelectorAll(".rv").forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
