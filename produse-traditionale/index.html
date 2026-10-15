@@ -242,7 +242,7 @@ function render(fit){
     else map.fitBounds(L.featureGroup(markers).getBounds(), {padding:[30,30], maxZoom:12});
   }
 
-  $("#count").textContent = list.length ? `${list.length.toLocaleString("ro")} produse · ${pts.size.toLocaleString("ro")} producători` : "Niciun rezultat";
+  $("#count").textContent = list.length ? `${list.length.toLocaleString("ro")} produse · ${pts.size.toLocaleString("ro")} locuri pe hartă` : "Niciun rezultat";
   const box = $("#items");
   if (!list.length){ box.innerHTML = `<div class="empty">Nimic nu se potrivește. Încearcă alt cuvânt, o rază mai mare sau scoate un filtru.</div>`; return; }
   box.innerHTML = list.slice(0, shown).map(rowHtml).join("") +
