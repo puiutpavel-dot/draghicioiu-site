@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Pizza Conu' Mustăcios · Galați – schiță de site</title>
+<meta name="description" content="Schiță de site pregătită de Daniel Drăghicioiu pentru Pizza Conu' Mustăcios din Galați: meniu, ofertă, program și comandă rapidă.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#b3261e">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='10' fill='%23e9a23b'/%3E%3Ccircle cx='12' cy='12' r='7.5' fill='%23b3261e'/%3E%3Ccircle cx='9' cy='10' r='1.4' fill='%23fff6e5'/%3E%3Ccircle cx='14.5' cy='9' r='1.2' fill='%23fff6e5'/%3E%3Ccircle cx='13' cy='14.5' r='1.4' fill='%23fff6e5'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Inter:wght@400;500;600;700&display=swap">
+<style>
+:root{
+--bg:#fff8ee;--bg-alt:#fbecd6;--card:#ffffff;--ink:#2a1a12;--ink-2:#6b5446;--line:#ecd9bf;
+--red:#b3261e;--red-2:#8f1d17;--gold:#e9a23b;--green:#2f6b3a;--on-red:#fff6e5;
+--font:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;--disp:"Fraunces",Georgia,serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+--bg:#17110d;--bg-alt:#22180f;--card:#241a13;--ink:#f6ead9;--ink-2:#c7b29c;--line:#3c2c20;--red:#e0483d;--red-2:#c33a30;--gold:#f0b453;--green:#6fbf7d;--on-red:#fff6e5;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#17110d;--bg-alt:#22180f;--card:#241a13;--ink:#f6ead9;--ink-2:#c7b29c;--line:#3c2c20;--red:#e0483d;--red-2:#c33a30;--gold:#f0b453;--green:#6fbf7d;color-scheme:dark}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 var(--font);-webkit-font-smoothing:antialiased}
+a{color:inherit}
+img{max-width:100%}
+.wrap{max-width:1080px;margin:0 auto;padding:0 16px}
+.demo{background:#1d1d1f;color:#f5f5f7;font-size:13px;text-align:center;padding:8px 16px}
+.demo a{color:#7cc4ff}
+header.top{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:saturate(1.6) blur(14px);-webkit-backdrop-filter:saturate(1.6) blur(14px);border-bottom:1px solid var(--line)}
+.top-in{display:flex;align-items:center;justify-content:space-between;gap:12px;height:58px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-family:var(--disp);font-weight:800;font-size:19px;letter-spacing:-.01em}
+.brand svg{width:30px;height:30px;flex:none}
+.top nav{display:flex;gap:18px;font-size:14px;font-weight:500}
+.top nav a{text-decoration:none;color:var(--ink-2)}
+.top nav a:hover{color:var(--red)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:999px;padding:12px 20px;font-weight:600;font-size:15px;text-decoration:none;border:0;cursor:pointer;font-family:inherit;transition:transform .15s,background .15s}
+.btn:active{transform:scale(.97)}
+.btn-red{background:var(--red);color:var(--on-red)}
+.btn-red:hover{background:var(--red-2)}
+.btn-ghost{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--line)}
+.btn-ghost:hover{box-shadow:inset 0 0 0 1.5px var(--ink-2)}
+.btn-sm{padding:8px 14px;font-size:14px}
+.hero{padding:56px 0 40px;position:relative;overflow:hidden}
+.hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:32px;align-items:center}
+.eyebrow{display:inline-block;font-size:13px;font-weight:600;color:var(--red);background:color-mix(in srgb,var(--red) 10%,transparent);padding:5px 12px;border-radius:999px;margin-bottom:16px}
+h1{font-family:var(--disp);font-weight:800;font-size:clamp(38px,6.4vw,64px);line-height:1.02;letter-spacing:-.02em;margin:0 0 16px}
+h1 em{font-style:normal;color:var(--red)}
+.lead{font-size:18px;color:var(--ink-2);max-width:520px;margin:0 0 24px}
+.cta{display:flex;flex-wrap:wrap;gap:10px}
+.facts{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:22px;font-size:14px;color:var(--ink-2)}
+.facts span{display:inline-flex;align-items:center;gap:6px}
+.facts b{color:var(--ink)}
+.pizza-art{aspect-ratio:1;max-width:420px;width:100%;margin-left:auto;filter:drop-shadow(0 24px 40px rgba(120,40,10,.25))}
+.pizza-art svg{width:100%;height:100%;animation:spin 90s linear infinite}
+@media (prefers-reduced-motion:reduce){.pizza-art svg{animation:none}}
+@keyframes spin{to{transform:rotate(360deg)}}
+.offer{background:var(--red);color:var(--on-red);border-radius:24px;padding:28px;display:grid;grid-template-columns:auto 1fr auto;gap:24px;align-items:center;margin:8px 0 56px}
+.offer .big{font-family:var(--disp);font-weight:800;font-size:56px;line-height:1}
+.offer .big small{display:block;font-size:14px;font-family:var(--font);font-weight:500;opacity:.85;margin-top:6px}
+.offer h3{margin:0 0 4px;font-family:var(--disp);font-size:24px}
+.offer p{margin:0;opacity:.9}
+.offer .btn{background:var(--on-red);color:var(--red)}
+section{scroll-margin-top:70px}
+h2{font-family:var(--disp);font-weight:800;font-size:clamp(28px,4.4vw,40px);letter-spacing:-.015em;margin:0 0 8px}
+.sub{color:var(--ink-2);margin:0 0 24px}
+.menu-sec{padding:8px 0 56px}
+.tools{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:20px}
+.tabs{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;padding-bottom:2px;max-width:100%}
+.tabs::-webkit-scrollbar{display:none}
+.tab{flex:none;border:0;background:var(--bg-alt);color:var(--ink);padding:9px 15px;border-radius:999px;font:600 14px var(--font);cursor:pointer}
+.tab[aria-selected="true"]{background:var(--ink);color:var(--bg)}
+.search{flex:1;min-width:180px;max-width:300px;margin-left:auto;position:relative}
+.search input{width:100%;padding:10px 14px 10px 36px;border-radius:999px;border:1.5px solid var(--line);background:var(--card);color:var(--ink);font:15px var(--font)}
+.search input:focus{outline:none;border-color:var(--red)}
+.search svg{position:absolute;left:12px;top:50%;transform:translateY(-50%);width:16px;height:16px;color:var(--ink-2)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px}
+.item{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px;display:flex;flex-direction:column;gap:8px}
+.item-h{display:flex;justify-content:space-between;gap:10px;align-items:baseline}
+.item h3{margin:0;font-size:17px;line-height:1.25}
+.price{font-weight:700;color:var(--red);white-space:nowrap}
+.price.na{color:var(--ink-2);font-weight:500;font-size:13px}
+.ing{margin:0;color:var(--ink-2);font-size:14px;flex:1}
+.item-f{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:13px;color:var(--ink-2)}
+.tag{display:inline-block;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;padding:2px 8px;border-radius:999px;margin-left:6px;vertical-align:2px}
+.tag.hot{background:color-mix(in srgb,var(--red) 14%,transparent);color:var(--red)}
+.tag.veg{background:color-mix(in srgb,var(--green) 16%,transparent);color:var(--green)}
+.tag.sweet{background:color-mix(in srgb,var(--gold) 22%,transparent);color:#9a5d00}
+.tag.house{background:var(--ink);color:var(--bg)}
+.add{border:0;background:var(--bg-alt);color:var(--ink);width:36px;height:36px;border-radius:50%;font-size:20px;line-height:1;cursor:pointer;font-family:inherit}
+.add:hover{background:var(--red);color:var(--on-red)}
+.empty{color:var(--ink-2);padding:20px 0}
+.note{font-size:13px;color:var(--ink-2);margin-top:16px}
+.info{background:var(--bg-alt);padding:56px 0}
+.info-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:24px}
+.card{background:var(--card);border-radius:20px;padding:22px;border:1px solid var(--line)}
+.card h3{margin:0 0 8px;font-size:17px}
+.card p,.card li{color:var(--ink-2);font-size:15px;margin:0}
+.card ul{padding-left:18px;margin:0}
+.card a{color:var(--red);font-weight:600}
+.contact{padding:56px 0;text-align:center}
+.contact .cta{justify-content:center}
+footer{border-top:1px solid var(--line);padding:24px 0 100px;font-size:13px;color:var(--ink-2);text-align:center}
+.cart{position:fixed;left:50%;bottom:16px;transform:translate(-50%,140%);z-index:30;width:min(560px,calc(100% - 24px));background:var(--ink);color:var(--bg);border-radius:20px;padding:12px 12px 12px 18px;display:flex;align-items:center;gap:12px;box-shadow:0 18px 50px rgba(0,0,0,.3);transition:transform .25s}
+.cart.on{transform:translate(-50%,0)}
+.cart .cnt{flex:1;font-size:14px;line-height:1.35;min-width:0}
+.cart .cnt b{display:block;font-size:15px}
+.cart .cnt span{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;opacity:.75}
+.cart .x{background:transparent;border:0;color:inherit;opacity:.7;font-size:22px;cursor:pointer;padding:4px 8px}
+.cart .btn{background:#25d366;color:#08311a}
+@media (max-width:820px){
+.hero-grid{grid-template-columns:1fr}
+.pizza-art{max-width:260px;margin:0 auto;order:-1}
+.hero{padding:28px 0 32px}
+.offer{grid-template-columns:1fr;text-align:left;gap:14px}
+.info-grid{grid-template-columns:1fr}
+.top nav{display:none}
+.search{max-width:none;margin-left:0}
+}
+</style>
+</head>
+<body>
+<div class="demo">Schiță de site pregătită de <a href="https://draghicioiu.ro/">Daniel Drăghicioiu</a> pentru Pizza Conu' Mustăcios. Nu este site-ul oficial al pizzeriei.</div>
+
+<header class="top">
+<div class="wrap top-in">
+<a class="brand" href="#acasa" aria-label="Pizza Conu' Mustăcios">
+<svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="15" fill="#e9a23b"/><circle cx="16" cy="16" r="11.5" fill="#b3261e"/><path d="M8.5 19.5c2.2-2.6 4.6-2.6 7.5-.6 2.9-2 5.3-2 7.5.6-2.8-.6-4.9.2-7.5 1.9-2.6-1.7-4.7-2.5-7.5-1.9z" fill="#2a1a12"/><circle cx="11" cy="12" r="1.6" fill="#fff6e5"/><circle cx="21" cy="12" r="1.6" fill="#fff6e5"/></svg>
+Conu' Mustăcios
+</a>
+<nav aria-label="Secțiuni"><a href="#meniu">Meniu</a><a href="#oferta">Ofertă</a><a href="#info">Program și livrare</a><a href="#contact">Contact</a></nav>
+<a class="btn btn-red btn-sm" href="tel:+40770273273">Sună: 0770 273 273</a>
+</div>
+</header>
+
+<main id="acasa">
+<section class="hero">
+<div class="wrap hero-grid">
+<div>
+<span class="eyebrow">Pizzerie de familie · Galați</span>
+<h1>Pizza proaspătă,<br><em>de fiecare dată.</em></h1>
+<p class="lead">Rețete făcute cu drag, pe care le poți adapta după gustul tău. Livrăm oriunde în Galați sau o iei la pachet din zona 2 Babe.</p>
+<div class="cta">
+<a class="btn btn-red" href="#meniu">Vezi meniul</a>
+<a class="btn btn-ghost" href="tel:+40770273273">Comandă la telefon</a>
+</div>
+<div class="facts">
+<span>🕙 <b>Zilnic 10:00–22:00</b></span>
+<span>🛵 Livrare în tot Galațiul</span>
+<span>💳 Card sau numerar</span>
+</div>
+</div>
+<div class="pizza-art" aria-hidden="true">
+<svg viewBox="0 0 200 200">
+<circle cx="100" cy="100" r="96" fill="#d98a2b"/><circle cx="100" cy="100" r="84" fill="#c3361f"/>
+<circle cx="100" cy="100" r="80" fill="#f2c25a" opacity=".55"/>
+<g fill="#9e1f14"><circle cx="70" cy="68" r="12"/><circle cx="128" cy="62" r="11"/><circle cx="140" cy="118" r="12"/><circle cx="88" cy="132" r="11"/><circle cx="58" cy="108" r="10"/><circle cx="110" cy="96" r="10"/></g>
+<g fill="#2f6b3a"><ellipse cx="96" cy="66" rx="6" ry="3" transform="rotate(30 96 66)"/><ellipse cx="150" cy="90" rx="6" ry="3" transform="rotate(-20 150 90)"/><ellipse cx="72" cy="150" rx="6" ry="3" transform="rotate(60 72 150)"/><ellipse cx="120" cy="142" rx="6" ry="3"/></g>
+<g fill="#2a1a12"><circle cx="82" cy="94" r="3.5"/><circle cx="134" cy="88" r="3.5"/><circle cx="110" cy="122" r="3.5"/><circle cx="66" cy="84" r="3"/></g>
+<g stroke="#a8641c" stroke-width="1.5" opacity=".5"><line x1="100" y1="16" x2="100" y2="184"/><line x1="16" y1="100" x2="184" y2="100"/><line x1="40" y1="40" x2="160" y2="160"/><line x1="160" y1="40" x2="40" y2="160"/></g>
+</svg>
+</div>
+</div>
+</section>
+
+<div class="wrap" id="oferta">
+<div class="offer">
+<div class="big">3+1<small>pizza gratuită la alegere</small></div>
+<div><h3>3 pizza + 1 cadou = 108 lei</h3><p>Comanzi trei pizza mari și a patra o alegi tu, gratuit. Ideală pentru familie sau birou.</p></div>
+<a class="btn" href="tel:+40770273273">Comandă oferta</a>
+</div>
+</div>
+
+<section class="menu-sec" id="meniu">
+<div class="wrap">
+<h2>Meniu</h2>
+<p class="sub">Apasă „+” ca să-ți faci lista, apoi trimite comanda pe WhatsApp sau sun-o la telefon.</p>
+<div class="tools">
+<div class="tabs" role="tablist" id="tabs"></div>
+<label class="search"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="7" cy="7" r="5" stroke="currentColor" stroke-width="1.6"/><path d="M11 11l3.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><input id="q" type="search" placeholder="Caută: ciuperci, picant…" aria-label="Caută în meniu"></label>
+</div>
+<div class="grid" id="grid"></div>
+<p class="note">Gramajele și ingredientele sunt preluate din informațiile nutriționale publicate de pizzerie. Prețurile pot varia; pentru produsele fără preț afișat, întreabă la telefon.</p>
+</div>
+</section>
+
+<section class="info" id="info">
+<div class="wrap">
+<h2>Program, livrare și plată</h2>
+<p class="sub">Tot ce trebuie să știi înainte să comanzi.</p>
+<div class="info-grid">
+<div class="card"><h3>📍 Unde ne găsești</h3><p>Str. 1 Decembrie 1918, nr. 13<br>Zona Mașnița – 2 Babe, Galați</p><p style="margin-top:10px"><a href="https://www.google.com/maps/search/?api=1&amp;query=45.4438683,28.022235" target="_blank" rel="noopener">Deschide în Google Maps ›</a></p></div>
+<div class="card"><h3>🕙 Program</h3><p>Luni – Duminică<br><b style="color:var(--ink)">10:00 – 22:00</b></p><p style="margin-top:10px">Pentru prânz la birou sau cină acasă.</p></div>
+<div class="card"><h3>🛵 Livrare și ridicare</h3><ul><li>Livrare oriunde în Galați</li><li>Ridicare personală (la pachet)</li><li>Catering la cerere</li><li>Parcare proprie, Wi-Fi gratuit</li></ul></div>
+<div class="card"><h3>💳 Plată</h3><p>Numerar, card (Visa, Mastercard) și contactless.</p></div>
+<div class="card"><h3>🍕 Pizza ta, cum o vrei</h3><p>Orice rețetă poate fi adaptată: scoatem sau adăugăm ingrediente la cerere.</p></div>
+<div class="card"><h3>🌱 Și de post</h3><p>Pizza Vegetariano Post și Conu Vegetarian Post, cu preparat vegetal în loc de mozzarella.</p></div>
+</div>
+</div>
+</section>
+
+<section class="contact" id="contact">
+<div class="wrap">
+<h2>Ți-e foame? Sună-ne.</h2>
+<p class="sub">Preluăm comenzi zilnic între 10:00 și 22:00.</p>
+<div class="cta">
+<a class="btn btn-red" href="tel:+40770273273">📞 0770 273 273</a>
+<a class="btn btn-ghost" href="https://www.facebook.com/conu.mustacios" target="_blank" rel="noopener">Facebook</a>
+</div>
+</div>
+</section>
+</main>
+
+<footer>
+<div class="wrap">© Pizza Conu' Mustăcios, Galați · Schiță realizată de <a href="https://draghicioiu.ro/">draghicioiu.ro</a> – site de prezentare 399 lei, aplicație iPhone 1.099 lei (ofertă octombrie).</div>
+</footer>
+
+<div class="cart" id="cart" role="region" aria-live="polite" aria-label="Lista de comandă">
+<div class="cnt"><b id="cartN">0 produse</b><span id="cartL"></span></div>
+<button class="x" id="cartX" aria-label="Golește lista">×</button>
+<a class="btn btn-sm" id="cartGo" href="#" target="_blank" rel="noopener">Trimite pe WhatsApp</a>
+</div>
+
+<script>
+const PHONE="40770273273";
+const M=[
+{c:"pizza",n:"Pizza Conu Mustăcios",p:36,g:"650 g",i:"Salam picant, cabanos, praz, castraveți murați, ardei murați, mozzarella, sos de roșii",t:["house","hot"]},
+{c:"pizza",n:"Pizza Mexicană",p:36,g:"620 g",i:"Salam picant, cabanos, mazăre, ardei iute, mozzarella, sos de roșii",t:["hot"]},
+{c:"pizza",n:"Pizza Canada",p:36,g:"670 g",i:"Șuncă Praga, cabanos, șuncă de casă, ardei kapia, roșii, mozzarella"},
+{c:"pizza",n:"Pizza Texană",p:36,g:"650 g",i:"Șuncă Praga, șuncă de casă, ardei kapia, ciuperci, mozzarella"},
+{c:"pizza",n:"Pizza Primavera",p:36,g:"590 g",i:"Șuncă de casă, dovlecel, brânză Akadia, oregano, mozzarella"},
+{c:"pizza",n:"Pizza Italiano",p:36,g:"630 g",i:"Șuncă de pui, măsline, pesto, roșii, mozzarella"},
+{c:"pizza",n:"Pizza Magic",p:36,g:"700 g",i:"Șuncă de pui, castraveți murați, porumb, ardei murați, mozzarella"},
+{c:"pizza",n:"Pizza Salami",p:36,g:"620 g",i:"Salam picant, salam, ardei kapia, măsline, mozzarella",t:["hot"]},
+{c:"pizza",n:"Pizza Vero",p:36,g:"600 g",i:"Șuncă de casă, salam, cabanos, ardei kapia, mozzarella"},
+{c:"pizza",n:"Pizza Țărănească",p:36,g:"690 g",i:"Cabanos, salam, ardei kapia, măsline, praz, roșii, mozzarella"},
+{c:"pizza",n:"Pizza 4 Anotimpuri",p:36,g:"660 g",i:"Salam, șuncă Praga, ardei kapia, ciuperci, măsline, mozzarella"},
+{c:"pizza",n:"Pizza Somon Fumé",p:35,g:"600 g",i:"Somon afumat, ceapă roșie, mozzarella"},
+{c:"pizza",n:"Pizza Prosciutto Funghi",p:36,g:"620 g",i:"Șuncă de casă, șuncă Praga, ciuperci, mozzarella"},
+{c:"pizza",n:"Pizza Carbonara",p:36,g:"590 g",i:"Șuncă de pui, smântână de gătit, oregano, mozzarella (fără sos de roșii)"},
+{c:"pizza",n:"Pizza Venus",p:36,g:"630 g",i:"Șuncă Praga, șuncă de casă, măsline, mozzarella"},
+{c:"pizza",n:"Pizza Albatros",p:36,g:"610 g",i:"Șuncă Praga, ciuperci, măsline, mozzarella"},
+{c:"pizza",n:"Pizza Hawaii",p:36,g:"645 g",i:"Șuncă Praga, ananas, mozzarella"},
+{c:"pizza",n:"Pizza Galați",p:36,g:"630 g",i:"Șuncă de casă, cașcaval afumat, măsline, Akadia, roșii, oregano, mozzarella",t:["house"]},
+{c:"pizza",n:"Pizza Tuna",p:36,g:"632 g",i:"Ton, ceapă roșie, mozzarella"},
+{c:"pizza",n:"Pizza Margherita",p:36,g:"510 g",i:"Mozzarella, brânză tare, busuioc, sos de roșii",t:["veg"]},
+{c:"pizza",n:"Pizza Suprem",p:36,g:"630 g",i:"Șuncă Praga, măsline, porumb, salam, ardei kapia, mozzarella"},
+{c:"pizza",n:"Pizza Capricioasa",p:36,g:"630 g",i:"Șuncă de casă, șuncă Praga, ciuperci, măsline, mozzarella"},
+{c:"pizza",n:"Cinque Formaggi",p:36,g:"590 g",i:"Brânză cu mucegai albastru, brânză tare, cașcaval afumat, Akadia, mozzarella",t:["veg"]},
+{c:"pizza",n:"Pizza Inferno",p:36,g:"580 g",i:"Salam picant, ardei iute, peperoncino, mozzarella",t:["hot"]},
+{c:"pizza",n:"Pizza Vegetariano",p:36,g:"650 g",i:"Ciuperci, fasole verde, măsline, mazăre, porumb, praz, mozzarella",t:["veg"]},
+{c:"pizza",n:"Pizza Cartofel",p:36,g:"702 g",i:"Șuncă de pui, cartofi wedges, Akadia, roșii, mozzarella"},
+{c:"pizza",n:"Pizza Cinque Carne",p:36,g:"640 g",i:"Șuncă de casă, șuncă de pui, șuncă Praga, salam, salam picant, măsline, mozzarella"},
+{c:"pizza",n:"Pizza Pollo",p:null,g:"635 g",i:"Piept de pui, ciuperci, ardei kapia, mozzarella, sos de roșii"},
+{c:"pizza",n:"Pizza Vegetariano Post",p:36,g:"620 g",i:"Preparat vegetal, ciuperci, fasole verde, măsline, mazăre, porumb, praz",t:["veg"]},
+{c:"pizza",n:"Pizza Delissima",p:36,g:"640 g",i:"Cremă de cacao, ananas, banane, kiwi, piersici, topping de ciocolată, alune",t:["sweet"]},
+{c:"conu",n:"Conu Mustăcios",p:12,g:"200 g",i:"Cabanos, salam picant, castraveți murați, ardei murați, praz",t:["house","hot"]},
+{c:"conu",n:"Conu Inferno",p:12,g:"180 g",i:"Salam picant, ardei iute, sos de roșii",t:["hot"]},
+{c:"conu",n:"Conu Mexican",p:12,g:"190 g",i:"Cabanos, salam picant, mazăre, ardei iute, sos de roșii",t:["hot"]},
+{c:"conu",n:"Conu Salami",p:12,g:"190 g",i:"Salam picant, salam, măsline, ardei kapia"},
+{c:"conu",n:"Conu Copiilor",p:12,g:"200 g",i:"Șuncă de pui, porumb, ardei kapia"},
+{c:"conu",n:"Conu Netty",p:12,g:"210 g",i:"Șuncă de casă, roșii, ciuperci, busuioc"},
+{c:"conu",n:"Conu Cartofel",p:12,g:"235 g",i:"Cartofi, Akadia, cabanos, roșii, praz"},
+{c:"conu",n:"Conu Capricios",p:12,g:"200 g",i:"Șuncă Praga, șuncă de casă, măsline, ciuperci, roșii"},
+{c:"conu",n:"Conu Vegetarian",p:12,g:"200 g",i:"Ciuperci, măsline, mazăre, fasole verde, porumb, praz",t:["veg"]},
+{c:"conu",n:"Conu Vegetarian Post",p:12,g:"200 g",i:"Preparat vegetal, ciuperci, măsline, mazăre, fasole verde, porumb, praz",t:["veg"]},
+{c:"conu",n:"Conu Dulce Ioana",p:12,g:"160 g",i:"Cremă de cacao, piersici, ananas, kiwi, banane, topping de ciocolată",t:["sweet"]},
+{c:"buz",n:"Buzunar cu șnițel",p:null,g:"320 g",i:"Șnițel, cartofi prăjiți, cremă de brânză, salată, roșii"},
+{c:"buz",n:"Buzunar cu șuncă de casă",p:null,g:"320 g",i:"Șuncă de casă, cremă de brânză, salată, roșii"},
+{c:"buz",n:"Buzunar cu salam picant",p:null,g:"320 g",i:"Salam picant, salam, cremă de brânză, salată, roșii",t:["hot"]},
+{c:"sand",n:"Sandwich Șnițel",p:null,g:"",i:"Chiflă, șnițel de pui pane, salată de varză și morcov, roșii, sos cheddar"},
+{c:"sand",n:"Sandwich Șuncă de casă",p:null,g:"",i:"Chiflă, șuncă de casă, salată de varză și morcov, roșii, sos cheddar"},
+{c:"sand",n:"Meniu 3 Crispy",p:null,g:"3 bucăți",i:"Crispy de pui, 200 g cartofi, salată de varză și morcov, castraveți și ardei murați"},
+{c:"sand",n:"Meniu 5 Crispy",p:null,g:"5 bucăți",i:"Crispy de pui, 400 g cartofi, salată de varză și morcov, castraveți și ardei murați"},
+{c:"sand",n:"Con mic cartofi",p:null,g:"150 g",i:"Cartofi prăjiți, condimentați după preferință, cu un sos la alegere"},
+{c:"sand",n:"Con mare cartofi",p:null,g:"200 g",i:"Cartofi prăjiți, condimentați după preferință, cu un sos la alegere"},
+{c:"sand",n:"Meniu mare cartofi",p:null,g:"400 g",i:"Cartofi prăjiți, condimentați după preferință, cu un sos la alegere"},
+{c:"sos",n:"Ketchup dulce",p:null,g:"",i:"Sos"},
+{c:"sos",n:"Ketchup picant",p:null,g:"",i:"Sos",t:["hot"]},
+{c:"sos",n:"Maioneză",p:null,g:"",i:"Sos"},
+{c:"sos",n:"Sos samurai",p:null,g:"",i:"Sos",t:["hot"]},
+{c:"sos",n:"Sos cheddar",p:null,g:"",i:"Sos"},
+{c:"sos",n:"Ulei aromat",p:null,g:"",i:"Ulei pentru pizza"},
+{c:"sos",n:"Ulei picant",p:null,g:"",i:"Ulei pentru pizza",t:["hot"]}
+];
+const CATS=[["all","Toate"],["pizza","Pizza mari"],["conu","Pizza la con"],["buz","Buzunare"],["sand","Crispy, sandwich, cartofi"],["sos","Sosuri"]];
+const TAGS={hot:["hot","picant"],veg:["veg","vegetarian"],sweet:["sweet","dulce"],house:["house","specialitate"]};
+let cat="all",q="",cart=[];
+const tabs=document.getElementById("tabs"),grid=document.getElementById("grid");
+CATS.forEach(([k,l])=>{const b=document.createElement("button");b.className="tab";b.role="tab";b.textContent=l;b.setAttribute("aria-selected",k===cat);b.onclick=()=>{cat=k;[...tabs.children].forEach(x=>x.setAttribute("aria-selected",x===b));render()};tabs.appendChild(b)});
+document.getElementById("q").addEventListener("input",e=>{q=e.target.value.trim().toLowerCase();render()});
+const esc=s=>s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const norm=s=>s.normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase();
+function render(){
+const nq=norm(q);
+const list=M.filter(m=>(cat==="all"||m.c===cat)&&(!nq||norm(m.n+" "+m.i).includes(nq)));
+grid.innerHTML=list.length?list.map(m=>`<article class="item"><div class="item-h"><h3>${esc(m.n)}${(m.t||[]).map(t=>`<span class="tag ${TAGS[t][0]}">${TAGS[t][1]}</span>`).join("")}</h3>${m.p?`<span class="price">${m.p} lei</span>`:`<span class="price na">preț la telefon</span>`}</div><p class="ing">${esc(m.i)}</p><div class="item-f"><span>${esc(m.g)}</span><button class="add" data-n="${esc(m.n)}" aria-label="Adaugă ${esc(m.n)} în listă">+</button></div></article>`).join(""):`<p class="empty">Nimic găsit pentru „${esc(q)}”.</p>`;
+}
+grid.addEventListener("click",e=>{const b=e.target.closest(".add");if(!b)return;const n=b.dataset.n;const f=cart.find(x=>x.n===n);f?f.q++:cart.push({n,q:1});b.textContent="✓";setTimeout(()=>b.textContent="+",700);upd()});
+document.getElementById("cartX").onclick=()=>{cart=[];upd()};
+function upd(){
+const el=document.getElementById("cart"),tot=cart.reduce((s,x)=>s+x.q,0);
+el.classList.toggle("on",tot>0);
+document.getElementById("cartN").textContent=tot+(tot===1?" produs":" produse");
+document.getElementById("cartL").textContent=cart.map(x=>x.q+"× "+x.n).join(", ");
+const msg="Bună ziua! Aș dori să comand:\n"+cart.map(x=>"- "+x.q+" × "+x.n).join("\n")+"\n\nAdresa de livrare: ";
+document.getElementById("cartGo").href="https://wa.me/"+PHONE+"?text="+encodeURIComponent(msg);
+}
+render();
+</script>
+</body>
+</html>
