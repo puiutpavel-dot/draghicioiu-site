@@ -1,0 +1,42 @@
+name: Produse tradiționale – actualizare catalog CPAC
+
+on:
+  schedule:
+    - cron: "41 2 * * 1"   # luni, ~05:41 ora României
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: produse-traditionale
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Preia catalogul CPAC (AFIR)
+        run: node scripts/cpac-produse.mjs
+
+      - name: Salvează dacă s-a schimbat catalogul
+        run: |
+          F=produse-traditionale/produse.json
+          if git cat-file -e HEAD:$F 2>/dev/null && \
+             cmp -s <(git show HEAD:$F | jq -c .points) <(jq -c .points $F); then
+            echo "Catalog neschimbat."
+            exit 0
+          fi
+          git config user.name  "cpac-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add produse-traditionale/produse.json
+          git commit -m "Produse tradiționale: catalog CPAC $(date -u +%Y-%m-%d)"
+          git pull --rebase
+          git push

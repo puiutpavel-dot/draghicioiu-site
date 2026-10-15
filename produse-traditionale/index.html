@@ -1,0 +1,356 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gust Românesc – harta produselor tradiționale atestate din România | draghicioiu.ro</title>
+<meta name="description" content="Peste 5.000 de produse tradiționale, montane, ecologice, DOP și IGP din catalogul oficial CPAC (AFIR), pe hartă. Vezi ce se produce lângă tine, pe județe și regiuni, și cum ajungi la producător.">
+<link rel="canonical" href="https://draghicioiu.ro/produse-traditionale/">
+<meta property="og:title" content="Gust Românesc – produse tradiționale atestate, pe hartă">
+<meta property="og:description" content="Brânzeturi, afumături, miere, dulcețuri și vinuri atestate oficial, de la producători din toată țara. Găsește-i lângă tine.">
+<meta property="og:url" content="https://draghicioiu.ro/produse-traditionale/">
+<meta property="og:image" content="https://draghicioiu.ro/produse-traditionale/icon.png">
+<link rel="icon" href="/produse-traditionale/icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.3/MarkerCluster.min.css">
+<style>
+:root{
+  --bg:#f8f5ef; --card:#fff; --ink:#1d1a17; --muted:#6d665e; --line:#e7e1d6;
+  --red:#b32a33; --red-soft:#f7e6e7; --ochre:#d99a2b; --forest:#295c45; --radius:14px;
+}
+@media (prefers-color-scheme: dark){
+  :root{--bg:#141210;--card:#1e1b18;--ink:#f3efe9;--muted:#a8a097;--line:#332e29;--red:#e2565f;--red-soft:#3a1d20;--ochre:#e7b04e;--forest:#5fb08a}
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.45}
+a{color:inherit}
+button,input,select{font:inherit;color:inherit}
+.wrap{max-width:1240px;margin:0 auto;padding:28px 16px 60px}
+.back{display:inline-block;margin-bottom:14px;font-size:14px;color:var(--muted);text-decoration:none}
+.back:hover{color:var(--ink)}
+.stripe{height:10px;border-radius:99px;margin-bottom:22px;background:
+  conic-gradient(from 45deg at 50% 50%,var(--red) 25%,transparent 0 50%,var(--red) 0 75%,transparent 0) 0 0/14px 10px,
+  var(--ochre)}
+.hero{display:grid;grid-template-columns:1fr auto;gap:24px;align-items:end}
+.brand{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.brand img{width:52px;height:52px;border-radius:13px}
+.brand b{display:block;font-size:18px}
+.brand small{color:var(--muted);font-size:13px}
+h1{font-size:clamp(28px,4.4vw,44px);margin:0 0 8px;letter-spacing:-.02em;font-weight:800;line-height:1.08}
+.lead{margin:0;color:var(--muted);max-width:700px;font-size:17px}
+.stats{display:flex;gap:18px;flex-wrap:wrap;margin-top:14px;font-size:14px;color:var(--muted)}
+.stats b{color:var(--ink);font-size:18px;display:block}
+.ios{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;max-width:300px;font-size:14px}
+.ios b{display:block;margin-bottom:2px}
+.ios span{color:var(--muted)}
+
+.controls{display:flex;flex-wrap:wrap;gap:8px;margin:24px 0 10px;align-items:center}
+.controls input[type=search]{flex:1 1 260px;min-width:0;padding:11px 14px;border-radius:12px;border:1px solid var(--line);background:var(--card)}
+.controls select{padding:10px 12px;border-radius:12px;border:1px solid var(--line);background:var(--card);max-width:100%}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:10px 14px;border-radius:12px;border:1px solid var(--line);background:var(--card);font-weight:600;font-size:14.5px;cursor:pointer;text-decoration:none;white-space:nowrap}
+.btn.primary{background:var(--red);border-color:var(--red);color:#fff}
+.btn:disabled{opacity:.5;cursor:default}
+.chips{display:flex;gap:6px;overflow-x:auto;padding:4px 0 8px;scrollbar-width:thin}
+.chip{flex:none;border:1px solid var(--line);background:var(--card);border-radius:99px;padding:6px 12px;font-size:13.5px;font-weight:600;cursor:pointer}
+.chip[aria-pressed=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.chip i{font-style:normal;margin-right:4px}
+
+.layout{display:grid;grid-template-columns:1.25fr 1fr;gap:14px;margin-top:6px}
+#map{height:640px;border-radius:var(--radius);border:1px solid var(--line);z-index:0}
+.list{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);height:640px;display:flex;flex-direction:column;min-width:0}
+.list-h{padding:12px 14px;border-bottom:1px solid var(--line);font-size:14px;color:var(--muted);display:flex;justify-content:space-between;gap:8px;align-items:center}
+.list-h select{border:none;background:transparent;font-size:14px;font-weight:600;color:var(--ink)}
+.items{overflow-y:auto;flex:1}
+.it{display:flex;gap:12px;padding:12px 14px;border-bottom:1px solid var(--line);cursor:pointer;text-align:left;width:100%;background:none;border-left:none;border-right:none;border-top:none}
+.it:hover{background:var(--bg)}
+.ic{flex:none;width:40px;height:40px;border-radius:11px;display:grid;place-items:center;font-size:20px}
+.it b{display:block;font-size:15px;line-height:1.25}
+.it small{display:block;color:var(--muted);font-size:13px;margin-top:2px}
+.it .meta{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
+.tag{font-size:11.5px;font-weight:600;padding:2px 8px;border-radius:99px;background:var(--red-soft);color:var(--red)}
+.tag.g{background:color-mix(in srgb,var(--forest) 15%,transparent);color:var(--forest)}
+.dist{margin-left:auto;flex:none;font-weight:700;color:var(--red);font-size:13px;padding-left:6px}
+.more{margin:12px auto;display:block}
+.empty{padding:30px 16px;text-align:center;color:var(--muted)}
+
+dialog{border:none;border-radius:20px;padding:0;max-width:640px;width:calc(100% - 24px);background:var(--card);color:var(--ink);box-shadow:0 20px 60px rgba(0,0,0,.35)}
+dialog::backdrop{background:rgba(0,0,0,.45)}
+.dlg{padding:22px}
+.dlg h2{margin:6px 0 6px;font-size:24px;line-height:1.15;letter-spacing:-.01em}
+.dlg .x{float:right;border:none;background:var(--bg);border-radius:99px;width:34px;height:34px;cursor:pointer;font-size:18px}
+.dlg p{margin:10px 0}
+.dlg .muted{color:var(--muted);font-size:14px}
+.dlg .row{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+.cert{background:var(--bg);border-radius:12px;padding:12px 14px;font-size:14px;margin-top:12px}
+.cert b{display:block;margin-bottom:2px}
+.others{margin-top:16px;font-size:14px}
+.others button{display:block;width:100%;text-align:left;border:none;background:none;padding:6px 0;border-bottom:1px solid var(--line);cursor:pointer;color:var(--ink)}
+
+.about{margin-top:34px;display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.about div{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:16px}
+.about h3{margin:0 0 6px;font-size:16px}
+.about p{margin:0;color:var(--muted);font-size:14.5px}
+.src{margin-top:26px;font-size:13px;color:var(--muted)}
+
+.leaflet-container{font-family:inherit;background:var(--bg)}
+.mk{width:28px;height:28px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);display:grid;place-items:center;border:2px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,.35)}
+.mk span{transform:rotate(45deg);font-size:14px;line-height:1}
+.marker-cluster div{background:var(--red)!important;color:#fff;font-weight:700}
+.marker-cluster{background:color-mix(in srgb,var(--red) 35%,transparent)!important}
+.me{width:16px;height:16px;border-radius:50%;background:#0a84ff;border:3px solid #fff;box-shadow:0 0 0 6px rgba(10,132,255,.25)}
+
+@media (max-width:900px){
+  .hero{grid-template-columns:1fr}
+  .ios{max-width:none}
+  .layout{grid-template-columns:1fr}
+  #map{height:420px}
+  .list{height:auto;max-height:none}
+  .items{max-height:none;overflow:visible}
+  .about{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="/">← draghicioiu.ro</a>
+  <div class="stripe" aria-hidden="true"></div>
+
+  <header class="hero">
+    <div>
+      <div class="brand"><img src="/produse-traditionale/icon.png" alt="" width="52" height="52"><div><b>Gust Românesc</b><small>Produse tradiționale atestate</small></div></div>
+      <h1>Gusturile României, de la producător</h1>
+      <p class="lead">Toate produsele atestate oficial – tradiționale, montane, ecologice, DOP și IGP – din Catalogul Produselor și Activităților Certificate al AFIR, pe hartă. Vezi ce se face lângă tine și cum ajungi acolo.</p>
+      <div class="stats" id="stats" aria-live="polite"></div>
+    </div>
+    <aside class="ios">
+      <b>Aplicația pentru iPhone</b>
+      <span>Gust Românesc pentru iOS este în testare (TestFlight): hartă offline, producătorii din jurul tău, traseu în aplicație și favorite. Urmează publicarea în App Store.</span>
+    </aside>
+  </header>
+
+  <div class="controls">
+    <input type="search" id="q" placeholder="Caută: telemea, miere de salcâm, Sibiu, pălincă…" aria-label="Caută produse">
+    <button class="btn primary" id="near" type="button">📍 Lângă mine</button>
+    <select id="radius" aria-label="Rază" hidden>
+      <option value="10">10 km</option><option value="25">25 km</option><option value="50" selected>50 km</option><option value="100">100 km</option><option value="200">200 km</option>
+    </select>
+    <select id="region" aria-label="Regiune"><option value="">Toate regiunile</option></select>
+    <select id="county" aria-label="Județ"><option value="">Toate județele</option></select>
+    <select id="cert" aria-label="Tip de atestat"><option value="">Toate atestatele</option></select>
+  </div>
+  <div class="chips" id="cats" role="group" aria-label="Categorii"></div>
+
+  <div class="layout">
+    <div id="map" role="region" aria-label="Harta producătorilor"></div>
+    <section class="list">
+      <div class="list-h"><span id="count">Se încarcă…</span>
+        <select id="sort" aria-label="Sortare">
+          <option value="rating">Cele mai apreciate</option>
+          <option value="name">Alfabetic</option>
+          <option value="new">Cele mai noi atestate</option>
+          <option value="dist">Cele mai apropiate</option>
+        </select>
+      </div>
+      <div class="items" id="items"></div>
+    </section>
+  </div>
+
+  <section class="about">
+    <div><h3>⛰️ Produs montan</h3><p>Obținut în zona montană, din materii prime de acolo, și procesat tot acolo.</p></div>
+    <div><h3>🏅 Produs tradițional</h3><p>Rețetă și procedeu tradițional, materii prime locale, atestat de Ministerul Agriculturii.</p></div>
+    <div><h3>🛡️ DOP / IGP</h3><p>Denumire de origine sau indicație geografică protejată la nivel european.</p></div>
+  </section>
+
+  <p class="src">Date: <a href="https://cpac.afir.info/ToateProdusele" target="_blank" rel="noopener">Catalogul Produselor și Activităților Certificate (CPAC), AFIR</a>, actualizate săptămânal<span id="upd"></span>. Pagina nu este afiliată AFIR. Verifică programul direct cu producătorul înainte de drum. Locația ta e folosită doar în browser, nu e trimisă nicăieri.</p>
+</div>
+
+<dialog id="dlg"><div class="dlg" id="dlgBody"></div></dialog>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.3/leaflet.markercluster.min.js"></script>
+<script>
+const CATS = {
+  leg:["Legume și fructe","🥕","#5c9a3b"], lap:["Lactate","🧀","#548ccc"], car:["Carne","🥓","#b8332e"],
+  api:["Produse apicole","🍯","#e59e1a"], pan:["Panificație","🥖","#b37840"], pes:["Pește","🐟","#298c9e"],
+  bau:["Băuturi","🍶","#80549e"], cra:["Crame","🍷","#851a45"], pgl:["Puncte gastronomice","🏡","#d96133"], alt:["Altele","🧺","#73736a"]
+};
+const CERTS = {
+  3:["Produs montan","Obținut în zona montană, din materii prime provenite în principal de acolo și procesat tot acolo."],
+  1:["Produs tradițional","Fabricat din materii prime locale, după o rețetă și un procedeu tradițional care îl diferențiază de produse similare."],
+  2:["Rețetă consacrată","Făcut după o rețetă românească consacrată, publicată înainte de 1990, respectată întocmai."],
+  21:["Punct gastronomic local","Gospodărie sau fermă autorizată să servească turiștilor mâncare gătită din produse proprii sau locale."],
+  20:["Certificat ecologic","Produs bio, fără pesticide și îngrășăminte de sinteză, controlat de un organism de certificare."],
+  7:["Vin certificat","Vin cu denumire de origine controlată sau indicație geografică, din podgorii delimitate."],
+  5:["IGP – Indicație geografică protejată","Cel puțin o etapă de producție are loc în zona de origine, care îi dă reputația. Protecție europeană."],
+  4:["DOP – Denumire de origine protejată","Toate etapele de producție au loc în aria delimitată, iar calitățile se datorează locului. Protecție europeană."],
+  19:["STG – Specialitate tradițională garantată","Rețeta sau metoda tradițională sunt protejate la nivel european."],
+  6:["IG – Băuturi spirtoase","Băutură spirtoasă (ex. pălincă, țuică) cu denumire legată de zona de producție."],
+  18:["Protecție națională","Protecție tranzitorie la nivel național, până la înregistrarea europeană."]
+};
+const REGIONS = {transilvania:"Transilvania",maramures:"Maramureș",crisana:"Crișana",banat:"Banat",oltenia:"Oltenia",
+  muntenia:"Muntenia",bucuresti:"București – Ilfov",dobrogea:"Dobrogea",moldova:"Moldova",bucovina:"Bucovina",md:"Republica Moldova"};
+
+const $ = (s) => document.querySelector(s);
+const esc = (s) => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const fold = (s) => String(s||"").normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase();
+const fmtKm = (m) => m < 1000 ? Math.round(m) + " m" : (m < 10000 ? (m/1000).toFixed(1).replace(".",",") : Math.round(m/1000)) + " km";
+const coll = new Intl.Collator("ro");
+
+let P = [], ALL = [], me = null, state = {q:"", cats:new Set(), region:"", county:"", cert:"", near:false, radius:50, sort:"rating"}, shown = 120;
+
+function hav(a, b, c, d){ const R=6371000, r=Math.PI/180, x=Math.sin((c-a)*r/2)**2 + Math.cos(a*r)*Math.cos(c*r)*Math.sin((d-b)*r/2)**2; return 2*R*Math.asin(Math.sqrt(x)); }
+
+const map = L.map("map", {scrollWheelZoom:false, zoomControl:true}).setView([45.95, 24.95], 7);
+L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {maxZoom:18, attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'}).addTo(map);
+map.on("focus", () => map.scrollWheelZoom.enable());
+const cluster = L.markerClusterGroup({showCoverageOnHover:false, maxClusterRadius:48, chunkedLoading:true});
+map.addLayer(cluster);
+let meMarker = null;
+
+function icon(c){ const [, e, col] = CATS[c] || CATS.alt; return L.divIcon({className:"", html:`<div class="mk" style="background:${col}"><span>${e}</span></div>`, iconSize:[28,28], iconAnchor:[14,28]}); }
+function mainCat(pt){ const m={}; pt.x.forEach(p => m[p.c]=(m[p.c]||0)+1); return Object.keys(m).sort((a,b)=>m[b]-m[a])[0]; }
+
+function matches(item){
+  const s = state;
+  if (s.cats.size && !s.cats.has(item.c)) return false;
+  if (s.cert && String(item.t) !== s.cert) return false;
+  if (s.region && item.pt.r !== s.region) return false;
+  if (s.county && item.pt.j !== s.county) return false;
+  if (s.near && me && item.dist > s.radius*1000) return false;
+  if (s.q){ for (const w of fold(s.q).split(/\s+/).filter(Boolean)) if (!item.blob.includes(w)) return false; }
+  return true;
+}
+
+function render(fit){
+  const list = ALL.filter(matches);
+  const sort = state.sort;
+  if (sort === "dist" && me) list.sort((a,b)=>a.dist-b.dist);
+  else if (sort === "name") list.sort((a,b)=>coll.compare(a.n,b.n));
+  else if (sort === "new") list.sort((a,b)=>b.y-a.y);
+  else list.sort((a,b)=>b.s-a.s);
+
+  // hartă: punctele care au cel puțin un produs vizibil
+  const pts = new Map(); list.forEach(i => pts.set(i.pt, (pts.get(i.pt)||0)+1));
+  cluster.clearLayers();
+  const markers = [];
+  pts.forEach((n, pt) => { const m = L.marker([pt.la, pt.lo], {icon: icon(mainCat(pt)), title: pt.p}); m.on("click", () => openPoint(pt)); markers.push(m); });
+  cluster.addLayers(markers);
+  if (fit && markers.length){
+    if (state.near && me) map.fitBounds(L.latLng(me.lat, me.lon).toBounds(state.radius*2000));
+    else map.fitBounds(L.featureGroup(markers).getBounds(), {padding:[30,30], maxZoom:12});
+  }
+
+  $("#count").textContent = list.length ? `${list.length.toLocaleString("ro")} produse · ${pts.size.toLocaleString("ro")} producători` : "Niciun rezultat";
+  const box = $("#items");
+  if (!list.length){ box.innerHTML = `<div class="empty">Nimic nu se potrivește. Încearcă alt cuvânt, o rază mai mare sau scoate un filtru.</div>`; return; }
+  box.innerHTML = list.slice(0, shown).map(rowHtml).join("") +
+    (list.length > shown ? `<button class="btn more" type="button" id="moreBtn">Arată încă ${Math.min(120, list.length-shown)}</button>` : "");
+  box.querySelectorAll(".it").forEach(el => el.addEventListener("click", () => openProduct(ALL[+el.dataset.i])));
+  const mb = $("#moreBtn"); if (mb) mb.onclick = () => { shown += 120; render(false); };
+}
+
+function rowHtml(i){
+  const [cn, e, col] = CATS[i.c] || CATS.alt;
+  const cert = (CERTS[i.t]||["Atestat"])[0];
+  return `<button class="it" type="button" data-i="${i.idx}">
+    <span class="ic" style="background:${col}22">${e}</span>
+    <span style="min-width:0;flex:1"><b>${esc(i.n)}</b><small>${esc(i.pt.p)} · ${esc(i.pt.l)}, ${esc(i.pt.j)}</small>
+    <span class="meta"><span class="tag">${esc(cert)}</span>${i.s ? `<span class="tag g">★ ${i.s.toFixed(1).replace(".",",")}</span>` : ""}</span></span>
+    ${me ? `<span class="dist">${fmtKm(i.dist)}</span>` : ""}
+  </button>`;
+}
+
+function navLinks(pt){
+  const ll = `${pt.la},${pt.lo}`;
+  return `<a class="btn primary" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&destination=${ll}&travelmode=driving">🧭 Google Maps</a>
+    <a class="btn" target="_blank" rel="noopener" href="https://waze.com/ul?ll=${ll}&navigate=yes">🚗 Waze</a>
+    <a class="btn" target="_blank" rel="noopener" href="https://maps.apple.com/?daddr=${ll}">🗺️ Apple Maps</a>`;
+}
+
+function openProduct(i){
+  const [cn, e] = CATS[i.c] || CATS.alt;
+  const [ct, cx] = CERTS[i.t] || ["Atestat","Produs înscris în catalogul CPAC al AFIR."];
+  const others = i.pt.x.filter(p => p !== i);
+  $("#dlgBody").innerHTML = `<button class="x" type="button" aria-label="Închide" onclick="dlg.close()">×</button>
+    <span class="tag">${e} ${esc(cn)}</span>
+    <h2>${esc(i.n)}</h2>
+    <div class="muted">${esc(i.pt.p)}<br>${esc(i.pt.a)}${me ? `<br><b style="color:var(--red)">${fmtKm(i.dist)} de tine</b>` : ""}</div>
+    ${i.d ? `<p>${esc(i.d)}</p>` : ""}
+    <div class="cert"><b>${esc(ct)}${i.nr ? ` · nr. ${esc(i.nr)}` : ""}${i.y ? ` / ${i.y}` : ""}</b>${esc(cx)}</div>
+    <div class="row">${navLinks(i.pt)}<button class="btn" type="button" id="onMap">📌 Pe hartă</button></div>
+    ${others.length ? `<div class="others"><b>Tot de la ${esc(i.pt.p)} (${others.length})</b>${others.slice(0,12).map(o=>`<button type="button" data-i="${o.idx}">${(CATS[o.c]||CATS.alt)[1]} ${esc(o.n)}</button>`).join("")}</div>` : ""}`;
+  $("#dlgBody").querySelectorAll(".others button").forEach(b => b.onclick = () => openProduct(ALL[+b.dataset.i]));
+  $("#onMap").onclick = () => { dlg.close(); map.setView([i.pt.la, i.pt.lo], 14); document.getElementById("map").scrollIntoView({behavior:"smooth", block:"center"}); };
+  if (!dlg.open) dlg.showModal();
+}
+
+function openPoint(pt){
+  if (pt.x.length === 1) return openProduct(pt.x[0]);
+  $("#dlgBody").innerHTML = `<button class="x" type="button" aria-label="Închide" onclick="dlg.close()">×</button>
+    <h2>${esc(pt.p)}</h2><div class="muted">${esc(pt.a)}${me ? `<br><b style="color:var(--red)">${fmtKm(hav(me.lat,me.lon,pt.la,pt.lo))} de tine</b>` : ""}</div>
+    <div class="row">${navLinks(pt)}</div>
+    <div class="others"><b>${pt.x.length} produse atestate</b>${pt.x.slice().sort((a,b)=>b.s-a.s).map(o=>`<button type="button" data-i="${o.idx}">${(CATS[o.c]||CATS.alt)[1]} ${esc(o.n)}</button>`).join("")}</div>`;
+  $("#dlgBody").querySelectorAll(".others button").forEach(b => b.onclick = () => openProduct(ALL[+b.dataset.i]));
+  if (!dlg.open) dlg.showModal();
+}
+const dlg = $("#dlg");
+dlg.addEventListener("click", e => { if (e.target === dlg) dlg.close(); });
+
+function setupControls(){
+  const counties = [...new Set(P.map(p=>p.j))].sort(coll.compare);
+  const fillCounties = () => {
+    const list = state.region ? counties.filter(c => P.some(p => p.j===c && p.r===state.region)) : counties;
+    $("#county").innerHTML = `<option value="">Toate județele</option>` + list.map(c=>`<option>${esc(c)}</option>`).join("");
+    $("#county").value = list.includes(state.county) ? state.county : "";
+    state.county = $("#county").value;
+  };
+  $("#region").innerHTML += Object.entries(REGIONS).filter(([k]) => P.some(p=>p.r===k)).map(([k,v])=>`<option value="${k}">${esc(v)}</option>`).join("");
+  fillCounties();
+  const certCount = {}; ALL.forEach(i => certCount[i.t]=(certCount[i.t]||0)+1);
+  $("#cert").innerHTML += Object.entries(CERTS).filter(([k])=>certCount[k]).map(([k,v])=>`<option value="${k}">${esc(v[0])} (${certCount[k]})</option>`).join("");
+  const catCount = {}; ALL.forEach(i => catCount[i.c]=(catCount[i.c]||0)+1);
+  $("#cats").innerHTML = Object.entries(CATS).filter(([k])=>catCount[k]).map(([k,[n,e]])=>`<button class="chip" type="button" aria-pressed="false" data-c="${k}"><i>${e}</i>${esc(n)} <span style="opacity:.6">${catCount[k]}</span></button>`).join("");
+  $("#cats").querySelectorAll(".chip").forEach(b => b.onclick = () => {
+    const c = b.dataset.c; state.cats.has(c) ? state.cats.delete(c) : state.cats.add(c);
+    b.setAttribute("aria-pressed", state.cats.has(c)); shown = 120; render(true);
+  });
+  let t; $("#q").addEventListener("input", e => { clearTimeout(t); t = setTimeout(() => { state.q = e.target.value.trim(); shown = 120; render(true); }, 180); });
+  $("#region").onchange = e => { state.region = e.target.value; fillCounties(); shown = 120; render(true); };
+  $("#county").onchange = e => { state.county = e.target.value; shown = 120; render(true); };
+  $("#cert").onchange = e => { state.cert = e.target.value; shown = 120; render(true); };
+  $("#sort").onchange = e => { state.sort = e.target.value; render(false); };
+  $("#radius").onchange = e => { state.radius = +e.target.value; shown = 120; render(true); };
+  $("#near").onclick = locate;
+  const q = new URLSearchParams(location.search).get("q"); if (q){ $("#q").value = q; state.q = q; }
+}
+
+function locate(){
+  if (state.near){ state.near = false; $("#near").textContent = "📍 Lângă mine"; $("#radius").hidden = true; render(true); return; }
+  if (!navigator.geolocation){ alert("Browserul tău nu permite localizarea."); return; }
+  const b = $("#near"); b.disabled = true; b.textContent = "Te localizez…";
+  navigator.geolocation.getCurrentPosition(pos => {
+    me = {lat: pos.coords.latitude, lon: pos.coords.longitude};
+    ALL.forEach(i => i.dist = hav(me.lat, me.lon, i.pt.la, i.pt.lo));
+    if (meMarker) meMarker.remove();
+    meMarker = L.marker([me.lat, me.lon], {icon: L.divIcon({className:"", html:'<div class="me"></div>', iconSize:[16,16]}), zIndexOffset:1000, title:"Ești aici"}).addTo(map);
+    state.near = true; state.sort = "dist"; $("#sort").value = "dist"; $("#radius").hidden = false;
+    b.disabled = false; b.textContent = "✕ Toată țara"; shown = 120; render(true);
+  }, () => { b.disabled = false; b.textContent = "📍 Lângă mine"; alert("Nu am putut afla locația. Verifică permisiunea de localizare din browser."); },
+  {enableHighAccuracy:false, timeout:12000, maximumAge:300000});
+}
+
+fetch("/produse-traditionale/produse.json").then(r => r.json()).then(data => {
+  P = data.points;
+  let idx = 0;
+  P.forEach(pt => pt.x.forEach(p => { p.pt = pt; p.idx = idx++; p.dist = 0;
+    p.blob = fold([p.n, pt.p, pt.l, pt.j, (CATS[p.c]||[])[0], (CERTS[p.t]||[])[0], p.d].join(" ")); ALL.push(p); }));
+  const prod = new Set(P.map(p=>p.p)).size;
+  $("#stats").innerHTML = `<span><b>${ALL.length.toLocaleString("ro")}</b>produse atestate</span><span><b>${prod.toLocaleString("ro")}</b>producători</span><span><b>${new Set(P.map(p=>p.j)).size}</b>județe</span>`;
+  if (data.updated) $("#upd").textContent = ` (ultima actualizare: ${new Date(data.updated).toLocaleDateString("ro-RO",{day:"numeric",month:"long",year:"numeric"})})`;
+  setupControls(); render(!!state.q);
+}).catch(() => { $("#count").textContent = "Nu am putut încărca datele."; });
+</script>
+</body>
+</html>
