@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Conu' Mustăcios · Galați – schiță de site (varianta 2)</title>
+<meta name="description" content="A doua schiță de site pentru Pizza Conu' Mustăcios din Galați, pregătită de Daniel Drăghicioiu.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#14110f">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%2314110f'/%3E%3Ctext x='16' y='21' font-family='Georgia' font-size='13' fill='%23f3e9d8' text-anchor='middle'%3EC%C2%B7M%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600&display=swap">
+<style>
+:root{
+--bg:#f3e9d8;--bg-2:#eadcc4;--ink:#14110f;--ink-2:#5b5048;--line:#cdbb9f;--accent:#a3271c;--card:#f8f1e5;--dark:#14110f;--on-dark:#f3e9d8;
+--serif:"Cormorant Garamond",Georgia,"Times New Roman",serif;--sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#14110f;--bg-2:#1d1915;--ink:#f3e9d8;--ink-2:#b8a993;--line:#3a322a;--accent:#e0574a;--card:#1b1714;--dark:#0c0a09;--on-dark:#f3e9d8;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#14110f;--bg-2:#1d1915;--ink:#f3e9d8;--ink-2:#b8a993;--line:#3a322a;--accent:#e0574a;--card:#1b1714;--dark:#0c0a09;--on-dark:#f3e9d8;color-scheme:dark}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 var(--sans);-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.wrap{max-width:1040px;margin:0 auto;padding:0 16px}
+.demo{background:#000;color:#eee;font-size:13px;text-align:center;padding:8px 16px}
+.demo a{color:#7cc4ff}
+.caps{font-family:var(--sans);text-transform:uppercase;letter-spacing:.18em;font-size:12px;font-weight:600}
+header{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 90%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.hd{display:flex;align-items:center;justify-content:space-between;gap:16px;height:64px}
+.mark{display:flex;align-items:baseline;gap:12px;text-decoration:none}
+.mono{font-family:var(--serif);font-weight:700;font-size:26px;letter-spacing:.32em;line-height:1}
+.mark small{color:var(--ink-2)}
+.hd nav{display:flex;gap:22px}
+.hd nav a{text-decoration:none;color:var(--ink-2)}
+.hd nav a:hover{color:var(--ink)}
+.order{display:inline-flex;align-items:center;padding:10px 18px;border-radius:999px;background:var(--ink);color:var(--bg);text-decoration:none;font-weight:600;font-size:14px;white-space:nowrap}
+.order:hover{opacity:.88}
+.hero{padding:72px 0 64px;border-bottom:1px solid var(--line)}
+.hero .addr{color:var(--ink-2);margin-bottom:28px}
+h1{font-family:var(--serif);font-weight:600;font-size:clamp(46px,9vw,104px);line-height:.95;letter-spacing:-.02em;margin:0 0 28px}
+h1 i{color:var(--accent);font-weight:500}
+.hero p.lead{font-size:19px;max-width:560px;color:var(--ink-2);margin:0 0 32px}
+.row{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:13px 22px;border-radius:999px;text-decoration:none;font-weight:600;font-size:15px;border:1.5px solid var(--ink)}
+.btn.fill{background:var(--ink);color:var(--bg)}
+.btn:hover{opacity:.85}
+.meta{display:grid;grid-template-columns:repeat(3,1fr);margin-top:56px;border-top:1px solid var(--line)}
+.meta div{padding:18px 16px 0 0}
+.meta b{display:block;font-family:var(--serif);font-size:24px;font-weight:600;line-height:1.2}
+.meta span{color:var(--ink-2);font-size:14px}
+section{padding:80px 0;scroll-margin-top:64px;border-bottom:1px solid var(--line)}
+h2{font-family:var(--serif);font-weight:600;font-size:clamp(34px,5.5vw,56px);line-height:1;letter-spacing:-.01em;margin:10px 0 24px}
+.lbl{color:var(--accent)}
+.story{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start}
+.story p{margin:0 0 16px;color:var(--ink-2);font-size:17px}
+blockquote{margin:0;font-family:var(--serif);font-style:italic;font-size:clamp(30px,4.4vw,44px);line-height:1.15;border-left:2px solid var(--accent);padding-left:24px}
+blockquote footer{font-family:var(--sans);font-style:normal;font-size:12px;color:var(--ink-2);margin-top:16px;text-transform:uppercase;letter-spacing:.18em}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;margin-top:40px;counter-reset:s}
+.step{border-top:1px solid var(--ink);padding-top:18px}
+.step:before{counter-increment:s;content:"0" counter(s);font-family:var(--serif);font-size:44px;line-height:1;display:block;margin-bottom:12px;color:var(--accent)}
+.step h3{font-family:var(--serif);font-size:26px;margin:0 0 6px;font-weight:600}
+.step p{margin:0;color:var(--ink-2)}
+.menu-intro{color:var(--ink-2);max-width:560px;font-size:17px;margin:0 0 40px}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:16px 64px}
+.mgrp{margin-bottom:40px}
+.mgrp h3{display:flex;justify-content:space-between;align-items:baseline;border-bottom:1px solid var(--ink);padding-bottom:8px;margin:0 0 14px}
+.mgrp h3 span{font-family:var(--serif);font-size:28px;font-weight:600;letter-spacing:0;text-transform:none}
+.mgrp h3 em{font-style:normal;font-family:var(--sans);font-size:14px;color:var(--accent);font-weight:600}
+.dish{padding:10px 0;border-bottom:1px dashed var(--line)}
+.dish b{font-weight:600}
+.dish small{display:block;color:var(--ink-2);font-size:14px;line-height:1.45}
+.dish .gr{float:right;color:var(--ink-2);font-size:13px;margin-left:12px}
+.note{font-size:13px;color:var(--ink-2);margin-top:8px}
+.dark{background:var(--dark);color:var(--on-dark);border-bottom:0}
+.dark .lbl{color:#e8a598}
+.combo{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(243,233,216,.18);border:1px solid rgba(243,233,216,.18);margin-top:40px}
+.c{background:var(--dark);padding:28px 24px}
+.c .n{font-family:var(--serif);font-size:56px;line-height:1;color:#e8a598}
+.c h3{font-family:var(--serif);font-size:28px;font-weight:600;margin:10px 0 12px}
+.c ol{margin:0;padding-left:18px;color:#cfc2ad}
+.c ol li{margin:4px 0}
+.c .pr{margin-top:16px;font-weight:600}
+.dark p.sub{color:#cfc2ad;max-width:560px}
+.event{display:grid;grid-template-columns:1.2fr .8fr;gap:48px;align-items:center}
+.event p{color:var(--ink-2);font-size:17px}
+.event ul{list-style:none;padding:0;margin:0;border-top:1px solid var(--line)}
+.event li{padding:14px 0;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:12px}
+.event li span{color:var(--ink-2)}
+details{border-bottom:1px solid var(--line)}
+details:first-of-type{border-top:1px solid var(--line)}
+summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:20px 0;font-family:var(--serif);font-size:24px;font-weight:600}
+summary::-webkit-details-marker{display:none}
+summary:after{content:"+";font-family:var(--sans);font-weight:400;font-size:26px;color:var(--accent);transition:transform .2s}
+details[open] summary:after{transform:rotate(45deg)}
+details p{margin:0 0 20px;color:var(--ink-2);max-width:640px}
+.visit{display:grid;grid-template-columns:repeat(3,1fr);gap:32px}
+.visit h3{margin:0 0 10px}
+.visit p{margin:0;font-family:var(--serif);font-size:24px;line-height:1.3}
+.visit a{color:var(--accent)}
+footer.ft{padding:32px 0 48px;color:var(--ink-2);font-size:13px}
+footer.ft .mono{font-size:20px;color:var(--ink)}
+.ft-in{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:center}
+@media (max-width:820px){
+.hd nav{display:none}
+.mark small{display:none}
+.hero{padding:48px 0}
+.meta,.steps,.combo,.visit{grid-template-columns:1fr}
+.meta div{padding:14px 0;border-bottom:1px solid var(--line)}
+.story,.event,.cols{grid-template-columns:1fr;gap:32px}
+section{padding:56px 0}
+}
+</style>
+</head>
+<body>
+<div class="demo">Schiță de site (varianta 2) pregătită de <a href="https://draghicioiu.ro/">Daniel Drăghicioiu</a> pentru Pizza Conu' Mustăcios. Nu este site-ul oficial. <a href="/pizza-conu-mustacios/">Vezi varianta 1</a></div>
+
+<header>
+<div class="wrap hd">
+<a class="mark" href="#top"><span class="mono">C·M</span><small class="caps">Pizza, Galați</small></a>
+<nav class="caps" aria-label="Secțiuni"><a href="#povestea">Povestea</a><a href="#meniu">Meniu</a><a href="#combinatii">Combinații</a><a href="#catering">Catering</a><a href="#intrebari">Întrebări</a></nav>
+<a class="order" href="tel:+40770273273">Comandă · 0770 273 273</a>
+</div>
+</header>
+
+<main id="top">
+<div class="wrap hero">
+<div class="caps addr">Str. 1 Decembrie 1918, nr. 13 · Galați</div>
+<h1>Pizza proaspătă.<br><i>De fiecare dată.</i></h1>
+<p class="lead">Conu' Mustăcios e o pizzerie de familie, construită cu drag și pasiune pentru gătit. Orice rețetă o adaptăm după gustul tău, iar comanda ajunge oriunde în Galați.</p>
+<div class="row">
+<a class="btn fill" href="tel:+40770273273">Sună și comandă</a>
+<a class="btn" href="#meniu">Vezi meniul</a>
+</div>
+<div class="meta">
+<div><b>10:00 – 22:00</b><span>în fiecare zi</span></div>
+<div><b>Tot Galațiul</b><span>livrare la domiciliu sau ridicare</span></div>
+<div><b>3 + 1 la 108 lei</b><span>a patra pizza o alegi tu, gratuit</span></div>
+</div>
+</div>
+
+<section id="povestea">
+<div class="wrap story">
+<div>
+<div class="caps lbl">Povestea</div>
+<h2>O afacere de familie, pe Mașnița.</h2>
+<p>Am pornit cu un gând simplu: mâncare gustoasă și proaspătă, făcută ca acasă. De aici am construit un meniu cu rețete pentru toate gusturile, de la clasica Margherita la pizza noastră cu numele casei.</p>
+<p>Fie că e pauza de prânz la birou sau cina în familie, pizza pleacă din cuptor direct spre tine.</p>
+</div>
+<blockquote>„Pizza proaspătă, de fiecare dată.”<footer>Conu' Mustăcios · Galați</footer></blockquote>
+</div>
+</section>
+
+<section>
+<div class="wrap">
+<div class="caps lbl">Cum lucrăm</div>
+<h2>Trei pași, nicio grabă.</h2>
+<div class="steps">
+<div class="step"><h3>Alegi rețeta</h3><p>Peste 40 de pizza mari și la con, plus buzunare, crispy și cartofi.</p></div>
+<div class="step"><h3>O facem cum vrei</h3><p>Scoatem sau adăugăm ingrediente. Avem și variante vegetariene sau de post.</p></div>
+<div class="step"><h3>Ajunge la tine</h3><p>Livrare oriunde în Galați sau ridicare din Str. 1 Decembrie 1918, nr. 13.</p></div>
+</div>
+</div>
+</section>
+
+<section id="meniu">
+<div class="wrap">
+<div class="caps lbl">Meniu</div>
+<h2>Un meniu scurt de citit, greu de ales.</h2>
+<p class="menu-intro">Pizza mare (aprox. 600 g) și pizza la con, pentru când vrei ceva rapid. Gramajele sunt cele publicate de noi în informațiile nutriționale.</p>
+<div class="cols" id="cols"></div>
+<p class="note">Prețurile pot varia. Pentru produsele fără preț afișat, întreabă la telefon.</p>
+</div>
+</section>
+
+<section class="dark" id="combinatii">
+<div class="wrap">
+<div class="caps lbl">Combinații</div>
+<h2>O pizza în centru. Restul, în jurul ei.</h2>
+<p class="sub">Trei combinații gândite pentru momente diferite. Spune la telefon numele combinației și o pregătim.</p>
+<div class="combo">
+<div class="c"><div class="n">I</div><h3>Masa de familie</h3><ol><li>3 pizza mari la alegere</li><li>A patra pizza gratuită</li><li>Sosuri după gust</li></ol><div class="pr">108 lei · ofertă 3 + 1</div></div>
+<div class="c"><div class="n">II</div><h3>Prânz la birou</h3><ol><li>Conu Mustăcios (200 g)</li><li>Con mic de cartofi</li><li>Ketchup dulce sau picant</li></ol><div class="pr">Pizza la con: 12 lei</div></div>
+<div class="c"><div class="n">III</div><h3>Seara picantă</h3><ol><li>Pizza Inferno (580 g)</li><li>Conu Mexican, la împărțit</li><li>Ulei picant și sos samurai</li></ol><div class="pr">Pizza Inferno: 36 lei</div></div>
+</div>
+</div>
+</section>
+
+<section id="catering">
+<div class="wrap event">
+<div>
+<div class="caps lbl">Catering și evenimente</div>
+<h2>Pizza pentru toată echipa.</h2>
+<p>Ședință, aniversare, petrecere la birou sau în familie? Pregătim catering la cerere. Spune-ne câți sunteți și când, iar noi propunem meniul.</p>
+<div class="row" style="margin-top:24px"><a class="btn fill" href="tel:+40770273273">Cere o ofertă</a></div>
+</div>
+<ul>
+<li>Catering<span>la cerere</span></li>
+<li>Comenzi mari<span>3 + 1 la 108 lei</span></li>
+<li>Variante de post<span>disponibile</span></li>
+<li>Plată<span>card sau numerar</span></li>
+</ul>
+</div>
+</section>
+
+<section id="intrebari">
+<div class="wrap">
+<div class="caps lbl">Întrebări</div>
+<h2>Bine de știut.</h2>
+<details><summary>Livrați în tot Galațiul?</summary><p>Da, livrăm oriunde în Galați. Poți ridica și personal comanda din Str. 1 Decembrie 1918, nr. 13.</p></details>
+<details><summary>Care e programul?</summary><p>Suntem deschiși zilnic, între 10:00 și 22:00.</p></details>
+<details><summary>Pot schimba ingredientele?</summary><p>Da. Orice rețetă poate fi adaptată: spune-ne la comandă ce scoatem sau ce adăugăm.</p></details>
+<details><summary>Aveți pizza de post sau vegetariană?</summary><p>Da: Pizza Vegetariano Post și Conu Vegetarian Post, cu preparat vegetal în loc de mozzarella, plus variantele vegetariene clasice.</p></details>
+<details><summary>Cum pot plăti?</summary><p>Numerar, card Visa sau Mastercard și contactless.</p></details>
+<details><summary>Pot veni la voi?</summary><p>Da. Avem aer condiționat, Wi-Fi gratuit și parcare proprie.</p></details>
+</div>
+</section>
+
+<section>
+<div class="wrap visit">
+<div><div class="caps lbl">Adresa</div><p>Str. 1 Decembrie 1918, nr. 13<br>Galați</p><p style="font-size:16px;font-family:var(--sans);margin-top:10px"><a href="https://www.google.com/maps/search/?api=1&amp;query=45.4438683,28.022235" target="_blank" rel="noopener">Deschide în Google Maps ›</a></p></div>
+<div><div class="caps lbl">Program</div><p>Luni – Duminică<br>10:00 – 22:00</p></div>
+<div><div class="caps lbl">Comenzi</div><p><a href="tel:+40770273273">0770 273 273</a></p><p style="font-size:16px;font-family:var(--sans);margin-top:10px"><a href="https://www.facebook.com/conu.mustacios" target="_blank" rel="noopener">Facebook ›</a></p></div>
+</div>
+</section>
+</main>
+
+<footer class="ft">
+<div class="wrap ft-in">
+<span class="mono">C·M</span>
+<span>© Pizza Conu' Mustăcios, Galați · Schiță de <a href="https://draghicioiu.ro/">draghicioiu.ro</a></span>
+</div>
+</footer>
+
+<script>
+const G=[
+{t:"Pizza mari",p:"36 lei",d:[
+["Conu Mustăcios","650 g","Salam picant, cabanos, praz, castraveți și ardei murați"],
+["Margherita","510 g","Mozzarella, brânză tare, busuioc, sos de roșii"],
+["Capricioasa","630 g","Șuncă de casă, șuncă Praga, ciuperci, măsline"],
+["Galați","630 g","Șuncă de casă, cașcaval afumat, măsline, Akadia, oregano"],
+["Prosciutto Funghi","620 g","Șuncă de casă, șuncă Praga, ciuperci"],
+["Cinque Formaggi","590 g","Brânză albastră, brânză tare, cașcaval afumat, Akadia"],
+["Carbonara","590 g","Șuncă de pui, smântână de gătit, oregano"],
+["Țărănească","690 g","Cabanos, salam, ardei kapia, măsline, praz, roșii"],
+["Inferno","580 g","Salam picant, ardei iute, peperoncino"],
+["Mexicană","620 g","Salam picant, cabanos, mazăre, ardei iute"],
+["Hawaii","645 g","Șuncă Praga, ananas"],
+["Tuna","632 g","Ton, ceapă roșie"],
+["Somon Fumé · 35 lei","600 g","Somon afumat, ceapă roșie"],
+["Vegetariano","650 g","Ciuperci, fasole verde, măsline, mazăre, porumb, praz"],
+["Vegetariano Post","620 g","Preparat vegetal, ciuperci, legume"],
+["Delissima","640 g","Cremă de cacao, fructe, ciocolată, alune"]
+],more:"și încă 14 rețete: Canada, Texană, Primavera, Italiano, Magic, Salami, Vero, 4 Anotimpuri, Venus, Albatros, Suprem, Cartofel, Cinque Carne, Pollo."},
+{t:"Pizza la con",p:"12 lei",d:[
+["Conu Mustăcios","200 g","Cabanos, salam picant, murături, praz"],
+["Conu Inferno","180 g","Salam picant, ardei iute"],
+["Conu Copiilor","200 g","Șuncă de pui, porumb, ardei kapia"],
+["Conu Netty","210 g","Șuncă de casă, roșii, ciuperci, busuioc"],
+["Conu Capricios","200 g","Șuncă Praga, șuncă de casă, măsline, ciuperci"],
+["Conu Dulce Ioana","160 g","Cremă de cacao, fructe, ciocolată"]
+],more:"și Conu Mexican, Salami, Cartofel, Vegetarian, Vegetarian Post."},
+{t:"Buzunare",p:"",d:[
+["Cu șnițel","320 g","Șnițel, cartofi, cremă de brânză, salată, roșii"],
+["Cu șuncă de casă","320 g","Șuncă de casă, cremă de brânză, salată, roșii"],
+["Cu salam picant","320 g","Salam picant, salam, cremă de brânză, salată, roșii"]
+]},
+{t:"Crispy, sandwich, cartofi",p:"",d:[
+["Meniu 3 Crispy","3 buc.","Crispy de pui, 200 g cartofi, salată, murături"],
+["Meniu 5 Crispy","5 buc.","Crispy de pui, 400 g cartofi, salată, murături"],
+["Sandwich Șnițel","","Șnițel pane, salată de varză, roșii, sos cheddar"],
+["Cartofi la con","150 / 200 / 400 g","Condimentați după gust, cu un sos la alegere"]
+],more:"Sosuri: ketchup dulce sau picant, maioneză, samurai, cheddar; ulei aromat sau picant."}
+];
+const e=s=>s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+document.getElementById("cols").innerHTML=G.map(g=>`<div class="mgrp"><h3 class="caps"><span>${e(g.t)}</span><em>${e(g.p)}</em></h3>${g.d.map(([n,w,i])=>`<div class="dish"><span class="gr">${e(w)}</span><b>${e(n)}</b><small>${e(i)}</small></div>`).join("")}${g.more?`<p class="note">${e(g.more)}</p>`:""}</div>`).join("");
+</script>
+</body>
+</html>
