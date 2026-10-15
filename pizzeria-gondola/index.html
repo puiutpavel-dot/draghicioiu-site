@@ -1,0 +1,351 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Pizzeria Gondola · Piatra Neamț – schiță de site</title>
+<meta name="description" content="Schiță de site pregătită de Daniel Drăghicioiu pentru Pizzeria Gondola din Piatra Neamț.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#13294b">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%2313294b'/%3E%3Cpath d='M3 19c6 4 20 4 26-3-1 5-6 8-13 8S5 22 3 19z' fill='%23f2c14e'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700&display=swap">
+<style>
+:root{
+--y:#f2c14e;--ink:#161210;--ink-2:#5c534c;--bg:#fffdf6;--bg-2:#eef3fa;--card:#ffffff;--line:#ece3cf;--teal:#1d5c8f;--red:#d6311f;
+--disp:"Archivo Black","Arial Black",Impact,sans-serif;--sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--ink:#fff8e6;--ink-2:#cbbfae;--bg:#141110;--bg-2:#221d12;--card:#1d1916;--line:#352d24;--teal:#8cc0ee;color-scheme:dark}}
+:root[data-theme="dark"]{--ink:#fff8e6;--ink-2:#cbbfae;--bg:#141110;--bg-2:#221d12;--card:#1d1916;--line:#352d24;--teal:#8cc0ee;color-scheme:dark}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit}
+.wrap{max-width:1180px;margin:0 auto;padding:0 16px}
+.demo{background:#000;color:#eee;font-size:13px;text-align:center;padding:8px 16px}
+.demo a{color:#7cc4ff}
+.disp{font-family:var(--disp);font-weight:400;text-transform:uppercase;letter-spacing:-.01em;line-height:.92}
+header{position:sticky;top:0;z-index:30;background:color-mix(in srgb,var(--bg) 90%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.hd{display:flex;align-items:center;gap:20px;height:68px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;font-family:var(--disp);font-size:22px;text-transform:uppercase;white-space:nowrap}
+.logo i{display:grid;place-items:center;width:38px;height:38px;border-radius:12px;background:var(--y);color:#161210}
+.logo i svg{width:24px;height:24px}
+.logo small{font-family:var(--sans);font-size:12px;font-weight:600;text-transform:none;color:var(--ink-2)}
+.hd nav{display:flex;gap:22px;margin-left:12px;font-weight:600;font-size:15px}
+.hd nav a{text-decoration:none}
+.hd nav a:hover{text-decoration:underline;text-decoration-thickness:3px;text-decoration-color:var(--y);text-underline-offset:6px}
+.pill{margin-left:auto;display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;padding:7px 12px;border-radius:999px;background:var(--bg-2);white-space:nowrap}
+.pill b{width:8px;height:8px;border-radius:50%;background:var(--teal);box-shadow:0 0 0 4px color-mix(in srgb,var(--teal) 22%,transparent)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:999px;padding:14px 24px;font-weight:700;font-size:15px;text-decoration:none;border:0;cursor:pointer;font-family:var(--sans);transition:transform .15s}
+.btn:hover{transform:translateY(-2px)}
+.btn-y{background:var(--y);color:#161210}
+.btn-k{background:var(--ink);color:var(--bg)}
+.btn-o{box-shadow:inset 0 0 0 2px currentColor;background:transparent}
+.btn-sm{padding:10px 16px;font-size:14px}
+.hero{background:var(--y);color:#161210;overflow:hidden}
+.hero-in{display:grid;grid-template-columns:1.1fr .9fr;gap:24px;align-items:center;min-height:min(78vh,700px);padding:48px 16px}
+.tagline{font-weight:700;font-size:14px;text-transform:uppercase;letter-spacing:.14em;margin-bottom:18px}
+.hero h1{font-size:clamp(50px,9vw,118px);margin:0 0 18px}
+.hero h1 span{display:block}
+.hero p{font-size:19px;max-width:460px;margin:0 0 28px;font-weight:500}
+.hero .btn-k{background:#161210;color:#ffd400}
+.stage{position:relative;aspect-ratio:1;max-width:500px;width:100%;margin-left:auto}
+.ring{position:absolute;inset:6%;border-radius:50%;background:#161210;display:grid;place-items:center;box-shadow:0 40px 80px rgba(5,15,35,.45)}
+.ring svg{width:62%;height:62%;color:#ffd400;animation:bob 4s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-10px) rotate(-4deg)}}
+.badge{position:absolute;right:0;top:2%;width:136px;height:136px;border-radius:50%;background:#fff;color:#161210;display:grid;place-items:center;text-align:center;font-family:var(--disp);text-transform:uppercase;font-size:34px;line-height:1;transform:rotate(12deg);z-index:3;padding:14px;box-shadow:0 12px 30px rgba(0,0,0,.18)}
+.badge small{display:block;font-family:var(--sans);font-weight:700;font-size:12px;text-transform:none;letter-spacing:0;margin-top:6px}
+.chip{position:absolute;z-index:3;background:#fff;color:#161210;border-radius:999px;padding:10px 16px;font-weight:700;font-size:14px;box-shadow:0 10px 24px rgba(0,0,0,.15);display:flex;gap:8px;align-items:center}
+.chip.c1{left:0;bottom:22%;transform:rotate(-6deg)}
+.chip.c2{right:4%;bottom:6%;transform:rotate(4deg)}
+.mq{background:var(--ink);color:var(--y);overflow:hidden;white-space:nowrap;padding:16px 0}
+.mq-t{display:inline-flex;gap:40px;animation:mq 28s linear infinite;font-size:clamp(28px,4.4vw,48px)}
+.mq-t span:nth-child(even){color:transparent;-webkit-text-stroke:1.5px var(--y)}
+.mq.alt{background:var(--y);color:#161210}
+.mq.alt .mq-t{animation-direction:reverse}
+.mq.alt .mq-t span:nth-child(even){-webkit-text-stroke-color:#161210}
+@keyframes mq{to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion:reduce){.mq-t,.ring svg{animation:none}}
+section{padding:88px 0;scroll-margin-top:68px}
+.eyebrow{font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:.16em;color:var(--teal);margin-bottom:10px}
+h2{font-size:clamp(40px,6.6vw,80px);margin:0 0 28px}
+h2.low{text-transform:lowercase}
+.lead{color:var(--ink-2);font-size:18px;max-width:600px;margin:-12px 0 32px}
+.car-h{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap}
+.arrows{display:flex;gap:8px;margin-bottom:24px}
+.arrows button{width:48px;height:48px;border-radius:50%;border:2px solid var(--ink);background:transparent;color:var(--ink);font-size:20px;cursor:pointer}
+.arrows button:hover{background:var(--y);color:#161210;border-color:var(--y)}
+.track{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding:4px 16px 24px;margin:0 -16px}
+.track::-webkit-scrollbar{display:none}
+.sc{flex:none;width:270px;scroll-snap-align:start;background:var(--card);border:1px solid var(--line);border-radius:28px;padding:24px;display:flex;flex-direction:column;gap:10px;transition:transform .25s,box-shadow .25s}
+.sc:hover{transform:translateY(-6px);box-shadow:0 22px 40px rgba(60,40,0,.12)}
+.ic{width:64px;height:64px;border-radius:20px;background:var(--y);color:#161210;display:grid;place-items:center;margin-bottom:6px}
+.ic svg{width:34px;height:34px}
+.sc h3{margin:0;font-size:20px;line-height:1.2}
+.sc p{margin:0;color:var(--ink-2);font-size:15px}
+.note{color:var(--ink-2);font-size:13px;margin:0}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.st{background:var(--bg-2);border-radius:28px;padding:28px}
+.st b{font-family:var(--disp);font-size:56px;line-height:1;display:block;margin-bottom:12px}
+.st h3{margin:0 0 6px;font-size:20px}
+.st p{margin:0;color:var(--ink-2)}
+.believe{background:var(--ink);color:var(--bg)}
+.believe .eyebrow{color:var(--y)}
+.bel{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.bel div{border:1.5px solid color-mix(in srgb,var(--bg) 22%,transparent);border-radius:28px;padding:28px}
+.bel b{display:block;font-family:var(--disp);text-transform:uppercase;font-size:28px;line-height:1;color:var(--y);margin-bottom:12px}
+.bel p{margin:0;opacity:.82}
+.app{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+.phone{width:min(280px,80%);aspect-ratio:9/18.5;margin:0 auto;border-radius:44px;background:#161210;padding:12px;box-shadow:0 30px 60px rgba(0,0,0,.25)}
+.scr{height:100%;border-radius:34px;background:var(--bg);color:var(--ink);padding:26px 16px;display:flex;flex-direction:column;gap:10px;font-size:13px}
+.scr .t{font-family:var(--disp);text-transform:uppercase;font-size:22px;line-height:1}
+.scr .n{background:var(--y);color:#161210;border-radius:16px;padding:12px;font-weight:600}
+.scr .n small{display:block;font-weight:500;opacity:.75}
+.scr .r{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px 12px;display:flex;justify-content:space-between}
+.scr .r span{color:var(--ink-2)}
+.app ul{list-style:none;padding:0;margin:20px 0 28px;display:grid;gap:12px}
+.app li{display:flex;gap:12px;font-weight:600}
+.app li:before{content:"";flex:none;width:22px;height:22px;border-radius:50%;background:var(--y) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6 12.5l4 4 8-9' stroke='%23161210' stroke-width='3' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/14px no-repeat}
+.visit{display:grid;grid-template-columns:1.2fr .8fr;gap:24px}
+.box{background:var(--bg-2);border-radius:32px;padding:36px}
+.box h3{font-family:var(--disp);text-transform:uppercase;font-size:clamp(34px,5vw,56px);line-height:.95;margin:0 0 18px}
+.box p{margin:0 0 6px;font-size:17px}
+.box .row{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+.box.y{background:var(--y);color:#161210}
+.box.y .btn-k{background:#161210;color:#ffd400}
+.todo{display:inline-block;background:color-mix(in srgb,var(--teal) 14%,transparent);color:var(--teal);border-radius:8px;padding:1px 8px;font-size:14px;font-weight:600}
+.rv{opacity:0;transform:translateY(28px);transition:opacity .7s,transform .7s cubic-bezier(.2,.7,.2,1)}
+.rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}}
+footer{background:var(--ink);color:var(--bg);padding:48px 0 36px}
+.ft-in{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;align-items:flex-end}
+.ft-in .big{font-family:var(--disp);text-transform:uppercase;font-size:clamp(56px,10vw,120px);line-height:.9;color:var(--y)}
+.ft-in p{margin:4px 0;opacity:.8;font-size:14px}
+.ft-in a{color:var(--y)}
+@media (max-width:900px){
+.hd nav{display:none}
+.logo small{display:none}
+.hero-in{grid-template-columns:1fr;min-height:0;padding:32px 16px 48px}
+.stage{max-width:320px;margin:0 auto;order:-1}
+.badge{width:104px;height:104px;font-size:26px}
+.chip{font-size:12px;padding:8px 12px}
+.app,.visit{grid-template-columns:1fr;gap:32px}
+.steps,.bel{grid-template-columns:1fr}
+section{padding:64px 0}
+}
+@media (max-width:420px){.hd .btn-sm{display:none}}
+.again[hidden]{display:none}
+.pill b{background:#2f9e44;box-shadow:0 0 0 4px rgba(47,158,68,.2)}
+.pill.closed b{background:#c62d1f;box-shadow:0 0 0 4px rgba(198,45,31,.2)}
+.hero{background:#13294b;color:#fff8ec}
+.hero .btn-k{background:#f2c14e;color:#13294b}
+.hero .btn-o{color:#fff8ec}
+.ring{background:#fff3d6}
+.ring svg{color:#f2c14e}
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px}
+.filters button{border:2px solid var(--ink);background:transparent;color:var(--ink);border-radius:999px;padding:8px 16px;font:700 14px var(--sans);cursor:pointer}
+.filters button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.sc .ic{font-size:32px}
+.sc p{flex:1}
+.sz{display:inline-flex;background:var(--bg-2);border-radius:999px;padding:3px;align-self:flex-start}
+.sz button{border:0;background:transparent;color:var(--ink);font:700 13px var(--sans);padding:6px 12px;border-radius:999px;cursor:pointer}
+.sz button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.ft{display:flex;align-items:center;gap:10px;font-weight:700}
+.ft span:first-child{color:var(--ink-2);font-weight:500;font-size:13px;flex:1}
+.price{background:var(--y);color:#161210;padding:4px 10px;border-radius:999px;font-size:14px;font-weight:700;white-space:nowrap}
+.add{width:40px;height:40px;border-radius:50%;border:0;background:var(--ink);color:var(--bg);font-size:22px;cursor:pointer;flex:none}
+.zones{display:grid;grid-template-columns:.9fr 1.1fr;gap:48px;align-items:start}
+.zsel{display:grid;gap:8px;font-weight:700;font-size:14px}
+.zsel select{font:16px var(--sans);padding:14px;border-radius:16px;border:2px solid var(--ink);background:var(--card);color:var(--ink)}
+.zinfo{margin-top:16px;padding:16px 18px;border-radius:18px;background:var(--bg-2);font-size:16px}
+.zgrid{display:grid;gap:12px}
+.zc{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:18px 20px}
+.zc div{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:6px}
+.zc b{font-family:var(--disp);text-transform:uppercase;font-size:20px}
+.zc p{margin:0;color:var(--ink-2);font-size:14px}
+.zc .zn{margin-top:6px;font-style:italic}
+.cart{position:fixed;left:50%;bottom:16px;transform:translate(-50%,160%);z-index:40;width:min(600px,calc(100% - 24px));background:var(--ink);color:var(--bg);border-radius:22px;padding:12px 12px 12px 18px;display:flex;align-items:center;gap:12px;box-shadow:0 18px 50px rgba(0,0,0,.3);transition:transform .25s}
+.cart.on{transform:translate(-50%,0)}
+.cart .cnt{flex:1;min-width:0;font-size:13px;line-height:1.35}
+.cart .cnt b{display:block;font-size:15px}
+.cart .cnt span{opacity:.75}
+.cart .x{background:transparent;border:0;color:inherit;opacity:.7;font-size:22px;cursor:pointer}
+.cart .btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.again{max-width:1180px;margin:0 auto 24px;padding:14px 18px;border-radius:18px;background:var(--bg-2);display:flex;gap:10px;align-items:center;flex-wrap:wrap;font-size:14px}
+.again b{flex:1;min-width:160px}
+footer{padding-bottom:110px}
+@media (max-width:900px){.zones{grid-template-columns:1fr;gap:28px}.again{margin:0 16px 24px}}
+@media (max-width:440px){.logo{font-size:17px;gap:8px}.logo i{width:32px;height:32px}.pill{font-size:12px;padding:6px 10px;gap:6px}}
+
+.hero h1 span:nth-child(2){color:#f2c14e}
+.hero h1{font-size:clamp(46px,8.4vw,110px)}
+.price{font-size:13px}
+.sc .ft span:first-child{font-size:12px}
+@media (max-width:440px){.logo small{display:none}}
+</style>
+</head>
+<body>
+<div class="demo">Schiță de site pregătită de <a href="https://draghicioiu.ro/">Daniel Drăghicioiu</a> pentru Pizzeria Gondola, Piatra Neamț. Nu este site-ul oficial al pizzeriei.</div>
+
+<header>
+<div class="wrap hd">
+<a class="logo" href="#top"><i><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M3 19c6 4 20 4 26-3-1 5-6 8-13 8S5 22 3 19z" fill="currentColor"/><path d="M27 16l1-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M12 6l3 15" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></i>Gondola <small>pizzerie · Piatra Neamț</small></a>
+<nav aria-label="Secțiuni"><a href="#meniu">Meniu</a><a href="#livrare">Livrare</a><a href="#aplicatie">Aplicație</a><a href="#contact">Contact</a></nav>
+<span class="pill" id="pill"><b></b><span id="pillTxt">955 de recenzii</span></span>
+<a class="btn btn-y btn-sm" href="tel:+40747216161">0747 216 161</a>
+</div>
+</header>
+
+<main id="top">
+<section class="hero" style="padding:0">
+<div class="wrap hero-in">
+<div class="rv">
+<div class="tagline">Bd. Decebal 35 · Piatra Neamț</div>
+<h1 class="disp"><span>Pizza</span><span>Gondola,</span><span>acum online.</span></h1>
+<p>Vezi meniul de pe telefon, alege pizza preferată și trimite comanda dintr-o atingere. Direct la noi, fără comision de platformă.</p>
+<div style="display:flex;gap:10px;flex-wrap:wrap">
+<a class="btn btn-k" href="#meniu">Comandă acum</a>
+<a class="btn btn-o" href="tel:+40747216161">Sună-ne</a>
+</div>
+</div>
+<div class="stage" aria-hidden="true">
+<div class="badge">955<small>recenzii de la clienți</small></div>
+<div class="ring"><svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="26" fill="currentColor"/><circle cx="32" cy="32" r="21" fill="#13294b" opacity=".16"/><g fill="#c0392b" opacity=".85"><circle cx="24" cy="24" r="4"/><circle cx="40" cy="22" r="3.5"/><circle cx="42" cy="38" r="4"/><circle cx="26" cy="42" r="3.5"/><circle cx="33" cy="32" r="3"/></g><g stroke="#13294b" stroke-width="1.6" opacity=".3"><line x1="32" y1="6" x2="32" y2="58"/><line x1="6" y1="32" x2="58" y2="32"/><line x1="13.6" y1="13.6" x2="50.4" y2="50.4"/><line x1="50.4" y1="13.6" x2="13.6" y2="50.4"/></g></svg></div>
+<div class="chip c1">🍕 Pizza Gondola, rețeta casei</div>
+<div class="chip c2">🛵 Livrare la domiciliu</div>
+</div>
+</div>
+</section>
+
+<div class="mq" aria-hidden="true"><div class="mq-t disp" id="mq1"></div></div>
+
+<section id="meniu">
+<div class="wrap">
+<div class="car-h">
+<div class="rv"><div class="eyebrow">Meniu</div><h2 class="disp low" style="margin-bottom:20px">ce comandăm azi?</h2></div>
+<div class="arrows"><button id="prev" aria-label="Înapoi">←</button><button id="next" aria-label="Înainte">→</button></div>
+</div>
+<div class="again" style="margin:0 0 20px" id="again" hidden><span>Comanda ta preferată:</span> <b id="againTxt"></b> <button class="btn btn-k btn-sm" id="againGo">Comandă din nou</button></div>
+<div class="track" id="track"></div>
+<p class="note">Denumirile pizzelor sunt cele din listările publice ale pizzeriei. Descrierile sunt orientative, iar gramajele, ingredientele exacte și prețurile se completează din meniul vostru actual.</p>
+</div>
+</section>
+
+<div class="mq alt" aria-hidden="true"><div class="mq-t disp" id="mq2"></div></div>
+
+<section id="livrare">
+<div class="wrap zones">
+<div class="rv">
+<div class="eyebrow">Livrare</div>
+<h2 class="disp low">pizza caldă, la ușa ta.</h2>
+<p class="lead" style="margin:0 0 20px">Adaugi pizzele în coș și trimiți comanda pe WhatsApp. Îți confirmăm noi totalul și ora de livrare.</p>
+<div class="zinfo">Pizzeria e pe Bd. Decebal 35. Poți comanda cu livrare la domiciliu sau poți ridica personal.</div>
+</div>
+<div class="zgrid rv">
+<div class="zc"><div><b>Livrare la domiciliu</b><span class="price">în Piatra Neamț</span></div><p>Zonele și costul livrării <span class="todo">de completat împreună cu pizzeria</span>.</p></div>
+<div class="zc"><div><b>Ridicare personală</b><span class="price">Bd. Decebal 35</span></div><p>Comanzi de acasă și treci doar s-o iei, fără să mai aștepți.</p></div>
+<div class="zc"><div><b>Comandă minimă</b><span class="price">de completat</span></div><p>Coșul o va calcula automat în site-ul final.</p></div>
+</div>
+</div>
+</section>
+
+<section id="aplicatie" class="believe">
+<div class="wrap app">
+<div class="rv">
+<div class="eyebrow">Opțional · aplicație iPhone</div>
+<h2 class="disp low">Gondola, în buzunar.</h2>
+<ul>
+<li>Comandă direct din aplicație, fără comision de platformă</li>
+<li>Comanda favorită, repetată dintr-o atingere</li>
+<li>Notificare push cu oferta zilei</li>
+<li>Puncte de fidelitate la fiecare comandă</li>
+</ul>
+<a class="btn btn-y" href="https://apps.apple.com/ro/app/kineto-bucure%C8%99ti/id6819380873" target="_blank" rel="noopener">Vezi un exemplu în App Store</a>
+</div>
+<div class="phone rv" aria-hidden="true"><div class="scr">
+<div class="t">Gondola</div>
+<div class="n">🍕 Oferta zilei<small>notificare push, exemplu</small></div>
+<div class="r">Comanda favorită <span>Capricciosa ×2</span></div>
+<div class="r">Puncte fidelitate <span>120</span></div>
+<div class="r">Livrare <span>Bd. Decebal 35</span></div>
+<div class="n" style="margin-top:auto;text-align:center">Comandă din nou</div>
+</div></div>
+</div>
+</section>
+
+<section id="contact">
+<div class="wrap visit">
+<div class="box rv">
+<div class="eyebrow">Unde ne găsești</div>
+<h3>Bd. Decebal 35</h3>
+<p>Piatra Neamț, 610076</p>
+<p>Program: luni – sâmbătă 09:00 – 22:00, duminică 10:00 – 22:00 <span class="todo">de confirmat</span></p>
+<div class="row"><a class="btn btn-k" href="https://www.google.com/maps/search/?api=1&amp;query=Bulevardul+Decebal+35+Piatra+Neamt" target="_blank" rel="noopener">Deschide în Maps</a><a class="btn btn-o" href="https://www.facebook.com/p/Pizzeria-Gondola-100064038030513/" target="_blank" rel="noopener">Facebook</a></div>
+</div>
+<div class="box y rv">
+<div class="eyebrow" style="color:#161210">Comenzi telefonice</div>
+<h3>Preferi să suni?</h3>
+<p>Preluăm comenzi și la telefon.</p>
+<div class="row"><a class="btn btn-k" href="tel:+40747216161">0747 216 161</a><a class="btn btn-o" href="tel:+40233216161">0233 216 161</a></div>
+</div>
+</div>
+</section>
+</main>
+
+<footer>
+<div class="wrap ft-in">
+<div class="big">Pizzeria<br>Gondola</div>
+<div style="text-align:right">
+<p><a href="tel:+40747216161">0747 216 161</a> · <a href="tel:+40233216161">0233 216 161</a></p>
+<p>Bd. Decebal 35, Piatra Neamț</p>
+<p>© Pizzeria Gondola · Schiță de <a href="https://draghicioiu.ro/">draghicioiu.ro</a></p>
+</div>
+</div>
+</footer>
+
+<div class="cart" id="cart" aria-live="polite">
+<div class="cnt"><b id="cN">0 pizza</b><span>Prețul total îl confirmăm noi</span></div>
+<button class="x" id="cX" aria-label="Golește coșul">×</button>
+<button class="btn btn-y btn-sm" id="cGo">Trimite comanda</button>
+</div>
+
+<script>
+const PHONE="40747216161";
+const e=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const mq=w=>[...w,...w,...w,...w].map(x=>`<span>${e(x)}</span><span>✦</span>`).join("");
+document.getElementById("mq1").innerHTML=mq(["Capricciosa","Diavola","Boscaiola","Gondola","Piatra Neamț"]);
+document.getElementById("mq2").innerHTML=mq(["955 de recenzii","Comandă fără comision","Livrare la domiciliu"]);
+const PZ=[
+["Gondola","Pizza casei. Rețeta voastră, de completat."],
+["Capricciosa","Clasica italiană, cu șuncă și ciuperci."],
+["Regina","Șuncă și ciuperci, pe sos de roșii."],
+["Diavola","Pentru cei care o vor picantă."],
+["Boscaiola","Cu ciuperci, ca la pădure."],
+["Bianca","Albă, fără sos de roșii."],
+["Pizza cu ton","Cu ton, pentru iubitorii de pește."],
+["Pizza piept pui","Cu piept de pui."],
+["Pizza margherita cu șuncă","Margherita, cu șuncă în plus."],
+["Pizza cu cabanos","Cu cabanos, pe gustul tuturor."],
+["Pizza de post","Fără carne și fără brânză."]
+];
+const cart=[];const track=document.getElementById("track");
+track.innerHTML=PZ.map(([n,d])=>`<article class="sc"><div class="ic">🍕</div><h3>${e(n)}</h3><p>${e(d)}</p><div class="ft"><span>gramaj de completat</span><span class="price">preț de completat</span><button class="add" data-n="${e(n)}" aria-label="Adaugă ${e(n)}">+</button></div></article>`).join("");
+track.addEventListener("click",ev=>{const a=ev.target.closest(".add");if(!a)return;const f=cart.find(x=>x.l===a.dataset.n);f?f.q++:cart.push({l:a.dataset.n,q:1});a.textContent="✓";setTimeout(()=>a.textContent="+",700);upd()});
+const step=()=>Math.min(track.clientWidth*.8,560);
+document.getElementById("next").onclick=()=>track.scrollBy({left:step(),behavior:"smooth"});
+document.getElementById("prev").onclick=()=>track.scrollBy({left:-step(),behavior:"smooth"});
+function upd(){const n=cart.reduce((s,x)=>s+x.q,0);document.getElementById("cart").classList.toggle("on",n>0);document.getElementById("cN").textContent=`${n} ${n===1?"pizza":"pizze"} în coș`}
+document.getElementById("cX").onclick=()=>{cart.length=0;upd()};
+function send(items){const msg="Bună ziua! Aș dori să comand:\n"+items.map(x=>`• ${x.q} × ${x.l}`).join("\n")+"\n\nAdresa de livrare: \nNume: ";window.open("https://wa.me/"+PHONE+"?text="+encodeURIComponent(msg),"_blank","noopener")}
+document.getElementById("cGo").onclick=()=>{try{localStorage.setItem("gd-fav",JSON.stringify(cart))}catch(_){}send(cart)};
+try{const f=JSON.parse(localStorage.getItem("gd-fav")||"null");if(f&&f.length){const a=document.getElementById("again");a.hidden=false;document.getElementById("againTxt").textContent=f.map(x=>x.q+"× "+x.l).join(", ");document.getElementById("againGo").onclick=()=>send(f)}}catch(_){}
+// program (din listări publice): L–S 09–22, D 10–22
+(function(){const p=new Intl.DateTimeFormat("en-GB",{timeZone:"Europe/Bucharest",weekday:"short",hour:"2-digit",minute:"2-digit",hour12:false}).formatToParts(new Date());const g=t=>p.find(x=>x.type===t).value;
+const wd=g("weekday"),mins=(+g("hour"))*60+(+g("minute")),start=wd==="Sun"?600:540,open=mins>=start&&mins<1320;
+const pill=document.getElementById("pill");pill.classList.toggle("closed",!open);document.getElementById("pillTxt").textContent=open?"Deschis acum":"Închis acum";pill.title="Program: L–S 09:00–22:00, D 10:00–22:00 (de confirmat)";})();
+const io=new IntersectionObserver(es=>es.forEach(x=>{if(x.isIntersecting){x.target.classList.add("in");io.unobserve(x.target)}}),{threshold:.12});
+document.querySelectorAll(".rv").forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
