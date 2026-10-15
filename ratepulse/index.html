@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RatePulse Football – predicții din notele jucătorilor, 14 ligi | draghicioiu.ro</title>
+<meta name="description" content="RatePulse Football calculează șansele fiecărei echipe din notele jucătorilor în ultimele 7 meciuri, pentru 14 campionate europene. Aplicație Android, acum în testare pe Google Play.">
+<link rel="canonical" href="https://draghicioiu.ro/ratepulse/">
+<meta property="og:title" content="RatePulse Football – predicții statistice pentru 14 ligi">
+<meta property="og:description" content="Șansele fiecărei echipe, calculate din notele jucătorilor în ultimele 7 meciuri. Acum pe Android.">
+<meta property="og:url" content="https://draghicioiu.ro/ratepulse/">
+<meta property="og:image" content="https://draghicioiu.ro/ratepulse/icon.png">
+<link rel="icon" href="/ratepulse/icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0b0b0e; --card:#1b1b20; --line:#2a2a31; --ink:#f2f2f5; --muted:#9a9aa5;
+  --home:#0a84ff; --draw:#8e8e93; --away:#ff9f0a; --green:#30d158; --radius:16px;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.5}
+a{color:inherit}
+.wrap{max-width:1100px;margin:0 auto;padding:28px 16px 64px}
+.back{display:inline-block;margin-bottom:22px;font-size:14px;color:var(--muted);text-decoration:none}
+.back:hover{color:var(--ink)}
+
+.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center}
+.brand{display:flex;align-items:center;gap:14px;margin-bottom:18px}
+.brand img{width:64px;height:64px;border-radius:15px}
+.brand b{font-size:20px;font-weight:700;letter-spacing:-.01em;display:block}
+.brand small{color:var(--muted);font-size:13px}
+h1{font-size:clamp(30px,5vw,50px);line-height:1.05;letter-spacing:-.03em;margin:0 0 14px;font-weight:800}
+.lead{color:var(--muted);font-size:17px;max-width:540px;margin:0 0 24px}
+.ctas{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.gp{display:inline-flex;align-items:center;gap:10px;background:#fff;color:#000;text-decoration:none;border-radius:12px;padding:9px 18px 9px 13px;line-height:1.05}
+.gp:hover{opacity:.88}
+.gp svg{width:24px;height:24px}
+.gp span{display:flex;flex-direction:column;font-size:18px;font-weight:700;letter-spacing:-.01em}
+.gp small{font-size:10.5px;font-weight:500}
+.btn2{display:inline-flex;align-items:center;border:1px solid var(--line);background:var(--card);border-radius:12px;padding:12px 16px;font-size:14.5px;font-weight:600;text-decoration:none}
+.btn2:hover{border-color:var(--muted)}
+.status{margin-top:16px;font-size:13.5px;color:var(--muted);display:flex;gap:8px;align-items:flex-start;max-width:540px}
+.status i{flex:none;width:8px;height:8px;border-radius:50%;background:var(--away);margin-top:7px}
+
+/* exemplu de bară de probabilitate, ca în aplicație */
+.demo{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:22px}
+.demo .lg{font-size:12.5px;color:var(--muted);margin-bottom:12px}
+.teams{display:flex;justify-content:space-between;font-weight:700;font-size:17px;margin-bottom:12px}
+.bar{display:flex;height:12px;border-radius:99px;overflow:hidden;gap:3px}
+.bar span:nth-child(1){background:var(--home)}
+.bar span:nth-child(2){background:var(--draw)}
+.bar span:nth-child(3){background:var(--away)}
+.pct{display:flex;justify-content:space-between;margin-top:10px;font-variant-numeric:tabular-nums;font-size:14px}
+.pct b{font-size:22px;display:block;letter-spacing:-.02em}
+.pct div:nth-child(2){text-align:center}
+.pct div:nth-child(3){text-align:right}
+.pct small{color:var(--muted)}
+.basis{margin-top:16px;padding-top:14px;border-top:1px solid var(--line);font-size:13px;color:var(--muted)}
+
+h2{font-size:clamp(22px,3vw,30px);letter-spacing:-.02em;margin:64px 0 18px}
+.shots{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:10px;-webkit-overflow-scrolling:touch}
+.shots figure{margin:0;flex:0 0 200px;scroll-snap-align:start}
+.shots img{width:100%;height:auto;border-radius:18px;border:1px solid var(--line);display:block;background:var(--card)}
+.shots figcaption{font-size:13px;color:var(--muted);margin-top:8px;text-align:center}
+
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:20px}
+.card h3{margin:0 0 6px;font-size:16.5px}
+.card p{margin:0;color:var(--muted);font-size:14.5px}
+.card .n{font-size:13px;font-weight:700;color:var(--home);margin-bottom:8px;display:block}
+
+.leagues{display:flex;flex-wrap:wrap;gap:8px}
+.leagues span{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-size:14px}
+
+.plans{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.plans .card b{font-size:26px;letter-spacing:-.02em;display:block;margin:4px 0 8px}
+.plans ul{margin:0;padding-left:18px;color:var(--muted);font-size:14.5px}
+.plans .pro{border-color:color-mix(in srgb,var(--home) 55%,transparent)}
+
+.steps{counter-reset:s;list-style:none;padding:0;margin:0;display:grid;gap:10px}
+.steps li{counter-increment:s;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px 14px 56px;position:relative;font-size:15px}
+.steps li::before{content:counter(s);position:absolute;left:16px;top:13px;width:26px;height:26px;border-radius:50%;background:var(--home);color:#fff;font-weight:700;font-size:14px;display:grid;place-items:center}
+.steps a{color:var(--home)}
+
+.note{margin-top:56px;font-size:13.5px;color:var(--muted);border-top:1px solid var(--line);padding-top:20px}
+.note p{margin:6px 0}
+
+@media (max-width:860px){
+  .hero{grid-template-columns:1fr;gap:28px}
+  .grid{grid-template-columns:1fr}
+  .plans{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<a class="back" href="/">← draghicioiu.ro</a>
+
+<section class="hero">
+  <div>
+    <div class="brand">
+      <img src="/ratepulse/icon.png" alt="" width="64" height="64">
+      <div><b>RatePulse Football</b><small>Android · Sport</small></div>
+    </div>
+    <h1>Cine are șanse mai mari, calculat din notele jucătorilor.</h1>
+    <p class="lead">Pentru fiecare meci din 14 campionate europene, aplicația ia notele jucătorilor din ultimele 7 meciuri și le transformă în procente: victorie gazde, egal, victorie oaspeți.</p>
+    <div class="ctas">
+      <a class="gp" href="https://play.google.com/store/apps/details?id=com.ratepulse.footballpredictor" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#34a853" d="M3.6 1.8 13.4 12 3.6 22.2c-.4-.2-.6-.7-.6-1.2V3c0-.5.2-1 .6-1.2z"/><path fill="#fbbc04" d="m17 8.3-3.6 3.7 3.6 3.7 4.1-2.3c1.2-.7 1.2-2.1 0-2.8z"/><path fill="#4285f4" d="M3.6 1.8c.3-.2.8-.2 1.3.1L17 8.3 13.4 12z"/><path fill="#ea4335" d="M13.4 12 17 15.7 4.9 22.1c-.5.3-1 .3-1.3.1z"/></svg>
+        <span><small>Disponibilă pe</small>Google Play</span>
+      </a>
+      <a class="btn2" href="https://play.google.com/apps/testing/com.ratepulse.footballpredictor" target="_blank" rel="noopener">Devino tester</a>
+    </div>
+    <p class="status"><i></i><span>Aplicația e acum în testare închisă pe Google Play. Intră în <a href="https://groups.google.com/g/kineto-testeri" target="_blank" rel="noopener">grupul de testeri</a>, apoi apasă „Devino tester” cu același cont Google și o poți instala imediat.</span></p>
+  </div>
+
+  <div class="demo" aria-label="Exemplu de predicție">
+    <div class="lg">🇪🇸 La Liga · exemplu</div>
+    <div class="teams"><span>Gazde</span><span>Oaspeți</span></div>
+    <div class="bar" aria-hidden="true"><span style="width:52%"></span><span style="width:26%"></span><span style="width:22%"></span></div>
+    <div class="pct">
+      <div><b>52%</b><small>Gazde</small></div>
+      <div><b>26%</b><small>Egal</small></div>
+      <div><b>22%</b><small>Oaspeți</small></div>
+    </div>
+    <div class="basis">Calculat din notele primului 11, media ultimelor 7 meciuri ale fiecărui jucător, cu avantajul terenului propriu.</div>
+  </div>
+</section>
+
+<h2>Cum arată</h2>
+<div class="shots">
+  <figure><img src="/ratepulse/1-top.webp" alt="Ecranul Top predicții" width="540" height="1080" loading="lazy"><figcaption>Top predicții</figcaption></figure>
+  <figure><img src="/ratepulse/2-urmatoare.webp" alt="Meciurile următoare pe ligi" width="540" height="1080" loading="lazy"><figcaption>Meciurile etapei</figcaption></figure>
+  <figure><img src="/ratepulse/3-detalii.webp" alt="Detaliile unui meci" width="540" height="1080" loading="lazy"><figcaption>Detalii meci</figcaption></figure>
+  <figure><img src="/ratepulse/4-istoric.webp" alt="Istoricul predicțiilor" width="540" height="1080" loading="lazy"><figcaption>Istoric</figcaption></figure>
+  <figure><img src="/ratepulse/5-abonament.webp" alt="Ecranul abonamentului Premium" width="540" height="1080" loading="lazy"><figcaption>Premium</figcaption></figure>
+</div>
+
+<h2>Cum se calculează</h2>
+<div class="grid">
+  <div class="card"><span class="n">1</span><h3>Echipele de start</h3><p>Pentru fiecare meci se iau jucătorii care încep: lotul oficial, sau cel probabil până apare cel oficial.</p></div>
+  <div class="card"><span class="n">2</span><h3>Notele din ultimele 7 meciuri</h3><p>Fiecare jucător primește o medie a notelor recente; meciurile mai noi contează mai mult.</p></div>
+  <div class="card"><span class="n">3</span><h3>Procente</h3><p>Diferența dintre cele două echipe, plus avantajul terenului propriu, devine o șansă de victorie, egal sau înfrângere.</p></div>
+</div>
+
+<h2>14 campionate</h2>
+<div class="leagues">
+  <span>🏴󠁧󠁢󠁥󠁮󠁧󠁿 Premier League</span><span>🇪🇸 La Liga</span><span>🇮🇹 Serie A</span><span>🇩🇪 Bundesliga</span><span>🇫🇷 Ligue 1</span><span>🇵🇹 Primeira Liga</span><span>🇧🇪 Jupiler Pro League</span><span>🇳🇱 Eredivisie</span><span>🇹🇷 Süper Lig</span><span>🇵🇱 Ekstraklasa</span><span>🇨🇿 Chance Liga</span><span>🇬🇷 Super League</span><span>🇳🇴 Eliteserien</span><span>🇩🇰 Superliga</span>
+</div>
+
+<h2>Gratuit și Premium</h2>
+<div class="plans">
+  <div class="card">
+    <h3>Gratuit</h3><b>0 $</b>
+    <ul><li>Cele 5 meciuri cu favorita cea mai clară, din toate cele 14 ligi</li><li>Clasamentele tuturor ligilor</li><li>Favorite</li></ul>
+  </div>
+  <div class="card pro">
+    <h3>Premium</h3><b>4,99 $ / lună</b>
+    <ul><li>Predicțiile pentru toate meciurile etapei</li><li>Top 20 cele mai sigure predicții</li><li>Istoricul complet al predicțiilor</li><li>Se anulează oricând din Google Play</li></ul>
+  </div>
+</div>
+
+<h2>Vrei să o testezi?</h2>
+<ol class="steps">
+  <li>Intră în grupul <a href="https://groups.google.com/g/kineto-testeri" target="_blank" rel="noopener">kineto-testeri</a> cu contul Google de pe telefon.</li>
+  <li>Deschide <a href="https://play.google.com/apps/testing/com.ratepulse.footballpredictor" target="_blank" rel="noopener">linkul de testare</a> și apasă „Devino tester”.</li>
+  <li>Instalează aplicația din <a href="https://play.google.com/store/apps/details?id=com.ratepulse.footballpredictor" target="_blank" rel="noopener">Google Play</a> și păstreaz-o instalată cel puțin 14 zile.</li>
+</ol>
+
+<div class="note">
+  <p>RatePulse Football oferă analize statistice, nu sfaturi de pariere, și nu este o aplicație de pariuri. Predicțiile sunt probabilități, nu certitudini.</p>
+  <p><a href="https://puiutpavel-dot.github.io/ratepulse-privacy/" target="_blank" rel="noopener">Politica de confidențialitate</a> · Contact: <a href="mailto:danieldraghicioiu@gmail.com">danieldraghicioiu@gmail.com</a></p>
+</div>
+</div>
+</body>
+</html>
