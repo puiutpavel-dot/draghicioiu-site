@@ -415,6 +415,19 @@ workflows:
           adb logcat -d -s AndroidRuntime:E > screenshots/crash.txt || true
           ls -la screenshots
           if grep -q "FATAL EXCEPTION" screenshots/crash.txt; then cat screenshots/crash.txt; exit 1; fi
+      - name: Pune fișierele pe ramura play-shots (pentru încărcarea în Play Console)
+        ignore_failure: true
+        script: |
+          set -e
+          D=$(mktemp -d)
+          cp screenshots/*.png "$D"/
+          REMOTE=$(git -C "$CM_BUILD_DIR" remote get-url origin)
+          cd "$D"
+          git init -q
+          git checkout -q -b play-shots
+          git add .
+          git -c user.name="Codemagic" -c user.email="ci@draghicioiu.ro" commit -qm "Renț: fișiere pentru Google Play"
+          git push -f "$REMOTE" play-shots:play-shots
     artifacts:
       - "**/screenshots/*.png"
       - "**/screenshots/*.txt"
@@ -437,6 +450,19 @@ workflows:
           set -e
           chmod +x gradlew
           ./gradlew bundleRelease --no-daemon --stacktrace
+      - name: Pune fișierele pe ramura play-aab (pentru încărcarea în Play Console)
+        ignore_failure: true
+        script: |
+          set -e
+          D=$(mktemp -d)
+          cp app/build/outputs/bundle/release/app-release.aab "$D"/
+          REMOTE=$(git -C "$CM_BUILD_DIR" remote get-url origin)
+          cd "$D"
+          git init -q
+          git checkout -q -b play-aab
+          git add .
+          git -c user.name="Codemagic" -c user.email="ci@draghicioiu.ro" commit -qm "Renț: fișiere pentru Google Play"
+          git push -f "$REMOTE" play-aab:play-aab
     artifacts:
       - "**/outputs/bundle/release/*.aab"
       - "**/outputs/mapping/release/mapping.txt"
