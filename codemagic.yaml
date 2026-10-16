@@ -416,9 +416,9 @@ workflows:
           ls -la screenshots
           if grep -q "FATAL EXCEPTION" screenshots/crash.txt; then cat screenshots/crash.txt; exit 1; fi
     artifacts:
-      - android-rentz/screenshots/*.png
-      - android-rentz/screenshots/*.txt
-      - android-rentz/emulator.log
+      - "**/screenshots/*.png"
+      - "**/screenshots/*.txt"
+      - "**/emulator.log"
 
   rentz-android-release:
     name: Renț Android — Google Play (AAB)
@@ -438,5 +438,5 @@ workflows:
           chmod +x gradlew
           ./gradlew bundleRelease --no-daemon --stacktrace
     artifacts:
-      - android-rentz/app/build/outputs/**/*.aab
-      - android-rentz/app/build/outputs/mapping/release/mapping.txt
+      - "**/outputs/bundle/release/*.aab"
+      - "**/outputs/mapping/release/mapping.txt"
