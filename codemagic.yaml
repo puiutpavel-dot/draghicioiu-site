@@ -356,3 +356,87 @@ workflows:
           else
             echo "Doar verificare (TRIMITE != 1) — nu trimit la review."
           fi
+
+  # ───────────────────────────────────────────────────────────────────────────
+  # Renț — Android (Kotlin + Compose, în android-rentz/). Pachet: ro.draghicioiu.rentz
+  # „Renț Android — Verificare” construiește APK-ul și face capturile pentru Google Play pe emulator.
+  # „Renț Android — Google Play” construiește AAB-ul semnat cu cheia de upload a contului Play.
+  rentz-android-check:
+    name: Renț Android — Verificare (build + capturi pe emulator)
+    instance_type: linux_x2
+    max_build_duration: 45
+    working_directory: android-rentz
+    environment:
+      java: 17
+    triggering:
+      events: []
+    scripts:
+      - name: Build APK
+        script: |
+          set -e
+          chmod +x gradlew
+          ./gradlew assembleRelease --no-daemon --stacktrace
+      - name: Emulator + capturi
+        script: |
+          set -x
+          AVD=$(emulator -list-avds | head -1)
+          echo "AVD: $AVD"
+          emulator -avd "$AVD" -no-window -no-audio -no-boot-anim -no-snapshot -gpu swiftshader_indirect > emulator.log 2>&1 &
+          adb wait-for-device
+          for i in $(seq 1 120); do [ "$(adb shell getprop sys.boot_completed | tr -d '\r')" = "1" ] && break; sleep 3; done
+          adb root || true
+          sleep 3
+          adb shell wm size 1080x2160
+          adb shell wm density 420
+          adb shell settings put global window_animation_scale 0
+          adb shell settings put global transition_animation_scale 0
+          adb shell settings put global animator_duration_scale 0
+          adb shell settings put global sysui_demo_allowed 1
+          adb shell am broadcast -a com.android.systemui.demo -e command enter
+          adb shell am broadcast -a com.android.systemui.demo -e command clock -e hhmm 0941
+          adb shell am broadcast -a com.android.systemui.demo -e command battery -e level 100 -e plugged false
+          adb shell am broadcast -a com.android.systemui.demo -e command network -e wifi show -e level 4
+          adb shell am broadcast -a com.android.systemui.demo -e command notifications -e visible false
+          adb install -r app/build/outputs/apk/release/app-release.apk
+          mkdir -p screenshots
+          adb logcat -c
+          shot() {
+            adb shell am force-stop ro.draghicioiu.rentz
+            sleep 2
+            adb shell am start -n ro.draghicioiu.rentz/.MainActivity --ez demo true --es scena "$2"
+            sleep 12
+            adb exec-out screencap -p > "screenshots/$1.png"
+          }
+          shot 1-joc joc
+          shot 2-rentz rentz
+          shot 3-alege alege
+          shot 4-scor scor
+          shot 5-start start
+          adb logcat -d -s AndroidRuntime:E > screenshots/crash.txt || true
+          ls -la screenshots
+          if grep -q "FATAL EXCEPTION" screenshots/crash.txt; then cat screenshots/crash.txt; exit 1; fi
+    artifacts:
+      - android-rentz/screenshots/*.png
+      - android-rentz/screenshots/*.txt
+      - android-rentz/emulator.log
+
+  rentz-android-release:
+    name: Renț Android — Google Play (AAB)
+    instance_type: linux_x2
+    max_build_duration: 45
+    working_directory: android-rentz
+    environment:
+      java: 17
+      android_signing:
+        - zboruri_upload    # cheia de upload a contului Play „Daniel Draghicioiu Apps”
+    triggering:
+      events: []
+    scripts:
+      - name: Build AAB
+        script: |
+          set -e
+          chmod +x gradlew
+          ./gradlew bundleRelease --no-daemon --stacktrace
+    artifacts:
+      - android-rentz/app/build/outputs/**/*.aab
+      - android-rentz/app/build/outputs/mapping/release/mapping.txt
