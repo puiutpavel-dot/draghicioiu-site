@@ -19,7 +19,12 @@
   "violenceRealistic": "NONE",
   "violenceRealisticProlongedGraphicOrSadistic": "NONE",
   "gambling": false,
-  "unrestrictedWebAccess": false
+  "unrestrictedWebAccess": false,
+  "ageAssurance": false,
+  "advertising": false,
+  "healthOrWellnessTopics": false,
+  "userGeneratedContent": false,
+  "gunsOrOtherWeapons": "NONE"
  },
  "review": {
   "contactFirstName": "Daniel",
