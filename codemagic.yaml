@@ -386,7 +386,7 @@ workflows:
           for i in $(seq 1 120); do [ "$(adb shell getprop sys.boot_completed | tr -d '\r')" = "1" ] && break; sleep 3; done
           adb root || true
           sleep 3
-          adb shell wm size 1080x2160
+          adb shell wm size 1080x1920
           adb shell wm density 420
           adb shell settings put global window_animation_scale 0
           adb shell settings put global transition_animation_scale 0
