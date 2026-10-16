@@ -24,7 +24,10 @@
   "advertising": false,
   "healthOrWellnessTopics": false,
   "userGeneratedContent": false,
-  "gunsOrOtherWeapons": "NONE"
+  "gunsOrOtherWeapons": "NONE",
+  "parentalControls": false,
+  "lootBox": false,
+  "messagingAndChat": false
  },
  "review": {
   "contactFirstName": "Daniel",
