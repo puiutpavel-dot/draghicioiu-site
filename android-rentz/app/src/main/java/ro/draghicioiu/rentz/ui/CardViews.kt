@@ -17,7 +17,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.geometry.Offset
@@ -51,7 +50,6 @@ fun PlayingCard(
     Box(
         modifier
             .size(width, width * 1.42f)
-            .alpha(if (dim) 0.42f else 1f)
             .shadow(if (glow) 8.dp else 3.dp, shape, ambientColor = if (glow) T.gold else Color.Black, spotColor = if (glow) T.gold else Color.Black)
             .clip(shape)
             .background(T.card)
@@ -93,6 +91,8 @@ fun PlayingCard(
                 }
             }
         }
+        // Cărțile care nu se pot juca se întunecă opac (nu transparent), ca să nu se vadă prin ele.
+        if (dim) Box(Modifier.fillMaxSize().background(Color(0xFF111315).copy(alpha = 0.55f)))
     }
 }
 

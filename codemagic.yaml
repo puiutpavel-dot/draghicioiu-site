@@ -397,6 +397,9 @@ workflows:
           adb shell am broadcast -a com.android.systemui.demo -e command battery -e level 100 -e plugged false
           adb shell am broadcast -a com.android.systemui.demo -e command network -e wifi show -e level 4
           adb shell am broadcast -a com.android.systemui.demo -e command notifications -e visible false
+          # fără dialoguri de sistem peste capturi (ex. „Digital Wellbeing isn't responding”)
+          adb shell settings put global hide_error_dialogs 1 || true
+          for P in com.google.android.apps.wellbeing com.google.android.gms.supervision; do adb shell pm disable-user --user 0 $P || true; done
           adb install -r app/build/outputs/apk/release/app-release.apk
           mkdir -p screenshots
           adb logcat -c
@@ -405,6 +408,8 @@ workflows:
             sleep 2
             adb shell am start -n ro.draghicioiu.rentz/.MainActivity --ez demo true --es scena "$2"
             sleep 12
+            adb shell am broadcast -a android.intent.action.CLOSE_SYSTEM_DIALOGS || true
+            sleep 1
             adb exec-out screencap -p > "screenshots/$1.png"
           }
           shot 1-joc joc

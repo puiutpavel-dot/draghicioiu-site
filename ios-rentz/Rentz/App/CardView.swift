@@ -29,8 +29,11 @@ struct CardView: View {
                     .strokeBorder(T.gold, lineWidth: glow ? 2.5 : 2)
             }
         }
+        .overlay {
+            // Cărțile care nu se pot juca se întunecă opac (nu transparent), ca să nu se vadă prin ele.
+            if dim { RoundedRectangle(cornerRadius: radius, style: .continuous).fill(T.bg.opacity(0.55)) }
+        }
         .shadow(color: glow ? T.gold.opacity(0.6) : .black.opacity(0.45), radius: glow ? 8 : 3, x: 0, y: 2)
-        .opacity(dim ? 0.42 : 1)
         .accessibilityElement()
         .accessibilityLabel(card.map { "\($0.label) \($0.s.name)" } ?? "carte cu fața în jos")
     }
