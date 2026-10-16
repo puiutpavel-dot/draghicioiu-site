@@ -18,7 +18,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 /* Port web al aplicației RatePulse Football (iOS/Android 1.0.1): aceleași taburi, același motor de
-   predicții, același model gratuit (5 predicții). Abonamentul Premium există doar în aplicația mobilă. */
+   predicții. Pe web totul e deblocat: toate predicțiile, tot topul și tot istoricul. */
 :root{
   color-scheme:dark;
   --bg:#0b0b0e; --surface:#1b1b20; --surface2:#24242b; --line:rgba(255,255,255,.08);
@@ -234,7 +234,8 @@ const leagueById = (id) => LEAGUES.find((l) => l.id === id);
 
 const FREE_MATCH_COUNT = 5;
 const PREMIUM_COUNT = 15;
-const FREE_HISTORY_PER_LEAGUE = 2;
+const TOP_COUNT = 20;
+const FREE_HISTORY_PER_LEAGUE = 12;   // versiunea web e completă: tot istoricul e deblocat
 const HISTORY_PER_LEAGUE = 12;
 const nowS = () => Math.floor(Date.now() / 1000);
 
@@ -964,21 +965,18 @@ function progressBlock() {
 }
 
 function topScreen() {
-  const all = S.matches.filter((m) => S.preds.has(m.id)).map((m) => {
+  const all = S.matches.filter((m) => S.preds.has(m.id) && m.status !== "FINISHED").map((m) => {
     const p = S.preds.get(m.id);
     const homeFav = p.home >= p.away;
     return { m, p, homeFav, team: homeFav ? m.home : m.away, chance: favoriteChance(p) };
   }).sort((a, b) => (b.chance - a.chance) || (a.m.kickoff - b.m.kickoff));
-  const free = freeMatchIDs();
-  const entries = all.filter((e) => free.has(e.m.id));
-  const premium = all.filter((e) => !free.has(e.m.id) && e.m.status === "SCHEDULED").slice(0, PREMIUM_COUNT);
+  const entries = all.slice(0, TOP_COUNT);
   const pending = S.matches.filter((m) => m.status === "SCHEDULED" && !S.preds.has(m.id)).length;
   const lg = (m) => leagueById(m.leagueID);
 
   let h = '<div class="stack-lg">' + offlineBanner() +
     '<div class="stack" style="gap:6px"><h1 class="screen">Cei mai clari favoriți</h1>' +
-    '<p class="sub">Cele ' + FREE_MATCH_COUNT + " predicții cu cea mai mare șansă de câștig, din toate cele 14 ligi — gratuite, la fel ca în „Următoare”. Dedesubt, alte " + PREMIUM_COUNT + " meciuri cu procente mari, disponibile cu Premium.</p>" +
-    '<button type="button" class="pill" data-paywall="1" style="margin-top:2px">Deblochează toate meciurile cu Premium</button></div>';
+    '<p class="sub">Cele ' + TOP_COUNT + " meciuri cu cea mai mare șansă de câștig a favoritei, din toate cele 14 ligi.</p></div>";
   if (pending > 0 || S.loading) h += progressBlock();
   if (!entries.length) {
     h += S.loading || pending > 0 || S.filling
@@ -991,14 +989,6 @@ function topScreen() {
         '<div class="cap ell">' + lg(e.m).flag + " " + esc(lg(e.m).name) + " · " + (e.homeFav ? "acasă" : "în deplasare") + "</div></div></div>" +
         matchCard(e.m, e.p) + "</div>";
     });
-    if (premium.length) {
-      h += '<div class="row sec" style="margin-top:6px">' + svg("lock") + "Doar cu Premium</div>";
-      premium.forEach((e, i) => {
-        h += '<div class="stack" style="gap:8px"><div class="row" data-paywall="1" style="cursor:pointer"><span class="rank">' + (entries.length + i + 1) + "</span>" +
-          '<span style="color:var(--muted)">' + svg("lock") + '</span><div class="grow"><div class="fav-name">Favorită ascunsă · Premium</div><div class="cap ell">' +
-          lg(e.m).flag + " " + esc(lg(e.m).name) + "</div></div></div>" + matchCard(e.m, null, { locked: true }) + "</div>";
-      });
-    }
     if (pending > 0) h += '<div class="row cap">' + svg("hist") + "Încă " + pending + " meciuri în calcul — lista se completează automat.</div>";
   }
   h += '<p class="foot">Predicțiile sunt estimări statistice, cu scop informativ. Nu sunt sfaturi de pariere.</p></div>';
@@ -1007,13 +997,8 @@ function topScreen() {
 
 function listScreen(mode) {
   const displayed = mode === "fav" ? S.matches.filter((m) => S.favorites.has(m.id)) : S.matches;
-  const free = freeMatchIDs();
   let h = '<div class="stack">' + offlineBanner();
   h += '<h1 class="screen">' + (mode === "fav" ? "Favorite" : "Următoare") + "</h1>";
-  if (displayed.length) {
-    h += '<button type="button" class="banner" data-paywall="1">' + svg("unlock") + '<div class="grow"><b>Gratuit: cele ' + FREE_MATCH_COUNT +
-      ' predicții cu cea mai mare șansă</b><span class="cap">Deblochează predicțiile pentru toate meciurile cu Premium</span></div><span class="chev">›</span></button>';
-  }
   if (mode !== "fav" && (S.loading || S.filling)) h += progressBlock();
   if (S.loading && !displayed.length) h += '<div class="center"><span class="spin big"></span>Se încarcă meciurile…</div>';
   else if (!displayed.length) {
@@ -1027,7 +1012,7 @@ function listScreen(mode) {
     const rounds = new Set(lm.map((m) => m.round).filter(Boolean));
     const rl = mode !== "fav" && rounds.size === 1 ? " · ETAPA " + [...rounds][0] : "";
     h += '<div class="sec">' + l.flag + " " + esc(l.name.toUpperCase()) + rl + " — " + lm.length + " " + (lm.length === 1 ? "MECI" : "MECIURI") + "</div>";
-    for (const m of lm) h += free.has(m.id) ? matchCard(m, S.preds.get(m.id)) : matchCard(m, null, { locked: true });
+    for (const m of lm) h += matchCard(m, S.preds.get(m.id));
   }
   h += "</div>";
   return h;
@@ -1073,8 +1058,7 @@ function standingsScreen(league) {
 function historyScreen() {
   loadHistory();
   let h = '<div class="stack"><div class="stack" style="gap:6px"><h1 class="screen">Istoricul predicțiilor</h1>' +
-    '<p class="sub">Meciurile încheiate din ultimele etape. Cele mai recente ' + FREE_HISTORY_PER_LEAGUE + " meciuri din fiecare ligă sunt gratuite; restul istoricului se deblochează cu abonamentul Premium.</p>" +
-    '<button type="button" class="pill" data-paywall="1">Vezi abonamentul Premium</button>' +
+    '<p class="sub">Meciurile încheiate din ultimele etape ale fiecărei ligi, cu predicția și rezultatul final.</p>' +
     '<p class="cap" style="margin:2px 0 0">Predicțiile meciurilor jucate înainte de prima ta vizită sunt calculate cu datele de dinaintea fluierului de start: primul 11 oficial și notele din cele 7 meciuri anterioare.</p></div>';
   if (!S.history) return h + '<div class="center"><span class="spin big"></span>Se încarcă istoricul…</div></div>';
   if (!S.history.size) return h + '<div class="center">Niciun meci încheiat găsit momentan.</div></div>';
@@ -1093,8 +1077,8 @@ function historyScreen() {
 
 function settingsScreen() {
   return '<div class="stack-lg"><h1 class="screen">Setări</h1>' +
-    '<div class="card"><h3>Abonament</h3><p class="sub">Ai acces la cele ' + FREE_MATCH_COUNT + " predicții gratuite. Abonamentul Premium (toate meciurile din cele 14 ligi + istoricul complet) se face din aplicația mobilă.</p>" +
-    '<button type="button" class="pill" data-paywall="1">Vezi Premium</button></div>' +
+    '<div class="card"><h3>Acces</h3><p class="sub">Versiunea web e completă și gratuită: toate predicțiile din cele 14 ligi, tot topul și tot istoricul.</p>' +
+    '<a class="pill ghost" href="/ratepulse/">Aplicația pentru telefon</a></div>' +
     '<div class="card"><h3>Date salvate</h3>' +
     '<div class="setrow"><span>Ultima actualizare a meciurilor</span><span>' + (S.fetchedAt ? fmt.full(S.fetchedAt) : "—") + "</span></div>" +
     '<div class="setrow"><span>Predicții calculate</span><span>' + S.preds.size + "</span></div>" +
@@ -1302,7 +1286,7 @@ function render() {
   let html, title = "RatePulse Football", sub = "Predicții statistice · 14 ligi", back = false;
   if (r.match) {
     const m = S.known.get(r.match);
-    const allowed = m && (freeMatchIDs().has(m.id) || isFreeHistory(m.id) || m.status === "FINISHED" && S.historyPreds.has(m.id));
+    const allowed = !!m;
     if (!m) {
       html = S.loading || !S.matches.length ? '<div class="center"><span class="spin big"></span>Se încarcă meciul…</div>' : '<div class="center">Meciul nu mai e în listă.<a href="#top">Înapoi la Top</a></div>';
     } else if (!allowed && (S.loading || S.filling)) {
