@@ -1,0 +1,52 @@
+{
+ "primaryLocale": "ro",
+ "copyright": "2026 Daniel Draghicioiu",
+ "primaryCategory": "GAMES",
+ "primarySubcategoryOne": "GAMES_CARD",
+ "primarySubcategoryTwo": "GAMES_BOARD",
+ "secondaryCategory": "ENTERTAINMENT",
+ "ageRating": {
+  "alcoholTobaccoOrDrugUseOrReferences": "NONE",
+  "contests": "NONE",
+  "gamblingSimulated": "NONE",
+  "horrorOrFearThemes": "NONE",
+  "matureOrSuggestiveThemes": "NONE",
+  "medicalOrTreatmentInformation": "NONE",
+  "profanityOrCrudeHumor": "NONE",
+  "sexualContentGraphicAndNudity": "NONE",
+  "sexualContentOrNudity": "NONE",
+  "violenceCartoonOrFantasy": "NONE",
+  "violenceRealistic": "NONE",
+  "violenceRealisticProlongedGraphicOrSadistic": "NONE",
+  "gambling": false,
+  "unrestrictedWebAccess": false
+ },
+ "review": {
+  "contactFirstName": "Daniel",
+  "contactLastName": "Draghicioiu",
+  "contactPhone": "+40765572113",
+  "contactEmail": "danieldraghicioiu@gmail.com",
+  "demoAccountRequired": false,
+  "notes": "Masa de Renț is an offline card game: Rentz (also known as King or Barbu), the traditional Romanian compendium card game. You play against 2 to 5 computer opponents. There is no betting, no money, no chips, no in-app purchases and no network access.\n\nHOW TO TEST\nTap \"Începe jocul\" (Start). When it is your turn to choose, pick a mini-game from the grid (or first choose to play it \"pe nevăzute\" = blind, which doubles the points). Playable cards in your hand are lifted with a gold outline; tap one to play it. After each round a score summary appears; tap \"Runda următoare\" (Next round). The ••• menu opens the score sheet (\"Foaia de scor\") and the full rules (\"Reguli\"). The game is saved after every round and can be resumed from the start screen.\n\nWHAT IS IN THE GAME\n- All 8 mini-games: King of Hearts, Queens, Diamonds, Tricks, Totals, Whist (or Totals Plus), Ten of Clubs and the Rentz layout game.\n- Traditional rules: refusing Rentz with 3 or 4 \"ends\" (aces and lowest cards), blind choice with double points, whist-style final ranking.\n- 3 to 6 players, two scoring presets, original card graphics drawn in SwiftUI.\n\nThe app was designed and coded by me as an individual developer, using only Apple frameworks (SwiftUI, Observation). It shares no code with any other app. It collects no data."
+ },
+ "locales": {
+  "ro": {
+   "name": "Masa de Renț – Rentz",
+   "subtitle": "Jocul de cărți, cu 8 jocuri",
+   "promotionalText": "Joacă Renț contra calculatorului: Popa de roșu, Dame, Carouri, Levate, Totale, Whist, Zece de treflă și Renț. Cu refuz, pe nevăzute și foaie de scor.",
+   "keywords": "rentz,rent,popa,dame,carouri,levate,totale,whist,carti,joc de carti,king,barbu,romanesc,offline",
+   "description": "Renț, jocul de cărți pe care îl știi de la masa din sufragerie, acum pe iPhone. Joci contra 2–5 adversari conduși de calculator, oricând, fără internet.\n\nCELE 8 JOCURI\n• Popa de roșu: nu lua regele de inimă roșie\n• Dame și Carouri: ferește-te de ele\n• Levate: nu lua nicio mână\n• Totale: toate penalizările la un loc\n• Whist (sau Totale Plus): ia cât mai multe levate\n• Zece de treflă: prinde-l pe 10♣\n• Renț: etalezi cărțile pe masă și termini primul\n\nREGULILE DE LA NOI\n• Alegi pe rând câte un joc, fiecare o singură dată\n• Pe nevăzute: alegi fără să te uiți la cărți și punctajul se dublează\n• Refuzi Renț-ul cu 3 capete, apoi cu 4\n• La Renț, asul îți dă încă o mutare, iar capătul mic îl face pe următorul să stea o tură\n• Clasament final ca la Whist\n\nCUM VREI TU\n• 3, 4, 5 sau 6 jucători, cu pachetul potrivit (de la 24 la 48 de cărți)\n• Punctaj clasic (Popa −300) sau varianta de cazino (Popa −100)\n• Whist sau Totale Plus ca al optulea joc\n• Adversari la viteză normală sau rapidă\n\nFOAIA DE SCOR\nJocurile alese se hașurează ca pe hârtie, cu numărul rundei, iar istoricul arată punctele fiecărei runde. Partida se salvează după fiecare rundă, așa că o poți continua mai târziu.\n\nRegulamentul complet e în aplicație, la un tap distanță.\n\nFără cont, fără reclame, fără bani, fără cumpărături în aplicație. Nu se pariază nimic: e un joc de cărți, pentru plăcerea jocului.",
+   "supportUrl": "https://draghicioiu.ro/aplicatii/rentz/",
+   "privacyPolicyUrl": "https://draghicioiu.ro/aplicatii/rentz/confidentialitate.html"
+  },
+  "en-US": {
+   "name": "Masa de Renț – Rentz",
+   "subtitle": "Romanian card game, 8 deals",
+   "promotionalText": "Play Rentz, the Romanian take on King and Barbu, against the computer: King of Hearts, Queens, Diamonds, Tricks, Totals, Whist, Ten of Clubs and Rentz.",
+   "keywords": "rentz,king,barbu,card game,tricks,whist,hearts,queens,romanian,offline,trick taking",
+   "description": "Rentz is the classic Romanian compendium card game, a cousin of King and Barbu. Play it on your iPhone against 2 to 5 computer opponents, anytime, offline.\n\nTHE 8 GAMES\n• King of Hearts: don't take the king of hearts\n• Queens and Diamonds: avoid them\n• Tricks: don't take any trick\n• Totals: all the penalties together\n• Whist (or Totals Plus): take as many tricks as you can\n• Ten of Clubs: catch the 10♣\n• Rentz: lay your cards out on the table and finish first\n\nTRADITIONAL RULES\n• Each player chooses every game once, in turn\n• Blind choice: pick without looking at your cards and the points are doubled\n• Refuse Rentz with 3 \"ends\", then with 4\n• In Rentz an ace gives you another move, and the lowest card makes the next player skip a turn\n• Final ranking scored like Whist\n\nYOUR WAY\n• 3, 4, 5 or 6 players, with the matching deck (24 to 48 cards)\n• Classic scoring (King −300) or the casino variant (King −100)\n• Whist or Totals Plus as the eighth game\n• Normal or fast opponents\n\nSCORE SHEET\nChosen games are hatched like on paper, with the round number, and the history shows every round. The game is saved after each round so you can resume later.\n\nThe interface is in Romanian. No account, no ads, no money, no in-app purchases. Nothing is wagered: it's a card game, played for fun.",
+   "supportUrl": "https://draghicioiu.ro/aplicatii/rentz/",
+   "privacyPolicyUrl": "https://draghicioiu.ro/aplicatii/rentz/confidentialitate.html"
+  }
+ }
+}

@@ -181,3 +181,178 @@ workflows:
           else
             echo "Doar verificare (TRIMITE != 1) — nu trimit la review."
           fi
+
+  # ───────────────────────────────────────────────────────────────────────────
+  # Renț — joc de cărți nativ iOS. Codul e în ios-rentz/. Bundle: ro.draghicioiu.rentz
+  # Ordine la primul TestFlight:
+  #   1. „Renț — Configurare (bundle ID + profil)” o singură dată
+  #   2. fișa aplicației în App Store Connect (Apps › + › New App, bundle ro.draghicioiu.rentz)
+  #   3. „Renț — TestFlight”
+  # „Renț — Verificare” rulează automat la orice schimbare în ios-rentz/.
+  rentz-check:
+    name: Renț — Verificare (build + capturi în simulator)
+    instance_type: mac_mini_m4
+    max_build_duration: 30
+    working_directory: ios-rentz
+    environment:
+      xcode: latest
+    triggering:
+      events:
+        - push
+      branch_patterns:
+        - pattern: '*'
+          include: true
+    when:
+      changeset:
+        includes:
+          - 'ios-rentz/**'
+    scripts:
+      - name: Build pentru simulator
+        script: |
+          set -o pipefail
+          xcodebuild -version
+          xcodebuild -project Rentz.xcodeproj -scheme Rentz -configuration Debug \
+            -sdk iphonesimulator -destination 'generic/platform=iOS Simulator' \
+            -derivedDataPath build CODE_SIGNING_ALLOWED=NO build 2>&1 | tee build.log \
+            | grep -E "error:|warning: .*Swift|BUILD (SUCCEEDED|FAILED)" || true
+          grep -q "BUILD SUCCEEDED" build.log
+      - name: Capturi în simulator (partide demonstrative)
+        script: |
+          python3 -m pip install --quiet --user pillow 2>/dev/null || python3 -m pip install --quiet --break-system-packages pillow
+          ./ci/store_shots.sh
+          cd storeshots/iphone && zip -q ../../rentz-shots.zip *.png
+    artifacts:
+      - "**/build.log"
+      - "**/rentz-shots.zip"
+
+  rentz-setup:
+    name: Renț — Configurare (bundle ID + profil)
+    instance_type: mac_mini_m4
+    max_build_duration: 10
+    working_directory: ios-rentz
+    integrations:
+      app_store_connect: kino_ledger_asc_key
+    environment:
+      xcode: latest
+    scripts:
+      - name: Înregistrează bundle ID (dacă lipsește)
+        script: |
+          set -e
+          FOUND=$(app-store-connect bundle-ids list --bundle-id-identifier ro.draghicioiu.rentz --strict-match-identifier --json | python3 -c "import sys,json; print(len(json.load(sys.stdin)))")
+          if [ "$FOUND" = "0" ]; then
+            app-store-connect bundle-ids create ro.draghicioiu.rentz --name "Rentz" --platform IOS
+          else
+            echo "Bundle ID ro.draghicioiu.rentz există deja"
+          fi
+      - name: Creează profil App Store
+        script: |
+          BUNDLE_RES=$(app-store-connect bundle-ids list --bundle-id-identifier ro.draghicioiu.rentz --strict-match-identifier --json | python3 -c "import sys,json; print(json.load(sys.stdin)[0]['id'])")
+          EXISTING=$(app-store-connect profiles list --bundle-id-resource-id "$BUNDLE_RES" --type IOS_APP_STORE --json 2>/dev/null | python3 -c "import sys,json
+          try:
+              print(len(json.load(sys.stdin)))
+          except Exception:
+              print(0)")
+          if [ "$EXISTING" != "0" ]; then
+            echo "Profilul App Store există deja"
+            exit 0
+          fi
+          CERTS=""
+          for T in DISTRIBUTION IOS_DISTRIBUTION; do
+            IDS=$(app-store-connect certificates list --type $T --json 2>/dev/null | python3 -c "import sys,json
+          try:
+              print(' '.join(c['id'] for c in json.load(sys.stdin)))
+          except Exception:
+              pass")
+            CERTS="$CERTS $IDS"
+          done
+          CERTS=$(echo $CERTS)
+          echo "Certificates: $CERTS"
+          app-store-connect profiles create "$BUNDLE_RES" --certificate-ids $CERTS --type IOS_APP_STORE --name "Rentz App Store"
+
+  rentz-testflight:
+    name: Renț — TestFlight
+    instance_type: mac_mini_m4
+    max_build_duration: 30
+    working_directory: ios-rentz
+    integrations:
+      app_store_connect: kino_ledger_asc_key
+    environment:
+      xcode: latest
+      ios_signing:
+        distribution_type: app_store
+        bundle_identifier: ro.draghicioiu.rentz
+      vars:
+        XCODE_PROJECT: Rentz.xcodeproj
+        XCODE_SCHEME: Rentz
+    scripts:
+      - name: Aplică profilurile de semnare
+        script: xcode-project use-profiles --project "$XCODE_PROJECT"
+      - name: Număr de build
+        script: |
+          echo "Build number: $BUILD_NUMBER"
+          sed -i '' "s/CURRENT_PROJECT_VERSION = [0-9]*;/CURRENT_PROJECT_VERSION = $BUILD_NUMBER;/g" "$XCODE_PROJECT/project.pbxproj"
+      - name: Build IPA
+        script: |
+          xcode-project build-ipa \
+            --project "$XCODE_PROJECT" \
+            --scheme "$XCODE_SCHEME"
+    artifacts:
+      - "**/build/ios/ipa/*.ipa"
+      - /tmp/xcodebuild_logs/*.log
+    publishing:
+      app_store_connect:
+        auth: integration
+        submit_to_testflight: true
+
+  rentz-store:
+    name: Renț — Fișa App Store (texte + capturi iPhone)
+    instance_type: mac_mini_m4
+    max_build_duration: 40
+    working_directory: ios-rentz
+    integrations:
+      app_store_connect: kino_ledger_asc_key
+    environment:
+      xcode: latest
+    scripts:
+      - name: Build pentru simulator
+        script: |
+          set -o pipefail
+          xcodebuild -project Rentz.xcodeproj -scheme Rentz -configuration Debug \
+            -sdk iphonesimulator -destination 'generic/platform=iOS Simulator' \
+            -derivedDataPath build CODE_SIGNING_ALLOWED=NO build 2>&1 | tee build.log \
+            | grep -E "error:|BUILD (SUCCEEDED|FAILED)" || true
+          grep -q "BUILD SUCCEEDED" build.log
+      - name: Capturi de ecran
+        script: |
+          python3 -m pip install --quiet --user pillow 2>/dev/null || python3 -m pip install --quiet --break-system-packages pillow
+          ./ci/store_shots.sh
+      - name: Completează fișa (texte, categorii, vârstă, review, build) și încarcă capturile
+        script: |
+          python3 -m pip install --quiet --user pyjwt cryptography requests 2>/dev/null || python3 -m pip install --quiet --break-system-packages pyjwt cryptography requests
+          python3 store/asc_publica.py metadata
+          python3 store/asc_publica.py screenshots storeshots
+          python3 store/asc_publica.py verifica
+    artifacts:
+      - "**/storeshots/**/*.png"
+      - "**/build.log"
+
+  rentz-submit:
+    name: Renț — Trimite la App Review (lansare manuală)
+    instance_type: mac_mini_m4
+    max_build_duration: 75
+    working_directory: ios-rentz
+    integrations:
+      app_store_connect: kino_ledger_asc_key
+    environment:
+      xcode: latest
+    scripts:
+      - name: Verifică fișa și trimite la review
+        script: |
+          python3 -m pip install --quiet --user pyjwt cryptography requests 2>/dev/null || python3 -m pip install --quiet --break-system-packages pyjwt cryptography requests
+          python3 store/asc_publica.py metadata
+          python3 store/asc_publica.py verifica
+          if [ "$TRIMITE" = "1" ]; then
+            python3 store/asc_publica.py trimite
+          else
+            echo "Doar verificare (TRIMITE != 1) — nu trimit la review."
+          fi
