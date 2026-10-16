@@ -1,0 +1,1392 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>RatePulse Football – aplicația web | draghicioiu.ro</title>
+<meta name="description" content="RatePulse Football direct în browser: șansele fiecărui meci din 14 ligi europene, calculate din notele jucătorilor în ultimele 7 meciuri. Top favoriți, clasamente, istoric.">
+<link rel="canonical" href="https://draghicioiu.ro/ratepulse/app/">
+<meta property="og:title" content="RatePulse Football – aplicația web">
+<meta property="og:description" content="Predicții statistice pentru 14 ligi europene, din notele jucătorilor. Direct în browser.">
+<meta property="og:url" content="https://draghicioiu.ro/ratepulse/app/">
+<meta property="og:image" content="https://draghicioiu.ro/ratepulse/icon.png">
+<meta name="theme-color" content="#0b0b0e">
+<link rel="icon" href="/ratepulse/icon.png">
+<link rel="apple-touch-icon" href="/ratepulse/icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+/* Port web al aplicației RatePulse Football (iOS/Android 1.0.1): aceleași taburi, același motor de
+   predicții, același model gratuit (5 predicții). Abonamentul Premium există doar în aplicația mobilă. */
+:root{
+  color-scheme:dark;
+  --bg:#0b0b0e; --surface:#1b1b20; --surface2:#24242b; --line:rgba(255,255,255,.08);
+  --ink:#fff; --muted:rgba(255,255,255,.62);
+  --home:#0a84ff; --draw:#8e8e93; --away:#ff9f0a; --accent:#0a84ff;
+  --win:#30d158; --loss:#ff453a; --star:#ffd60a;
+  --tabh:62px;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html,body{margin:0;background:var(--bg);color:var(--ink)}
+body{font:500 14px/1.4 Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased;
+  padding-bottom:calc(var(--tabh) + env(safe-area-inset-bottom,0px))}
+a{color:var(--accent);text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:6px}
+
+/* bara de sus */
+.top{position:sticky;top:0;z-index:20;background:rgba(11,11,14,.86);backdrop-filter:saturate(160%) blur(14px);-webkit-backdrop-filter:saturate(160%) blur(14px);border-bottom:1px solid var(--line)}
+.top-in{max-width:760px;margin:0 auto;padding:10px 16px;display:flex;align-items:center;gap:10px}
+.top-in img{width:30px;height:30px;border-radius:8px}
+.top-title{flex:1;min-width:0}
+.top-title b{display:block;font-size:16px;font-weight:800;letter-spacing:-.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.top-title small{display:block;color:var(--muted);font-size:11.5px}
+.top a.get{font-size:12.5px;font-weight:700;background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:999px;padding:6px 12px;white-space:nowrap}
+.back-btn{display:none;align-items:center;gap:2px;color:var(--accent);font-weight:600;font-size:15px;margin-right:2px}
+.has-back .back-btn{display:inline-flex}
+.has-back .top-in img{display:none}
+
+main{max-width:760px;margin:0 auto;padding:16px 16px 28px}
+.stack{display:grid;gap:12px}
+.stack-lg{display:grid;gap:16px}
+h1.screen{font-size:24px;font-weight:900;margin:0;letter-spacing:-.02em}
+.sub{color:var(--muted);margin:0}
+.cap{color:var(--muted);font-size:12px}
+.cap2{color:var(--muted);font-size:11px}
+.sec{color:var(--muted);font-size:13px;font-weight:700;letter-spacing:.02em;margin:10px 0 -2px}
+.pill{display:inline-flex;align-items:center;gap:6px;background:var(--accent);color:#fff;font-weight:700;font-size:14px;border-radius:999px;padding:8px 14px;justify-self:start}
+.pill.ghost{background:var(--surface);border:1px solid var(--line)}
+.card{background:var(--surface);border-radius:16px;padding:16px;display:grid;gap:12px}
+.card h3{margin:0;font-size:17px;font-weight:600}
+.row{display:flex;align-items:center;gap:8px;min-width:0}
+.grow{flex:1;min-width:0}
+.ell{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hr{height:1px;background:rgba(255,255,255,.12)}
+.ico{width:16px;height:16px;flex:none;fill:currentColor}
+.spin{width:14px;height:14px;border-radius:50%;border:2px solid rgba(255,255,255,.25);border-top-color:#fff;animation:sp .8s linear infinite;flex:none}
+.spin.big{width:28px;height:28px;border-width:3px}
+@keyframes sp{to{transform:rotate(360deg)}}
+.center{display:grid;justify-items:center;gap:10px;padding:40px 0;color:var(--muted);text-align:center}
+
+/* emblema */
+.crest{width:20px;height:20px;flex:none;object-fit:contain;display:inline-block}
+.crest-ph{width:20px;height:20px;flex:none;border-radius:50%;background:var(--surface2);display:inline-grid;place-items:center;color:var(--muted);font-size:10px;font-weight:700}
+
+/* cardul meciului */
+.match{position:relative;border-radius:14px;overflow:hidden;background:var(--surface);display:block;width:100%;text-align:left}
+.match.click{cursor:pointer}
+.match.click:hover{background:#202027}
+.m-in{padding:14px;display:grid;gap:10px}
+.match.locked .m-in{filter:blur(6px);pointer-events:none;user-select:none}
+.match.locked::after{content:"";position:absolute;inset:0;background:rgba(27,27,32,.25)}
+.lockmark{position:absolute;inset:0;display:grid;place-items:center;z-index:2}
+.lockmark svg{width:22px;height:22px;fill:#fff}
+.m-head{display:flex;align-items:flex-start;gap:8px}
+.m-teams{font-size:17px;font-weight:600;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.star{width:32px;height:32px;display:grid;place-items:center;border-radius:50%;color:var(--star);flex:none}
+.star:hover{background:rgba(255,214,10,.12)}
+.star svg{width:20px;height:20px}
+.bar{display:flex;gap:2px;height:14px;border-radius:8px;overflow:hidden}
+.bar i{display:block;height:100%}
+.bar-l{display:flex;justify-content:space-between;gap:6px;font-size:12px;font-weight:600;flex-wrap:wrap}
+.bar-l span{display:inline-flex;align-items:center;gap:5px}
+.dot{width:8px;height:8px;border-radius:50%;display:inline-block;flex:none}
+.basis{display:flex;align-items:center;gap:6px;color:var(--muted);font-size:11px}
+.basis .ico{width:13px;height:13px}
+.verdict{font-size:11px;font-weight:700;border-radius:999px;padding:2px 8px}
+.verdict.ok{background:rgba(48,209,88,.16);color:var(--win)}
+.verdict.no{background:rgba(255,69,58,.16);color:var(--loss)}
+
+/* Top */
+.rank{min-width:28px;height:28px;border-radius:50%;background:var(--surface);display:grid;place-items:center;font-weight:700;flex:none}
+.fav-name{font-size:15px;font-weight:700}
+.banner{display:flex;align-items:center;gap:10px;background:rgba(10,132,255,.18);border-radius:14px;padding:12px;cursor:pointer;text-align:left;width:100%}
+.banner.warn{background:rgba(255,214,10,.15);cursor:default}
+.banner b{display:block;font-size:14px}
+.progress{height:4px;background:var(--surface2);border-radius:4px;overflow:hidden}
+.progress i{display:block;height:100%;background:var(--accent);transition:width .3s}
+
+/* Ligi */
+.list{background:var(--surface);border-radius:16px;overflow:hidden}
+.li{display:flex;align-items:center;gap:12px;padding:12px 16px;width:100%;text-align:left;border-bottom:1px solid var(--line)}
+.li:last-child{border-bottom:0}
+.li:hover{background:#202027}
+.li .flag{font-size:24px;width:30px;text-align:center}
+.li b{display:block;font-size:16px;font-weight:600}
+.chev{color:var(--muted);font-size:20px}
+table.st{width:100%;border-collapse:collapse;font-size:14px}
+table.st th{font-size:12px;color:var(--muted);font-weight:700;text-align:right;padding:0 0 6px}
+table.st th:nth-child(2),table.st td:nth-child(2){text-align:left}
+table.st td{padding:7px 0;text-align:right;color:var(--muted)}
+table.st td.pts{color:var(--ink);font-weight:700}
+table.st td.pos{width:40px;text-align:left;color:var(--ink);white-space:nowrap}
+table.st td.num,table.st th.num{width:28px}
+table.st td.pts,table.st th.pts{width:34px}
+.zone{display:inline-block;width:3px;height:18px;border-radius:2px;vertical-align:middle;margin-right:5px}
+.tname{display:flex;align-items:center;gap:6px;color:var(--ink);min-width:0}
+.tname span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+/* detalii */
+.hdr{display:grid;grid-template-columns:1fr auto 1fr;gap:8px;align-items:start}
+.tcol{display:grid;justify-items:center;gap:8px;text-align:center;font-size:15px;font-weight:700}
+.tcol .crest,.tcol .crest-ph{width:40px;height:40px}
+.mid{display:grid;justify-items:center;min-width:70px}
+.mid b{font-size:22px}
+.info{display:grid;justify-items:center;gap:4px;color:var(--muted);font-size:12px;text-align:center}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.idx{background:var(--surface);border-radius:16px;padding:16px;display:grid;justify-items:center;gap:4px;text-align:center}
+.idx strong{font-size:28px}
+.lb{width:20px;height:20px;border-radius:4px;display:inline-grid;place-items:center;font-size:11px;font-weight:700;color:#fff;flex:none}
+.lb.s{width:18px;height:18px}
+.form-row{display:flex;align-items:center;gap:8px;font-size:12px}
+.form-row .d{width:44px;color:var(--muted);flex:none}
+.rt{font-size:12px;font-weight:700;border-radius:999px;padding:2px 6px;flex:none}
+.pc{width:22px;font-size:11px;font-weight:700;color:var(--muted);flex:none}
+.stat3{display:grid;grid-template-columns:repeat(3,1fr);text-align:center}
+.stat3 b{display:block;font-size:20px}
+.iconbtn{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;color:var(--accent)}
+.iconbtn:hover{background:rgba(10,132,255,.14)}
+.iconbtn svg{width:18px;height:18px;fill:currentColor}
+
+/* Setări */
+.setrow{display:flex;justify-content:space-between;gap:10px}
+.setrow span:last-child{color:var(--muted);text-align:right}
+.linkbtn{color:var(--accent);font-weight:500;text-align:left;padding:4px 0}
+
+/* paywall */
+.modal{position:fixed;inset:0;z-index:50;background:rgba(0,0,0,.6);display:grid;place-items:end center;padding:0}
+.sheet{width:100%;max-width:520px;max-height:92vh;overflow:auto;background:#141418;border-radius:22px 22px 0 0;padding:22px 20px calc(22px + env(safe-area-inset-bottom,0px));display:grid;gap:14px}
+@media (min-width:700px){.modal{place-items:center;padding:24px}.sheet{border-radius:22px}}
+.sheet h2{margin:0;font-size:24px;font-weight:900;letter-spacing:-.02em}
+.feat{display:flex;gap:10px;align-items:flex-start}
+.feat .ico{color:var(--win);margin-top:2px}
+.price{background:var(--surface);border-radius:14px;padding:14px;display:flex;justify-content:space-between;align-items:center}
+.price b{font-size:20px}
+.store{display:flex;align-items:center;justify-content:center;gap:10px;background:#fff;color:#000;border-radius:12px;padding:11px 16px;font-weight:700;font-size:15px}
+.store svg{width:22px;height:22px}
+.close{justify-self:center;color:var(--muted);font-weight:600;padding:6px 12px}
+
+/* bara de taburi */
+.tabs{position:fixed;left:0;right:0;bottom:0;z-index:30;background:rgba(18,18,22,.94);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom,0px)}
+.tabs-in{max-width:760px;margin:0 auto;display:grid;grid-template-columns:repeat(6,1fr);height:var(--tabh)}
+.tab{display:grid;justify-items:center;align-content:center;gap:3px;color:rgba(255,255,255,.5);font-size:10.5px;font-weight:600}
+.tab svg{width:23px;height:23px;fill:currentColor}
+.tab[aria-current="page"]{color:var(--accent)}
+.foot{color:var(--muted);font-size:12px;margin-top:6px}
+.toast{position:fixed;left:50%;bottom:calc(var(--tabh) + 14px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:#2c2c33;color:#fff;border-radius:12px;padding:10px 14px;font-size:13px;z-index:60;box-shadow:0 8px 30px rgba(0,0,0,.4);max-width:calc(100% - 32px)}
+@media (max-width:380px){.tab{font-size:9.5px}.m-teams{font-size:16px}}
+</style>
+</head>
+<body>
+<header class="top" id="top">
+  <div class="top-in">
+    <button class="back-btn" id="backBtn" type="button" aria-label="Înapoi"><span aria-hidden="true">‹</span> Înapoi</button>
+    <img src="/ratepulse/icon.png" alt="">
+    <div class="top-title"><b id="topTitle">RatePulse Football</b><small id="topSub">Predicții statistice · 14 ligi</small></div>
+    <a class="get" href="/ratepulse/">Aplicația</a>
+  </div>
+</header>
+
+<main id="view" aria-live="polite"></main>
+
+<nav class="tabs" aria-label="Secțiuni">
+  <div class="tabs-in" id="tabs"></div>
+</nav>
+
+<div class="modal" id="paywall" hidden role="dialog" aria-modal="true" aria-labelledby="pwTitle"></div>
+<div class="toast" id="toast" hidden></div>
+
+<script>
+"use strict";
+/* =========================================================================================
+   RatePulse Football — versiunea web. Port al aplicației Android/iOS 1.0.1:
+   - aceleași date (serverul de cache RatePulse din fața SportAPI, cu tokenul aplicației);
+   - același motor de predicții (PredictionEngine, RealPredictionComputer, TeamFormService,
+     PredictionFillEngine) și aceleași constante, deci aceleași procente;
+   - același model gratuit: cele 5 meciuri neterminate cu favorita cea mai clară.
+   Datele se păstrează în IndexedDB, ca a doua vizită să fie aproape instantanee.
+   ========================================================================================= */
+
+const API = "https://ratepulse-api.puiutpavel.workers.dev/";
+const TOKEN = "rp-app-7f3c9a2e5b814d6c";
+const PRIVACY_URL = "https://puiutpavel-dot.github.io/ratepulse-privacy/";
+const PLAY_URL = "https://play.google.com/store/apps/details?id=com.ratepulse.footballpredictor";
+
+const LEAGUES = [
+  { id: "PL", name: "Premier League", country: "Anglia", flag: "🏴󠁧󠁢󠁥󠁮󠁧󠁿", ut: 17, cat: 1 },
+  { id: "LALIGA", name: "La Liga", country: "Spania", flag: "🇪🇸", ut: 8, cat: 32 },
+  { id: "SERIE_A", name: "Serie A", country: "Italia", flag: "🇮🇹", ut: 23, cat: 31 },
+  { id: "BUNDESLIGA", name: "Bundesliga", country: "Germania", flag: "🇩🇪", ut: 35, cat: 30 },
+  { id: "LIGUE_1", name: "Ligue 1", country: "Franța", flag: "🇫🇷", ut: 34, cat: 7 },
+  { id: "PRIMEIRA", name: "Primeira Liga", country: "Portugalia", flag: "🇵🇹", ut: 238, cat: 44 },
+  { id: "JUPILER", name: "Jupiler Pro League", country: "Belgia", flag: "🇧🇪", ut: 38, cat: 33 },
+  { id: "EREDIVISIE", name: "Eredivisie", country: "Olanda", flag: "🇳🇱", ut: 37, cat: 35 },
+  { id: "SUPER_LIG", name: "Süper Lig", country: "Turcia", flag: "🇹🇷", ut: 52, cat: 46 },
+  { id: "EKSTRAKLASA", name: "Ekstraklasa", country: "Polonia", flag: "🇵🇱", ut: 202, cat: 47 },
+  { id: "CHANCE_LIGA", name: "Chance Liga", country: "Cehia", flag: "🇨🇿", ut: 172, cat: 18 },
+  { id: "SUPER_LEAGUE_GR", name: "Super League", country: "Grecia", flag: "🇬🇷", ut: 185, cat: 67 },
+  { id: "ELITESERIEN", name: "Eliteserien", country: "Norvegia", flag: "🇳🇴", ut: 20, cat: 5 },
+  { id: "SUPERLIGA_DK", name: "Superliga", country: "Danemarca", flag: "🇩🇰", ut: 39, cat: 8 },
+];
+const leagueById = (id) => LEAGUES.find((l) => l.id === id);
+
+const FREE_MATCH_COUNT = 5;
+const PREMIUM_COUNT = 15;
+const FREE_HISTORY_PER_LEAGUE = 2;
+const HISTORY_PER_LEAGUE = 12;
+const nowS = () => Math.floor(Date.now() / 1000);
+
+/* ---------------------------------------------------------------- stocare (IndexedDB) */
+const DB = (() => {
+  let dbp = null;
+  const mem = new Map();
+  function open() {
+    if (dbp) return dbp;
+    dbp = new Promise((resolve) => {
+      try {
+        const req = indexedDB.open("ratepulse-web", 1);
+        req.onupgradeneeded = () => req.result.createObjectStore("kv");
+        req.onsuccess = () => resolve(req.result);
+        req.onerror = () => resolve(null);
+      } catch (e) { resolve(null); }
+    });
+    return dbp;
+  }
+  async function get(k) {
+    if (mem.has(k)) return mem.get(k);
+    const db = await open();
+    if (!db) return undefined;
+    return new Promise((resolve) => {
+      try {
+        const r = db.transaction("kv").objectStore("kv").get(k);
+        r.onsuccess = () => { if (r.result !== undefined) mem.set(k, r.result); resolve(r.result); };
+        r.onerror = () => resolve(undefined);
+      } catch (e) { resolve(undefined); }
+    });
+  }
+  async function set(k, v) {
+    mem.set(k, v);
+    const db = await open();
+    if (!db) return;
+    try { db.transaction("kv", "readwrite").objectStore("kv").put(v, k); } catch (e) {}
+  }
+  async function clear() {
+    mem.clear();
+    const db = await open();
+    if (!db) return;
+    await new Promise((resolve) => {
+      try {
+        const t = db.transaction("kv", "readwrite"); t.objectStore("kv").clear();
+        t.oncomplete = resolve; t.onerror = resolve;
+      } catch (e) { resolve(); }
+    });
+  }
+  return { get, set, clear };
+})();
+
+const LS = {
+  get(k, d) { try { const v = localStorage.getItem(k); return v === null ? d : JSON.parse(v); } catch (e) { return d; } },
+  set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} },
+};
+
+/* ---------------------------------------------------------------- client API */
+// Cel mult 6 cereri în paralel; aproape toate sunt servite din cache-ul serverului.
+const MAX_INFLIGHT = 6;
+let inflight = 0;
+const waiting = [];
+function slot() {
+  if (inflight < MAX_INFLIGHT) { inflight++; return Promise.resolve(); }
+  return new Promise((r) => waiting.push(r));
+}
+function release() {
+  const next = waiting.shift();
+  if (next) next(); else inflight--;
+}
+let requestCount = 0;
+
+class ApiError extends Error {}
+
+function apiURL(path, extra) {
+  const u = new URL(path.replace(/^\//, ""), API);
+  if (extra) for (const [k, v] of Object.entries(extra)) u.searchParams.set(k, v);
+  u.searchParams.set("t", TOKEN);
+  return u.toString();
+}
+
+async function getJSON(path, extra, retry = false) {
+  await slot();
+  let res;
+  try {
+    requestCount++;
+    res = await fetch(apiURL(path, extra), { cache: "no-store" });
+  } catch (e) {
+    release();
+    throw new ApiError("Eroare de rețea: fără conexiune");
+  }
+  release();
+  if (res.ok) {
+    try { return await res.json(); } catch (e) { throw new ApiError("Răspunsul serviciului de date nu a putut fi interpretat."); }
+  }
+  if (res.status === 404) return null;
+  if (res.status === 429 && !retry) {
+    await new Promise((r) => setTimeout(r, 1500));
+    return getJSON(path, extra, true);
+  }
+  if (res.status === 429) throw new ApiError("Serviciul de date e momentan suprasolicitat. Încearcă din nou mai târziu.");
+  throw new ApiError("Serviciul de date a răspuns cu eroare HTTP " + res.status + ".");
+}
+async function tryGet(path, extra) { try { return await getJSON(path, extra); } catch (e) { return null; } }
+
+const crestURL = (teamID) => apiURL("api/v1/team/" + teamID + "/image");
+
+/* ---------------------------------------------------------------- modele */
+const HIDDEN = new Set(["postponed", "canceled", "cancelled", "removed", "abandoned"]);
+const CLOSED = new Set(["finished", "canceled", "cancelled", "postponed", "abandoned", "removed", "suspended"]);
+
+function mapStatus(type) {
+  if (["finished", "canceled", "cancelled", "abandoned", "removed"].includes(type)) return "FINISHED";
+  if (["inprogress", "interrupted", "willcontinue", "pause"].includes(type)) return "LIVE";
+  return "SCHEDULED";
+}
+function mapTeam(t) {
+  const code = t.nameCode && t.nameCode.length ? t.nameCode : (t.name || "").slice(0, 3).toUpperCase();
+  return { id: String(t.id), name: t.name, shortName: code };
+}
+function toMatch(e, league, fallbackRound) {
+  return {
+    id: String(e.id),
+    leagueID: league.id,
+    home: mapTeam(e.homeTeam),
+    away: mapTeam(e.awayTeam),
+    kickoff: e.startTimestamp,
+    status: mapStatus(e.status && e.status.type),
+    homeScore: e.homeScore ? e.homeScore.current : null,
+    awayScore: e.awayScore ? e.awayScore.current : null,
+    venue: e.venue ? e.venue.name || null : null,
+    venueCity: e.venue && e.venue.city ? e.venue.city.name || null : null,
+    round: (e.roundInfo && e.roundInfo.round) || fallbackRound || null,
+  };
+}
+const isFinishedEvent = (e) => e.status && e.status.type === "finished";
+
+const BASIS = {
+  CONFIRMED_LINEUP: { label: "Note · primul 11 oficial", rank: 4,
+    text: "Calculată din media ponderată a notelor din ultimele 7 meciuri ale primului 11 oficial." },
+  PROBABLE_LINEUP: { label: "Note · primul 11 probabil", rank: 3,
+    text: "Calculată din media ponderată a notelor din ultimele 7 meciuri ale primului 11 probabil. Se recalculează automat când apare lotul oficial." },
+  RECENT_STARTERS: { label: "Note · titularii din ultimele meciuri", rank: 2,
+    text: "Lotul oficial nu e încă publicat. Primul 11 e estimat din titularii cei mai folosiți în ultimele meciuri, iar predicția vine din notele lor din ultimele 7 meciuri. Se recalculează automat cu lotul oficial, cu aproximativ o oră înainte de meci." },
+  TEAM_FORM: { label: "Forma recentă (fără note)", rank: 1,
+    text: "Nu există destule note ale jucătorilor, așa că predicția folosește forma recentă a echipelor (puncte și golaveraj din ultimele meciuri), transformată pe aceeași scară ca notele." },
+  HOME_ADVANTAGE_ONLY: { label: "Date insuficiente", rank: 0,
+    text: "Nu există încă meciuri recente pentru aceste echipe, așa că predicția ține cont doar de avantajul terenului propriu." },
+};
+const LOCKED_PREDICTION = { home: 34, draw: 32, away: 34, hi: 6.8, ai: 6.8, basis: null };
+const favoriteChance = (p) => Math.max(p.home, p.away);
+
+/* ---------------------------------------------------------------- PredictionEngine */
+const Engine = {
+  HOME_ADVANTAGE: 0.25, K: 1.76, BASE_DRAW_RATE: 0.26, DRAW_SENSITIVITY: 0.08, MIN_DRAW_RATE: 0.12,
+  weighted(ratings) {
+    const last = ratings.slice(-7);
+    if (!last.length) return 0;
+    let sum = 0, total = 0;
+    last.forEach((r, i) => { const w = i + 1; sum += r.rating * w; total += w; });
+    return sum / total;
+  },
+  teamIndex(players) {
+    const rated = players.filter((p) => p.ratings.length);
+    if (!rated.length) return 0;
+    return rated.reduce((s, p) => s + Engine.weighted(p.ratings), 0) / rated.length;
+  },
+  predict(hi, ai) {
+    const skill = hi - ai;
+    const diff = skill + Engine.HOME_ADVANTAGE;
+    const pHome = 1 / (1 + Math.exp(-Engine.K * diff));
+    const draw = Math.max(Engine.MIN_DRAW_RATE, Engine.BASE_DRAW_RATE - Math.abs(skill) * Engine.DRAW_SENSITIVITY);
+    const rem = 1 - draw;
+    const raw = [rem * pHome * 100, draw * 100, rem * (1 - pHome) * 100];
+    const fl = raw.map(Math.floor);
+    const remainder = Math.round(100 - fl.reduce((a, b) => a + b, 0));
+    const order = [0, 1, 2].sort((a, b) => (raw[b] - fl[b]) - (raw[a] - fl[a]));
+    for (let i = 0; i < Math.max(0, Math.min(remainder, 3)); i++) fl[order[i]] += 1;
+    return { home: fl[0], draw: fl[1], away: fl[2], hi, ai };
+  },
+};
+
+/* ---------------------------------------------------------------- sezoane, etape, meciuri */
+const seasonsMemo = new Map();
+function seasons(league) {
+  if (!seasonsMemo.has(league.id)) {
+    seasonsMemo.set(league.id, tryGet("api/v1/unique-tournament/" + league.ut + "/seasons")
+      .then((r) => (r && r.seasons) || []));
+  }
+  return seasonsMemo.get(league.id);
+}
+async function currentSeasonID(league) {
+  const s = await seasons(league);
+  return s.length ? s[0].id : null;
+}
+const roundsMemo = new Map();
+function roundsOf(ut, sid) {
+  const k = ut + "/" + sid;
+  if (!roundsMemo.has(k)) roundsMemo.set(k, tryGet("api/v1/unique-tournament/" + ut + "/season/" + sid + "/rounds"));
+  return roundsMemo.get(k);
+}
+const roundMemo = new Map();
+function roundEventsRaw(ut, sid, n) {
+  const k = ut + "/" + sid + "/" + n;
+  if (!roundMemo.has(k)) roundMemo.set(k, tryGet("api/v1/unique-tournament/" + ut + "/season/" + sid + "/events/round/" + n));
+  return roundMemo.get(k);
+}
+
+const NEXT_ROUND_DELAY = 4 * 3600;
+// Etapa curentă a fiecărei ligi — întreaga etapă, inclusiv meciurile jucate (Pasul 29).
+async function currentRoundMatches(league) {
+  const sid = await currentSeasonID(league);
+  if (!sid) return null;
+  const rounds = await roundsOf(league.ut, sid);
+  if (!rounds) return null;
+  const all = (rounds.rounds || []).map((r) => r.round).filter((x) => x != null);
+  const lastRound = all.length ? Math.max(...all) : 0;
+  let round = (rounds.currentRound && rounds.currentRound.round) || (all.length ? Math.min(...all) : null);
+  if (round == null) return [];
+  const now = nowS();
+  for (let i = 0; i < 3; i++) {
+    const res = await roundEventsRaw(league.ut, sid, round);
+    if (!res) return null;
+    const events = (res.events || []).filter((e) => !HIDDEN.has(e.status && e.status.type));
+    const lastStart = events.length ? Math.max(...events.map((e) => e.startTimestamp)) : 0;
+    const over = events.length > 0 && now >= lastStart + NEXT_ROUND_DELAY;
+    if (over && round < lastRound) round += 1;
+    else return events.map((e) => toMatch(e, league, round));
+  }
+  return [];
+}
+async function fetchUpcoming() {
+  const results = await Promise.all(LEAGUES.map((l) => currentRoundMatches(l).catch(() => null)));
+  if (results.every((r) => r === null)) throw new ApiError("Serviciul de date nu răspunde momentan.");
+  const byId = new Map();
+  for (const m of results.filter(Boolean).flat()) byId.set(m.id, m);
+  return [...byId.values()].sort((a, b) => a.kickoff - b.kickoff);
+}
+
+/* ---------------------------------------------------------------- TeamFormService */
+const MATCHES_PER_TEAM = 7;
+const ROUNDS_BACK = 8;
+const leagueEventsMemo = new Map();
+
+async function roundEvents(ut, sid, count) {
+  if (count <= 0) return [];
+  const r = await roundsOf(ut, sid);
+  const all = r && r.rounds ? r.rounds.map((x) => x.round).filter((x) => x != null) : [];
+  const current = (r && r.currentRound && r.currentRound.round) || (all.length ? Math.max(...all) : 0);
+  if (current <= 0) return [];
+  const list = [];
+  for (let n = current; n >= Math.max(1, current - count + 1); n--) list.push(n);
+  const res = await Promise.all(list.map((n) => roundEventsRaw(ut, sid, n)));
+  return res.flatMap((x) => (x && x.events) || []);
+}
+function finishedLeagueEvents(league) {
+  const m = leagueEventsMemo.get(league.id);
+  if (m && Date.now() - m.at < 30 * 60 * 1000) return m.p;
+  const p = (async () => {
+    const s = await seasons(league);
+    if (!s.length) return [];
+    let events = await roundEvents(league.ut, s[0].id, ROUNDS_BACK);
+    const found = new Set(events.map((e) => e.roundInfo && e.roundInfo.round).filter((x) => x != null)).size;
+    if (found < ROUNDS_BACK && s.length > 1) events = events.concat(await roundEvents(league.ut, s[1].id, ROUNDS_BACK - found));
+    return events.filter(isFinishedEvent);
+  })();
+  leagueEventsMemo.set(league.id, { at: Date.now(), p });
+  p.then((ev) => { if (!ev.length) leagueEventsMemo.delete(league.id); });
+  return p;
+}
+
+const lineupsMemo = new Map();
+function finishedLineups(eventID) {
+  if (lineupsMemo.has(eventID)) return lineupsMemo.get(eventID);
+  const p = (async () => {
+    const cached = await DB.get("lu:" + eventID);
+    if (cached) return cached;
+    const r = await tryGet("api/v1/event/" + eventID + "/lineups", { c: "1" });
+    if (r) DB.set("lu:" + eventID, r);
+    return r;
+  })();
+  lineupsMemo.set(eventID, p);
+  p.then((r) => { if (!r) lineupsMemo.delete(eventID); });
+  return p;
+}
+const teamLastMemo = new Map();
+function teamLastEvents(teamID) {
+  if (!teamLastMemo.has(teamID)) {
+    teamLastMemo.set(teamID, tryGet("api/v1/team/" + teamID + "/events/last/0")
+      .then((r) => ((r && r.events) || []).filter(isFinishedEvent)));
+  }
+  return teamLastMemo.get(teamID);
+}
+
+async function profile(teamID, league, before, excluding) {
+  let events = (await finishedLeagueEvents(league)).filter((e) =>
+    (e.homeTeam.id === teamID || e.awayTeam.id === teamID) && e.id !== excluding && e.startTimestamp < before);
+  if (!events.length) events = (await teamLastEvents(teamID)).filter((e) => e.id !== excluding && e.startTimestamp < before);
+  const seen = new Set();
+  const recentEvents = events.slice().sort((a, b) => b.startTimestamp - a.startTimestamp)
+    .filter((e) => (seen.has(e.id) ? false : (seen.add(e.id), true)))
+    .slice(0, MATCHES_PER_TEAM);
+  const lineups = await Promise.all(recentEvents.map((e) => finishedLineups(e.id)));
+  const recent = [];
+  const players = new Map();
+  recentEvents.forEach((ev, idx) => {
+    const isHome = ev.homeTeam.id === teamID;
+    const h = ev.homeScore && ev.homeScore.current, a = ev.awayScore && ev.awayScore.current;
+    if (h != null && a != null) {
+      const gf = isHome ? h : a, ga = isHome ? a : h;
+      recent.push({ id: ev.id, date: ev.startTimestamp, opp: isHome ? ev.awayTeam.name : ev.homeTeam.name, isHome, gf, ga,
+        points: gf > ga ? 3 : gf === ga ? 1 : 0 });
+    }
+    const lu = lineups[idx];
+    if (!lu) return;
+    const side = isHome ? lu.home : lu.away;
+    for (const entry of (side && side.players) || []) {
+      const pid = entry.player.id;
+      let hist = players.get(pid);
+      if (!hist) {
+        hist = { id: pid, name: entry.player.name, position: entry.position || entry.player.position || null, ratings: [], starts: 0, lastStart: -Infinity };
+        players.set(pid, hist);
+      }
+      if (entry.substitute !== true) { hist.starts += 1; hist.lastStart = Math.max(hist.lastStart, ev.startTimestamp); }
+      const rating = entry.statistics && entry.statistics.rating;
+      if (rating != null && rating > 0) hist.ratings.push({ date: ev.startTimestamp, rating });
+    }
+  });
+  for (const h of players.values()) h.ratings.sort((x, y) => x.date - y.date);
+  return { teamID, recent, players };
+}
+
+/* ---------------------------------------------------------------- RealPredictionComputer */
+const LINEUP_WINDOW = 90 * 60;
+const NEUTRAL_INDEX = 6.8;
+const MIN_RATED = 6;
+const posCode = (p) => { const u = (p || "").toUpperCase(); return u === "G" ? 0 : u === "D" ? 1 : u === "F" ? 3 : 2; };
+
+async function fetchMatchLineups(match) {
+  const id = Number(match.id);
+  if (match.status === "FINISHED") return finishedLineups(id);
+  const cached = await DB.get("lc:" + id);
+  if (cached) return cached;
+  const r = await tryGet("api/v1/event/" + id + "/lineups", { live: "1", c: "1" });
+  if (r && r.confirmed === true) DB.set("lc:" + id, r);
+  return r;
+}
+function playersFrom(starters, prof) {
+  return starters.map((e) => {
+    const h = prof.players.get(e.player.id);
+    return { id: e.player.id, name: e.player.name, pos: posCode(e.position || e.player.position), ratings: h ? h.ratings.slice(-MATCHES_PER_TEAM) : [] };
+  });
+}
+function estimatedEleven(prof) {
+  const starters = [...prof.players.values()].filter((h) => h.starts > 0)
+    .sort((a, b) => (b.starts - a.starts) || (b.lastStart - a.lastStart));
+  const gk = starters.find((h) => (h.position || "").toUpperCase() === "G");
+  const outfield = starters.filter((h) => (h.position || "").toUpperCase() !== "G").slice(0, 10);
+  return (gk ? [gk] : []).concat(outfield)
+    .map((h) => ({ id: h.id, name: h.name, pos: posCode(h.position), ratings: h.ratings.slice(-MATCHES_PER_TEAM) }));
+}
+function formIndex(recent) {
+  if (!recent.length) return NEUTRAL_INDEX;
+  const n = recent.length;
+  const ppg = recent.reduce((s, r) => s + r.points, 0) / n;
+  const gd = recent.reduce((s, r) => s + r.gf - r.ga, 0) / n;
+  return NEUTRAL_INDEX + 0.2 * (ppg - 1.35) + 0.05 * gd;
+}
+async function analyze(match, provided, now = nowS()) {
+  const fid = Number(match.id), hid = Number(match.home.id), aid = Number(match.away.id);
+  const league = leagueById(match.leagueID);
+  const lineups = provided || ((match.status !== "SCHEDULED" || match.kickoff - now <= LINEUP_WINDOW) ? await fetchMatchLineups(match) : null);
+  const [hp, ap] = await Promise.all([profile(hid, league, match.kickoff, fid), profile(aid, league, match.kickoff, fid)]);
+  const hs = lineups && lineups.home ? lineups.home.players.filter((p) => p.substitute !== true) : [];
+  const as = lineups && lineups.away ? lineups.away.players.filter((p) => p.substitute !== true) : [];
+  const useLineups = hs.length >= 10 && as.length >= 10;
+  const homePlayers = useLineups ? playersFrom(hs, hp) : estimatedEleven(hp);
+  const awayPlayers = useLineups ? playersFrom(as, ap) : estimatedEleven(ap);
+  const hr = homePlayers.filter((p) => p.ratings.length).length;
+  const ar = awayPlayers.filter((p) => p.ratings.length).length;
+  let hi, ai, basis;
+  if (hr >= MIN_RATED && ar >= MIN_RATED) {
+    hi = Engine.teamIndex(homePlayers); ai = Engine.teamIndex(awayPlayers);
+    basis = useLineups ? (lineups.confirmed === true ? "CONFIRMED_LINEUP" : "PROBABLE_LINEUP") : "RECENT_STARTERS";
+  } else if (hp.recent.length || ap.recent.length) {
+    hi = formIndex(hp.recent); ai = formIndex(ap.recent); basis = "TEAM_FORM";
+  } else {
+    hi = NEUTRAL_INDEX; ai = NEUTRAL_INDEX; basis = "HOME_ADVANTAGE_ONLY";
+  }
+  const prediction = Object.assign(Engine.predict(hi, ai), { basis, hu: hp.recent.length, au: ap.recent.length });
+  return {
+    prediction, lineups,
+    home: { index: hi, players: homePlayers, recent: hp.recent, rated: hr },
+    away: { index: ai, players: awayPlayers, recent: ap.recent, rated: ar },
+  };
+}
+
+/* ---------------------------------------------------------------- PredictionFillEngine */
+const PROVISIONAL_REFRESH = 6 * 3600, NEAR_KICKOFF_REFRESH = 10 * 60, KEEP_BETTER_FOR = 24 * 3600;
+const rankOf = (b) => (b && BASIS[b] ? BASIS[b].rank : 0);
+function needsRefresh(rec, match, now) {
+  if (match.status !== "SCHEDULED" || rec.p.basis === "CONFIRMED_LINEUP") return false;
+  if (!rec.p.basis) return true;
+  const age = now - rec.at;
+  return match.kickoff - now <= LINEUP_WINDOW ? age > NEAR_KICKOFF_REFRESH : age > PROVISIONAL_REFRESH;
+}
+async function storePrediction(p, match, now = nowS()) {
+  const existing = await DB.get("pred:" + match.id);
+  if (existing) {
+    if (match.status !== "SCHEDULED") return existing.p;
+    if (rankOf(existing.p.basis) > rankOf(p.basis) && now - existing.at < KEEP_BETTER_FOR) return existing.p;
+  }
+  await DB.set("pred:" + match.id, { p, at: now });
+  return p;
+}
+async function predictionFor(match, now = nowS()) {
+  const rec = await DB.get("pred:" + match.id);
+  if (rec && !needsRefresh(rec, match, now)) return rec.p;
+  try {
+    const a = await analyze(match, null, now);
+    return await storePrediction(a.prediction, match, now);
+  } catch (e) {
+    return rec ? rec.p : null;
+  }
+}
+
+/* ---------------------------------------------------------------- clasament */
+async function completedRound(ut, sid) {
+  const r = await roundsOf(ut, sid);
+  const all = r && r.rounds ? r.rounds.map((x) => x.round).filter((x) => x != null) : [];
+  const current = (r && r.currentRound && r.currentRound.round) || (all.length ? Math.max(...all) : null);
+  if (current == null) return null;
+  let round = current;
+  while (round > 0) {
+    const res = await roundEventsRaw(ut, sid, round);
+    const ev = (res && res.events) || [];
+    if (ev.length && ev.every((e) => CLOSED.has(e.status && e.status.type))) {
+      const fin = ev.filter(isFinishedEvent);
+      return [round, fin.length ? Math.max(...fin.map((e) => e.startTimestamp)) : 0];
+    }
+    round -= 1;
+    if (current - round > 1) break;
+  }
+  return [Math.max(round, 0), 0];
+}
+const standingsMemo = new Map();
+function roundStandings(league) {
+  const m = standingsMemo.get(league.id);
+  if (m && Date.now() - m.at < 5 * 60 * 1000) return m.p;
+  const p = (async () => {
+    const sid = await currentSeasonID(league);
+    if (!sid) return null;
+    const st = await completedRound(league.ut, sid);
+    if (!st) return null;
+    const r = await tryGet("api/v1/unique-tournament/" + league.ut + "/season/" + sid + "/standings/total", { round: st[0], end: st[1] });
+    const g = r && r.standings && r.standings[0];
+    if (!g || !g.rows || !g.rows.length) return null;
+    return {
+      round: st[0],
+      rows: g.rows.map((x) => ({
+        teamID: String(x.team.id), rank: x.position, points: x.points, name: x.team.shortName || x.team.name,
+        played: x.matches, wins: x.wins, draws: x.draws, losses: x.losses, gf: x.scoresFor, ga: x.scoresAgainst,
+        zone: x.promotion ? x.promotion.text : null,
+      })),
+    };
+  })();
+  standingsMemo.set(league.id, { at: Date.now(), p });
+  p.then((v) => { if (!v) standingsMemo.delete(league.id); });
+  return p;
+}
+
+/* ---------------------------------------------------------------- starea aplicației */
+const S = {
+  matches: [],
+  loading: false,
+  error: null,
+  preds: new Map(),
+  filling: false,
+  known: new Map(),
+  favorites: new Set(LS.get("rp.favorites", [])),
+  history: null,          // Map leagueID → meciuri încheiate (cele mai recente primele)
+  historyLoading: false,
+  historyPreds: new Map(),
+  fetchedAt: 0,
+};
+
+function freeMatchIDs() {
+  return new Set(S.matches
+    .filter((m) => m.status !== "FINISHED" && S.preds.has(m.id))
+    .map((m) => ({ m, c: favoriteChance(S.preds.get(m.id)) }))
+    .sort((a, b) => (b.c - a.c) || (a.m.kickoff - b.m.kickoff))
+    .slice(0, FREE_MATCH_COUNT)
+    .map((x) => x.m.id));
+}
+
+async function loadMatches(force = false) {
+  if (S.loading) return;
+  const cached = await DB.get("upcoming");
+  if (!force && cached && nowS() - cached.at < 15 * 60) {
+    applyMatches(cached.matches);
+    S.fetchedAt = cached.at;
+    render();
+    fillPredictions();
+    return;
+  }
+  if (!S.matches.length && cached) applyMatches(cached.matches);
+  S.loading = true;
+  render();
+  try {
+    const live = await fetchUpcoming();
+    applyMatches(live);
+    S.error = null;
+    S.fetchedAt = nowS();
+    DB.set("upcoming", { at: S.fetchedAt, matches: live });
+  } catch (e) {
+    S.error = cached ? "Date salvate anterior — " + e.message : e.message;
+  } finally {
+    S.loading = false;
+  }
+  render();
+  fillPredictions();
+}
+function applyMatches(list) {
+  S.matches = list;
+  for (const m of list) S.known.set(m.id, m);
+}
+
+let renderTimer = 0;
+function scheduleRender() {
+  if (renderTimer) return;
+  renderTimer = setTimeout(() => { renderTimer = 0; render(); }, 500);
+}
+
+async function fillPredictions() {
+  if (S.filling) return;
+  S.filling = true;
+  try {
+    let processed = "";
+    while (S.matches.map((m) => m.id).join() !== processed) {
+      const snapshot = S.matches.slice();
+      processed = snapshot.map((m) => m.id).join();
+      // întâi tot ce e deja salvat, ca lista să apară imediat
+      for (const m of snapshot) {
+        const rec = await DB.get("pred:" + m.id);
+        if (rec) S.preds.set(m.id, rec.p);
+      }
+      scheduleRender();
+      const queue = snapshot.slice().sort((a, b) => a.kickoff - b.kickoff);
+      const worker = async () => {
+        while (queue.length) {
+          const m = queue.shift();
+          const p = await predictionFor(m);
+          if (p) { S.preds.set(m.id, p); scheduleRender(); }
+        }
+      };
+      await Promise.all([worker(), worker(), worker()]);
+    }
+  } finally {
+    S.filling = false;
+    scheduleRender();
+  }
+}
+
+function toggleFavorite(id) {
+  if (S.favorites.has(id)) S.favorites.delete(id); else S.favorites.add(id);
+  LS.set("rp.favorites", [...S.favorites]);
+  render();
+}
+
+/* ---------------------------------------------------------------- Istoric */
+async function loadHistory() {
+  if (S.history || S.historyLoading) return;
+  S.historyLoading = true;
+  render();
+  const byLeague = new Map();
+  await Promise.all(LEAGUES.map(async (l) => {
+    const ev = (await finishedLeagueEvents(l)).slice().sort((a, b) => b.startTimestamp - a.startTimestamp);
+    const seen = new Set();
+    const list = ev.filter((e) => (seen.has(e.id) ? false : (seen.add(e.id), true))).slice(0, HISTORY_PER_LEAGUE)
+      .map((e) => toMatch(e, l));
+    if (list.length) byLeague.set(l.id, list);
+  }));
+  S.history = byLeague;
+  S.historyLoading = false;
+  for (const list of byLeague.values()) for (const m of list) S.known.set(m.id, m);
+  render();
+  // Predicțiile doar pentru meciurile gratuite din istoric (cele 2 mai recente din fiecare ligă).
+  const targets = [];
+  for (const list of byLeague.values()) targets.push(...list.slice(0, FREE_HISTORY_PER_LEAGUE));
+  const worker = async () => {
+    while (targets.length) {
+      const m = targets.shift();
+      const rec = await DB.get("pred:" + m.id);
+      let p = rec ? rec.p : null;
+      if (!p) {
+        try {
+          const lu = await finishedLineups(Number(m.id));
+          const a = await analyze(m, lu);
+          p = await storePrediction(a.prediction, m);
+        } catch (e) { p = null; }
+      }
+      if (p) { S.historyPreds.set(m.id, p); scheduleRender(); }
+    }
+  };
+  await Promise.all([worker(), worker(), worker()]);
+}
+
+/* ---------------------------------------------------------------- formatare */
+const fmt = {
+  dm: (t) => new Intl.DateTimeFormat("ro-RO", { day: "2-digit", month: "2-digit" }).format(t * 1000),
+  time: (t) => new Intl.DateTimeFormat("ro-RO", { hour: "2-digit", minute: "2-digit" }).format(t * 1000),
+  full: (t) => {
+    const s = new Intl.DateTimeFormat("ro-RO", { weekday: "long", day: "numeric", month: "long", year: "numeric", hour: "2-digit", minute: "2-digit" }).format(t * 1000);
+    return s.charAt(0).toUpperCase() + s.slice(1);
+  },
+  two: (x) => (x == null || isNaN(x) ? "–" : x.toFixed(2)),
+};
+function dayMonthTime(t) {
+  const d = new Date(t * 1000);
+  const p = (n) => String(n).padStart(2, "0");
+  return p(d.getDate()) + "." + p(d.getMonth() + 1) + ", " + p(d.getHours()) + ":" + p(d.getMinutes());
+}
+const esc = (s) => String(s == null ? "" : s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+
+/* ---------------------------------------------------------------- iconițe */
+const IC = {
+  top: '<path d="M7 3h10v2h3v3a4 4 0 0 1-4 4h-.3A5 5 0 0 1 13 14.9V18h3v3H8v-3h3v-3.1A5 5 0 0 1 8.3 12H8a4 4 0 0 1-4-4V5h3V3zm0 4H6v1a2 2 0 0 0 1 1.7V7zm10 0v2.7A2 2 0 0 0 18 8V7h-1z"/>',
+  leagues: '<path d="M4 4h16v3H4zm0 6.5h16v3H4zM4 17h16v3H4z"/>',
+  fav: '<path d="M12 2.8l2.8 5.8 6.3.9-4.6 4.4 1.1 6.3L12 17.2l-5.6 3 1.1-6.3L2.9 9.5l6.3-.9z"/>',
+  next: '<path d="M7 2h2v2h6V2h2v2h3v18H4V4h3zm-1 8v10h12V10zm2 2h3v3H8z"/>',
+  hist: '<path d="M13 3a9 9 0 1 1-8.5 12h2.2A7 7 0 1 0 6 8.6L8.5 11H2V4.5l2.6 2.6A9 9 0 0 1 13 3zm-1 4h2v5.2l3.6 2.1-1 1.7L12 13.4z"/>',
+  set: '<path d="M10.3 2h3.4l.5 2.6 1.6.7 2.2-1.5 2.4 2.4-1.5 2.2.7 1.6 2.6.5v3.4l-2.6.5-.7 1.6 1.5 2.2-2.4 2.4-2.2-1.5-1.6.7-.5 2.6h-3.4l-.5-2.6-1.6-.7-2.2 1.5-2.4-2.4 1.5-2.2-.7-1.6L2 13.7v-3.4l2.6-.5.7-1.6-1.5-2.2 2.4-2.4 2.2 1.5 1.6-.7zM12 8.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7z"/>',
+  lock: '<path d="M7 10V7a5 5 0 0 1 10 0v3h2v12H5V10zm2 0h6V7a3 3 0 0 0-6 0z"/>',
+  unlock: '<path d="M7 10V7a5 5 0 0 1 9.6-2l-1.8.9A3 3 0 0 0 9 7v3h10v12H5V10z"/>',
+  starO: '<path d="M12 2.8l2.8 5.8 6.3.9-4.6 4.4 1.1 6.3L12 17.2l-5.6 3 1.1-6.3L2.9 9.5l6.3-.9zm0 4.6l-1.5 3.1-3.4.5 2.5 2.4-.6 3.4 3-1.6 3 1.6-.6-3.4 2.5-2.4-3.4-.5z"/>',
+  check: '<path d="M12 2a10 10 0 1 1 0 20 10 10 0 0 1 0-20zm4.3 6.3L10.5 14l-2.8-2.8-1.4 1.4 4.2 4.2 7.2-7.1z"/>',
+  info: '<path d="M12 2a10 10 0 1 1 0 20 10 10 0 0 1 0-20zm-1 8v7h2v-7zm0-4v2h2V6z"/>',
+  group: '<path d="M8 11a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7zm8 0a3 3 0 1 1 0-6 3 3 0 0 1 0 6zM1 19c0-3 3-5 7-5s7 2 7 5v1H1zm15-5c3.5 0 7 1.5 7 4.5V20h-6v-1c0-2-1-3.6-2.6-4.7.5-.2 1-.3 1.6-.3z"/>',
+  chart: '<path d="M3 3h2v16h16v2H3zm4 12l4-5 3 3 5-6 1.5 1.3-6.4 7.6-3-3-2.6 3.3z"/>',
+  help: '<path d="M12 2a10 10 0 1 1 0 20 10 10 0 0 1 0-20zm-1 14v2h2v-2zm1-10a4 4 0 0 0-4 4h2a2 2 0 1 1 3 1.7c-1.2.7-2 1.5-2 3.3h2c0-1 .4-1.3 1.2-1.8A4 4 0 0 0 12 6z"/>',
+  verified: '<path d="M12 1l2.6 2 3.3-.3.9 3.2 2.9 1.6-1 3.2 1 3.1-2.9 1.7-.9 3.2-3.3-.3L12 23l-2.6-2-3.3.3-.9-3.2-2.9-1.7 1-3.1-1-3.2L5.2 6.5l.9-3.2 3.3.3zm3.6 7.3L10.8 13 8.4 10.7 7 12.1l3.8 3.8 6.2-6.2z"/>',
+  refresh: '<path d="M12 4a8 8 0 0 1 7.4 5H17v2h6V5h-2v2.5A10 10 0 0 0 2 12h2a8 8 0 0 1 8-8zm8 8a8 8 0 0 1-15.4 3H7v-2H1v6h2v-2.5A10 10 0 0 0 22 12z"/>',
+  cal: '<path d="M7 2h2v2h6V2h2v2h3v18H4V4h3zM6 10v10h12V10z"/>',
+  tag: '<path d="M3 3h8l10 10-8 8L3 11zm4 2.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3z"/>',
+  stadium: '<path d="M12 5c5.5 0 10 1.8 10 4v6c0 2.2-4.5 4-10 4S2 17.2 2 15V9c0-2.2 4.5-4 10-4zm0 2C7.3 7 4 8.4 4 9s3.3 2 8 2 8-1.4 8-2-3.3-2-8-2z"/>',
+  x: '<path d="M12 2a10 10 0 1 1 0 20 10 10 0 0 1 0-20zm-3.5 5L7 8.5 10.5 12 7 15.5 8.5 17l3.5-3.5 3.5 3.5 1.5-1.5-3.5-3.5L17 8.5 15.5 7 12 10.5z"/>',
+  flag: '<path d="M5 2h2v1h12l-2.5 5L19 13H7v9H5z"/>',
+};
+const svg = (name, cls = "ico") => '<svg class="' + cls + '" viewBox="0 0 24 24" aria-hidden="true">' + IC[name] + "</svg>";
+
+function crest(team, size = 20) {
+  const id = team && team.id;
+  if (!id || !/^\d+$/.test(id)) return '<span class="crest-ph" style="width:' + size + 'px;height:' + size + 'px">' + esc((team && team.shortName || "").slice(0, 1)) + "</span>";
+  return '<img class="crest" style="width:' + size + 'px;height:' + size + 'px" src="' + crestURL(id) + '" alt="" loading="lazy" decoding="async" onerror="this.style.visibility=\'hidden\'">';
+}
+
+/* ---------------------------------------------------------------- componente */
+function statusText(m) {
+  if (m.status === "SCHEDULED") return dayMonthTime(m.kickoff);
+  if (m.status === "LIVE") return "În desfășurare";
+  return "Final  " + (m.homeScore ?? 0) + " - " + (m.awayScore ?? 0);
+}
+function detailsText(m) {
+  const parts = [m.round ? "Etapa " + m.round : null, m.venue].filter(Boolean);
+  return parts.length ? parts.join(" · ") : null;
+}
+function basisIcon(b) {
+  if (b === "CONFIRMED_LINEUP") return "verified";
+  if (b === "TEAM_FORM") return "chart";
+  if (b === "HOME_ADVANTAGE_ONLY") return "help";
+  return "group";
+}
+function probBar(p, hs, as) {
+  const total = Math.max(p.home + p.draw + p.away, 1);
+  const seg = (v, c) => (v > 0 ? '<i style="flex:' + (v / total) + ';background:' + c + '"></i>' : "");
+  return '<div class="bar">' + seg(p.home, "var(--home)") + seg(p.draw, "var(--draw)") + seg(p.away, "var(--away)") + "</div>" +
+    '<div class="bar-l"><span><i class="dot" style="background:var(--home)"></i>' + esc(hs) + " " + Math.round(p.home) + "%</span>" +
+    '<span><i class="dot" style="background:var(--draw)"></i>Egal ' + Math.round(p.draw) + "%</span>" +
+    '<span><i class="dot" style="background:var(--away)"></i>' + esc(as) + " " + Math.round(p.away) + "%</span></div>";
+}
+function verdict(m, p) {
+  if (!p || m.status !== "FINISHED" || m.homeScore == null || m.awayScore == null) return "";
+  const actual = m.homeScore > m.awayScore ? 0 : m.homeScore === m.awayScore ? 1 : 2;
+  const arr = [p.home, p.draw, p.away];
+  const pick = arr.indexOf(Math.max(...arr));
+  return pick === actual ? '<span class="verdict ok">Corect</span>' : '<span class="verdict no">Greșit</span>';
+}
+
+/** Cardul unui meci. Un card blocat nu primește niciodată predicția reală. */
+function matchCard(m, p, opt = {}) {
+  const locked = !!opt.locked;
+  const shown = locked ? LOCKED_PREDICTION : p;
+  const action = locked ? 'data-paywall="1"' : 'data-open="' + esc(m.id) + '"';
+  const det = detailsText(m);
+  const star = !locked && opt.star !== false
+    ? '<button type="button" class="star" data-fav="' + esc(m.id) + '" aria-label="' + (S.favorites.has(m.id) ? "Scoate de la favorite" : "Adaugă la favorite") + '">' + svg(S.favorites.has(m.id) ? "fav" : "starO") + "</button>"
+    : "";
+  let body;
+  if (shown) {
+    body = probBar(shown, m.home.shortName, m.away.shortName) +
+      '<div class="basis">' + svg(basisIcon(shown.basis)) + '<span class="grow ell">' + (locked ? "Premium" : esc(shown.basis ? BASIS[shown.basis].label : "Note · primul 11")) + "</span>" +
+      (opt.historical && !locked ? verdict(m, shown) : "") +
+      "<span>" + fmt.two(shown.hi) + " – " + fmt.two(shown.ai) + "</span></div>";
+  } else if (opt.historical) {
+    body = '<div class="row cap">' + (opt.pending ? '<span class="spin"></span>Se calculează predicția…' : svg("help") + "Predicție indisponibilă pentru acest meci") + "</div>";
+  } else {
+    body = '<div class="row cap"><span class="spin"></span>Se calculează predicția din notele jucătorilor…</div>';
+  }
+  return '<div class="match click' + (locked ? " locked" : "") + '" role="button" tabindex="0" ' + action + ">" +
+    '<div class="m-in"><div class="m-head"><div class="grow" style="display:grid;gap:3px">' +
+    '<div class="m-teams">' + crest(m.home) + "<span>" + esc(m.home.shortName) + " – " + esc(m.away.shortName) + "</span>" + crest(m.away) + "</div>" +
+    '<div class="cap">' + esc(statusText(m)) + "</div>" + (det ? '<div class="cap2 ell">' + esc(det) + "</div>" : "") +
+    "</div>" + star + "</div>" + body + "</div>" +
+    (locked ? '<div class="lockmark" aria-label="Blocat — Premium">' + svg("lock", "") + "</div>" : "") + "</div>";
+}
+
+/* ---------------------------------------------------------------- ecrane */
+function offlineBanner() {
+  if (!S.error) return "";
+  return '<div class="banner warn">' + svg("info") + '<div class="grow"><b>Fără date noi</b><span class="cap">' + esc(S.error) + "</span></div></div>";
+}
+function progressBlock() {
+  const sched = S.matches.length;
+  const done = S.matches.filter((m) => S.preds.has(m.id)).length;
+  if (!sched || done >= sched) return "";
+  return '<div class="stack" style="gap:6px"><div class="row cap"><span class="spin"></span><span>Se calculează predicțiile: ' + done + " din " + sched +
+    ' meciuri. Prima încărcare durează mai mult; apoi datele rămân salvate în browser.</span></div><div class="progress"><i style="width:' + Math.round(done * 100 / sched) + '%"></i></div></div>';
+}
+
+function topScreen() {
+  const all = S.matches.filter((m) => S.preds.has(m.id)).map((m) => {
+    const p = S.preds.get(m.id);
+    const homeFav = p.home >= p.away;
+    return { m, p, homeFav, team: homeFav ? m.home : m.away, chance: favoriteChance(p) };
+  }).sort((a, b) => (b.chance - a.chance) || (a.m.kickoff - b.m.kickoff));
+  const free = freeMatchIDs();
+  const entries = all.filter((e) => free.has(e.m.id));
+  const premium = all.filter((e) => !free.has(e.m.id) && e.m.status === "SCHEDULED").slice(0, PREMIUM_COUNT);
+  const pending = S.matches.filter((m) => m.status === "SCHEDULED" && !S.preds.has(m.id)).length;
+  const lg = (m) => leagueById(m.leagueID);
+
+  let h = '<div class="stack-lg">' + offlineBanner() +
+    '<div class="stack" style="gap:6px"><h1 class="screen">Cei mai clari favoriți</h1>' +
+    '<p class="sub">Cele ' + FREE_MATCH_COUNT + " predicții cu cea mai mare șansă de câștig, din toate cele 14 ligi — gratuite, la fel ca în „Următoare”. Dedesubt, alte " + PREMIUM_COUNT + " meciuri cu procente mari, disponibile cu Premium.</p>" +
+    '<button type="button" class="pill" data-paywall="1" style="margin-top:2px">Deblochează toate meciurile cu Premium</button></div>';
+  if (pending > 0 || S.loading) h += progressBlock();
+  if (!entries.length) {
+    h += S.loading || pending > 0 || S.filling
+      ? '<div class="center"><span class="spin big"></span>Se calculează predicțiile…</div>'
+      : '<div class="center">Niciun meci programat momentan.</div>';
+  } else {
+    entries.forEach((e, i) => {
+      h += '<div class="stack" style="gap:8px"><div class="row"><span class="rank">' + (i + 1) + "</span>" + crest(e.team) +
+        '<div class="grow"><div class="fav-name ell" style="color:' + (e.homeFav ? "var(--home)" : "var(--away)") + '">' + esc(e.team.name) + " · " + Math.round(e.chance) + "%</div>" +
+        '<div class="cap ell">' + lg(e.m).flag + " " + esc(lg(e.m).name) + " · " + (e.homeFav ? "acasă" : "în deplasare") + "</div></div></div>" +
+        matchCard(e.m, e.p) + "</div>";
+    });
+    if (premium.length) {
+      h += '<div class="row sec" style="margin-top:6px">' + svg("lock") + "Doar cu Premium</div>";
+      premium.forEach((e, i) => {
+        h += '<div class="stack" style="gap:8px"><div class="row" data-paywall="1" style="cursor:pointer"><span class="rank">' + (entries.length + i + 1) + "</span>" +
+          '<span style="color:var(--muted)">' + svg("lock") + '</span><div class="grow"><div class="fav-name">Favorită ascunsă · Premium</div><div class="cap ell">' +
+          lg(e.m).flag + " " + esc(lg(e.m).name) + "</div></div></div>" + matchCard(e.m, null, { locked: true }) + "</div>";
+      });
+    }
+    if (pending > 0) h += '<div class="row cap">' + svg("hist") + "Încă " + pending + " meciuri în calcul — lista se completează automat.</div>";
+  }
+  h += '<p class="foot">Predicțiile sunt estimări statistice, cu scop informativ. Nu sunt sfaturi de pariere.</p></div>';
+  return h;
+}
+
+function listScreen(mode) {
+  const displayed = mode === "fav" ? S.matches.filter((m) => S.favorites.has(m.id)) : S.matches;
+  const free = freeMatchIDs();
+  let h = '<div class="stack">' + offlineBanner();
+  h += '<h1 class="screen">' + (mode === "fav" ? "Favorite" : "Următoare") + "</h1>";
+  if (displayed.length) {
+    h += '<button type="button" class="banner" data-paywall="1">' + svg("unlock") + '<div class="grow"><b>Gratuit: cele ' + FREE_MATCH_COUNT +
+      ' predicții cu cea mai mare șansă</b><span class="cap">Deblochează predicțiile pentru toate meciurile cu Premium</span></div><span class="chev">›</span></button>';
+  }
+  if (mode !== "fav" && (S.loading || S.filling)) h += progressBlock();
+  if (S.loading && !displayed.length) h += '<div class="center"><span class="spin big"></span>Se încarcă meciurile…</div>';
+  else if (!displayed.length) {
+    h += mode === "fav"
+      ? '<div class="center">' + svg("fav", "ico") + "Niciun meci favorit.<span class=\"cap\">Apasă steaua de pe un meci gratuit ca să-l urmărești aici.</span></div>"
+      : '<div class="center">Niciun meci programat.</div>';
+  }
+  for (const l of LEAGUES) {
+    const lm = displayed.filter((m) => m.leagueID === l.id).sort((a, b) => a.kickoff - b.kickoff);
+    if (!lm.length) continue;
+    const rounds = new Set(lm.map((m) => m.round).filter(Boolean));
+    const rl = mode !== "fav" && rounds.size === 1 ? " · ETAPA " + [...rounds][0] : "";
+    h += '<div class="sec">' + l.flag + " " + esc(l.name.toUpperCase()) + rl + " — " + lm.length + " " + (lm.length === 1 ? "MECI" : "MECIURI") + "</div>";
+    for (const m of lm) h += free.has(m.id) ? matchCard(m, S.preds.get(m.id)) : matchCard(m, null, { locked: true });
+  }
+  h += "</div>";
+  return h;
+}
+
+function leaguesScreen() {
+  return '<div class="stack"><h1 class="screen">Ligi</h1><p class="sub">Clasamentul oficial al fiecărei ligi, actualizat după ultimul meci al fiecărei etape.</p><div class="list">' +
+    LEAGUES.map((l) => '<a class="li" href="#ligi/' + l.id + '" style="color:inherit"><span class="flag">' + l.flag + '</span><div class="grow"><b>' + esc(l.name) +
+      '</b><span class="cap">' + esc(l.country) + '</span></div><span class="chev">›</span></a>').join("") + "</div></div>";
+}
+
+function zoneColor(z) {
+  z = (z || "").toLowerCase();
+  if (!z) return "transparent";
+  if (z.includes("relegation")) return z.includes("playoff") || z.includes("play-off") ? "#ff9f0a" : "#ff453a";
+  if (z.includes("champions")) return "#0a84ff";
+  if (z.includes("europa")) return "#40c8e0";
+  if (z.includes("conference")) return "#30d158";
+  if (z.includes("championship") || z.includes("promotion")) return "#5e5ce6";
+  return "#8e8e93";
+}
+const standingsView = new Map();
+function standingsScreen(league) {
+  const st = standingsView.get(league.id);
+  if (!st) {
+    roundStandings(league).then((v) => { standingsView.set(league.id, v ? Object.assign(v, { at: nowS() }) : { failed: true }); render(); });
+    return '<div class="center"><span class="spin big"></span>Se încarcă clasamentul…</div>';
+  }
+  if (st.failed) return '<div class="center">Clasament indisponibil — nu s-a putut încărca. Încearcă din nou mai târziu.</div>';
+  const zones = [...new Set(st.rows.map((r) => r.zone).filter(Boolean))];
+  return '<div class="stack"><h1 class="screen">' + league.flag + " " + esc(league.name) + '</h1><div class="card" style="padding:12px 14px"><table class="st"><thead><tr><th style="text-align:left">#</th><th>Echipa</th>' +
+    '<th class="num">M</th><th class="num">V</th><th class="num">E</th><th class="num">Î</th><th class="pts">P</th></tr></thead><tbody>' +
+    st.rows.map((r) => '<tr><td class="pos"><span class="zone" style="background:' + zoneColor(r.zone) + '"></span>' + r.rank + "</td>" +
+      '<td><div class="tname">' + crest({ id: r.teamID, shortName: r.name }, 18) + "<span>" + esc(r.name || "—") + "</span></div></td>" +
+      '<td class="num">' + (r.played ?? "–") + '</td><td class="num">' + (r.wins ?? "–") + '</td><td class="num">' + (r.draws ?? "–") + '</td><td class="num">' + (r.losses ?? "–") +
+      '</td><td class="pts">' + r.points + "</td></tr>").join("") +
+    "</tbody></table></div>" +
+    '<div class="stack" style="gap:6px">' + (st.round > 0 ? '<div class="row" style="font-size:12px">' + svg("flag") + "Clasament după etapa " + st.round + "</div>" : "") +
+    zones.map((z) => '<div class="row cap"><i class="dot" style="background:' + zoneColor(z) + '"></i>' + esc(z) + "</div>").join("") +
+    '<div class="cap">Se actualizează după ultimul meci al fiecărei etape.</div><div class="cap">Verificat la ' + fmt.time(st.at) + "</div></div></div>";
+}
+
+function historyScreen() {
+  loadHistory();
+  let h = '<div class="stack"><div class="stack" style="gap:6px"><h1 class="screen">Istoricul predicțiilor</h1>' +
+    '<p class="sub">Meciurile încheiate din ultimele etape. Cele mai recente ' + FREE_HISTORY_PER_LEAGUE + " meciuri din fiecare ligă sunt gratuite; restul istoricului se deblochează cu abonamentul Premium.</p>" +
+    '<button type="button" class="pill" data-paywall="1">Vezi abonamentul Premium</button>' +
+    '<p class="cap" style="margin:2px 0 0">Predicțiile meciurilor jucate înainte de prima ta vizită sunt calculate cu datele de dinaintea fluierului de start: primul 11 oficial și notele din cele 7 meciuri anterioare.</p></div>';
+  if (!S.history) return h + '<div class="center"><span class="spin big"></span>Se încarcă istoricul…</div></div>';
+  if (!S.history.size) return h + '<div class="center">Niciun meci încheiat găsit momentan.</div></div>';
+  for (const l of LEAGUES) {
+    const list = S.history.get(l.id);
+    if (!list) continue;
+    h += '<div class="sec">' + l.flag + " " + esc(l.name.toUpperCase()) + " — " + list.length + " " + (list.length === 1 ? "MECI ÎNCHEIAT" : "MECIURI ÎNCHEIATE") + "</div>";
+    list.forEach((m, i) => {
+      h += i < FREE_HISTORY_PER_LEAGUE
+        ? matchCard(m, S.historyPreds.get(m.id), { historical: true, star: false, pending: !S.historyPreds.has(m.id) })
+        : matchCard(m, null, { locked: true, historical: true });
+    });
+  }
+  return h + "</div>";
+}
+
+function settingsScreen() {
+  return '<div class="stack-lg"><h1 class="screen">Setări</h1>' +
+    '<div class="card"><h3>Abonament</h3><p class="sub">Ai acces la cele ' + FREE_MATCH_COUNT + " predicții gratuite. Abonamentul Premium (toate meciurile din cele 14 ligi + istoricul complet) se face din aplicația mobilă.</p>" +
+    '<button type="button" class="pill" data-paywall="1">Vezi Premium</button></div>' +
+    '<div class="card"><h3>Date salvate</h3>' +
+    '<div class="setrow"><span>Ultima actualizare a meciurilor</span><span>' + (S.fetchedAt ? fmt.full(S.fetchedAt) : "—") + "</span></div>" +
+    '<div class="setrow"><span>Predicții calculate</span><span>' + S.preds.size + "</span></div>" +
+    '<button type="button" class="linkbtn" data-action="refresh">Reîncarcă meciurile acum</button>' +
+    '<button type="button" class="linkbtn" data-action="clear">Șterge datele salvate în acest browser</button>' +
+    '<p class="cap" style="margin:0">Notele jucătorilor din meciurile încheiate și predicțiile calculate rămân salvate în browser, ca vizitele următoare să fie rapide. Nu se salvează nimic despre tine și nu există cont.</p></div>' +
+    '<div class="card"><h3>Cum se calculează</h3><p class="cap" style="margin:0">Pentru fiecare meci, aplicația ia primul 11 (oficial, probabil sau estimat din titularii recenți) și calculează media ponderată a notelor fiecărui jucător din ultimele 7 meciuri — meciurile recente contează mai mult. Diferența dintre indicii celor două echipe, plus avantajul terenului propriu, devine procent printr-o funcție logistică. Dacă nu există destule note, se folosește forma recentă a echipelor.</p></div>' +
+    '<div class="card"><h3>Despre</h3><div class="setrow"><span>Versiune</span><span>1.0.1 · web</span></div>' +
+    '<a class="linkbtn" href="/ratepulse/">Aplicația pentru telefon</a>' +
+    '<a class="linkbtn" href="' + PRIVACY_URL + '" target="_blank" rel="noopener">Politica de confidențialitate</a>' +
+    '<p class="cap" style="margin:0">Predicțiile sunt estimări statistice, cu scop informativ. Nu sunt sfaturi de pariere. Datele sportive provin de la SportAPI.</p></div></div>';
+}
+
+/* ---------------------------------------------------------------- ecranul meciului */
+const detailState = new Map();
+async function computeDetail(m, force = false) {
+  const st = detailState.get(m.id) || {};
+  detailState.set(m.id, st);
+  st.refreshing = true;
+  render();
+  const rec = await DB.get("pred:" + m.id);
+  if (rec) st.computed = rec.p;
+  try {
+    const lu = await fetchMatchLineups(m);
+    st.lineups = lu;
+    const complete = lu && lu.home && lu.away &&
+      lu.home.players.filter((p) => p.substitute !== true).length >= 10 && lu.away.players.filter((p) => p.substitute !== true).length >= 10;
+    const a = await analyze(m, complete ? lu : null);
+    st.analysis = a;
+    let shown;
+    if (rec && m.status !== "SCHEDULED") shown = rec.p;
+    else if (force) { shown = a.prediction; await DB.set("pred:" + m.id, { p: shown, at: nowS() }); }
+    else shown = await storePrediction(a.prediction, m);
+    st.computed = shown;
+    if (S.matches.some((x) => x.id === m.id)) S.preds.set(m.id, shown);
+    else S.historyPreds.set(m.id, shown);
+  } catch (e) {
+    if (!rec) st.failed = e.message || "eroare necunoscută";
+  }
+  st.refreshing = false;
+  render();
+}
+function loadDetailExtras(m) {
+  const st = detailState.get(m.id);
+  if (st.extras) return;
+  st.extras = true;
+  tryGet("api/v1/event/" + m.id + "/h2h").then((r) => { st.h2h = r; render(); });
+  tryGet("api/v1/event/" + m.id + "/pregame-form").then((r) => { st.pregame = r; render(); });
+  roundStandings(leagueById(m.leagueID)).then((r) => {
+    if (r) { st.hs = r.rows.find((x) => x.teamID === m.home.id); st.as = r.rows.find((x) => x.teamID === m.away.id); render(); }
+  });
+}
+const outcomeColor = (r) => (r.points === 3 ? "var(--win)" : r.points === 1 ? "var(--draw)" : "var(--loss)");
+const letter = (r) => (r.points === 3 ? "V" : r.points === 1 ? "E" : "Î");
+function ratingColor(r) { return r >= 7.5 ? "#0a84ff" : r >= 7 ? "#30d158" : r >= 6.5 ? "#ffd60a" : "#ff9f0a"; }
+
+function teamFormBlock(team, recent) {
+  let h = '<div class="stack" style="gap:8px"><div class="row"><b class="grow">' + esc(team.name) + '</b><span class="row" style="gap:3px">' +
+    recent.slice().reverse().map((r) => '<span class="lb" style="background:' + outcomeColor(r) + '">' + letter(r) + "</span>").join("") + "</span></div>";
+  if (!recent.length) return h + '<div class="cap">Niciun meci recent găsit.</div></div>';
+  const n = recent.length;
+  const ppg = recent.reduce((s, r) => s + r.points, 0) / n, gf = recent.reduce((s, r) => s + r.gf, 0) / n, ga = recent.reduce((s, r) => s + r.ga, 0) / n;
+  h += '<div class="cap">' + ppg.toFixed(2) + " puncte/meci · " + gf.toFixed(1) + " goluri marcate · " + ga.toFixed(1) + " primite (medii)</div>";
+  for (const r of recent) {
+    h += '<div class="form-row"><span class="d">' + fmt.dm(r.date) + '</span><span class="grow ell">' + (r.isHome ? "vs " : "la ") + esc(r.opp) +
+      '</span><b style="color:' + outcomeColor(r) + '">' + r.gf + "-" + r.ga + "</b></div>";
+  }
+  return h + "</div>";
+}
+function elevenBlock(team, ta) {
+  const sorted = ta.players.slice().sort((a, b) => a.pos - b.pos);
+  let h = '<div class="stack" style="gap:6px"><div class="row"><b class="grow">' + esc(team.name) + '</b><span class="cap2">' + ta.rated + "/" + ta.players.length + " cu note</span></div>";
+  if (!sorted.length) h += '<div class="cap">Nu există încă date despre jucători.</div>';
+  for (const p of sorted) {
+    h += '<div class="row" style="font-size:12px"><span class="pc">' + ["P", "F", "M", "A"][p.pos] + '</span><span class="grow ell">' + esc(p.name) + "</span>";
+    if (!p.ratings.length) h += '<span class="cap2">fără note</span>';
+    else {
+      const avg = Engine.weighted(p.ratings), c = ratingColor(avg);
+      h += '<span class="cap2">' + p.ratings.length + ' m.</span><span class="rt" style="color:' + c + ";background:" + c + '40">' + avg.toFixed(2) + "</span>";
+    }
+    h += "</div>";
+  }
+  return h + "</div>";
+}
+function missingBlock(team, list) {
+  if (!list || !list.length) return "";
+  return '<div class="stack" style="gap:4px"><b style="font-size:12px">Absențe ' + esc(team.shortName) + "</b>" +
+    list.map((i) => {
+      const doubt = i.type === "doubtful";
+      return '<div class="row" style="font-size:12px"><span style="color:' + (doubt ? "var(--star)" : "var(--loss)") + '">' + svg(doubt ? "help" : "x") + '</span><span class="grow ell">' +
+        esc(i.player.name) + '</span><span class="cap ell" style="max-width:55%">' + (doubt ? "incert" : "indisponibil") + (i.description ? " · " + esc(i.description) : "") + "</span></div>";
+    }).join("") + "</div>";
+}
+function idxCard(title, value, st) {
+  let h = '<div class="idx"><span class="cap">' + esc(title) + "</span><strong>" + fmt.two(value) + '</strong><span class="cap2">indice echipă</span>';
+  if (st) {
+    h += '<b class="cap" style="color:var(--ink)">loc ' + st.rank + " · " + st.points + "p</b>";
+    if (st.played != null) h += '<span class="cap2">' + st.played + "M · " + st.wins + "V " + st.draws + "E " + st.losses + "Î</span>";
+    if (st.gf != null) h += '<span class="cap2">goluri ' + st.gf + ":" + st.ga + "</span>";
+  }
+  return h + "</div>";
+}
+function duelRow(d, m) {
+  return '<div class="stat3"><div><b style="color:var(--home)">' + (d.homeWins || 0) + '</b><span class="cap2">' + esc(m.home.shortName) + ' victorii</span></div>' +
+    '<div><b style="color:var(--draw)">' + (d.draws || 0) + '</b><span class="cap2">egaluri</span></div>' +
+    '<div><b style="color:var(--away)">' + (d.awayWins || 0) + '</b><span class="cap2">' + esc(m.away.shortName) + " victorii</span></div></div>";
+}
+function pregameRow(team, f, label) {
+  if (!f) return "";
+  const avg = f.avgRating != null ? parseFloat(String(f.avgRating).replace(",", ".")) : null;
+  const parts = [avg != null && !isNaN(avg) ? "notă medie " + avg.toFixed(2) : null, f.position != null ? "loc " + f.position : null,
+    f.value ? (f.value + " " + (label || "")).trim() : null].filter(Boolean);
+  const map = { W: ["V", "var(--win)"], D: ["E", "var(--draw)"], L: ["Î", "var(--loss)"] };
+  return '<div class="row" style="font-size:12px"><b style="width:44px;flex:none">' + esc(team.shortName) + '</b><span class="grow ell cap">' + esc(parts.join(" · ")) + '</span><span class="row" style="gap:2px">' +
+    (f.form || []).map((x) => { const v = map[String(x).toUpperCase()] || [x, "var(--loss)"]; return '<span class="lb s" style="background:' + v[1] + '">' + esc(v[0]) + "</span>"; }).join("") + "</span></div>";
+}
+
+function detailScreen(m) {
+  if (!detailState.has(m.id)) { detailState.set(m.id, {}); computeDetail(m); }
+  const st = detailState.get(m.id);
+  loadDetailExtras(m);
+  const shown = st.computed || S.preds.get(m.id) || S.historyPreds.get(m.id);
+  const a = st.analysis;
+  const lg = leagueById(m.leagueID);
+  const center = m.status === "SCHEDULED" ? fmt.time(m.kickoff) : m.status === "LIVE" ? "–" : (m.homeScore ?? 0) + " - " + (m.awayScore ?? 0);
+  let h = '<div class="stack-lg">';
+  h += '<div class="card"><div class="hdr"><div class="tcol">' + crest(m.home, 40) + esc(m.home.name) + '</div><div class="mid"><span class="cap">' + esc(lg.name) + "</span><b>" + esc(center) + "</b>" +
+    (m.status === "LIVE" ? '<span class="cap">În desfășurare</span>' : "") + '</div><div class="tcol">' + crest(m.away, 40) + esc(m.away.name) + "</div></div>" +
+    '<div class="info"><span class="row">' + svg("cal") + esc(fmt.full(m.kickoff)) + "</span>" + (m.round ? '<span class="row">' + svg("tag") + "Etapa " + m.round + "</span>" : "") +
+    (m.venue ? '<span class="row">' + svg("stadium") + esc([m.venue, m.venueCity].filter(Boolean).join(", ")) + "</span>" : "") + "</div></div>";
+
+  h += '<div class="card"><div class="row"><h3>Șanse de câștig</h3>' + (st.refreshing ? '<span class="spin"></span>' : "") + '<span class="grow"></span>' +
+    (m.status === "SCHEDULED" && a && !st.refreshing ? '<button type="button" class="iconbtn" data-action="recompute" aria-label="Recalculează">' + svg("refresh", "") + "</button>" : "") + "</div>";
+  if (shown) {
+    h += probBar(shown, m.home.shortName, m.away.shortName);
+    if (shown.basis) {
+      const used = shown.hu != null && shown.au != null ? " Meciuri recente folosite: " + m.home.shortName + " " + shown.hu + ", " + m.away.shortName + " " + shown.au + "." : "";
+      h += '<div class="row cap"><b>' + svg("info") + "</b><b>" + esc(BASIS[shown.basis].label) + "</b>" + verdict(m, shown) + '</div><div class="cap">' + esc(BASIS[shown.basis].text + used) + "</div>";
+    }
+  } else if (st.failed) h += '<div class="cap">Nu am putut calcula predicția: ' + esc(st.failed) + "</div>";
+  else h += '<div class="cap">Se calculează predicția…</div>';
+  h += "</div>";
+
+  h += '<div class="two">' + idxCard(m.home.shortName, a ? a.home.index : shown && shown.hi, st.hs) + idxCard(m.away.shortName, a ? a.away.index : shown && shown.ai, st.as) + "</div>";
+
+  if (a) {
+    h += '<div class="card"><h3>Forma — ultimele ' + MATCHES_PER_TEAM + " meciuri</h3>" + teamFormBlock(m.home, a.home.recent) + '<div class="hr"></div>' + teamFormBlock(m.away, a.away.recent) + "</div>";
+    const t = !shown || !shown.basis ? "Primul 11 și notele" : shown.basis === "CONFIRMED_LINEUP" ? "Primul 11 oficial și notele" : shown.basis === "PROBABLE_LINEUP" ? "Primul 11 probabil și notele" : "Primul 11 estimat și notele";
+    h += '<div class="card"><h3>' + t + "</h3>" + elevenBlock(m.home, a.home) + '<div class="hr"></div>' + elevenBlock(m.away, a.away) + "</div>";
+  }
+  if (st.lineups && st.lineups.home) {
+    const lu = st.lineups;
+    h += '<div class="card"><h3>' + (lu.confirmed === true ? "Lot oficial" : "Lot probabil (SportAPI)") + '</h3><div class="row"><span class="cap grow">Formație</span><b style="font-size:12px">' +
+      esc((lu.home.formation || "–") + "  vs  " + (lu.away.formation || "–")) + "</b></div>" + missingBlock(m.home, lu.home.missingPlayers) + missingBlock(m.away, lu.away.missingPlayers) + "</div>";
+  }
+  if (st.h2h && st.h2h.teamDuel) {
+    h += '<div class="card"><h3>Meciuri directe</h3>' + duelRow(st.h2h.teamDuel, m) +
+      (st.h2h.managerDuel ? '<div class="cap2" style="text-align:center">Antrenori, față în față</div>' + duelRow(st.h2h.managerDuel, m) : "") + "</div>";
+  }
+  if (st.pregame && (st.pregame.homeTeam || st.pregame.awayTeam)) {
+    h += '<div class="card"><h3>Înainte de meci (SportAPI)</h3>' + pregameRow(m.home, st.pregame.homeTeam, st.pregame.label) + pregameRow(m.away, st.pregame.awayTeam, st.pregame.label) + "</div>";
+  }
+  h += '<p class="foot">Predicțiile sunt estimări statistice, cu scop informativ. Datele sportive provin de la SportAPI.</p></div>';
+  return h;
+}
+
+/* ---------------------------------------------------------------- paywall */
+function openPaywall() {
+  const el = document.getElementById("paywall");
+  el.innerHTML = '<div class="sheet"><div class="row"><img src="/ratepulse/icon.png" alt="" style="width:48px;height:48px;border-radius:12px"><div class="grow"><h2 id="pwTitle">RatePulse Premium</h2><span class="cap">Disponibil în aplicația pentru telefon</span></div></div>' +
+    ['Predicții pentru toate meciurile din cele 14 ligi, nu doar cele 5 gratuite', 'Tot topul favoriților, cu echipa și procentul la vedere', 'Istoricul complet al predicțiilor, cu rezultatele finale', 'Primul 11, notele jucătorilor, absențele și meciurile directe pentru fiecare meci']
+      .map((t) => '<div class="feat">' + svg("check") + "<span>" + t + "</span></div>").join("") +
+    '<div class="price"><span>Abonament lunar</span><b>4,99 $ / lună</b></div>' +
+    '<p class="cap" style="margin:0">Abonamentul se face și se gestionează prin Google Play sau App Store, din aplicație. Se reînnoiește automat lunar și se poate anula oricând din contul magazinului. Pe web rămân gratuite cele ' + FREE_MATCH_COUNT + ' predicții cu favorita cea mai clară.</p>' +
+    '<a class="store" href="' + PLAY_URL + '" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#34a853" d="M3.6 2.3 13.4 12l-9.8 9.7c-.4-.2-.6-.6-.6-1.1V3.4c0-.5.2-.9.6-1.1z"/><path fill="#fbbc04" d="m16.7 15.3-3.3-3.3 3.3-3.3 3.8 2.2c1 .6 1 1.6 0 2.2z"/><path fill="#ea4335" d="M13.4 12 3.6 21.7c.3.2.8.2 1.3-.1l11.8-6.3z"/><path fill="#4285f4" d="M3.6 2.3c.3-.2.8-.2 1.3.1l11.8 6.3-3.3 3.3z"/></svg>Descarcă din Google Play</a>' +
+    '<a class="pill ghost" href="/ratepulse/" style="justify-self:stretch;justify-content:center">Toate variantele aplicației</a>' +
+    '<button type="button" class="close" data-action="closepw">Nu acum</button></div>';
+  el.hidden = false;
+  el.querySelector(".store").focus();
+}
+function closePaywall() { document.getElementById("paywall").hidden = true; }
+
+/* ---------------------------------------------------------------- navigare */
+const TABS = [
+  { id: "top", label: "Top", icon: "top" },
+  { id: "ligi", label: "Ligi", icon: "leagues" },
+  { id: "favorite", label: "Favorite", icon: "fav" },
+  { id: "urmatoare", label: "Următoare", icon: "next" },
+  { id: "istoric", label: "Istoric", icon: "hist" },
+  { id: "setari", label: "Setări", icon: "set" },
+];
+function route() {
+  const h = decodeURIComponent(location.hash.replace(/^#\/?/, ""));
+  const [a, b] = h.split("/");
+  if (a === "meci" && b) return { tab: LS.get("rp.lastTab", "top"), match: b };
+  if (a === "ligi" && b && leagueById(b)) return { tab: "ligi", league: b };
+  return { tab: TABS.some((t) => t.id === a) ? a : "top" };
+}
+let lastKey = "";
+function render() {
+  const r = route();
+  const key = location.hash;
+  document.getElementById("tabs").innerHTML = TABS.map((t) =>
+    '<a class="tab" href="#' + t.id + '"' + (t.id === r.tab ? ' aria-current="page"' : "") + ">" + svg(t.icon, "") + "<span>" + t.label + "</span></a>").join("");
+  let html, title = "RatePulse Football", sub = "Predicții statistice · 14 ligi", back = false;
+  if (r.match) {
+    const m = S.known.get(r.match);
+    const allowed = m && (freeMatchIDs().has(m.id) || isFreeHistory(m.id) || m.status === "FINISHED" && S.historyPreds.has(m.id));
+    if (!m) {
+      html = S.loading || !S.matches.length ? '<div class="center"><span class="spin big"></span>Se încarcă meciul…</div>' : '<div class="center">Meciul nu mai e în listă.<a href="#top">Înapoi la Top</a></div>';
+    } else if (!allowed && (S.loading || S.filling)) {
+      html = '<div class="center"><span class="spin big"></span>Se încarcă meciul…</div>';
+    } else if (!allowed) {
+      html = '<div class="center">' + svg("lock", "ico") + "Predicția acestui meci e disponibilă cu Premium, în aplicația mobilă." +
+        '<button type="button" class="pill" data-paywall="1">Vezi Premium</button></div>';
+    } else {
+      html = detailScreen(m);
+      title = m.home.shortName + " – " + m.away.shortName;
+      sub = leagueById(m.leagueID).name;
+    }
+    back = true;
+  } else if (r.league) {
+    const l = leagueById(r.league);
+    html = standingsScreen(l);
+    title = l.name; sub = "Clasament"; back = true;
+  } else {
+    LS.set("rp.lastTab", r.tab);
+    html = r.tab === "top" ? topScreen() : r.tab === "ligi" ? leaguesScreen() : r.tab === "favorite" ? listScreen("fav")
+      : r.tab === "urmatoare" ? listScreen("next") : r.tab === "istoric" ? historyScreen() : settingsScreen();
+  }
+  document.getElementById("topTitle").textContent = title;
+  document.getElementById("topSub").textContent = sub;
+  document.getElementById("top").classList.toggle("has-back", back);
+  const view = document.getElementById("view");
+  const y = window.scrollY;
+  view.innerHTML = html;
+  if (key !== lastKey) { window.scrollTo(0, 0); lastKey = key; } else window.scrollTo(0, y);
+}
+function isFreeHistory(id) {
+  if (!S.history) return false;
+  for (const list of S.history.values()) if (list.slice(0, FREE_HISTORY_PER_LEAGUE).some((m) => m.id === id)) return true;
+  return false;
+}
+function toast(t) {
+  const el = document.getElementById("toast");
+  el.textContent = t; el.hidden = false;
+  clearTimeout(toast.t); toast.t = setTimeout(() => (el.hidden = true), 2600);
+}
+
+document.addEventListener("click", async (e) => {
+  const fav = e.target.closest("[data-fav]");
+  if (fav) { e.stopPropagation(); toggleFavorite(fav.dataset.fav); return; }
+  const pw = e.target.closest("[data-paywall]");
+  if (pw) { openPaywall(); return; }
+  const open = e.target.closest("[data-open]");
+  if (open) { location.hash = "#meci/" + open.dataset.open; return; }
+  const act = e.target.closest("[data-action]");
+  if (!act) {
+    if (e.target.id === "paywall") closePaywall();
+    return;
+  }
+  const a = act.dataset.action;
+  if (a === "closepw") closePaywall();
+  else if (a === "refresh") { toast("Se reîncarcă meciurile…"); loadMatches(true); }
+  else if (a === "clear") {
+    if (!confirm("Ștergi meciurile, notele și predicțiile salvate în acest browser? Favoritele rămân.")) return;
+    await DB.clear();
+    [seasonsMemo, roundsMemo, roundMemo, leagueEventsMemo, lineupsMemo, teamLastMemo, standingsMemo, standingsView, detailState].forEach((m) => m.clear());
+    S.preds.clear(); S.historyPreds.clear(); S.history = null; S.matches = [];
+    toast("Datele salvate au fost șterse.");
+    loadMatches(true);
+  } else if (a === "recompute") {
+    const m = S.known.get(route().match);
+    if (m) computeDetail(m, true);
+  }
+});
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") closePaywall();
+  if ((e.key === "Enter" || e.key === " ") && e.target.matches(".match[role=button]")) { e.preventDefault(); e.target.click(); }
+});
+let innerNavs = 0;
+document.getElementById("backBtn").addEventListener("click", () => {
+  if (innerNavs > 0) { innerNavs -= 2; history.back(); }
+  else location.hash = "#" + (route().league ? "ligi" : LS.get("rp.lastTab", "top"));
+});
+window.addEventListener("hashchange", () => { innerNavs++; render(); });
+document.addEventListener("visibilitychange", () => {
+  if (document.visibilityState === "visible" && nowS() - S.fetchedAt > 15 * 60) loadMatches();
+});
+
+render();
+loadMatches();
+</script>
+</body>
+</html>
