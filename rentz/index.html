@@ -1,0 +1,667 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Renț online – joacă gratuit contra calculatorului | draghicioiu.ro</title>
+<meta name="description" content="Joacă Renț (Rentz) gratuit în browser, contra 2–5 adversari: Popa de roșu, Dame, Carouri, Levate, Totale, Whist, Zece de treflă și Renț, cu refuz, pe nevăzute și foaie de scor.">
+<link rel="canonical" href="https://draghicioiu.ro/rentz/">
+<meta property="og:title" content="Masa de Renț – joacă Rentz online">
+<meta property="og:description" content="Cele 8 jocuri ale Renț-ului, regulament complet și foaie de scor. Gratuit, direct în browser.">
+<meta property="og:url" content="https://draghicioiu.ro/rentz/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%23d3172b'/%3E%3Ctext x='32' y='45' font-size='38' text-anchor='middle' fill='white'%3E%E2%99%A0%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@600;800&family=Figtree:wght@400;600;700;800&display=swap">
+<style>
+/* Layout: o masă ovală de postav ca piesă centrală, bară de stare deasupra, mâna jucătorului dedesubt; panouri de decizie pe postav. */
+:root{
+  color-scheme:dark;
+  --bg:#111315; --panel:#1b1d20; --panel2:#25282c; --line:#363a40;
+  --fg:#f3f2ee; --muted:#a4a8ad;
+  --red:#d3172b; --red-hi:#ec3045; --red-lo:#8f0d1b;
+  --gold:#f1be50; --ok:#4fc58c;
+  --felt:#11603f; --felt-lo:#073523; --rim:#2b1b12;
+  --card:#fbfaf5; --c-red:#c4122d; --c-blk:#1a1b1d;
+  --display:'Saira Condensed','Arial Narrow',sans-serif;
+  --body:'Figtree',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --cw:clamp(38px,5vw,62px);
+  --hw:clamp(44px,10.5vw,76px);
+  --rw:clamp(24px,3.4vw,42px);
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+[hidden]{display:none!important}
+body{margin:0;font-size:14px;background:var(--bg);color:var(--fg);font-family:var(--body);
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.wrap{max-width:1100px;margin:0 auto;padding-block:12px 28px;display:grid;gap:10px}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+
+/* header */
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px}
+.mark{width:34px;height:34px;border-radius:50%;background:radial-gradient(circle at 35% 30%,var(--red-hi),var(--red) 55%,var(--red-lo));display:grid;place-items:center;font-size:20px;color:#fff;box-shadow:0 2px 0 var(--red-lo)}
+.brand h1{margin:0;font-family:var(--display);font-weight:800;font-size:28px;letter-spacing:.04em;text-transform:uppercase;line-height:1}
+.brand small{display:block;font-size:11px;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;font-weight:600}
+.actions{display:flex;gap:8px;flex-wrap:wrap}
+
+.btn{font-weight:800;text-transform:uppercase;letter-spacing:.05em;font-size:13px;border:0;border-radius:999px;padding:11px 22px;cursor:pointer;
+  background:linear-gradient(var(--red-hi),var(--red) 55%,var(--red-lo));color:#fff;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.28),0 3px 0 #5e0811;transition:transform .08s,filter .15s}
+.btn:hover{filter:brightness(1.08)}
+.btn:active{transform:translateY(2px);box-shadow:inset 0 1px 0 rgba(255,255,255,.2),0 1px 0 #5e0811}
+.btn.ghost{background:var(--panel2);box-shadow:inset 0 0 0 1px var(--line),0 3px 0 #08090a;color:var(--fg)}
+.btn.sm{padding:8px 14px;font-size:12px}
+.btn.gold{background:linear-gradient(#ffd77d,var(--gold) 55%,#b98620);color:#2a1b00;box-shadow:inset 0 1px 0 rgba(255,255,255,.5),0 3px 0 #6f4f0f}
+
+/* info bar */
+.info{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.chip{background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:5px 11px;font-size:12px;font-weight:600;color:var(--muted);font-variant-numeric:tabular-nums}
+.chip b{color:var(--fg);font-weight:800}
+.chip.hot{border-color:var(--gold);color:var(--gold)}
+.chip.hot b{color:var(--gold)}
+.log{font-size:13px;color:var(--fg);min-height:1.3em;opacity:.9}
+
+/* table */
+.table{position:relative;height:clamp(360px,58vh,560px);border-radius:220px/160px;
+  background:radial-gradient(ellipse at 50% 45%,var(--felt) 0%,#0c4a31 55%,var(--felt-lo) 100%);
+  border:12px solid var(--rim);box-shadow:inset 0 0 0 2px rgba(241,190,80,.25),inset 0 0 60px rgba(0,0,0,.55),0 10px 30px rgba(0,0,0,.5);overflow:hidden}
+.table::after{content:"RENȚ";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-family:var(--display);font-weight:800;font-size:clamp(48px,11vw,120px);letter-spacing:.12em;color:rgba(255,255,255,.045);pointer-events:none}
+@media (max-width:640px){.plate{min-width:62px;padding:4px 7px}.plate .nm{font-size:12px;max-width:76px}}
+@media (max-width:640px){.table{border-radius:110px/90px;border-width:7px;height:clamp(380px,60vh,520px)}}
+
+.seat{position:absolute;transform:translate(-50%,-50%);z-index:3;display:grid;justify-items:center;gap:4px}
+.plate{background:rgba(8,10,11,.72);border:1px solid var(--line);border-radius:10px;padding:5px 10px;min-width:78px;text-align:center;transition:box-shadow .2s,border-color .2s}
+.plate .nm{font-weight:800;font-size:13px;white-space:nowrap;max-width:110px;overflow:hidden;text-overflow:ellipsis}
+.plate .pt{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+.plate .pt b{color:var(--fg)}
+.seat.turn .plate{border-color:var(--gold);box-shadow:0 0 0 2px rgba(241,190,80,.45),0 0 18px rgba(241,190,80,.35)}
+.badges{display:flex;gap:4px;flex-wrap:wrap;justify-content:center}
+.badge{font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;border-radius:4px;padding:2px 6px;background:var(--red);color:#fff}
+.badge.g{background:var(--gold);color:#2a1b00}
+.badge.k{background:var(--panel2);color:var(--fg);border:1px solid var(--line)}
+.backs{display:flex;height:22px}
+.backs i{width:15px;height:22px;border-radius:3px;border:1.5px solid #fff;margin-left:-9px;background:repeating-linear-gradient(45deg,var(--red) 0 3px,var(--red-lo) 3px 6px)}
+.backs i:first-child{margin-left:0}
+.bubble{position:absolute;top:-10px;right:-14px;background:var(--fg);color:var(--bg);font-weight:800;font-size:11px;padding:2px 7px;border-radius:8px}
+
+/* cards */
+.card{--w:var(--cw);width:var(--w);height:calc(var(--w)*1.42);border-radius:calc(var(--w)*.1);background:var(--card);color:var(--c-blk);
+  position:relative;flex:none;box-shadow:0 2px 5px rgba(0,0,0,.45);font-weight:800;user-select:none;border:0;padding:0;font-family:var(--body)}
+.card.red{color:var(--c-red)}
+.card .ix{position:absolute;top:5%;left:9%;line-height:.92;font-size:calc(var(--w)*.31);text-align:center}
+.card .ix i{display:block;font-style:normal;font-size:.8em}
+.card .pip{position:absolute;inset:18% 0 0 18%;display:grid;place-items:center;font-size:calc(var(--w)*.58)}
+.card.face .pip{font-family:var(--display);font-size:calc(var(--w)*.55);letter-spacing:-.02em}
+.card.face .pip span{display:grid;place-items:center;width:62%;height:62%;border-radius:calc(var(--w)*.08);border:1.5px solid currentColor;line-height:1}
+.card.back{background:repeating-linear-gradient(45deg,var(--red) 0 5px,var(--red-lo) 5px 10px);box-shadow:inset 0 0 0 3px #fff,0 2px 5px rgba(0,0,0,.45)}
+.card.enter{animation:enter .28s ease-out}
+@keyframes enter{from{transform:translateY(14px) scale(.9);opacity:.2}}
+.card.win{box-shadow:0 0 0 3px var(--gold),0 0 18px rgba(241,190,80,.7)}
+
+.tcard{position:absolute;transform:translate(-50%,-50%);z-index:2}
+
+/* rentz board */
+.rboard{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);display:grid;gap:6px;z-index:2;max-width:94%}
+.rrow{display:flex;align-items:center;gap:8px;min-height:calc(var(--rw)*1.42)}
+.rsuit{width:20px;text-align:center;font-size:18px;color:rgba(255,255,255,.7)}
+.rsuit.red{color:#ff8d9b}
+.rcards{display:flex}
+.rcards .card{--w:var(--rw);margin-left:calc(var(--rw)*-.42)}
+.rcards .card:first-child{margin-left:0}
+.rcards .card.mid{box-shadow:0 0 0 2px var(--gold),0 2px 5px rgba(0,0,0,.45)}
+.rcards .card .pip{display:none}
+.rcards .card .ix{font-size:calc(var(--w)*.36)}
+.slot{width:var(--rw);height:calc(var(--rw)*1.42);border:1.5px dashed rgba(255,255,255,.35);border-radius:4px;display:grid;place-items:center;font-size:11px;font-weight:800;color:rgba(255,255,255,.55)}
+
+/* decision panel on felt */
+.tpanel{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:5;width:min(440px,90%);max-height:84%;overflow:auto;
+  background:rgba(14,16,18,.93);border:1px solid var(--line);border-radius:14px;padding:16px;display:grid;gap:12px;box-shadow:0 12px 30px rgba(0,0,0,.6)}
+.tpanel h2{margin:0;font-family:var(--display);font-weight:800;font-size:24px;letter-spacing:.03em;text-transform:uppercase;text-wrap:balance}
+.tpanel p{margin:0;color:var(--muted);font-size:14px;line-height:1.45}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+.ggrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.gbtn{text-align:left;background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:9px 11px;cursor:pointer;display:grid;gap:2px;min-width:0}
+.gbtn:hover{border-color:var(--red-hi);background:#2c2f34}
+.gbtn b{font-size:14px}
+.gbtn span{font-size:12px;color:var(--muted)}
+.gbtn.pos b::after{content:" +";color:var(--ok)}
+.seg{display:flex;background:var(--panel2);border:1px solid var(--line);border-radius:999px;padding:3px;gap:2px;flex-wrap:wrap}
+.seg button{border:0;background:none;border-radius:999px;padding:7px 13px;font-weight:700;font-size:13px;cursor:pointer;color:var(--muted)}
+.seg button[aria-pressed="true"]{background:var(--red);color:#fff}
+.field{display:grid;gap:6px}
+.field label{font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.field input{background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:9px 11px;color:var(--fg);font:inherit}
+
+/* hand */
+.handzone{display:grid;justify-items:center;gap:8px;min-height:calc(var(--hw)*1.42 + 24px)}
+.hand{display:flex;justify-content:center;padding-top:14px;max-width:100%}
+.hand .card{--w:var(--hw);margin-left:calc(var(--hw)*-.26);transition:transform .15s,opacity .15s}
+.hand .card:first-child{margin-left:0}
+.hand .card.playable{transform:translateY(-12px);cursor:pointer;box-shadow:0 0 0 2px var(--gold),0 6px 12px rgba(0,0,0,.5)}
+.hand .card.playable:hover{transform:translateY(-18px)}
+.hand .card.dim{opacity:.42}
+.hint{font-size:13px;color:var(--gold);font-weight:700}
+
+/* modals */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.66);display:grid;place-items:center;z-index:50;
+  padding:max(16px,env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) max(16px,env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
+.dialog{background:var(--panel);border:1px solid var(--line);border-radius:14px;width:min(720px,100%);max-height:88vh;overflow:auto;padding:20px;display:grid;gap:14px}
+.dialog h2{margin:0;font-family:var(--display);font-weight:800;font-size:28px;text-transform:uppercase;letter-spacing:.03em}
+.dialog h3{margin:6px 0 0;font-family:var(--display);font-weight:800;font-size:19px;text-transform:uppercase;letter-spacing:.04em;color:var(--gold)}
+.dialog p,.dialog li{font-size:14px;line-height:1.55;color:#d9d9d5;max-width:68ch}
+.dialog ul{margin:0;padding-left:20px;display:grid;gap:4px}
+.dhead{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.scroll{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:13px;font-variant-numeric:tabular-nums}
+th,td{padding:7px 9px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}
+th:first-child,td:first-child{text-align:left}
+th{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:800}
+td.neg{color:#ff8d9b} td.pos{color:var(--ok)}
+td.used{background:repeating-linear-gradient(135deg,rgba(211,23,43,.22) 0 5px,transparent 5px 10px);color:var(--fg);font-weight:700}
+tr.me td{font-weight:800}
+.podium{display:grid;gap:8px}
+.prow{display:flex;justify-content:space-between;align-items:center;background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:10px 14px;font-variant-numeric:tabular-nums}
+.prow.first{border-color:var(--gold)}
+.prow .pl{font-family:var(--display);font-weight:800;font-size:22px;width:36px;color:var(--gold)}
+.prow .who{flex:1;font-weight:800}
+.prow .raw{color:var(--muted);font-size:13px;margin-right:14px}
+.prow .fin{font-weight:800;font-size:18px}
+.note{font-size:12px;color:var(--muted)}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<div class="wrap" id="app"></div>
+
+<script>
+(function(){
+"use strict";
+const SUITS={H:{s:'♥',red:1,n:'inimă roșie'},D:{s:'♦',red:1,n:'caro'},C:{s:'♣',red:0,n:'treflă'},S:{s:'♠',red:0,n:'pică'}};
+const SORT=['H','S','D','C'];
+const RL=r=>({11:'J',12:'Q',13:'K',14:'A'}[r]||String(r));
+const BOTS=['Ana','Mihai','Ioana','Radu','Elena'];
+const PRESETS={
+  clasic:{label:'Clasic',src:'Wikipedia',popa:-300,zece:100,dama:-25,caro:-20,levata:-20,whist:20,rentz:[300,200,100,0,0,0]},
+  casino:{label:'Casino',src:'PokerStars · casino.com.ro',popa:-100,zece:100,dama:-25,caro:-20,levata:-10,whist:10,rentz:[300,200,150,100,50,0]}
+};
+const GAMES={
+  popa:{n:'Popa de roșu',s:'Popa ♥',pos:0,d:P=>`${P.popa} cine ia K♥`},
+  dame:{n:'Dame',s:'Dame',pos:0,d:P=>`${P.dama} / damă`},
+  carouri:{n:'Carouri',s:'Carouri',pos:0,d:P=>`${P.caro} / caro`},
+  levate:{n:'Levate',s:'Levate',pos:0,d:P=>`${P.levata} / levată`},
+  totale:{n:'Totale',s:'Totale',pos:0,d:()=>`popa + dame + carouri + levate`},
+  whist:{n:'Whist',s:'Whist',pos:1,d:P=>`+${P.whist} / levată`},
+  totplus:{n:'Totale Plus',s:'Tot. +',pos:1,d:()=>`totale, cu semn plus`},
+  zece:{n:'Zece de treflă',s:'10 ♣',pos:1,d:P=>`+${P.zece} cine ia 10♣`},
+  rentz:{n:'Renț',s:'Renț',pos:1,d:P=>`locuri: ${P.rentz.slice(0,4).join(' / ')}…`}
+};
+
+/* ---------- settings ---------- */
+let S={n:4,preset:'clasic',eighth:'whist',speed:'normal',name:'Tu'};
+try{Object.assign(S,JSON.parse(localStorage.getItem('rentz-settings')||'{}'))}catch(e){}
+function saveS(){try{localStorage.setItem('rentz-settings',JSON.stringify(S))}catch(e){}}
+
+let G=null, timer=null, modal=null;
+const env={render:()=>render(),wait:(f,ms)=>{clearTimeout(timer);timer=setTimeout(f,ms)}};
+
+/* ---------- helpers ---------- */
+const minBy=(a,f)=>a.reduce((m,x)=>f(x)<f(m)?x:m);
+const maxBy=(a,f)=>a.reduce((m,x)=>f(x)>f(m)?x:m);
+const nm=p=>G.names[p];
+const P=()=>PRESETS[G.preset];
+const chooser=()=>G.round%G.n;
+const remaining=p=>G.games.filter(g=>!G.used[p][g]);
+const cname=c=>RL(c.r)+SUITS[c.s].s;
+function delay(m){return (S.speed==='rapid'?300:640)*m}
+function setLog(t){G.log=t}
+function esc(s){return String(s).replace(/[&<>"]/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[ch]))}
+
+/* ---------- game setup ---------- */
+function newGame(){
+  const n=S.n;
+  G={n,preset:S.preset,eighth:S.eighth,names:[(S.name||'Tu').trim()||'Tu',...BOTS.slice(0,n-1)],
+     lowR:15-2*n,midR:15-n,scores:Array(n).fill(0),used:Array.from({length:n},()=>({})),
+     round:0,history:[],refusals:Array(n).fill(0),log:'',bots:false};
+  G.games=['popa','dame','carouri','levate','totale',G.eighth,'zece','rentz'];
+  G.total=G.games.length*n;
+  startRound();
+}
+function deal(){
+  const d=[];
+  for(const s of 'HDCS') for(let r=G.lowR;r<=14;r++) d.push({r,s,id:r+s});
+  for(let i=d.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[d[i],d[j]]=[d[j],d[i]]}
+  G.hands=Array.from({length:G.n},(_,i)=>d.slice(i*8,i*8+8).sort((a,b)=>SORT.indexOf(a.s)-SORT.indexOf(b.s)||a.r-b.r));
+}
+function startRound(){
+  G.consec=0; deal(); G.blind=false; G.game=null; G.trick=[]; G.board=null; G.bubble={}; G.winP=null;
+  askChoice();
+}
+function askChoice(){
+  const c=chooser();
+  if(c===0 && !G.bots){G.phase=remaining(0).length>1?'blindAsk':'choose'; env.render(); return;}
+  G.phase='aiChoosing'; env.render();
+  env.wait(()=>{const g=aiChoose(c); setLog(`${nm(c)} a ales ${GAMES[g].n}.`); afterChoose(g)},delay(1.5));
+}
+function humanBlind(b){G.blind=b; G.phase='choose'; render()}
+function humanChoose(g){setLog(`Ai ales ${GAMES[g].n}${G.blind?' pe nevăzute (punctaj ×2)':''}.`); afterChoose(g)}
+function afterChoose(g){G.game=g; if(g==='rentz') refusalCheck(1); else beginPlay()}
+
+/* ---------- Rentz refusal ---------- */
+function caps(p){const h=G.hands[p];const a=h.filter(c=>c.r===14).length,l=h.filter(c=>c.r===G.lowR).length;return {a,l,t:a+l}}
+function canRefuse(p){
+  if(p===chooser()) return false;
+  const k=caps(p);
+  if(G.blind) return k.t>=4&&(k.a>=3||k.l>=3);
+  return k.t>=(G.refusals[p]>0?4:3);
+}
+function refusalCheck(k){
+  if(G.consec>=G.n-1){ if(G.consec) setLog(G.log+' Limita de refuzuri atinsă: Renț-ul se joacă.'); beginPlay(); return; }
+  const c=chooser();
+  for(let i=k;i<G.n;i++){
+    const p=(c+i)%G.n;
+    if(!canRefuse(p)) continue;
+    if(p===0&&!G.bots){G.phase='refuseAsk';G.refK=i;env.render();return;}
+    doRefuse(p); return;
+  }
+  beginPlay();
+}
+function humanRefuse(yes){ if(yes) doRefuse(0); else refusalCheck(G.refK+1); }
+function doRefuse(p){
+  const k=caps(p);
+  G.refusals[p]++; G.consec++;
+  setLog(`${nm(p)} refuză Renț-ul (${k.t} capete). Se amestecă și se reîmpart; ${nm(chooser())} alege din nou.`);
+  deal(); G.blind=false; G.game=null; G.phase='refused'; env.render();
+  env.wait(askChoice,delay(2));
+}
+
+/* ---------- play ---------- */
+function beginPlay(){
+  const c=chooser();
+  G.taken=Array.from({length:G.n},()=>[]); G.tricks=Array(G.n).fill(0); G.played=new Set();
+  G.trick=[]; G.turn=c; G.lastId=null; G.bubble={};
+  if(G.game==='rentz'){G.board={H:null,D:null,C:null,S:null};G.finished=[];G.phase='rentz'}
+  else G.phase='trick';
+  env.render(); schedule();
+}
+function schedule(){
+  if(G.phase!=='trick'&&G.phase!=='rentz') return;
+  if(G.turn===0&&!G.bots){env.render();return;}
+  env.wait(()=>aiMove(G.turn),delay(1));
+}
+function removeCard(p,c){G.hands[p]=G.hands[p].filter(x=>x.id!==c.id)}
+
+/* trick games */
+function validTrick(p){
+  const h=G.hands[p]; if(!G.trick.length) return h.slice();
+  const led=G.trick[0].c.s; const f=h.filter(c=>c.s===led); return f.length?f:h.slice();
+}
+function trickWinner(){const led=G.trick[0].c.s;let b=G.trick[0];for(const t of G.trick) if(t.c.s===led&&t.c.r>b.c.r) b=t;return b.p}
+function playTrick(p,c){
+  removeCard(p,c); G.trick.push({p,c}); G.played.add(c.id); G.lastId=c.id;
+  if(G.trick.length===G.n){
+    const w=trickWinner(); G.winP=w; G.phase='trickShow';
+    setLog(`${nm(w)} ia levata.`); env.render();
+    env.wait(()=>collect(w),delay(1.6));
+  } else {G.turn=(p+1)%G.n; env.render(); schedule();}
+}
+function collect(w){
+  G.taken[w].push(...G.trick.map(t=>t.c)); G.tricks[w]++; G.trick=[]; G.winP=null; G.lastId=null;
+  if(G.hands.every(h=>!h.length)||earlyEnd()){ if(G.hands.some(h=>h.length)) setLog(G.log+' Toate cărțile cu punctaj au ieșit, runda se oprește.'); endRound(); return;}
+  G.turn=w; G.phase='trick'; env.render(); schedule();
+}
+function earlyEnd(){
+  const all=G.taken.flat();
+  switch(G.game){
+    case 'popa': return all.some(c=>c.id==='13H');
+    case 'dame': return all.filter(c=>c.r===12).length===4;
+    case 'carouri': return all.filter(c=>c.s==='D').length===15-G.lowR;
+    case 'zece': return all.some(c=>c.id==='10C');
+  }
+  return false;
+}
+
+/* rentz */
+function validRentz(p){return G.hands[p].filter(c=>{const b=G.board[c.s];return b?(c.r===b.lo-1||c.r===b.hi+1):c.r===G.midR})}
+function place(board,c){const b=board[c.s];if(!b) board[c.s]={lo:c.r,hi:c.r};else if(c.r<b.lo) b.lo=c.r;else b.hi=c.r}
+const active=()=>[...Array(G.n).keys()].filter(p=>!G.finished.includes(p));
+function nextActive(p){for(let i=1;i<=G.n;i++){const q=(p+i)%G.n;if(!G.finished.includes(q)) return q}return p}
+function playRentz(p,c){
+  removeCard(p,c); place(G.board,c); G.lastId=c.id; G.bubble={};
+  let msg=`${nm(p)} pune ${cname(c)}`;
+  if(!G.hands[p].length){G.finished.push(p); msg+=` și termină pe locul ${G.finished.length}`;}
+  if(active().length<=1){
+    setLog(msg+'.'); env.render(); env.wait(finishRentz,delay(1.4)); return;
+  }
+  if(c.r===14&&G.hands[p].length&&validRentz(p).length){
+    setLog(msg+' — As: mai pune o carte.'); env.render(); schedule(); return;
+  }
+  advanceRentz(c.r===G.lowR,msg);
+}
+function advanceRentz(skip,msg){
+  let nx=nextActive(G.turn);
+  if(skip){msg+=` — capăt mic: ${nm(nx)} stă o tură`; G.bubble={[nx]:'stă'}; nx=nextActive(nx);}
+  G.turn=nx; setLog(msg+'.'); env.render(); schedule();
+}
+function passRentz(p){G.bubble={[p]:'pas'}; advanceRentz(false,`${nm(p)}: pas`)}
+function finishRentz(){for(const p of active()) G.finished.push(p); endRound()}
+
+/* ---------- scoring ---------- */
+function roundPoints(){
+  const Pp=P(), a=Array(G.n).fill(0);
+  if(G.game==='rentz'){G.finished.forEach((p,i)=>a[p]=Pp.rentz[i]||0);return a;}
+  for(let p=0;p<G.n;p++){
+    const T=G.taken[p],K=T.some(c=>c.id==='13H')?1:0,Q=T.filter(c=>c.r===12).length,D=T.filter(c=>c.s==='D').length,L=G.tricks[p],X=T.some(c=>c.id==='10C')?1:0;
+    const tot=K*Pp.popa+Q*Pp.dama+D*Pp.caro+L*Pp.levata;
+    a[p]={popa:K*Pp.popa,dame:Q*Pp.dama,carouri:D*Pp.caro,levate:L*Pp.levata,totale:tot,totplus:-tot,whist:L*Pp.whist,zece:X*Pp.zece}[G.game];
+  }
+  return a;
+}
+function detail(p){
+  if(G.game==='rentz') return `locul ${G.finished.indexOf(p)+1}`;
+  const T=G.taken[p],bits=[];
+  if(T.some(c=>c.id==='13H')&&['popa','totale','totplus'].includes(G.game)) bits.push('K♥');
+  const Q=T.filter(c=>c.r===12).length; if(Q&&['dame','totale','totplus'].includes(G.game)) bits.push(`${Q} ${Q>1?'dame':'damă'}`);
+  const D=T.filter(c=>c.s==='D').length; if(D&&['carouri','totale','totplus'].includes(G.game)) bits.push(`${D} ${D>1?'carouri':'caro'}`);
+  if(['levate','totale','totplus','whist'].includes(G.game)) bits.push(`${G.tricks[p]} ${G.tricks[p]===1?'levată':'levate'}`);
+  if(G.game==='zece'&&T.some(c=>c.id==='10C')) bits.push('10♣');
+  return bits.join(', ')||'—';
+}
+function endRound(){
+  let pts=roundPoints(); if(G.blind) pts=pts.map(x=>x*2);
+  const det=[...Array(G.n).keys()].map(detail);
+  pts.forEach((x,i)=>G.scores[i]+=x);
+  const c=chooser();
+  G.history.push({round:G.round+1,chooser:c,game:G.game,blind:G.blind,pts,det});
+  G.used[c][G.game]={round:G.round+1,pts};
+  G.phase='roundEnd'; env.render();
+  if(G.bots) env.wait(nextRound,0);
+}
+function nextRound(){
+  G.round++;
+  if(G.round>=G.total){G.phase='gameOver';env.render();return;}
+  startRound();
+}
+function finalTable(){
+  const n=G.n,mx=Math.max(...G.scores),mn=Math.min(...G.scores);
+  return [...Array(n).keys()].map(p=>({p,raw:G.scores[p],fin:mx===mn?0:Math.round(-10*n+(G.scores[p]-mn)/(mx-mn)*20*n)})).sort((a,b)=>b.raw-a.raw);
+}
+
+/* ---------- AI ---------- */
+function aiChoose(p){
+  const h=G.hands[p],Pp=P(),low=G.lowR,span=14-low,n=G.n;
+  const H=h.filter(c=>c.s==='H'),hasK=h.some(c=>c.id==='13H'),hasA=h.some(c=>c.id==='14H');
+  let pK=hasK?(hasA?0.8:Math.max(0.15,1-0.2*H.filter(c=>c.r<13).length)):0.1*Math.max(0,1-H.length/4)+0.04;
+  const vPopa=pK*Pp.popa;
+  const q=h.filter(c=>c.r===12).length,hi=h.filter(c=>c.r>=13).length;
+  const vDame=(q*0.6+hi*0.22+0.35)*Pp.dama;
+  const dW=h.filter(c=>c.s==='D').reduce((a,c)=>a+(c.r-low)/span,0);
+  const vCar=(dW*1.1+0.6)*Pp.caro;
+  const str=h.reduce((a,c)=>a+Math.max(0,c.r-G.midR)/(14-G.midR),0);
+  const vLev=(str*0.9+0.6)*Pp.levata;
+  const vTot=(vPopa+vDame+vCar+vLev);
+  const W=h.filter(c=>c.r===14).length+0.55*h.filter(c=>c.r===13).length+0.2*q;
+  const has10=h.some(c=>c.id==='10C'),cHi=h.filter(c=>c.s==='C'&&c.r>10).length;
+  const pZ=has10?Math.min(0.9,0.3+0.2*cHi):Math.min(0.55,0.1*cHi+0.05);
+  const k=caps(p),near=h.filter(c=>Math.abs(c.r-G.midR)<=1).length;
+  const place=Math.max(0,Math.min(n-1,Math.round((n-1)/2-(near*0.6-k.t*0.7)*0.6)));
+  const v={popa:vPopa,dame:vDame,carouri:vCar,levate:vLev,totale:vTot,totplus:-vTot*0.85,whist:W*Pp.whist,zece:pZ*Pp.zece,rentz:Pp.rentz[place]||0};
+  return maxBy(remaining(p),g=>v[g]+Math.random()*4);
+}
+function pen(c,g){
+  let v=0;
+  if(c.id==='13H'&&['popa','totale','totplus'].includes(g)) v+=100;
+  if(c.r===12&&['dame','totale','totplus'].includes(g)) v+=25;
+  if(c.s==='D'&&['carouri','totale','totplus'].includes(g)) v+=12+c.r/2;
+  return v;
+}
+function aiTrick(p){
+  const v=validTrick(p),g=G.game,t=G.trick,last=t.length===G.n-1,pos=GAMES[g].pos;
+  const R=c=>c.r;
+  if(!t.length){
+    if(g==='zece'){
+      const ten=v.find(c=>c.id==='10C');
+      const topOut=[11,12,13,14].every(r=>G.played.has(r+'C')||G.hands[p].some(c=>c.id===r+'C'));
+      if(ten&&topOut) return ten;
+      if(!ten&&!G.played.has('10C')){const cl=v.filter(c=>c.s==='C'&&c.r>10);if(cl.length) return maxBy(cl,R);}
+      const nt=v.filter(c=>c.id!=='10C'); return minBy(nt.length?nt:v,R);
+    }
+    if(pos) return maxBy(v,c=>c.r-(g==='totplus'?pen(c,g)/10:0));
+    if(g==='popa'&&!G.hands[p].some(c=>c.id==='13H')&&!G.played.has('13H')){
+      const lh=v.filter(c=>c.s==='H'&&c.r<13); if(lh.length) return minBy(lh,R);
+    }
+    return minBy(v,c=>pen(c,g)*10+c.r);
+  }
+  const led=t[0].c.s,best=Math.max(...t.filter(x=>x.c.s===led).map(x=>x.c.r));
+  const follow=v[0].s===led;
+  if(pos){
+    if(g==='zece'){
+      const tenIn=t.some(x=>x.c.id==='10C'),my10=v.find(c=>c.id==='10C'),win=v.filter(c=>c.r>best),nt=v.filter(c=>c.id!=='10C');
+      if(follow){
+        if(tenIn&&win.length) return last?minBy(win,R):maxBy(win,R);
+        if(my10&&my10.r>best&&last) return my10;
+        if(!nt.length) return my10;
+        if(led==='C'&&!my10&&!G.played.has('10C')&&!last){const w2=nt.filter(c=>c.r>best);if(w2.length) return maxBy(w2,R);}
+        return minBy(nt,R);
+      }
+      return minBy(nt.length?nt:v,R);
+    }
+    if(follow){const win=v.filter(c=>c.r>best);if(win.length) return last?minBy(win,R):maxBy(win,R);return minBy(v,R);}
+    return minBy(v,c=>pen(c,g)*10+c.r);
+  }
+  if(follow){
+    const under=v.filter(c=>c.r<best); if(under.length) return maxBy(under,R);
+    if(last) return maxBy(v,c=>c.r-pen(c,g)*10);
+    return minBy(v,c=>c.r+pen(c,g)*10);
+  }
+  return maxBy(v,c=>pen(c,g)*10+c.r);
+}
+function aiRentz(p,v){
+  return maxBy(v,c=>{
+    const b=JSON.parse(JSON.stringify(G.board)); place(b,c);
+    const rest=G.hands[p].filter(x=>x.id!==c.id);
+    const ok=rest.filter(x=>{const s=b[x.s];return s?(x.r===s.lo-1||x.r===s.hi+1):x.r===G.midR}).length;
+    return ok+(c.r===14?2.5:0)+(c.r===G.lowR?2:0)+Math.random()*0.3;
+  });
+}
+function aiMove(p){
+  if(G.phase==='trick') playTrick(p,aiTrick(p));
+  else if(G.phase==='rentz'){const v=validRentz(p); if(!v.length) passRentz(p); else playRentz(p,aiRentz(p,v));}
+}
+
+/* ---------- human actions ---------- */
+function onCard(id){
+  if(!G||G.turn!==0) return;
+  if(G.phase==='trick'){const c=validTrick(0).find(x=>x.id===id); if(c){G.bubble={}; playTrick(0,c);}}
+  else if(G.phase==='rentz'){const c=validRentz(0).find(x=>x.id===id); if(c) playRentz(0,c);}
+}
+
+/* ---------- render ---------- */
+function cardHTML(c,cls='',attrs=''){
+  const su=SUITS[c.s],face=c.r>10;
+  return `<${attrs.includes('data-card')?'button':'div'} class="card${su.red?' red':''}${face?' face':''} ${cls}" ${attrs} aria-label="${RL(c.r)} ${su.n}">
+    <span class="ix">${RL(c.r)}<i>${su.s}</i></span><span class="pip">${face?`<span>${RL(c.r)}</span>`:su.s}</span></${attrs.includes('data-card')?'button':'div'}>`;
+}
+function seatPos(p){
+  if(p===0) return {x:50,y:90};
+  const m=G.n-1,a=(180-(p-1)*180/(m-1))*Math.PI/180;
+  return {x:50+39*Math.cos(a),y:52-40*Math.sin(a)};
+}
+function header(){
+  return `<div class="top"><div class="brand"><div class="mark">♠</div><div><h1>Masa de Renț</h1><small>${G?`${G.n} jucători · punctaj ${PRESETS[G.preset].label.toLowerCase()}`:'joc de cărți românesc'}</small></div></div>
+  <div class="actions"><a class="btn ghost sm" href="/" style="text-decoration:none">← draghicioiu.ro</a><button class="btn ghost sm" data-act="rules">Reguli</button>${G?`<button class="btn ghost sm" data-act="score">Foaia de scor</button><button class="btn sm" data-act="restart">Joc nou</button>`:''}</div></div>`;
+}
+function infoBar(){
+  if(!G) return `<div class="info"><span class="chip">Tu + 2–5 adversari calculator</span><span class="chip">8 jocuri pe jucător</span></div>`;
+  const ch=[`<span class="chip">Runda <b>${Math.min(G.round+1,G.total)} / ${G.total}</b></span>`,`<span class="chip">Alege <b>${esc(nm(chooser()))}</b></span>`];
+  if(G.game) ch.push(`<span class="chip hot">Joc <b>${GAMES[G.game].n}</b></span>`);
+  if(G.blind) ch.push(`<span class="chip hot"><b>×2</b> pe nevăzute</span>`);
+  if(G.game&&G.game!=='rentz'&&G.tricks) ch.push(`<span class="chip">Levata <b>${Math.min(G.tricks.reduce((a,b)=>a+b,0)+1,8)} / 8</b></span>`);
+  if(G.game==='rentz') ch.push(`<span class="chip">Mijloc <b>${RL(G.midR)}</b> · capăt mic <b>${RL(G.lowR)}</b></span>`);
+  return `<div class="info">${ch.join('')}</div><div class="log" aria-live="polite">${esc(G.log||'')}</div>`;
+}
+function setupPanel(){
+  const seg=(key,opts)=>`<div class="seg" role="group">${opts.map(([v,l])=>`<button data-set="${key}" data-val="${v}" aria-pressed="${String(S[key])===String(v)}">${l}</button>`).join('')}</div>`;
+  return `<div class="tpanel"><h2>Masă nouă</h2>
+  <div class="field"><label for="pname">Numele tău</label><input id="pname" maxlength="14" value="${esc(S.name)}"></div>
+  <div class="field"><label>Jucători la masă</label>${seg('n',[[3,'3'],[4,'4'],[5,'5'],[6,'6']])}</div>
+  <div class="field"><label>Punctaj</label>${seg('preset',[['clasic','Clasic −300'],['casino','Casino −100']])}</div>
+  <div class="field"><label>Al optulea joc</label>${seg('eighth',[['whist','Whist'],['totplus','Totale Plus']])}</div>
+  <div class="field"><label>Viteză adversari</label>${seg('speed',[['normal','Normal'],['rapid','Rapid']])}</div>
+  <p>${S.n} jucători: pachet de ${8*S.n} cărți (${RL(15-2*S.n)}–A), mijlocul la Renț este ${RL(15-S.n)}, ${8*S.n} runde.</p>
+  <div class="row"><button class="btn" data-act="start">Începe jocul</button></div></div>`;
+}
+function tablePanel(){
+  const c=chooser(),Pp=P();
+  if(G.phase==='blindAsk') return `<div class="tpanel"><h2>Tu alegi jocul</h2><p>Te uiți la cărți sau alegi pe nevăzute? Pe nevăzute, punctajul rundei se dublează pentru toți jucătorii.</p>
+    <div class="row"><button class="btn" data-act="look">Văd cărțile</button><button class="btn gold" data-act="blind">Pe nevăzute ×2</button></div></div>`;
+  if(G.phase==='choose'){
+    const rem=remaining(0);
+    return `<div class="tpanel"><h2>Alege jocul${G.blind?' · ×2':''}</h2><p>Îți mai rămân ${rem.length} din 8. Fiecare joc se alege o singură dată.</p>
+    <div class="ggrid">${rem.map(g=>`<button class="gbtn${GAMES[g].pos?' pos':''}" data-game="${g}"><b>${GAMES[g].n}</b><span>${GAMES[g].d(Pp)}</span></button>`).join('')}</div></div>`;
+  }
+  if(G.phase==='refuseAsk'){const k=caps(0);return `<div class="tpanel"><h2>Refuzi Renț-ul?</h2><p>${esc(nm(c))} a ales Renț${G.blind?' pe nevăzute':''}. Ai ${k.t} capete (${k.a} ași, ${k.l} de ${RL(G.lowR)}), deci ai dreptul să refuzi. La refuz se reîmpart cărțile și ${esc(nm(c))} alege din nou.</p>
+    <div class="row"><button class="btn" data-act="refuse">Refuz</button><button class="btn ghost" data-act="accept">Joc Renț</button></div></div>`;}
+  if(G.phase==='aiChoosing') return `<div class="tpanel"><h2>${esc(nm(c))} alege…</h2><p>Se uită la cărți și alege unul dintre jocurile rămase (${remaining(c).length}).</p></div>`;
+  if(G.phase==='refused') return `<div class="tpanel"><h2>Refuzat</h2><p>${esc(G.log)}</p></div>`;
+  return '';
+}
+function tableHTML(){
+  if(!G) return `<div class="table">${setupPanel()}</div>`;
+  let h='';
+  for(let p=0;p<G.n;p++){
+    const s=seatPos(p),turn=(G.phase==='trick'||G.phase==='rentz')&&G.turn===p;
+    const b=[];
+    if(p===chooser()) b.push(`<span class="badge">alege</span>`);
+    if(G.game&&G.game!=='rentz'&&G.tricks&&G.tricks[p]) b.push(`<span class="badge k">${G.tricks[p]} lev.</span>`);
+    if(G.game==='rentz'&&G.finished&&G.finished.includes(p)) b.push(`<span class="badge g">locul ${G.finished.indexOf(p)+1}</span>`);
+    const backs=p===0?'':`<div class="backs">${'<i></i>'.repeat(G.hands[p].length)}</div>`;
+    h+=`<div class="seat${turn?' turn':''}" style="left:${s.x}%;top:${s.y}%">${p===0?'':backs}<div class="plate" style="position:relative">${G.bubble&&G.bubble[p]?`<span class="bubble">${G.bubble[p]}</span>`:''}<div class="nm">${esc(nm(p))}</div><div class="pt"><b>${G.scores[p]}</b> pct</div></div>${b.length?`<div class="badges">${b.join('')}</div>`:''}</div>`;
+  }
+  if(G.board&&(G.phase==='rentz'||G.phase==='roundEnd')){
+    h+=`<div class="rboard">${['H','S','D','C'].map(s=>{const bb=G.board[s],su=SUITS[s];
+      let cards='';
+      if(bb){for(let r=bb.lo;r<=bb.hi;r++){const c={r,s,id:r+s};cards+=cardHTML(c,(r===G.midR?'mid ':'')+(c.id===G.lastId?'enter':''));}}
+      else cards=`<div class="slot">${RL(G.midR)}${su.s}</div>`;
+      return `<div class="rrow"><span class="rsuit${su.red?' red':''}">${su.s}</span><div class="rcards">${cards}</div></div>`}).join('')}</div>`;
+  }
+  for(const t of G.trick){
+    const s=seatPos(t.p),x=50+(s.x-50)*0.42,y=50+(s.y-50)*0.46;
+    h+=`<div class="tcard" style="left:${x}%;top:${y}%">${cardHTML(t.c,(t.c.id===G.lastId?'enter ':'')+(G.winP!=null&&t.p===G.winP&&G.phase==='trickShow'&&t.c.s===G.trick[0].c.s&&t.c.r===Math.max(...G.trick.filter(z=>z.c.s===G.trick[0].c.s).map(z=>z.c.r))?'win':''))}</div>`;
+  }
+  return `<div class="table">${h}${tablePanel()}</div>`;
+}
+function handHTML(){
+  if(!G) return `<div class="handzone"><div class="hand">${[{r:11,s:'H'},{r:12,s:'S'},{r:13,s:'H'},{r:14,s:'C'},{r:10,s:'D'}].map(c=>cardHTML(c)).join('')}</div><div class="note">Mâna ta apare aici. Cărțile pe care le poți juca se ridică.</div></div>`;
+  const hide=G.phase==='blindAsk'||(G.phase==='choose'&&G.blind);
+  const my=G.turn===0&&(G.phase==='trick'||G.phase==='rentz');
+  const valid=my?(G.phase==='trick'?validTrick(0):validRentz(0)).map(c=>c.id):[];
+  const cards=G.hands[0].map(c=>hide?`<div class="card back"></div>`:cardHTML(c,my?(valid.includes(c.id)?'playable':'dim'):'',my&&valid.includes(c.id)?`data-card="${c.id}"`:'')).join('');
+  let hint='';
+  if(my&&G.phase==='rentz'&&!valid.length) hint=`<button class="btn" data-act="pass">Pas</button><span class="hint">Nu ai nicio carte care se leagă.</span>`;
+  else if(my) hint=`<span class="hint">${G.phase==='rentz'?'Rândul tău: pune o carte lângă coloană':'Rândul tău: alege o carte'}</span>`;
+  else if(G.game==='rentz'&&G.finished&&G.finished.includes(0)) hint=`<span class="hint">Ai terminat pe locul ${G.finished.indexOf(0)+1}.</span>`;
+  return `<div class="handzone"><div class="hand">${cards||'<span class="note">Nu mai ai cărți în mână.</span>'}</div><div class="row" style="align-items:center;justify-content:center">${hint}</div></div>`;
+}
+function scoreSheet(){
+  const Pp=P();
+  const head=`<tr><th>Jucător</th>${G.games.map(g=>`<th>${GAMES[g].s}</th>`).join('')}<th>Total</th></tr>`;
+  const rows=[...Array(G.n).keys()].map(p=>`<tr class="${p===0?'me':''}"><td>${esc(nm(p))}</td>${G.games.map(g=>{const u=G.used[p][g];return u?`<td class="used" title="Runda ${u.round}">R${u.round}</td>`:`<td></td>`}).join('')}<td>${G.scores[p]}</td></tr>`).join('');
+  const hist=G.history.slice().reverse().map(r=>`<tr><td>${r.round}. ${GAMES[r.game].n}${r.blind?' ×2':''} <span class="note">(${esc(nm(r.chooser))})</span></td>${r.pts.map(x=>`<td class="${x<0?'neg':x>0?'pos':''}">${x>0?'+':''}${x}</td>`).join('')}</tr>`).join('');
+  return `<h3>Jocuri alese</h3><p class="note">Fiecare jucător hașurează jocul ales, cu numărul rundei. Când toate căsuțele sunt hașurate, partida se încheie.</p>
+  <div class="scroll"><table>${head}${rows}</table></div>
+  <h3>Istoric runde</h3><div class="scroll"><table><tr><th>Runda</th>${G.names.map(x=>`<th>${esc(x)}</th>`).join('')}</tr>${hist||`<tr><td colspan="${G.n+1}" class="note">Încă nu s-a terminat nicio rundă.</td></tr>`}</table></div>`;
+}
+function rulesHTML(){
+  const A=PRESETS.clasic,B=PRESETS.casino;
+  const r=(l,a,b)=>`<tr><td>${l}</td><td>${a}</td><td>${b}</td></tr>`;
+  return `<div class="dhead"><h2>Regulament</h2><button class="btn ghost sm" data-act="close">Închide</button></div>
+  <p>Regulile de mai jos combină Wikipedia, regulamentul publicat de PokerStars și pe cel de la casino.com.ro. Unde sursele se contrazic, am ales o variantă și am pus-o pe cealaltă în setări.</p>
+  <h3>Masa și pachetul</h3><ul>
+  <li>3–6 jucători, fiecare primește 8 cărți. Pachetul se ia de la As în jos: 3 jucători 9–A (24 cărți), 4 jucători 7–A (32), 5 jucători 5–A (40), 6 jucători 3–A (48).</li>
+  <li>Pe rând, fiecare jucător alege un joc din cele 8, iar fiecare joc se alege o singură dată. O partidă are 8 × numărul de jucători runde (32 la 4 jucători).</li>
+  <li>Cine alege jocul deschide prima levată (la Renț, pune primul).</li></ul>
+  <h3>Cum se joacă levatele</h3><ul>
+  <li>Nu există atu. Ești obligat să răspunzi la culoarea cerută; dacă nu ai, pui orice carte.</li>
+  <li>Levata o ia cea mai mare carte din culoarea cerută, iar cine o ia deschide următoarea.</li>
+  <li>La Popa de roșu, Dame, Carouri și Zece de treflă, runda se oprește când au ieșit toate cărțile care contează.</li></ul>
+  <h3>Cele 8 jocuri</h3><div class="scroll"><table><tr><th>Joc</th><th>Clasic</th><th>Casino</th></tr>
+  ${r('Popa de roșu (K♥)',A.popa,B.popa)}${r('Dame (fiecare)',A.dama,B.dama)}${r('Carouri (fiecare)',A.caro,B.caro)}${r('Levate (fiecare)',A.levata,B.levata)}
+  ${r('Totale','suma celor 4 de mai sus','suma celor 4 de mai sus')}${r('Whist (fiecare levată)','+'+A.whist,'+'+B.whist)}${r('Zece de treflă','+'+A.zece,'+'+B.zece)}
+  ${r('Renț (locurile 1–6)',A.rentz.join(' / '),B.rentz.join(' / '))}</table></div>
+  <ul><li>La Totale se adună doar jocurile negative. Dama de caro contează și ca damă, și ca caro (−45).</li>
+  <li>Variantă: în locul Whist-ului se poate juca Totale Plus, adică Totale cu toate punctele pozitive.</li></ul>
+  <h3>Renț</h3><ul>
+  <li>Nu se joacă pe levate. Cărțile se etalează pe masă pe câte o coloană pentru fiecare culoare, pornind de la cartea de mijloc: Q la 3 jucători, J la 4, 10 la 5, 9 la 6.</li>
+  <li>Poți pune cartea de mijloc a unei culori neîncepute sau o carte imediat mai mică ori mai mare decât capetele unei coloane. Dacă nu poți pune nimic, spui pas. Dacă poți, ești obligat să pui.</li>
+  <li>Cine pune un As mai pune o carte. Dacă înaintea ta s-a pus capătul mic (cea mai mică carte din pachet), stai o tură.</li>
+  <li>Locul 1 îl ia cine termină primul cărțile, apoi locul 2 și așa mai departe.</li></ul>
+  <h3>Refuzul Renț-ului</h3><ul>
+  <li>Capetele sunt așii și cărțile cele mai mici din pachet. Când un adversar alege Renț, îl poți refuza dacă ai 3 capete; de la al doilea refuz încolo îți trebuie 4.</li>
+  <li>Cine a ales Renț-ul nu îl poate refuza. La refuz se amestecă, se reîmpart cărțile, iar alegătorul poate alege orice joc rămas.</li>
+  <li>Se poate refuza de cel mult (jucători − 1) ori la rând; după aceea Renț-ul se joacă obligatoriu.</li></ul>
+  <h3>Pe nevăzute</h3><ul>
+  <li>Alegătorul poate alege jocul fără să se uite la cărți. Punctajul rundei se dublează pentru toți.</li>
+  <li>Un Renț ales pe nevăzute se poate refuza doar cu cel puțin 4 capete, dintre care 3 identice.</li>
+  <li>Când îți mai rămâne un singur joc, nu mai poți juca pe nevăzute, fiindcă se știe deja ce urmează.</li></ul>
+  <h3>Scorul final</h3><ul>
+  <li>Se face clasamentul după totalul de puncte. Ca la Whist, locul 1 primește +10 × jucători, ultimul −10 × jucători, iar ceilalți proporțional cu distanța față de primul și ultimul.</li></ul>`;
+}
+function modalHTML(){
+  let inner='';
+  if(modal==='rules') inner=rulesHTML();
+  else if(modal==='score'&&G) inner=`<div class="dhead"><h2>Foaia de scor</h2><button class="btn ghost sm" data-act="close">Închide</button></div>${scoreSheet()}`;
+  else if(G&&G.phase==='roundEnd'){
+    const r=G.history[G.history.length-1];
+    inner=`<h2>Runda ${r.round}: ${GAMES[r.game].n}${r.blind?' ×2':''}</h2><p class="note">Ales de ${esc(nm(r.chooser))}.</p>
+    <div class="scroll"><table><tr><th>Jucător</th><th>Ce a luat</th><th>Puncte</th><th>Total</th></tr>
+    ${[...Array(G.n).keys()].map(p=>`<tr class="${p===0?'me':''}"><td>${esc(nm(p))}</td><td>${r.det[p]}</td><td class="${r.pts[p]<0?'neg':r.pts[p]>0?'pos':''}">${r.pts[p]>0?'+':''}${r.pts[p]}</td><td>${G.scores[p]}</td></tr>`).join('')}</table></div>
+    <div class="row"><button class="btn" data-act="next">${G.round+1>=G.total?'Vezi clasamentul':'Runda următoare'}</button><button class="btn ghost" data-act="score">Foaia de scor</button></div>`;
+  }
+  else if(G&&G.phase==='gameOver'){
+    const f=finalTable();
+    inner=`<h2>Clasament final</h2><p class="note">Punctajul final se calculează ca la Whist: locul 1 +${10*G.n}, ultimul −${10*G.n}, ceilalți proporțional.</p>
+    <div class="podium">${f.map((x,i)=>`<div class="prow${i===0?' first':''}"><span class="pl">${i+1}</span><span class="who">${esc(nm(x.p))}</span><span class="raw">${x.raw} pct</span><span class="fin">${x.fin>0?'+':''}${x.fin}</span></div>`).join('')}</div>
+    <div class="row"><button class="btn" data-act="restart">Joc nou</button><button class="btn ghost" data-act="score">Foaia de scor</button></div>`;
+  }
+  return inner?`<div class="overlay" data-act="${modal?'close':''}"><div class="dialog" role="dialog" aria-modal="true">${inner}</div></div>`:'';
+}
+function render(){
+  const app=document.getElementById('app'); if(!app) return;
+  app.innerHTML=header()+infoBar()+tableHTML()+handHTML()+modalHTML();
+}
+
+/* ---------- events ---------- */
+if(typeof document!=='undefined'){
+document.addEventListener('click',e=>{
+  const card=e.target.closest('[data-card]'); if(card){onCard(card.dataset.card);return;}
+  const set=e.target.closest('[data-set]');
+  if(set){const k=set.dataset.set;S[k]=k==='n'?+set.dataset.val:set.dataset.val;const ni=document.getElementById('pname');if(ni) S.name=ni.value;saveS();render();return;}
+  const g=e.target.closest('[data-game]'); if(g&&G&&G.phase==='choose'){humanChoose(g.dataset.game);return;}
+  const a=e.target.closest('[data-act]'); if(!a) return;
+  const act=a.dataset.act;
+  if(act==='close'&&a.classList.contains('overlay')&&e.target!==a) return;
+  switch(act){
+    case 'rules': modal='rules'; render(); break;
+    case 'score': modal='score'; render(); break;
+    case 'close': modal=null; render(); break;
+    case 'start': {const ni=document.getElementById('pname');if(ni) S.name=ni.value.slice(0,14);saveS();modal=null;newGame();break;}
+    case 'restart': clearTimeout(timer); G=null; modal=null; render(); break;
+    case 'look': humanBlind(false); break;
+    case 'blind': humanBlind(true); break;
+    case 'refuse': humanRefuse(true); break;
+    case 'accept': humanRefuse(false); break;
+    case 'pass': if(G&&G.phase==='rentz'&&G.turn===0&&!validRentz(0).length) passRentz(0); break;
+    case 'next': modal=null; nextRound(); break;
+  }
+});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&modal){modal=null;render();}});
+render();
+}
+})();
+</script>
+
+</body>
+</html>
