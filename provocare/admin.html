@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Provocarea · admin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@700;800&family=Figtree:wght@400;600;700;800&display=swap">
+<style>
+:root{--bg:#f3f5f1;--card:#fff;--ink:#121613;--muted:#5f6862;--line:#dfe4dd;--pitch:#0f6b3d;--lime:#c6f432;--win:#16a34a;--lose:#dc2626;--warn:#b45309;--warn-soft:#fff4e0}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#0d1210;--card:#151c18;--ink:#eaf1ec;--muted:#93a198;--line:#26302a;--pitch:#137a47;--win:#4ade80;--lose:#f87171;--warn:#fbbf24;--warn-soft:#2b2210}}
+:root[data-theme="dark"]{--bg:#0d1210;--card:#151c18;--ink:#eaf1ec;--muted:#93a198;--line:#26302a;--pitch:#137a47;--win:#4ade80;--lose:#f87171;--warn:#fbbf24;--warn-soft:#2b2210}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Figtree,system-ui,sans-serif;line-height:1.45}
+button,input,select{font:inherit;color:inherit}
+.wrap{max-width:1000px;margin:0 auto;padding:20px 16px 60px}
+h1{font-family:"Saira Condensed",sans-serif;font-size:34px;margin:0 0 4px;text-transform:uppercase}
+h2{font-size:18px;margin:0 0 10px}
+.muted{color:var(--muted)} .small{font-size:13.5px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;margin-top:14px}
+input[type=text],input[type=password],input[type=number],select{border:1px solid var(--line);background:var(--bg);border-radius:9px;padding:9px 10px;font-size:15px;min-width:0}
+.btn{border:0;border-radius:10px;padding:9px 14px;font-weight:800;cursor:pointer;background:var(--ink);color:var(--bg);font-size:14px}
+.btn.go{background:var(--lime);color:#0d1210}
+.btn.ghost{background:transparent;border:1px solid var(--line);color:var(--ink)}
+.btn.bad{background:var(--lose);color:#fff}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.err{color:var(--lose);font-weight:600;font-size:14px;min-height:1em;margin:8px 0 0}
+.weeknav{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:12px}
+.weeknav b{font-family:"Saira Condensed",sans-serif;font-size:20px;min-width:150px;text-align:center}
+.filters{display:flex;gap:6px;flex-wrap:wrap;margin:14px 0 4px}
+.filters button{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:6px 12px;font-weight:700;font-size:13.5px;cursor:pointer}
+.filters button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.tk{border:1px solid var(--line);border-radius:12px;padding:12px;margin-top:10px;background:var(--card)}
+.tk.pending{border-left:4px solid var(--warn)}
+.tk.validated{border-left:4px solid var(--win)}
+.tk.rejected{border-left:4px solid var(--lose);opacity:.8}
+.tk-h{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-size:14px}
+.pts{font-family:"Saira Condensed",sans-serif;font-size:22px;font-weight:800}
+.sel{display:grid;grid-template-columns:1fr 70px 150px;gap:8px;align-items:center;padding:8px 0;border-top:1px dashed var(--line);font-size:14px}
+.sel .o{font-family:"Saira Condensed",sans-serif;font-size:18px;font-weight:700;text-align:right}
+.bb{font-size:11px;font-weight:800;color:var(--pitch);border:1px solid currentColor;border-radius:5px;padding:0 5px;margin-right:6px}
+.low{color:var(--lose);font-weight:800}
+.tag{display:inline-block;font-size:11.5px;font-weight:700;border-radius:999px;padding:2px 8px}
+.tag.pend{background:var(--warn-soft);color:var(--warn)}
+.tag.ok{background:color-mix(in srgb,var(--win) 16%,transparent);color:var(--win)}
+.tag.bad{background:color-mix(in srgb,var(--lose) 14%,transparent);color:var(--lose)}
+.foot{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:10px}
+.foot input[type=text]{flex:1;min-width:160px}
+.foot label{display:inline-flex;gap:6px;align-items:center;font-weight:700;font-size:13.5px}
+table{width:100%;border-collapse:collapse;font-size:14px}
+td,th{padding:7px 6px;border-bottom:1px solid var(--line);text-align:left}
+th{font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+.prizes{display:flex;gap:8px;flex-wrap:wrap;align-items:end}
+.prizes label{display:flex;flex-direction:column;font-size:12.5px;font-weight:700;gap:4px}
+.prizes input{width:90px}
+@media (max-width:620px){.sel{grid-template-columns:1fr 60px}.sel select{grid-column:1 / -1}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<a href="/provocare/" class="small muted">← Provocarea</a>
+<h1>Provocarea · admin</h1>
+<p class="small muted" style="margin:0">Aceeași parolă ca la admin-ul Scrisorilor lui Moș Crăciun.</p>
+
+<div class="card" id="login">
+  <form id="lf" class="bar">
+    <input type="password" id="key" placeholder="Parola de admin" autocomplete="current-password" aria-label="Parola de admin" style="flex:1;min-width:200px">
+    <button class="btn go" type="submit">Intră</button>
+  </form>
+  <p class="err" id="lerr"></p>
+</div>
+
+<div id="app" hidden>
+  <div class="weeknav">
+    <button class="btn ghost" id="prev" type="button">← Săptămâna anterioară</button>
+    <b id="wk">—</b>
+    <button class="btn ghost" id="next" type="button">Săptămâna următoare →</button>
+    <button class="btn ghost" id="refresh" type="button">Reîncarcă</button>
+    <button class="btn ghost" id="out" type="button">Ieși</button>
+  </div>
+
+  <div class="card" id="closeCard">
+    <h2>Încheierea săptămânii</h2>
+    <p class="small muted" id="closeInfo" style="margin:0 0 10px"></p>
+    <button class="btn" id="closeBtn" type="button">Încheie săptămâna și acordă pariurile gratuite</button>
+    <p class="err" id="cerr"></p>
+  </div>
+
+  <div class="card">
+    <h2>Bilete</h2>
+    <div class="filters" id="filters">
+      <button type="button" data-f="pending" aria-pressed="true">De verificat</button>
+      <button type="button" data-f="validated" aria-pressed="false">Validate</button>
+      <button type="button" data-f="rejected" aria-pressed="false">Respinse</button>
+      <button type="button" data-f="all" aria-pressed="false">Toate</button>
+    </div>
+    <div id="tickets"></div>
+  </div>
+
+  <div class="card">
+    <h2>Premii (pariuri gratuite pe ligă)</h2>
+    <div class="prizes" id="prizes"></div>
+    <p class="small muted" style="margin:8px 0 0">Lasă 0 ca să scoți un loc din premii. Se aplică la următoarea încheiere de săptămână.</p>
+  </div>
+
+  <div class="card">
+    <h2>Jucători și ligi</h2>
+    <div style="overflow-x:auto"><table><thead><tr><th>Pseudonim</th><th>Înscris săpt.</th><th>Acord</th><th>Liga</th></tr></thead><tbody id="players"></tbody></table></div>
+  </div>
+</div>
+</div>
+
+<script>
+const SB_URL = "https://qvyesymawktcrtiofroj.supabase.co";
+const SB_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF2eWVzeW1hd2t0Y3J0aW9mcm9qIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTEwMTkwODYsImV4cCI6MjEwNjU5NTA4Nn0.oUSgTlBqvcpK52E8B74IEFNatGXB1K1AtbiFbtf88Zk";
+async function rpc(fn, body){
+  const r = await fetch(`${SB_URL}/rest/v1/rpc/${fn}`, {method:"POST",
+    headers:{"apikey":SB_KEY,"Authorization":`Bearer ${SB_KEY}`,"Content-Type":"application/json"},
+    body:JSON.stringify(body||{})});
+  const data = await r.json().catch(()=>null);
+  if(!r.ok) throw new Error((data && data.message) || "Eroare de rețea.");
+  return data;
+}
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const f2 = n => Number(n||0).toFixed(2);
+const MONTHS = ["ian","feb","mar","apr","mai","iun","iul","aug","sep","oct","nov","dec"];
+
+let KEY = ""; try{ KEY = sessionStorage.getItem("prov_admin") || ""; }catch(_){}
+let WEEK = null, CUR = null, DATA = null, FILTER = "pending";
+
+function iso(d){ return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`; }
+function parse(s){ const [y,m,d]=s.split("-").map(Number); return new Date(y,m-1,d); }
+function range(s){ const a=parse(s), b=new Date(a); b.setDate(a.getDate()+6); return `${a.getDate()} ${MONTHS[a.getMonth()]} – ${b.getDate()} ${MONTHS[b.getMonth()]}`; }
+function shift(n){ const d=parse(WEEK); d.setDate(d.getDate()+7*n); WEEK=iso(d); load(); }
+
+async function load(){
+  try{
+    DATA = await rpc("prov_admin_list",{p_key:KEY,p_week:WEEK});
+    try{ sessionStorage.setItem("prov_admin", KEY); }catch(_){}
+    if(!CUR) CUR = DATA.week;
+    WEEK = DATA.week;
+    $("login").hidden = true; $("app").hidden = false;
+    render();
+  }catch(e){
+    $("login").hidden = false; $("app").hidden = true;
+    $("lerr").textContent = e.message;
+    try{ sessionStorage.removeItem("prov_admin"); }catch(_){}
+  }
+}
+
+function render(){
+  $("wk").textContent = range(WEEK) + (WEEK===CUR ? " (curentă)" : "");
+  $("next").disabled = WEEK >= CUR;
+  const pend = DATA.tickets.filter(t=>t.status==="pending").length;
+  if(DATA.closed){ $("closeInfo").textContent = "Săptămâna e încheiată și premiile au fost acordate."; $("closeBtn").hidden = true; }
+  else if(WEEK >= CUR){ $("closeInfo").textContent = "Săptămâna e în desfășurare. O poți încheia de luni, după ce validezi biletele."; $("closeBtn").hidden = true; }
+  else { $("closeInfo").textContent = pend ? `Mai sunt ${pend} bilete nevalidate. Biletele nevalidate nu primesc puncte.` : "Toate biletele sunt verificate. Poți acorda premiile."; $("closeBtn").hidden = false; }
+
+  document.querySelectorAll("#filters button").forEach(b => {
+    b.setAttribute("aria-pressed", b.dataset.f===FILTER);
+    const n = b.dataset.f==="all" ? DATA.tickets.length : DATA.tickets.filter(t=>t.status===b.dataset.f).length;
+    b.textContent = b.textContent.replace(/ \(\d+\)$/,"") + ` (${n})`;
+  });
+  const list = DATA.tickets.filter(t => FILTER==="all" || t.status===FILTER);
+  $("tickets").innerHTML = list.length ? list.map(tkHtml).join("") : '<p class="small muted">Niciun bilet aici.</p>';
+  list.forEach(bindTk);
+
+  $("prizes").innerHTML = [1,2,3,4,5].map(p => { const z=(DATA.prizes||[]).find(x=>x.place===p); return `<label>Locul ${p}<input type="number" min="0" step="1" data-place="${p}" value="${z?Number(z.amount):0}"></label>`; }).join("") + `<button class="btn" id="savePrizes" type="button">Salvează premiile</button>`;
+  $("savePrizes").onclick = async () => {
+    const pr = [...document.querySelectorAll("[data-place]")].map(i=>({place:Number(i.dataset.place),amount:Number(i.value)||0}));
+    try{ await rpc("prov_admin_set_prizes",{p_key:KEY,p_prizes:pr}); load(); }catch(e){ alert(e.message); }
+  };
+
+  $("players").innerHTML = DATA.players.length ? DATA.players.map(p => `<tr><td><strong>${esc(p.nick)}</strong></td><td>${p.joined?'<span class="tag ok">da</span>':'—'}</td><td>${p.consent?"da":"nu"}</td><td><span class="bar"><input type="text" value="${esc(p.league)}" data-pl="${p.id}" maxlength="40" style="width:140px"><button class="btn ghost" type="button" data-save="${p.id}">Salvează</button></span></td></tr>`).join("") : '<tr><td colspan="4" class="muted">Încă nu sunt jucători.</td></tr>';
+  document.querySelectorAll("[data-save]").forEach(b => b.onclick = async () => {
+    const v = document.querySelector(`[data-pl="${b.dataset.save}"]`).value;
+    try{ await rpc("prov_admin_set_league",{p_key:KEY,p_player:b.dataset.save,p_league:v}); b.textContent="Salvat ✓"; setTimeout(load,600); }catch(e){ alert(e.message); }
+  });
+}
+
+function tkHtml(t){
+  const d = new Date(t.created_at);
+  const bbLow = t.selections.some(s=>s.is_bb && Number(s.odds)<1.2);
+  const noBB = !t.selections.some(s=>s.is_bb);
+  const ST = {pending:'<span class="tag pend">de verificat</span>',validated:'<span class="tag ok">validat</span>',rejected:'<span class="tag bad">respins</span>'};
+  const warn = [noBB?"fără Bet Builder":"", bbLow?"Bet Builder sub 1.20":"", (!t.freebet && Number(t.stake)<25)?"miză sub 25":""].filter(Boolean);
+  return `<div class="tk ${t.status}" data-tk="${t.id}">
+    <div class="tk-h"><span><strong>${esc(t.nick)}</strong> · ${esc(t.league)} · ${d.getDate()} ${MONTHS[d.getMonth()]} ${String(d.getHours()).padStart(2,"0")}:${String(d.getMinutes()).padStart(2,"0")} · ${t.section==="live"?"Live":"Pre-meci"} · ${t.freebet?"pariu gratuit ":"miză "}${f2(t.stake)} lei ${ST[t.status]}${warn.length?` <span class="tag bad">0 puncte: ${warn.join(", ")}</span>`:""}</span><span class="pts">${f2(t.points)} p</span></div>
+    ${t.selections.map(s=>`<div class="sel"><span>${s.is_bb?'<span class="bb">BB</span>':""}<strong>${esc(s.event)}</strong><br><span class="muted small">${esc(s.market)}</span></span><span class="o ${s.is_bb&&Number(s.odds)<1.2?"low":""}">${f2(s.odds)}</span>
+      <select data-sel="${s.id}" aria-label="Rezultat">${[["pending","în așteptare"],["won","câștigată"],["lost","pierdută"],["void","anulată"]].map(([v,l])=>`<option value="${v}" ${s.result===v?"selected":""}>${l}</option>`).join("")}</select></div>`).join("")}
+    <div class="foot">
+      <label><input type="checkbox" data-co ${t.cashout?"checked":""}> Cash Out</label>
+      <input type="text" data-note placeholder="Notă pentru jucător (opțional)" value="${esc(t.note||"")}" maxlength="200">
+      <button class="btn go" type="button" data-act="validated">Validează</button>
+      <button class="btn ghost" type="button" data-act="pending">Salvează</button>
+      <button class="btn bad" type="button" data-act="rejected">Respinge</button>
+    </div>
+    <p class="err" data-err></p>
+  </div>`;
+}
+function bindTk(t){
+  const el = document.querySelector(`[data-tk="${t.id}"]`);
+  el.querySelectorAll("[data-act]").forEach(b => b.onclick = async () => {
+    const results = {}; el.querySelectorAll("[data-sel]").forEach(s => results[s.dataset.sel] = s.value);
+    el.querySelectorAll("button").forEach(x=>x.disabled=true);
+    try{
+      await rpc("prov_admin_settle",{p_key:KEY,p_ticket:t.id,p_results:results,p_cashout:el.querySelector("[data-co]").checked,p_status:b.dataset.act,p_note:el.querySelector("[data-note]").value});
+      load();
+    }catch(e){ el.querySelector("[data-err]").textContent = e.message; el.querySelectorAll("button").forEach(x=>x.disabled=false); }
+  });
+}
+
+$("lf").addEventListener("submit", e => { e.preventDefault(); KEY = $("key").value; $("lerr").textContent=""; load(); });
+$("prev").onclick = () => shift(-1);
+$("next").onclick = () => shift(1);
+$("refresh").onclick = load;
+$("out").onclick = () => { KEY=""; try{ sessionStorage.removeItem("prov_admin"); }catch(_){} $("app").hidden=true; $("login").hidden=false; $("key").value=""; };
+document.querySelectorAll("#filters button").forEach(b => b.onclick = () => { FILTER = b.dataset.f; render(); });
+$("closeBtn").onclick = async () => {
+  if(!confirm(`Închei săptămâna ${range(WEEK)} și acorzi pariurile gratuite? Nu se mai pot adăuga sau valida bilete după asta.`)) return;
+  $("cerr").textContent = "";
+  try{ const r = await rpc("prov_admin_close_week",{p_key:KEY,p_week:WEEK}); alert(`Gata. Pariuri gratuite acordate: ${r.awarded}.`); load(); }
+  catch(e){ $("cerr").textContent = e.message; }
+};
+if(KEY) load();
+</script>
+</body>
+</html>

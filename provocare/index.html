@@ -1,0 +1,597 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Provocarea Săptămânii – concurs gratuit cu pariuri gratuite | draghicioiu.ro</title>
+<meta name="description" content="Concurs gratuit, fără bani reali: adaugă bilete cu Bet Builder, adună cotele câștigătoare și urcă pe podium în clasamentul săptămânal. Premii: pariuri gratuite virtuale.">
+<link rel="canonical" href="https://draghicioiu.ro/provocare/">
+<meta property="og:title" content="Provocarea Săptămânii – urcă pe podium">
+<meta property="og:description" content="Bilete cu Bet Builder, puncte din cotele câștigătoare, clasament pe ligi. Concurs gratuit, fără bani reali.">
+<meta property="og:url" content="https://draghicioiu.ro/provocare/">
+<meta name="theme-color" content="#0d1210">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@600;700;800&family=Figtree:wght@400;500;600;700;800&display=swap">
+<style>
+:root{
+  --bg:#f3f5f1; --card:#fff; --ink:#121613; --muted:#5f6862; --line:#dfe4dd;
+  --pitch:#0f6b3d; --pitch-ink:#fff; --lime:#c6f432; --win:#16a34a; --lose:#dc2626; --void:#8a8f8b;
+  --gold:#d4a017; --silver:#9aa3ad; --bronze:#b26b3a; --warn:#b45309; --warn-soft:#fff4e0;
+  --radius:16px; --shadow:0 1px 2px rgba(0,0,0,.05),0 8px 24px -12px rgba(0,0,0,.12);
+}
+:root[data-theme="dark"]{
+  --bg:#0d1210; --card:#151c18; --ink:#eaf1ec; --muted:#93a198; --line:#26302a;
+  --pitch:#137a47; --lime:#c6f432; --win:#4ade80; --lose:#f87171; --void:#8a948e;
+  --warn:#fbbf24; --warn-soft:#2b2210; --shadow:none;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0d1210; --card:#151c18; --ink:#eaf1ec; --muted:#93a198; --line:#26302a;
+    --pitch:#137a47; --lime:#c6f432; --win:#4ade80; --lose:#f87171; --void:#8a948e;
+    --warn:#fbbf24; --warn-soft:#2b2210; --shadow:none;
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Figtree,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.5}
+a{color:inherit}
+button,input,select{font:inherit;color:inherit}
+.wrap{max-width:980px;margin:0 auto;padding:20px 16px 64px}
+.back{display:inline-block;margin-bottom:14px;font-size:14px;color:var(--muted);text-decoration:none}
+.back:hover{color:var(--ink)}
+.num{font-family:"Saira Condensed",Figtree,sans-serif;font-variant-numeric:tabular-nums}
+
+/* hero */
+.hero{position:relative;overflow:hidden;border-radius:22px;background:var(--pitch);color:var(--pitch-ink);padding:28px 24px 24px}
+.hero::before{content:"";position:absolute;inset:0;background:
+  repeating-linear-gradient(90deg,rgba(255,255,255,.045) 0 56px,transparent 56px 112px),
+  radial-gradient(circle at 88% 120%,rgba(198,244,50,.28),transparent 55%);pointer-events:none}
+.hero::after{content:"";position:absolute;right:-60px;top:50%;width:220px;height:220px;border:2px solid rgba(255,255,255,.14);border-radius:50%;transform:translateY(-50%);pointer-events:none}
+.hero > *{position:relative}
+.kicker{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--lime)}
+.hero h1{font-family:"Saira Condensed",sans-serif;font-weight:800;font-size:clamp(38px,7vw,64px);line-height:.95;margin:10px 0 10px;letter-spacing:-.01em;text-transform:uppercase}
+.hero p{margin:0;max-width:580px;opacity:.9}
+.hero-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+.pill{display:inline-flex;align-items:center;gap:8px;background:rgba(0,0,0,.22);border:1px solid rgba(255,255,255,.16);border-radius:999px;padding:6px 13px;font-size:13.5px;font-weight:600}
+.pill b{font-family:"Saira Condensed",sans-serif;font-size:16px;letter-spacing:.02em}
+
+.free{margin:14px 0 0;font-size:13px;color:var(--muted)}
+.free strong{color:var(--ink)}
+
+/* tabs */
+.tabs{display:flex;gap:6px;margin:22px 0 16px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:5px;position:sticky;top:8px;z-index:5;box-shadow:var(--shadow)}
+.tab{flex:1;border:0;background:transparent;border-radius:10px;padding:10px 8px;font-weight:700;font-size:14.5px;cursor:pointer;color:var(--muted)}
+.tab[aria-selected="true"]{background:var(--ink);color:var(--bg)}
+.tab:focus-visible{outline:3px solid var(--lime);outline-offset:2px}
+
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow)}
+.card + .card{margin-top:14px}
+h2{font-size:19px;margin:0 0 12px;letter-spacing:-.01em}
+h3{font-size:15.5px;margin:18px 0 8px}
+.muted{color:var(--muted)}
+.small{font-size:13.5px}
+
+/* podium + table */
+.league-h{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin:0 0 10px}
+.league-h h2{margin:0}
+.podium{display:grid;grid-template-columns:1fr 1.12fr 1fr;align-items:end;gap:10px;margin:6px 0 16px}
+.step{text-align:center;min-width:0}
+.step .who{font-weight:800;font-size:15px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin-bottom:6px}
+.step .who.empty{color:var(--muted);font-weight:600}
+.block{border-radius:12px 12px 4px 4px;padding:12px 6px 10px;color:#fff;display:flex;flex-direction:column;gap:2px;align-items:center}
+.block .pos{font-family:"Saira Condensed",sans-serif;font-weight:800;font-size:28px;line-height:1}
+.block .pts{font-family:"Saira Condensed",sans-serif;font-size:17px;font-weight:700}
+.block .prize{font-size:11.5px;font-weight:700;background:rgba(0,0,0,.2);border-radius:999px;padding:2px 8px;margin-top:4px}
+.s1 .block{background:var(--gold);min-height:132px}
+.s2 .block{background:var(--silver);min-height:104px}
+.s3 .block{background:var(--bronze);min-height:86px}
+
+table{width:100%;border-collapse:collapse;font-size:14.5px}
+th{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);text-align:left;font-weight:700;padding:8px 6px;border-bottom:1px solid var(--line)}
+td{padding:10px 6px;border-bottom:1px solid var(--line)}
+tr:last-child td{border-bottom:0}
+td.r,th.r{text-align:right}
+td.rank{width:38px;font-weight:800;color:var(--muted)}
+td.pts{font-family:"Saira Condensed",sans-serif;font-size:19px;font-weight:700}
+.me-row td{background:color-mix(in srgb,var(--lime) 18%,transparent)}
+.tag{display:inline-block;font-size:11.5px;font-weight:700;border-radius:999px;padding:2px 8px;white-space:nowrap}
+.tag.ok{background:color-mix(in srgb,var(--win) 16%,transparent);color:var(--win)}
+.tag.no{background:color-mix(in srgb,var(--void) 18%,transparent);color:var(--muted)}
+.tag.pend{background:var(--warn-soft);color:var(--warn)}
+.tag.bad{background:color-mix(in srgb,var(--lose) 14%,transparent);color:var(--lose)}
+.empty-state{text-align:center;padding:26px 10px;color:var(--muted)}
+
+/* forms */
+label{display:block;font-size:13.5px;font-weight:700;margin:0 0 6px}
+input[type=text],input[type=password],input[type=number],select{width:100%;border:1px solid var(--line);background:var(--bg);border-radius:10px;padding:11px 12px;font-size:16px;min-width:0}
+input:focus,select:focus{outline:2px solid var(--pitch);outline-offset:1px;border-color:transparent}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.check{display:flex;gap:10px;align-items:flex-start;font-weight:500;font-size:14px;margin:14px 0;cursor:pointer}
+.check input{width:20px;height:20px;margin:1px 0 0;accent-color:var(--pitch);flex:none}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;border-radius:12px;padding:12px 18px;font-weight:800;font-size:15px;cursor:pointer;background:var(--ink);color:var(--bg)}
+.btn.go{background:var(--lime);color:#0d1210}
+.btn.ghost{background:transparent;border:1px solid var(--line);color:var(--ink)}
+.btn.sm{padding:8px 12px;font-size:13.5px;border-radius:10px}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.btn:focus-visible{outline:3px solid var(--pitch);outline-offset:2px}
+.row-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:6px}
+.seg{display:flex;border:1px solid var(--line);border-radius:12px;padding:4px;gap:4px;background:var(--bg)}
+.seg button{flex:1;border:0;background:transparent;border-radius:9px;padding:8px;font-weight:700;cursor:pointer;color:var(--muted)}
+.seg button[aria-pressed="true"]{background:var(--card);color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.12)}
+.err{color:var(--lose);font-weight:600;font-size:14px;margin:10px 0 0;min-height:1em}
+.okmsg{color:var(--win);font-weight:700;font-size:14px;margin:10px 0 0}
+
+/* status */
+.status{display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:center}
+.big{font-family:"Saira Condensed",sans-serif;font-weight:800;font-size:54px;line-height:.9}
+.bar{height:10px;border-radius:999px;background:var(--line);overflow:hidden;margin:8px 0 6px}
+.bar i{display:block;height:100%;background:var(--pitch);border-radius:999px;transition:width .4s}
+.join-box{margin-top:16px;border:2px dashed var(--line);border-radius:14px;padding:16px;text-align:center}
+
+/* ticket builder */
+.sel{display:grid;grid-template-columns:1.4fr 1.2fr 88px auto 34px;gap:8px;align-items:center;padding:10px;border:1px solid var(--line);border-radius:12px;margin-bottom:8px;background:var(--bg)}
+.sel input[type=text],.sel input[type=number]{background:var(--card)}
+.bbt{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:700;white-space:nowrap;cursor:pointer;border:1px solid var(--line);border-radius:999px;padding:6px 10px;background:var(--card)}
+.bbt input{accent-color:var(--pitch);margin:0}
+.bbt.on{border-color:var(--pitch);color:var(--pitch);background:color-mix(in srgb,var(--pitch) 10%,var(--card))}
+.x{border:0;background:transparent;font-size:20px;line-height:1;cursor:pointer;color:var(--muted);border-radius:8px;height:34px}
+.x:hover{background:var(--line)}
+.checks{list-style:none;margin:12px 0 0;padding:0;display:grid;gap:6px;font-size:14px}
+.checks li{display:flex;gap:8px;align-items:flex-start}
+.checks .i{flex:none;width:20px;height:20px;border-radius:50%;display:grid;place-items:center;font-size:12px;font-weight:800;color:#fff}
+.checks .y .i{background:var(--win)} .checks .n .i{background:var(--lose)}
+.preview{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:14px;padding:12px 14px;border-radius:12px;background:color-mix(in srgb,var(--lime) 22%,var(--card));border:1px solid color-mix(in srgb,var(--pitch) 25%,transparent)}
+.preview b{font-family:"Saira Condensed",sans-serif;font-size:26px}
+
+/* my tickets */
+.tk{border:1px solid var(--line);border-radius:14px;padding:12px 14px;margin-top:10px}
+.tk-h{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;font-size:13.5px}
+.tk-h .pts{font-family:"Saira Condensed",sans-serif;font-size:20px;font-weight:800}
+.tk ul{list-style:none;margin:8px 0 0;padding:0}
+.tk li{display:flex;justify-content:space-between;gap:10px;padding:6px 0;border-top:1px dashed var(--line);font-size:14px}
+.tk li .m{color:var(--muted);font-size:13px}
+.res{font-weight:800;font-size:12px;padding:2px 7px;border-radius:6px;margin-left:6px}
+.res.won{background:color-mix(in srgb,var(--win) 18%,transparent);color:var(--win)}
+.res.lost{background:color-mix(in srgb,var(--lose) 15%,transparent);color:var(--lose)}
+.res.void{background:color-mix(in srgb,var(--void) 20%,transparent);color:var(--muted)}
+.res.pending{background:var(--warn-soft);color:var(--warn)}
+.bb{font-size:11px;font-weight:800;color:var(--pitch);border:1px solid currentColor;border-radius:5px;padding:0 5px;margin-right:6px}
+.fb{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;padding:12px 14px;border-radius:12px;background:color-mix(in srgb,var(--gold) 14%,var(--card));border:1px solid color-mix(in srgb,var(--gold) 40%,transparent);margin-top:8px}
+.fb b{font-family:"Saira Condensed",sans-serif;font-size:22px}
+
+/* rules */
+.rules h3{margin:22px 0 8px;font-size:16px}
+.rules h3:first-child{margin-top:0}
+.rules p,.rules li{font-size:14.5px}
+.rules ul{padding-left:20px;margin:6px 0}
+.ex{border-left:3px solid var(--pitch);background:var(--bg);border-radius:0 10px 10px 0;padding:10px 14px;margin:10px 0;font-size:14px}
+.prize-list{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0}
+.prize-list span{border:1px solid var(--line);border-radius:10px;padding:6px 12px;font-weight:700;font-size:14px}
+.disc{margin-top:18px;font-size:12.5px;color:var(--muted);border-top:1px solid var(--line);padding-top:14px}
+.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:var(--bg);padding:11px 18px;border-radius:12px;font-weight:700;font-size:14px;opacity:0;transition:.25s;pointer-events:none;z-index:20;max-width:calc(100% - 32px)}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+@media (max-width:640px){
+  .hero{padding:22px 18px 20px;border-radius:18px}
+  .grid2{grid-template-columns:1fr}
+  .sel{grid-template-columns:1fr 88px 34px}
+  .sel .f-event{grid-row:1;grid-column:1 / 3}
+  .sel .x{grid-row:1;grid-column:3}
+  .sel .f-market{grid-row:2;grid-column:1}
+  .sel .f-odds{grid-row:2;grid-column:2 / 4}
+  .sel .bbt{grid-row:3;grid-column:1 / -1;justify-self:start}
+  .big{font-size:44px}
+  .tab{font-size:13.5px;padding:9px 4px}
+  td,th{padding:8px 4px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<a class="back" href="/">← draghicioiu.ro</a>
+
+<section class="hero">
+  <span class="kicker">● Concurs gratuit · săptămânal</span>
+  <h1>Provocarea<br>Săptămânii</h1>
+  <p>Biletele tale cu Bet Builder îți aduc puncte într-un clasament special. Adună cotele câștigătoare, urcă pe podium și câștigă pariuri gratuite.</p>
+  <div class="hero-row">
+    <span class="pill">Săptămâna <b id="weekLabel">—</b></span>
+    <span class="pill">Se încheie în <b id="countdown">—</b></span>
+    <span class="pill">Calificare <b>3.00</b> puncte</span>
+  </div>
+</section>
+<p class="free"><strong>Fără bani reali.</strong> Concursul e gratuit, miza și pariurile gratuite sunt virtuale și există doar în acest concurs. Doar pentru persoane de peste 18 ani.</p>
+
+<nav class="tabs" role="tablist">
+  <button class="tab" role="tab" id="t-board" aria-selected="true" data-tab="board">Clasament</button>
+  <button class="tab" role="tab" id="t-me" aria-selected="false" data-tab="me">Contul meu</button>
+  <button class="tab" role="tab" id="t-rules" aria-selected="false" data-tab="rules">Regulament</button>
+</nav>
+
+<!-- CLASAMENT -->
+<section id="p-board" role="tabpanel">
+  <div id="board"><div class="card empty-state">Se încarcă clasamentul…</div></div>
+</section>
+
+<!-- CONTUL MEU -->
+<section id="p-me" role="tabpanel" hidden>
+  <div class="card" id="auth">
+    <h2 id="authTitle">Intră în concurs</h2>
+    <div class="seg" role="group" aria-label="Cont" style="margin-bottom:16px">
+      <button type="button" id="m-login" aria-pressed="true">Am cont</button>
+      <button type="button" id="m-reg" aria-pressed="false">Cont nou</button>
+    </div>
+    <form id="authForm" novalidate>
+      <div class="grid2">
+        <div><label for="nick">Pseudonim</label><input type="text" id="nick" autocomplete="username" maxlength="24" placeholder="ex. Pronosticul99"></div>
+        <div><label for="pass">Parolă</label><input type="password" id="pass" autocomplete="current-password" placeholder="minimum 6 caractere"></div>
+      </div>
+      <label class="check" id="consentWrap" hidden><input type="checkbox" id="consent"> <span>Sunt de acord să primesc oferte promoționale și bonusuri în cadrul concursului. <span class="muted">(Obligatoriu pentru înscrierea în provocare.)</span></span></label>
+      <label class="check" id="ageWrap" hidden><input type="checkbox" id="age"> <span>Confirm că am peste 18 ani.</span></label>
+      <div class="row-actions"><button class="btn go" id="authBtn" type="submit">Intră</button></div>
+      <p class="err" id="authErr" role="alert"></p>
+    </form>
+    <p class="small muted" style="margin:6px 0 0">Pseudonimul apare în clasamentul public. Nu folosi numele real sau o parolă pe care o mai folosești în altă parte.</p>
+  </div>
+
+  <div id="dash" hidden>
+    <div class="card">
+      <div class="league-h"><h2>Salut, <span id="dNick"></span></h2><button class="btn ghost sm" id="logout" type="button">Ieși</button></div>
+      <div class="status">
+        <div class="big num" id="dPts">0.00</div>
+        <div>
+          <div class="small"><strong>puncte săptămâna aceasta</strong> · <span id="dLeague"></span></div>
+          <div class="bar"><i id="dBar" style="width:0"></i></div>
+          <div class="small muted" id="dQual"></div>
+        </div>
+      </div>
+      <div class="join-box" id="joinBox" hidden>
+        <p style="margin:0 0 4px;font-weight:800;font-size:16px">Nu ești încă înscris în provocarea din această săptămână</p>
+        <p class="small muted" style="margin:0 0 12px">Punctele se adună doar după ce apeși butonul. Înscrierea se face din nou în fiecare săptămână.</p>
+        <label class="check" id="joinConsentWrap" style="justify-content:center;text-align:left" hidden><input type="checkbox" id="joinConsent"> <span>Sunt de acord cu ofertele promoționale și bonusurile.</span></label>
+        <button class="btn go" id="joinBtn" type="button">Participă la Provocare</button>
+        <p class="err" id="joinErr" role="alert"></p>
+      </div>
+    </div>
+
+    <div class="card" id="fbCard" hidden>
+      <h2>Pariurile tale gratuite</h2>
+      <div id="fbList"></div>
+    </div>
+
+    <div class="card" id="builder" hidden>
+      <h2>Adaugă un bilet</h2>
+      <div class="grid2">
+        <div>
+          <label>Secțiune</label>
+          <div class="seg" role="group" aria-label="Secțiune">
+            <button type="button" data-sec="prematch" aria-pressed="true">Pre-meci</button>
+            <button type="button" data-sec="live" aria-pressed="false">Live</button>
+          </div>
+        </div>
+        <div>
+          <label for="stake">Miză (lei virtuali)</label>
+          <select id="fbPick" hidden></select>
+          <input type="number" id="stake" min="25" step="1" value="25" inputmode="decimal">
+        </div>
+      </div>
+      <h3>Selecții <span class="muted small" style="font-weight:500">· single sau acumulator, fără bilete sistem</span></h3>
+      <div id="sels"></div>
+      <button class="btn ghost sm" id="addSel" type="button">+ Adaugă selecție</button>
+      <ul class="checks" id="checks"></ul>
+      <div class="preview"><span class="small"><strong>Puncte posibile</strong><br><span class="muted">dacă toate selecțiile ≥ 1.20 ies câștigătoare</span></span><b id="maxPts">0.00</b></div>
+      <div class="row-actions" style="margin-top:14px"><button class="btn go" id="submitTk" type="button">Trimite biletul</button></div>
+      <p class="err" id="tkErr" role="alert"></p>
+      <p class="small muted" style="margin:8px 0 0">Biletele sunt verificate de organizator. Rezultatul fiecărei selecții (câștigată, pierdută, anulată) e marcat după terminarea meciului, iar punctele apar după validare.</p>
+    </div>
+
+    <div class="card">
+      <h2>Biletele mele</h2>
+      <div id="myTickets"><p class="muted small">Încă nu ai bilete.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- REGULAMENT -->
+<section id="p-rules" role="tabpanel" hidden>
+  <div class="card rules">
+    <h3>1. Informații esențiale și eligibilitate</h3>
+    <ul>
+      <li><strong>Perioada:</strong> provocarea se desfășoară săptămânal, de luni la 00:00 până duminică la 23:59 (ora României).</li>
+      <li><strong>Înscriere obligatorie:</strong> ca să aduni puncte, intră în <em>Contul meu</em> și apasă „Participă la Provocare”. Înscrierea se face pentru fiecare săptămână.</li>
+      <li><strong>Miza minimă:</strong> fiecare bilet trebuie să aibă o miză de minimum 25 lei virtuali.</li>
+      <li><strong>Sporturi și secțiuni:</strong> sunt eligibile biletele pre-meci sau Live, pe orice sport sau competiție, single sau acumulator. Biletele de tip sistem nu sunt acceptate.</li>
+      <li><strong>Validarea biletelor:</strong> punctele se acordă doar după validarea biletelor, care trebuie soluționate înainte de finalul săptămânii. Biletele închise prin Cash Out nu primesc puncte.</li>
+      <li><strong>Acordul de marketing:</strong> trebuie bifat acordul pentru oferte promoționale și bonusuri înainte de înscriere.</li>
+    </ul>
+
+    <h3>2. Cum aduni puncte în clasament</h3>
+    <ul>
+      <li><strong>Condiție obligatorie:</strong> biletul trebuie să conțină cel puțin un Bet Builder. Un Bet Builder contează ca o singură selecție pe meci.</li>
+      <li><strong>Cota minimă Bet Builder:</strong> absolut fiecare selecție Bet Builder de pe bilet trebuie să aibă cota de minimum 1.20. Dacă una singură are o cotă mai mică (de ex. 1.15), întregul bilet primește 0 puncte.</li>
+      <li><strong>Calculul punctelor:</strong> cotele selecțiilor câștigătoare de pe bilet (cele de cel puțin 1.20) se adună și formează punctajul. Primești punctele chiar dacă biletul final e pierzător, dacă respectă regula de mai sus.</li>
+      <li><strong>Calificare:</strong> ca să fii premiat, suma tuturor cotelor câștigătoare din săptămână trebuie să fie de minimum 3.00.</li>
+    </ul>
+    <div class="ex"><strong>Exemplul 1.</strong> Bilet necâștigător, dar valid, cu trei selecții: 1.20, 2.00 și 2.80. Prima și ultima ies, cea de 2.00 e pierdută. Punctaj: <strong>4.00</strong> (1.20 + 2.80).</div>
+    <div class="ex"><strong>Exemplul 2.</strong> Bilet cu un Bet Builder la cota 1.15 și un alt pariu la 2.00. Punctaj: <strong>0</strong>, pentru că Bet Builder-ul nu atinge pragul de 1.20.</div>
+
+    <h3>3. Premiile provocării (pe ligă)</h3>
+    <p>Cei mai buni jucători din fiecare ligă, care s-au calificat, primesc pariuri gratuite, în funcție de locul din clasamentul final:</p>
+    <div class="prize-list" id="prizeList"><span>Se încarcă…</span></div>
+    <p class="small muted">La egalitate de puncte, jucătorii ocupă același loc și primesc același premiu.</p>
+
+    <h3>4. Folosirea pariului gratuit</h3>
+    <ul>
+      <li>Pariul gratuit apare în contul tău în maximum 48 de ore de la încheierea săptămânii.</li>
+      <li><strong>Rulaj:</strong> se joacă o singură dată (rulaj 1x).</li>
+      <li><strong>Câștig:</strong> dacă biletul jucat cu pariul gratuit iese, primești doar profitul net (câștig total minus miza pariului gratuit). De exemplu, 50 lei pariu gratuit la cota 2.00 înseamnă un câștig total de 100 lei, din care profitul net e 50 lei.</li>
+      <li><strong>Valabilitate:</strong> 7 zile de la alocare. Evenimentele trebuie să se soluționeze înainte de expirare.</li>
+      <li><strong>Unde îl folosești:</strong> pe bilete pre-meci și Live. Nu se poate folosi pe bilete de tip sistem.</li>
+      <li>Dacă biletul jucat cu pariul gratuit e anulat (cota 1), miza se returnează sub formă de pariu gratuit.</li>
+    </ul>
+    <p class="disc">Concurs gratuit organizat de draghicioiu.ro, fără legătură cu vreun operator de jocuri de noroc. Nu se plătește nimic și nu se câștigă bani reali: miza, cotele și pariurile gratuite sunt virtuale și au valoare doar în acest concurs. Doar pentru persoane de peste 18 ani. Jocurile de noroc reale pot crea dependență. Dacă simți că pierzi controlul, cere ajutor la <a href="https://www.joculresponsabil.ro/">joculresponsabil.ro</a>.</p>
+  </div>
+</section>
+</div>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+const SB_URL = "https://qvyesymawktcrtiofroj.supabase.co";
+const SB_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF2eWVzeW1hd2t0Y3J0aW9mcm9qIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTEwMTkwODYsImV4cCI6MjEwNjU5NTA4Nn0.oUSgTlBqvcpK52E8B74IEFNatGXB1K1AtbiFbtf88Zk";
+async function rpc(fn, body){
+  const r = await fetch(`${SB_URL}/rest/v1/rpc/${fn}`, {method:"POST",
+    headers:{"apikey":SB_KEY,"Authorization":`Bearer ${SB_KEY}`,"Content-Type":"application/json"},
+    body:JSON.stringify(body||{})});
+  const data = await r.json().catch(()=>null);
+  if(!r.ok) throw new Error((data && data.message) || "Nu s-a putut contacta serverul. Încearcă din nou.");
+  return data;
+}
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const f2 = n => Number(n||0).toFixed(2);
+const MONTHS = ["ian","feb","mar","apr","mai","iun","iul","aug","sep","oct","nov","dec"];
+function toast(t){ const el=$("toast"); el.textContent=t; el.classList.add("show"); clearTimeout(toast._t); toast._t=setTimeout(()=>el.classList.remove("show"),2600); }
+
+/* ---------- săptămâna (ora României) ---------- */
+function roNow(){ return new Date(new Date().toLocaleString("en-US",{timeZone:"Europe/Bucharest"})); }
+function weekBounds(){
+  const n = roNow(); const d = (n.getDay()+6)%7;
+  const start = new Date(n); start.setHours(0,0,0,0); start.setDate(n.getDate()-d);
+  const end = new Date(start); end.setDate(start.getDate()+7);
+  return {start,end,now:n};
+}
+function fmtRange(s){ const e=new Date(s); e.setDate(s.getDate()+6);
+  return s.getMonth()===e.getMonth() ? `${s.getDate()}–${e.getDate()} ${MONTHS[e.getMonth()]}` : `${s.getDate()} ${MONTHS[s.getMonth()]} – ${e.getDate()} ${MONTHS[e.getMonth()]}`; }
+function tick(){
+  const {start,end,now} = weekBounds();
+  $("weekLabel").textContent = fmtRange(start);
+  let ms = end - now; const d=Math.floor(ms/864e5); ms-=d*864e5; const h=Math.floor(ms/36e5); ms-=h*36e5; const m=Math.floor(ms/6e4);
+  $("countdown").textContent = d>0 ? `${d}z ${h}h ${m}m` : `${h}h ${m}m`;
+}
+tick(); setInterval(tick, 30000);
+
+/* ---------- tab-uri ---------- */
+function showTab(t){
+  for(const k of ["board","me","rules"]){ $("p-"+k).hidden = k!==t; $("t-"+k).setAttribute("aria-selected", k===t); }
+  try{ history.replaceState(null,"","#"+t); }catch(_){}
+}
+document.querySelectorAll(".tab").forEach(b => b.addEventListener("click", () => showTab(b.dataset.tab)));
+if(["#me","#rules","#board"].includes(location.hash)) showTab(location.hash.slice(1));
+
+/* ---------- clasament ---------- */
+let ME = null;
+const PLACE_CLASS = {1:"s1",2:"s2",3:"s3"};
+function prizeFor(prizes, place){ const p=(prizes||[]).find(x=>x.place===place); return p ? `${f2(p.amount).replace(".00","")} lei pariu gratuit` : ""; }
+function ranked(rows){
+  let last=null, place=0;
+  return rows.map((r,i)=>{ if(r.points!==last){ place=i+1; last=r.points; } return {...r, place}; });
+}
+async function loadBoard(){
+  try{
+    const lb = await rpc("prov_leaderboard", {});
+    renderPrizes(lb.prizes);
+    const byLeague = {};
+    for(const r of lb.rows) (byLeague[r.league] ||= []).push(r);
+    const leagues = Object.keys(byLeague).sort((a,b)=>a.localeCompare(b,"ro",{numeric:true}));
+    if(!leagues.length){
+      $("board").innerHTML = `<div class="card empty-state"><p style="font-size:17px;font-weight:800;color:var(--ink);margin:0 0 6px">Podiumul e încă liber</p><p style="margin:0 0 14px">Nimeni nu s-a înscris săptămâna aceasta. Fii primul.</p><button class="btn go" type="button" onclick="showTab('me')">Participă la Provocare</button></div>`;
+      return;
+    }
+    $("board").innerHTML = leagues.map(lg => {
+      const rows = ranked(byLeague[lg]);
+      const q = rows.filter(r=>r.qualified);
+      const pod = [2,1,3].map(pl => {
+        const r = q.find(x=>x.place===pl);
+        return `<div class="step ${PLACE_CLASS[pl]}"><div class="who ${r?"":"empty"}">${r?esc(r.nick):"liber"}</div><div class="block"><span class="pos">${pl}</span>${r?`<span class="pts">${f2(r.points)} p</span>`:""}${prizeFor(lb.prizes,pl)?`<span class="prize">${prizeFor(lb.prizes,pl)}</span>`:""}</div></div>`;
+      }).join("");
+      const meNick = ME && ME.nick.toLowerCase();
+      const body = rows.map(r => `<tr class="${meNick===r.nick.toLowerCase()?"me-row":""}"><td class="rank">${r.place}</td><td><strong>${esc(r.nick)}</strong>${r.pending?` <span class="tag pend">${r.pending} în verificare</span>`:""}</td><td>${r.qualified?'<span class="tag ok">calificat</span>':'<span class="tag no">sub 3.00</span>'}</td><td class="r pts">${f2(r.points)}</td></tr>`).join("");
+      return `<div class="card"><div class="league-h"><h2>${esc(lg)}</h2><span class="small muted">${rows.length} ${rows.length===1?"jucător":"jucători"}</span></div><div class="podium">${pod}</div><table><thead><tr><th>#</th><th>Jucător</th><th>Calificare</th><th class="r">Puncte</th></tr></thead><tbody>${body}</tbody></table></div>`;
+    }).join("") + (lb.closed?`<p class="small muted" style="text-align:center">Săptămâna s-a încheiat. Premiile se acordă în maximum 48 de ore.</p>`:"");
+  }catch(e){
+    $("board").innerHTML = `<div class="card empty-state">Clasamentul nu s-a putut încărca. ${esc(e.message)}</div>`;
+  }
+}
+function renderPrizes(prizes){
+  const el = $("prizeList");
+  el.innerHTML = (prizes && prizes.length) ? prizes.map(p=>`<span>Locul ${p.place}: ${f2(p.amount).replace(".00","")} lei pariu gratuit</span>`).join("") : "<span>Premiile vor fi anunțate.</span>";
+}
+
+/* ---------- autentificare ---------- */
+let mode = "login";
+function setMode(m){
+  mode = m;
+  $("m-login").setAttribute("aria-pressed", m==="login"); $("m-reg").setAttribute("aria-pressed", m==="reg");
+  $("consentWrap").hidden = m!=="reg"; $("ageWrap").hidden = m!=="reg";
+  $("authBtn").textContent = m==="reg" ? "Creează contul" : "Intră";
+  $("pass").autocomplete = m==="reg" ? "new-password" : "current-password";
+  $("authErr").textContent = "";
+}
+$("m-login").onclick = () => setMode("login");
+$("m-reg").onclick = () => setMode("reg");
+
+function cred(){ try{ return JSON.parse(localStorage.getItem("prov_cred")||"null"); }catch(_){ return null; } }
+function saveCred(c){ try{ c ? localStorage.setItem("prov_cred", JSON.stringify(c)) : localStorage.removeItem("prov_cred"); }catch(_){} }
+let CRED = cred();
+
+$("authForm").addEventListener("submit", async e => {
+  e.preventDefault();
+  const nick = $("nick").value.trim(), pass = $("pass").value;
+  $("authErr").textContent = "";
+  if(nick.length<3){ $("authErr").textContent="Pseudonimul trebuie să aibă minimum 3 caractere."; return; }
+  if(pass.length<6){ $("authErr").textContent="Parola trebuie să aibă minimum 6 caractere."; return; }
+  if(mode==="reg" && !$("age").checked){ $("authErr").textContent="Concursul e doar pentru persoane de peste 18 ani."; return; }
+  $("authBtn").disabled = true;
+  try{
+    const me = mode==="reg" ? await rpc("prov_register",{p_nick:nick,p_pass:pass,p_consent:$("consent").checked})
+                            : await rpc("prov_me",{p_nick:nick,p_pass:pass});
+    CRED = {nick, pass}; saveCred(CRED); setMe(me);
+    if(mode==="reg") toast("Cont creat. Acum apasă „Participă la Provocare”.");
+  }catch(err){ $("authErr").textContent = err.message; }
+  finally{ $("authBtn").disabled = false; }
+});
+$("logout").onclick = () => { CRED=null; saveCred(null); ME=null; $("dash").hidden=true; $("auth").hidden=false; $("pass").value=""; loadBoard(); };
+
+/* ---------- panoul jucătorului ---------- */
+function setMe(me){
+  ME = me;
+  $("auth").hidden = true; $("dash").hidden = false;
+  $("dNick").textContent = me.nick; $("dLeague").textContent = me.league;
+  $("dPts").textContent = f2(me.points);
+  $("dBar").style.width = Math.min(100, me.points/3*100) + "%";
+  $("dQual").textContent = me.points>=3 ? "Te-ai calificat pentru premii. Continuă să urci în clasament." : `Îți mai trebuie ${f2(3-me.points)} puncte ca să te califici pentru premii.`;
+  $("joinBox").hidden = me.joined;
+  $("joinConsentWrap").hidden = me.consent;
+  $("builder").hidden = !me.joined;
+  renderFreebets(me.freebets);
+  renderMyTickets(me.tickets);
+  loadBoard();
+}
+$("joinBtn").onclick = async () => {
+  $("joinErr").textContent = "";
+  try{
+    if(!ME.consent){
+      if(!$("joinConsent").checked){ $("joinErr").textContent = "Bifează acordul pentru oferte promoționale ca să te poți înscrie."; return; }
+      await rpc("prov_set_consent",{p_nick:CRED.nick,p_pass:CRED.pass,p_consent:true});
+    }
+    setMe(await rpc("prov_join",{p_nick:CRED.nick,p_pass:CRED.pass}));
+    toast("Ești înscris. Adaugă primul bilet.");
+    $("builder").scrollIntoView({behavior:"smooth",block:"start"});
+  }catch(e){ $("joinErr").textContent = e.message; }
+};
+
+function activeFreebets(){ return (ME?.freebets||[]).filter(f=>!f.used && new Date(f.expires_at) > new Date()); }
+function renderFreebets(list){
+  $("fbCard").hidden = !list.length;
+  $("fbList").innerHTML = list.map(f => {
+    const exp = new Date(f.expires_at), expired = exp < new Date();
+    const st = f.used ? '<span class="tag no">folosit</span>' : expired ? '<span class="tag bad">expirat</span>' : `<span class="tag ok">activ până pe ${exp.getDate()} ${MONTHS[exp.getMonth()]}</span>`;
+    return `<div class="fb"><div><b>${f2(f.amount)} lei</b> <span class="small muted">· locul ${f.place}</span></div>${st}</div>`;
+  }).join("");
+  const act = activeFreebets();
+  const pick = $("fbPick");
+  pick.hidden = !act.length;
+  pick.innerHTML = `<option value="">Miză proprie</option>` + act.map(f=>`<option value="${f.id}">Pariu gratuit ${f2(f.amount)} lei</option>`).join("");
+  if(act.length) pick.style.marginBottom = "8px";
+  onStakeMode();
+}
+$("fbPick").addEventListener("change", onStakeMode);
+function onStakeMode(){
+  const fb = activeFreebets().find(f=>f.id===$("fbPick").value);
+  $("stake").disabled = !!fb;
+  if(fb) $("stake").value = f2(fb.amount);
+  else if($("stake").disabled===false && Number($("stake").value)<25) $("stake").value = 25;
+  validate();
+}
+
+function renderMyTickets(list){
+  if(!list.length){ $("myTickets").innerHTML = '<p class="muted small">Încă nu ai bilete.</p>'; return; }
+  const ST = {pending:'<span class="tag pend">în verificare</span>', validated:'<span class="tag ok">validat</span>', rejected:'<span class="tag bad">respins</span>'};
+  const RES = {won:"câștigat", lost:"pierdut", void:"anulat", pending:"în așteptare"};
+  $("myTickets").innerHTML = list.map(t => {
+    const d = new Date(t.created_at);
+    const odds = t.selections.reduce((a,s)=>a*Number(s.odds),1);
+    return `<div class="tk"><div class="tk-h"><span>${d.getDate()} ${MONTHS[d.getMonth()]} · ${t.section==="live"?"Live":"Pre-meci"} · ${t.freebet?`pariu gratuit ${f2(t.stake)} lei`:`miză ${f2(t.stake)} lei`} ${ST[t.status]||""}${t.cashout?' <span class="tag bad">Cash Out</span>':""}</span><span class="pts">${t.status==="validated"?f2(t.points)+" p":"—"}</span></div>
+      <ul>${t.selections.map(s=>`<li><span>${s.is_bb?'<span class="bb">BB</span>':""}<strong>${esc(s.event)}</strong><br><span class="m">${esc(s.market)}</span></span><span class="num" style="white-space:nowrap;font-size:17px;font-weight:700">${f2(s.odds)}<span class="res ${s.result}">${RES[s.result]}</span></span></li>`).join("")}</ul>
+      ${t.freebet?`<p class="small muted" style="margin:6px 0 0">Cota totală ${f2(odds)} · profit net dacă iese: <strong>${f2(t.stake*odds - t.stake)} lei</strong></p>`:""}
+      ${t.note?`<p class="small" style="margin:6px 0 0"><strong>Notă:</strong> ${esc(t.note)}</p>`:""}</div>`;
+  }).join("");
+}
+
+/* ---------- constructorul de bilet ---------- */
+let section = "prematch";
+document.querySelectorAll("[data-sec]").forEach(b => b.onclick = () => {
+  section = b.dataset.sec;
+  document.querySelectorAll("[data-sec]").forEach(x => x.setAttribute("aria-pressed", x===b));
+});
+function addSel(bb=false){
+  const div = document.createElement("div");
+  div.className = "sel";
+  div.innerHTML = `<input type="text" class="f-event" placeholder="Meci (ex. FCSB – CFR)" maxlength="120" aria-label="Meci">
+    <input type="text" class="f-market" placeholder="Pariu (ex. 1 + G2+)" maxlength="160" aria-label="Pariu">
+    <input type="number" class="f-odds" placeholder="Cotă" min="1.01" step="0.01" inputmode="decimal" aria-label="Cotă">
+    <label class="bbt ${bb?"on":""}"><input type="checkbox" class="f-bb" ${bb?"checked":""}> Bet Builder</label>
+    <button type="button" class="x" aria-label="Șterge selecția">×</button>`;
+  div.querySelector(".x").onclick = () => { if($("sels").children.length>1){ div.remove(); validate(); } };
+  div.querySelector(".f-bb").onchange = e => { e.target.parentElement.classList.toggle("on", e.target.checked); validate(); };
+  div.querySelectorAll("input").forEach(i => i.addEventListener("input", validate));
+  $("sels").appendChild(div);
+  validate();
+}
+$("addSel").onclick = () => { if($("sels").children.length<20) addSel(false); };
+$("stake").addEventListener("input", validate);
+addSel(true);
+
+function readSels(){
+  return [...$("sels").children].map(d => ({
+    event: d.querySelector(".f-event").value.trim(),
+    market: d.querySelector(".f-market").value.trim(),
+    odds: Number(String(d.querySelector(".f-odds").value).replace(",", ".")),
+    is_bb: d.querySelector(".f-bb").checked
+  }));
+}
+function validate(){
+  const sels = readSels();
+  const fb = activeFreebets().find(f=>f.id===$("fbPick").value);
+  const stake = Number($("stake").value);
+  const bbs = sels.filter(s=>s.is_bb);
+  const filled = sels.every(s=>s.event.length>=2 && s.odds>=1.01);
+  const items = [
+    [fb || stake>=25, fb ? "Miză: pariu gratuit (rulaj 1x)" : "Miză de minimum 25 lei"],
+    [bbs.length>0, "Cel puțin un Bet Builder pe bilet"],
+    [bbs.length>0 && bbs.every(s=>s.odds>=1.20), "Fiecare Bet Builder are cota de minimum 1.20"],
+    [filled, "Fiecare selecție are meci și cotă"]
+  ];
+  $("checks").innerHTML = items.map(([ok,t]) => `<li class="${ok?"y":"n"}"><span class="i">${ok?"✓":"!"}</span>${t}</li>`).join("");
+  const valid = items.slice(0,3).every(x=>x[0]);
+  $("maxPts").textContent = valid ? f2(sels.filter(s=>s.odds>=1.20).reduce((a,s)=>a+s.odds,0)) : "0.00";
+  return {sels, fb, stake, ok: items.every(x=>x[0]), warn: !valid};
+}
+$("submitTk").onclick = async () => {
+  const v = validate();
+  $("tkErr").textContent = "";
+  if(!v.sels.every(s=>s.event.length>=2 && s.odds>=1.01)){ $("tkErr").textContent = "Completează meciul și cota la fiecare selecție."; return; }
+  if(!v.fb && !(v.stake>=25)){ $("tkErr").textContent = "Miza minimă este 25 lei."; return; }
+  if(v.warn && !confirm("Biletul nu respectă regulile de punctaj și va primi 0 puncte. Îl trimiți oricum?")) return;
+  $("submitTk").disabled = true;
+  try{
+    const me = await rpc("prov_submit_ticket",{p_nick:CRED.nick,p_pass:CRED.pass,p_stake:v.fb?null:v.stake,p_section:section,p_freebet:v.fb?v.fb.id:null,p_selections:v.sels});
+    $("sels").innerHTML = ""; addSel(true); $("fbPick").value = "";
+    setMe(me); toast("Bilet trimis. Apare în clasament după validare.");
+  }catch(e){ $("tkErr").textContent = e.message; }
+  finally{ $("submitTk").disabled = false; }
+};
+
+/* ---------- pornire ---------- */
+setMode("login");
+(async () => {
+  if(CRED){
+    try{ setMe(await rpc("prov_me",{p_nick:CRED.nick,p_pass:CRED.pass})); return; }
+    catch(_){ CRED=null; saveCred(null); }
+  }
+  loadBoard();
+})();
+</script>
+</body>
+</html>
