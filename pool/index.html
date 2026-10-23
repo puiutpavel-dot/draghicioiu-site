@@ -94,6 +94,7 @@ h1{font-size:26px;letter-spacing:-.02em;margin:0;font-weight:800}
 .join input,.sheet input{background:var(--surface-2);border:1px solid var(--border);border-radius:10px;padding:9px 12px;outline:0;min-width:0}
 .join input:focus,.sheet input:focus{border-color:var(--accent)}
 .join .alt{grid-column:1/-1;font-size:12px;color:var(--faint)}
+.join .alt .bad{color:var(--b)}
 .join .alt button{border:0;background:none;color:var(--accent);padding:0;font-weight:600}
 
 .league{margin-bottom:22px}
@@ -238,14 +239,16 @@ table.lb{width:100%;border-collapse:separate;border-spacing:0;background:var(--s
 
     <div class="join" id="join" hidden>
       <div>
-        <h3>Intră în joc: primești 1.000 de monede</h3>
-        <p>Alege un pseudonim. Fără email, fără bani reali.</p>
+        <h3 id="jTitle">Intră în joc: primești 1.000 de monede</h3>
+        <p id="jText">Te loghezi cu emailul: îți trimitem un cod de 6 cifre. Un singur cont de persoană, fără bani reali.</p>
       </div>
-      <form id="joinForm">
-        <input id="nick" maxlength="20" placeholder="Pseudonim" autocomplete="nickname" required>
-        <button class="btn primary" type="submit">Intră</button>
+      <form id="joinForm" novalidate>
+        <input id="jEmail" type="email" inputmode="email" autocomplete="email" placeholder="email@exemplu.ro" maxlength="254">
+        <input id="jCode" inputmode="numeric" autocomplete="one-time-code" placeholder="Cod din email" maxlength="6" hidden>
+        <input id="jNick" maxlength="20" placeholder="Alege un pseudonim" autocomplete="nickname" hidden>
+        <button class="btn primary" type="submit" id="jBtn">Trimite codul</button>
       </form>
-      <div class="alt">Ai deja cont pe alt dispozitiv? <button type="button" id="restore">Folosește codul contului</button></div>
+      <div class="alt" id="jAlt"></div>
     </div>
 
     <div class="chips" id="chips"></div>
@@ -363,11 +366,13 @@ table.lb{width:100%;border-collapse:separate;border-spacing:0;background:var(--s
   /* render */
   function renderWallet(){
     const has = !!S.me;
-    $('#wallet').hidden = !has; $('#join').hidden = has || S.loading;
+    const needLink = has && !S.me.has_email && S.me.has_email !== undefined;
+    $('#wallet').hidden = !has; $('#join').hidden = S.loading || (has && !(needLink || J.linking));
+    renderJoin(has, needLink);
     if (has){
       $('#wNick').textContent = S.me.nickname; $('#wCoins').textContent = fmt(S.me.coins);
       $('#bonus').hidden = !S.me.can_bonus;
-      $('#acct').innerHTML = ` <button class="btn sm" id="copyCode" style="margin-left:4px">Copiază codul contului</button> <button class="btn sm" id="logout">Ieși</button>`;
+      $('#acct').innerHTML = (S.me.email ? ` Logat ca <b>${esc(S.me.email)}</b>.` : '') + ` <button class="btn sm" id="logout" style="margin-left:4px">Ieși din cont</button>`;
     } else $('#acct').innerHTML = '';
   }
   function renderLeagues(list){
@@ -428,7 +433,7 @@ table.lb{width:100%;border-collapse:separate;border-spacing:0;background:var(--s
     return html;
   }
   function viewMine(){
-    if (!S.token) return `<div class="empty"><b>Intră în joc ca să pariezi</b>Alege un pseudonim mai sus.</div>`;
+    if (!S.token) return `<div class="empty"><b>Intră în joc ca să pariezi</b>Loghează-te cu emailul mai sus.</div>`;
     if (!S.mine.length) return `<div class="empty"><b>Niciun pariu încă</b>Alege un meci din tab-ul „Meciuri”.</div>`;
     return S.mine.map(b => {
       let st, amt;
@@ -460,7 +465,7 @@ table.lb{width:100%;border-collapse:separate;border-spacing:0;background:var(--s
 
   /* bet sheet */
   function openSheet(id, pick){
-    if (!S.token) { $('#nick').focus(); toast('Alege întâi un pseudonim'); return; }
+    if (!S.token) { $('#jEmail').focus(); toast('Loghează-te întâi cu emailul'); return; }
     const m = S.matches.find(x => x.id === id); if (!m || !isOpen(m)) return;
     S.sel = { m, pick };
     $('#sTitle').textContent = `${m.team_a} vs ${m.team_b}`;
@@ -500,8 +505,12 @@ table.lb{width:100%;border-collapse:separate;border-spacing:0;background:var(--s
   document.addEventListener('click', async e => {
     const o = e.target.closest('.out[data-m]'); if (o && !o.disabled) return openSheet(o.dataset.m, o.dataset.p);
     const l = e.target.closest('[data-l]'); if (l) { S.league = l.dataset.l; render(); return; }
-    if (e.target.id === 'copyCode') { try { await navigator.clipboard.writeText(S.token); toast('Cod copiat. Păstrează-l secret.'); } catch(_) { prompt('Codul contului tău:', S.token); } }
-    if (e.target.id === 'logout' && confirm('Ieși din cont pe acest dispozitiv? Copiază întâi codul contului dacă vrei să revii.')) { S.token = null; S.me = null; store.set(KEY, null); render(); }
+    if (e.target.id === 'logout' && confirm('Ieși din cont pe acest dispozitiv? Te poți reloga oricând cu emailul.')) {
+      rpc('logout', { p_token:S.token }).catch(() => {}); S.token = null; S.me = null; S.mine = []; store.set(KEY, null); J.step = 'email'; render();
+    }
+    if (e.target.id === 'linkEmail') { J.linking = true; J.step = 'email'; render(); setTimeout(() => $('#jEmail').focus(), 30); }
+    if (e.target.id === 'jBack') { J.step = 'email'; J.msg = ''; render(); }
+    if (e.target.id === 'jResend') { sendCode(); }
   });
   document.querySelectorAll('.tabs button').forEach(b => b.onclick = async () => {
     S.tab = b.dataset.tab; render();
@@ -511,24 +520,79 @@ table.lb{width:100%;border-collapse:separate;border-spacing:0;background:var(--s
     } catch(err){ toast(err.message); }
     render();
   });
-  $('#joinForm').onsubmit = async e => {
-    e.preventDefault();
-    try {
-      const r = await rpc('register_player', { p_nickname: $('#nick').value });
-      S.token = r.token; store.set(KEY, r.token); S.me = { nickname:r.nickname, coins:r.coins, can_bonus:true };
-      toast(`Bun venit, ${r.nickname}! Ai 1.000 de monede.`); render(); loadAll(true);
-    } catch(err){ toast(err.message); }
-  };
-  $('#restore').onclick = async () => {
-    const code = (prompt('Introdu codul contului:') || '').trim(); if (!code) return;
-    S.token = code; await loadMe().catch(() => {});
-    if (S.me) { store.set(KEY, code); toast(`Bine ai revenit, ${S.me.nickname}!`); loadAll(true); } else toast('Cod invalid');
-    render();
-  };
   $('#bonus').onclick = async () => {
     try { const r = await rpc('claim_bonus', { p_token:S.token }); S.me.coins = r.coins; S.me.can_bonus = false; toast('+250 monede adăugate'); render(); }
     catch(err){ toast(err.message); }
   };
+
+  /* email login */
+  const AUTH = SB_URL + '/functions/v1/auth';
+  const J = { step:'email', email:'', msg:'', bad:false, linking:false, busy:false };
+  function deviceId(){
+    let d = store.get('dr-pool-device');
+    if (!d) { d = (crypto.randomUUID ? crypto.randomUUID() : String(Math.random()).slice(2) + Date.now()); store.set('dr-pool-device', d); }
+    try { document.cookie = 'dr_dev=' + d + ';max-age=63072000;path=/;SameSite=Lax;Secure'; } catch(e){}
+    const c = (document.cookie.match(/(?:^|; )dr_dev=([^;]+)/) || [])[1];
+    return c || d;
+  }
+  async function fingerprint(){
+    const parts = [navigator.userAgent, navigator.language, screen.width+'x'+screen.height, screen.colorDepth,
+      Intl.DateTimeFormat().resolvedOptions().timeZone, navigator.hardwareConcurrency, navigator.platform];
+    try { const c = document.createElement('canvas'), x = c.getContext('2d'); x.textBaseline='top'; x.font='14px Arial'; x.fillText('drăghicioiu-pool',2,2); parts.push(c.toDataURL()); } catch(e){}
+    const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(parts.join('|')));
+    return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join('').slice(0,40);
+  }
+  async function authCall(body){
+    const r = await fetch(AUTH, { method:'POST', headers:{ 'Content-Type':'application/json', apikey:SB_KEY },
+      body: JSON.stringify({ ...body, device: deviceId(), fp: await fingerprint().catch(() => null) }) });
+    const j = await r.json().catch(() => ({ error:'Eroare de rețea' }));
+    return j;
+  }
+  function renderJoin(has, needLink){
+    const linking = has && (needLink || J.linking);
+    $('#jTitle').textContent = linking ? 'Leagă contul de un email' : J.step === 'email' ? 'Intră în joc: primești 1.000 de monede' : J.step === 'code' ? 'Verifică-ți emailul' : 'Ultimul pas: alege un pseudonim';
+    $('#jText').innerHTML = linking && J.step === 'email' ? 'Contul tău nu are încă email. Leagă-l ca să nu-l pierzi și ca să te poți loga de pe orice dispozitiv.'
+      : J.step === 'email' ? 'Te loghezi cu emailul: îți trimitem un cod de 6 cifre. Un singur cont de persoană, fără bani reali.'
+      : J.step === 'code' ? `Am trimis un cod de 6 cifre la <b>${esc(J.email)}</b>. Uită-te și în Spam/Promoții.`
+      : 'Așa te vor vedea ceilalți jucători în clasament.';
+    $('#jEmail').hidden = J.step !== 'email'; $('#jCode').hidden = J.step !== 'code'; $('#jNick').hidden = J.step !== 'nick';
+    $('#jBtn').textContent = J.busy ? 'Așteaptă…' : J.step === 'email' ? 'Trimite codul' : J.step === 'code' ? 'Intră' : 'Creează contul';
+    $('#jBtn').disabled = J.busy;
+    const links = J.step === 'email' ? '' : ` <button type="button" id="jBack">Schimbă emailul</button>` + (J.step === 'code' ? ` · <button type="button" id="jResend">Retrimite codul</button>` : '');
+    $('#jAlt').innerHTML = (J.msg ? `<span class="${J.bad?'bad':''}">${esc(J.msg)}</span> ` : '') + links;
+  }
+  function setMsg(m, bad){ J.msg = m || ''; J.bad = !!bad; render(); }
+  async function sendCode(){
+    J.busy = true; setMsg('');
+    const r = await authCall({ action:'request', email:J.email });
+    J.busy = false;
+    if (r.error) return setMsg(r.error, true);
+    J.step = 'code'; setMsg(r.existing ? 'Bine ai revenit!' : '');
+    setTimeout(() => $('#jCode').focus(), 30);
+  }
+  async function verify(){
+    const code = $('#jCode').value.replace(/\D/g,''), nick = J.step === 'nick' ? $('#jNick').value.trim() : null;
+    if (code.length !== 6) return setMsg('Codul are 6 cifre.', true);
+    J.busy = true; setMsg('');
+    const r = await authCall({ action:'verify', email:J.email, code, nickname:nick, link_token: S.token || null });
+    J.busy = false;
+    if (r.need_nickname) { J.step = 'nick'; setMsg(r.error || '', !!r.error); setTimeout(() => $('#jNick').focus(), 30); return; }
+    if (r.error) { if (/expirat|Cere un cod nou|dispozitiv|rețea/.test(r.error)) J.step = 'email'; return setMsg(r.error, true); }
+    S.token = r.token; store.set(KEY, r.token); J.step = 'email'; J.linking = false; J.msg = '';
+    $('#jCode').value = ''; $('#jNick').value = '';
+    await loadMe().catch(() => {});
+    toast(`Bun venit, ${r.nickname}!`); render(); loadAll(true);
+  }
+  $('#joinForm').onsubmit = e => {
+    e.preventDefault();
+    if (J.busy) return;
+    if (J.step === 'email') {
+      const v = $('#jEmail').value.trim();
+      if (!/^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i.test(v)) return setMsg('Scrie o adresă de email validă.', true);
+      J.email = v; sendCode();
+    } else verify();
+  };
+  $('#jCode').addEventListener('input', e => { e.target.value = e.target.value.replace(/\D/g,'').slice(0,6); if (e.target.value.length === 6 && J.step === 'code') verify(); });
 
   /* start */
   S.token = store.get(KEY);
