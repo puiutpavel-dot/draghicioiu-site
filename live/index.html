@@ -234,7 +234,7 @@ a.px:hover{filter:brightness(.96)}
   };
   const PERIOD = { '1H':'Repriza 1','2H':'Repriza 2','HT':'Pauză','FT':'Final','PEN':'Penalty-uri','OT':'Prelungiri',
                    'Q1':'Sfertul 1','Q2':'Sfertul 2','Q3':'Sfertul 3','Q4':'Sfertul 4','P1':'Repriza 1','P2':'Repriza 2','P3':'Repriza 3',
-                   'S1':'Setul 1','S2':'Setul 2','S3':'Setul 3','S4':'Setul 4','S5':'Setul 5' };
+                   'SUS':'Suspendat','INT':'Întrerupt','POST':'Amânat','CAN':'Anulat','ET':'Prelungiri','S1':'Setul 1','S2':'Setul 2','S3':'Setul 3','S4':'Setul 4','S5':'Setul 5' };
 
   /* ---------- normalise one event ---------- */
   function norm(ev){
@@ -400,7 +400,8 @@ a.px:hover{filter:brightness(.96)}
     if (e.live){
       const per = PERIOD[e.period] || e.period || '';
       const soccer = /^(1H|2H|ET)$/.test(e.period);
-      const el = e.elapsed ? ` · ${esc(soccer && /^\d+:\d+$/.test(e.elapsed) ? (+e.elapsed.split(':')[0]) + "'" : e.elapsed)}` : '';
+      const mins = soccer ? (/^\d+:\d+$/.test(e.elapsed) ? (+e.elapsed.split(':')[0]) + "'" : /^\d+(\+\d+)?$/.test(e.elapsed) ? e.elapsed + "'" : e.elapsed) : e.elapsed;
+      const el = e.elapsed ? ` · ${esc(mins)}` : '';
       return `<span class="badge live">LIVE</span><span>${esc(per)}${el}</span>`;
     }
     return `<span class="badge soon">${esc(e.start ? dayRO(e.start) : 'În curând')}</span>`;
