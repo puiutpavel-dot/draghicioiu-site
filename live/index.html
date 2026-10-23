@@ -1,0 +1,551 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sport Live · draghicioiu.ro</title>
+<meta name="description" content="Meciuri live în timp real: scoruri, minute și probabilități de piață, actualizate automat.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f6f7f9; --surface:#ffffff; --surface-2:#f1f3f6; --border:#e3e6eb;
+  --text:#14171c; --muted:#6b7280; --faint:#9aa1ac;
+  --accent:#2563eb; --accent-soft:rgba(37,99,235,.10);
+  --live:#e5484d; --yes:#16a34a; --yes-soft:rgba(22,163,74,.10);
+  --no:#dc2626; --no-soft:rgba(220,38,38,.09);
+  --shadow:0 1px 2px rgba(16,24,40,.05);
+  --radius:14px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0c0e13; --surface:#151821; --surface-2:#1c202b; --border:#262b37;
+    --text:#eef1f6; --muted:#8b93a3; --faint:#5d6576;
+    --accent:#4f8cff; --accent-soft:rgba(79,140,255,.14);
+    --live:#ff5c61; --yes:#2fbf71; --yes-soft:rgba(47,191,113,.13);
+    --no:#f05252; --no-soft:rgba(240,82,82,.12);
+    --shadow:none;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0c0e13; --surface:#151821; --surface-2:#1c202b; --border:#262b37;
+  --text:#eef1f6; --muted:#8b93a3; --faint:#5d6576;
+  --accent:#4f8cff; --accent-soft:rgba(79,140,255,.14);
+  --live:#ff5c61; --yes:#2fbf71; --yes-soft:rgba(47,191,113,.13);
+  --no:#f05252; --no-soft:rgba(240,82,82,.12);
+  --shadow:none;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;font-size:14px;line-height:1.4;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;cursor:pointer}
+.wrap{max-width:1180px;margin:0 auto;padding:0 16px}
+
+/* top bar */
+.top{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--border)}
+.top .wrap{display:flex;align-items:center;gap:14px;height:60px}
+.brand{font-weight:800;font-size:16px;letter-spacing:-.01em;white-space:nowrap}
+.brand span{color:var(--accent)}
+.nav{display:flex;gap:4px;margin-left:8px;overflow-x:auto;scrollbar-width:none}
+.nav::-webkit-scrollbar{display:none}
+.nav a{padding:7px 12px;border-radius:999px;color:var(--muted);font-weight:500;white-space:nowrap}
+.nav a:hover{color:var(--text);background:var(--surface-2)}
+.nav a.on{color:var(--text);background:var(--surface-2);font-weight:600}
+.spacer{flex:1}
+.search{display:flex;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:0 10px;height:36px;min-width:0;width:240px}
+.search input{border:0;outline:0;background:transparent;color:var(--text);font:inherit;width:100%;min-width:0}
+.search svg{flex:none;color:var(--faint)}
+.icon-btn{display:grid;place-items:center;width:36px;height:36px;border-radius:10px;border:1px solid var(--border);background:var(--surface)}
+
+/* layout */
+.layout{display:grid;grid-template-columns:220px 1fr;gap:24px;padding-top:20px;padding-bottom:40px}
+.side{position:sticky;top:80px;align-self:start;display:flex;flex-direction:column;gap:2px}
+.side .lbl{font-size:12px;color:var(--faint);font-weight:600;text-transform:uppercase;letter-spacing:.06em;margin:4px 10px 8px}
+.side button{display:flex;align-items:center;justify-content:space-between;gap:8px;text-align:left;border:0;background:transparent;padding:9px 10px;border-radius:10px;color:var(--muted);font-weight:500}
+.side button:hover{background:var(--surface-2);color:var(--text)}
+.side button.on{background:var(--surface);color:var(--text);font-weight:600;box-shadow:var(--shadow);outline:1px solid var(--border)}
+.side .cnt{font-size:12px;color:var(--faint);font-variant-numeric:tabular-nums}
+
+.head{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:6px}
+h1{font-size:26px;letter-spacing:-.02em;margin:0;font-weight:800}
+.tabs{display:inline-flex;background:var(--surface-2);border-radius:10px;padding:3px;margin-left:auto}
+.tabs button{border:0;background:transparent;padding:6px 14px;border-radius:8px;color:var(--muted);font-weight:600}
+.tabs button.on{background:var(--surface);color:var(--text);box-shadow:var(--shadow)}
+.status{font-size:12px;color:var(--faint);margin:0 0 16px;display:flex;align-items:center;gap:8px}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--faint);display:inline-block}
+.dot.ok{background:var(--yes)}
+
+.chips{display:none;gap:6px;overflow-x:auto;scrollbar-width:none;margin:0 -16px 14px;padding:0 16px}
+.chips::-webkit-scrollbar{display:none}
+.chips button{flex:none;border:1px solid var(--border);background:var(--surface);padding:7px 12px;border-radius:999px;color:var(--muted);font-weight:500;white-space:nowrap}
+.chips button.on{color:var(--text);border-color:var(--text);font-weight:600}
+
+/* league group */
+.league{margin-bottom:22px}
+.league-h{display:flex;align-items:center;gap:10px;padding:0 4px 8px}
+.league-h h2{font-size:15px;margin:0;font-weight:700;letter-spacing:-.01em}
+.league-h .cols{margin-left:auto;display:grid;grid-template-columns:repeat(3,96px);gap:8px;font-size:12px;color:var(--faint);font-weight:600;text-align:center}
+
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);margin-bottom:8px;overflow:hidden}
+.card-top{display:flex;align-items:center;gap:8px;padding:10px 14px 0;font-size:12px;color:var(--muted)}
+.badge{display:inline-flex;align-items:center;gap:5px;font-weight:700;font-size:11px;letter-spacing:.03em;padding:2px 7px;border-radius:6px}
+.badge.live{color:var(--live);background:color-mix(in srgb,var(--live) 12%,transparent)}
+.badge.live::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor;animation:pulse 1.4s infinite}
+.badge.soon{color:var(--muted);background:var(--surface-2)}
+.badge.end{color:var(--faint);background:var(--surface-2)}
+@keyframes pulse{50%{opacity:.25}}
+.card-top .vol{margin-left:auto;font-variant-numeric:tabular-nums}
+.card-top a.ext{color:var(--faint);display:inline-flex}
+.card-top a.ext:hover{color:var(--accent)}
+
+.rows{display:grid;grid-template-columns:1fr auto;padding:6px 14px 12px;gap:6px 12px;align-items:center}
+.team{display:flex;align-items:center;gap:10px;min-width:0;height:40px}
+.logo{width:26px;height:26px;border-radius:7px;flex:none;object-fit:cover;background:var(--surface-2);display:grid;place-items:center;font-size:10px;font-weight:800;color:var(--muted);overflow:hidden}
+.logo img{width:100%;height:100%;object-fit:cover}
+.tname{font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.score{margin-left:auto;font-weight:800;font-size:16px;font-variant-numeric:tabular-nums;padding-left:10px}
+.score.lead{color:var(--text)} .score.trail{color:var(--muted)}
+.score.flash{animation:flash 1.2s ease}
+@keyframes flash{0%{background:var(--accent-soft);border-radius:6px}100%{background:transparent}}
+.mkts{display:grid;grid-template-columns:repeat(3,96px);gap:8px}
+.px{height:40px;border-radius:10px;border:0;background:var(--surface-2);display:flex;align-items:center;justify-content:center;gap:6px;font-weight:700;font-variant-numeric:tabular-nums;transition:filter .15s}
+.px small{font-weight:500;color:var(--muted);font-size:12px}
+.px.a{background:var(--yes-soft);color:var(--yes)}
+.px.b{background:var(--no-soft);color:var(--no)}
+.px.n{color:var(--text)}
+.px.empty{color:var(--faint);background:transparent;outline:1px dashed var(--border);font-weight:500}
+a.px:hover{filter:brightness(.96)}
+.draw-row{grid-column:1 / -1;display:flex;align-items:center;gap:10px;font-size:12px;color:var(--muted);padding-top:2px}
+.draw-row .px{height:30px;padding:0 10px;font-size:13px}
+
+.bar{height:4px;background:var(--no-soft);margin:0 14px 12px;border-radius:4px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--yes);border-radius:4px;transition:width .6s ease}
+
+.empty-state,.err{background:var(--surface);border:1px dashed var(--border);border-radius:var(--radius);padding:36px 20px;text-align:center;color:var(--muted)}
+.empty-state b,.err b{display:block;color:var(--text);font-size:15px;margin-bottom:6px}
+.err button,.empty-state button{margin-top:12px;border:1px solid var(--border);background:var(--surface-2);border-radius:10px;padding:8px 14px;font-weight:600}
+.skel{height:118px;border-radius:var(--radius);background:linear-gradient(90deg,var(--surface) 0,var(--surface-2) 50%,var(--surface) 100%);background-size:200% 100%;animation:sk 1.3s infinite;margin-bottom:8px;border:1px solid var(--border)}
+@keyframes sk{to{background-position:-200% 0}}
+
+.note{font-size:12px;color:var(--faint);border-top:1px solid var(--border);margin-top:24px;padding-top:14px}
+.note a{color:var(--muted);text-decoration:underline}
+
+@media (max-width:900px){
+  .layout{grid-template-columns:1fr;padding-top:14px}
+  .side{display:none}
+  .chips{display:flex}
+  .search{width:auto;flex:1}
+  .nav{display:none}
+}
+@media (max-width:600px){
+  h1{font-size:22px}
+  .tabs{margin-left:0}
+  .league-h .cols{display:none}
+  .rows{grid-template-columns:1fr}
+  .mkts{grid-template-columns:repeat(3,1fr)}
+  .team{height:34px}
+  .mrow-label{display:block}
+}
+.mrow-label{display:none;font-size:11px;color:var(--faint);font-weight:600;margin-bottom:-2px}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="/">draghicioiu<span>.ro</span></a>
+    <nav class="nav">
+      <a href="/">Acasă</a>
+      <a href="/#site">Site-uri</a>
+      <a href="/#aplicatii">Aplicații</a>
+      <a href="/#portofoliu">Portofoliu</a>
+      <a href="/live/" class="on">Sport Live</a>
+      <a href="/pool/">Pool</a>
+      <a href="/#contact">Contact</a>
+    </nav>
+    <div class="spacer"></div>
+    <label class="search">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input id="q" type="search" placeholder="Caută echipă sau ligă" autocomplete="off">
+    </label>
+    <button class="icon-btn" id="theme" aria-label="Schimbă tema">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+    </button>
+  </div>
+</header>
+
+<main class="wrap layout">
+  <aside class="side" id="side"></aside>
+  <section>
+    <div class="head">
+      <h1 id="title">Sport Live</h1>
+      <div class="tabs" role="tablist">
+        <button data-mode="live" class="on">Live</button>
+        <button data-mode="soon">Urmează</button>
+      </div>
+    </div>
+    <p class="status"><span class="dot" id="dot"></span><span id="stat">Se încarcă…</span></p>
+    <div class="chips" id="chips"></div>
+    <div id="list"></div>
+    <p class="note">
+      Date preluate automat din API-ul public <a href="https://docs.polymarket.com" target="_blank" rel="noopener">Polymarket</a>.
+      Procentele/cenții reprezintă probabilitatea implicită estimată de piață și sunt afișate strict informativ.
+      Această pagină nu oferă și nu promovează pariuri.
+    </p>
+  </section>
+</main>
+
+<script>
+(() => {
+  const API = 'https://gamma-api.polymarket.com';
+  const WS  = 'wss://sports-api.polymarket.com/ws';
+  const PM  = 'https://polymarket.com';
+  const REFRESH_MS = 30000;
+  const DEMO = new URLSearchParams(location.search).has('demo');
+
+  const state = { mode:'live', events:[], league:'all', q:'', last:null, error:null, loading:true };
+  const $ = s => document.querySelector(s);
+
+  /* ---------- theme ---------- */
+  try { const t = localStorage.getItem('dr-theme'); if (t) document.documentElement.dataset.theme = t; } catch(e){}
+  $('#theme').onclick = () => {
+    const cur = document.documentElement.dataset.theme ||
+      (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    const next = cur === 'dark' ? 'light' : 'dark';
+    document.documentElement.dataset.theme = next;
+    try { localStorage.setItem('dr-theme', next); } catch(e){}
+  };
+
+  /* ---------- helpers ---------- */
+  const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const parse = v => { if (Array.isArray(v)) return v; try { return JSON.parse(v || '[]'); } catch(e){ return []; } };
+  const cents = p => (p == null || isNaN(p)) ? null : Math.max(0, Math.min(100, Math.round(p * 100)));
+  const money = v => { v = +v || 0; if (v >= 1e6) return '$' + (v/1e6).toFixed(1) + 'M'; if (v >= 1e3) return '$' + (v/1e3).toFixed(1) + 'K'; return '$' + v.toFixed(0); };
+  const initials = n => String(n||'?').replace(/[^A-Za-zÀ-ž0-9 ]/g,'').split(/\s+/).filter(Boolean).slice(0,2).map(w=>w[0]).join('').toUpperCase();
+  const timeRO = d => new Date(d).toLocaleTimeString('ro-RO',{hour:'2-digit',minute:'2-digit'});
+  const dayRO  = d => {
+    const x = new Date(d), t = new Date(); const same = x.toDateString() === t.toDateString();
+    const tm = new Date(t); tm.setDate(t.getDate()+1);
+    if (same) return 'Azi, ' + timeRO(d);
+    if (x.toDateString() === tm.toDateString()) return 'Mâine, ' + timeRO(d);
+    return x.toLocaleDateString('ro-RO',{day:'numeric',month:'short'}) + ', ' + timeRO(d);
+  };
+  const PERIOD = { '1H':'Repriza 1','2H':'Repriza 2','HT':'Pauză','FT':'Final','PEN':'Penalty-uri','OT':'Prelungiri',
+                   'Q1':'Sfertul 1','Q2':'Sfertul 2','Q3':'Sfertul 3','Q4':'Sfertul 4','P1':'Repriza 1','P2':'Repriza 2','P3':'Repriza 3',
+                   'S1':'Setul 1','S2':'Setul 2','S3':'Setul 3','S4':'Setul 4','S5':'Setul 5' };
+
+  /* ---------- normalise one event ---------- */
+  function norm(ev){
+    const markets = (ev.markets || []).filter(m => m && m.active !== false && !m.closed);
+    const type = m => (m.sportsMarketType || '').toLowerCase();
+
+    // teams
+    let teams = (ev.teams || []).map(t => ({ name:t.name || t.abbreviation, abbr:t.abbreviation, logo:t.logo || t.image, ordering:t.ordering }));
+    if (teams.length < 2) {
+      const ttl = String(ev.title || '').split(':').pop();
+      const parts = ttl.split(/\s+vs\.?\s+/i);
+      if (parts.length === 2) teams = parts.map(n => ({ name:n.trim() }));
+    }
+    if (teams.length < 2) return null;
+    // Polymarket lists away first for US leagues; keep API order but respect title order when possible
+    const ttlLow = String(ev.title||'').toLowerCase();
+    teams.sort((a,b) => {
+      const ia = ttlLow.indexOf(String(a.name||'').toLowerCase()), ib = ttlLow.indexOf(String(b.name||'').toLowerCase());
+      return (ia<0?99:ia) - (ib<0?99:ib);
+    });
+    teams = teams.slice(0,2);
+
+    const priceOf = (m, i) => {
+      const op = parse(m.outcomePrices).map(Number);
+      if (i === 0 && m.bestAsk != null && +m.bestAsk > 0) return +m.bestAsk;
+      if (i === 1 && m.bestBid != null && +m.bestBid > 0) return 1 - +m.bestBid;
+      return op[i];
+    };
+    const matchIdx = (names, team) => {
+      const n = String(team.name||'').toLowerCase(), a = String(team.abbr||'').toLowerCase();
+      return names.findIndex(x => { x = String(x).toLowerCase(); return x === n || (a && x === a) || n.includes(x) || x.includes(n); });
+    };
+
+    // moneyline
+    let ml = [null,null], draw = null, mlSlug = null;
+    const mlM = markets.filter(m => type(m) === 'moneyline' || (!type(m) && parse(m.outcomes).length === 2 && !/spread|total|o\/u|over/i.test(m.question||'')));
+    if (mlM.length === 1 && parse(mlM[0].outcomes).length === 2 && !/^yes$/i.test(parse(mlM[0].outcomes)[0])) {
+      const m = mlM[0], names = parse(m.outcomes);
+      teams.forEach((t,ti) => { let i = matchIdx(names, t); if (i < 0) i = ti; ml[ti] = priceOf(m, i); });
+      mlSlug = m.slug;
+    } else if (mlM.length >= 2) {   // 3-way (soccer): one yes/no market per outcome
+      mlM.forEach(m => {
+        const g = String(m.groupItemTitle || m.question || '');
+        const yes = priceOf(m, 0);
+        if (/draw|egal|tie/i.test(g)) { draw = yes; return; }
+        const ti = teams.findIndex(t => matchIdx([g], t) === 0 || g.toLowerCase().includes(String(t.name).toLowerCase()));
+        if (ti >= 0) ml[ti] = yes;
+      });
+    }
+
+    // spread (main line)
+    let spread = null;
+    const spM = markets.filter(m => type(m) === 'spreads');
+    if (spM.length){
+      const m = spM.find(x => ev.spreadsMainLine != null && Math.abs(+x.line) === Math.abs(+ev.spreadsMainLine)) || spM[0];
+      const names = parse(m.outcomes), line = +m.line;
+      spread = teams.map((t,ti) => {
+        let i = matchIdx(names, t); if (i < 0) i = ti;
+        const l = isNaN(line) ? null : (i === 0 ? line : -line);
+        return { p: priceOf(m, i), label: l == null ? '' : (l > 0 ? '+' : '') + l };
+      });
+    }
+
+    // total (main line)
+    let total = null;
+    const toM = markets.filter(m => type(m) === 'totals');
+    if (toM.length){
+      const m = toM.find(x => ev.totalsMainLine != null && +x.line === +ev.totalsMainLine) || toM[0];
+      const names = parse(m.outcomes).map(s => String(s).toLowerCase());
+      const oi = names.findIndex(n => n.startsWith('o')), ui = names.findIndex(n => n.startsWith('u'));
+      total = [{ p: priceOf(m, oi < 0 ? 0 : oi), label:'O ' + (m.line ?? '') }, { p: priceOf(m, ui < 0 ? 1 : ui), label:'U ' + (m.line ?? '') }];
+    }
+
+    const league = (ev.series && ev.series[0] && (ev.series[0].title || ev.series[0].slug)) ||
+                   (ev.seriesSlug || '').toUpperCase() ||
+                   ((ev.tags||[]).find(t => !/^(sports|games|all)$/i.test(t.slug||''))||{}).label || 'Altele';
+
+    return {
+      id: ev.id, slug: ev.slug, title: ev.title, league: String(league),
+      start: ev.startTime || (markets[0] && markets[0].gameStartTime) || ev.startDate,
+      live: !!ev.live, ended: !!ev.ended, score: ev.score || '', period: ev.period || '', elapsed: ev.elapsed || '',
+      vol: ev.volume || 0, teams, ml, draw, spread, total, mlSlug
+    };
+  }
+
+  /* ---------- data ---------- */
+  async function getPages(params, maxPages){
+    let out = [], cursor = null;
+    for (let i = 0; i < maxPages; i++){
+      const u = new URL(API + '/events/keyset');
+      Object.entries(params).forEach(([k,v]) => u.searchParams.set(k, v));
+      if (cursor) u.searchParams.set('after_cursor', cursor);
+      const r = await fetch(u, { headers:{ accept:'application/json' } });
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      const j = await r.json();
+      out = out.concat(j.events || []);
+      cursor = j.next_cursor; if (!cursor) break;
+    }
+    return out;
+  }
+
+  async function load(){
+    try {
+      let raw;
+      if (DEMO) raw = demoData();
+      else if (state.mode === 'live') raw = await getPages({ live:'true', closed:'false', tag_slug:'sports', limit:100 }, 3);
+      else {
+        const now = new Date(), until = new Date(Date.now() + 24*3600e3);
+        raw = await getPages({ closed:'false', tag_slug:'sports', start_time_min: now.toISOString(), start_time_max: until.toISOString(),
+                               order:'startTime', ascending:'true', limit:100 }, 2);
+      }
+      // keep only main game events (skip props / halftime companions)
+      raw = raw.filter(e => !/-(player-props|halftime-result|second-half-result|exact-score|first-to-score|more-markets)$/.test(e.slug||''));
+      const evs = raw.map(norm).filter(Boolean)
+        .filter(e => state.mode === 'live' ? (e.live && !e.ended) || DEMO : !e.live && !e.ended);
+      evs.sort((a,b) => (b.vol - a.vol));
+      state.events = evs; state.error = null; state.last = new Date();
+    } catch (e) {
+      console.error(e); state.error = e;
+    }
+    state.loading = false;
+    render();
+  }
+
+  /* ---------- live score socket ---------- */
+  let ws, wsTimer;
+  function connectWS(){
+    if (DEMO || !('WebSocket' in window)) return;
+    try { ws = new WebSocket(WS); } catch(e){ return; }
+    ws.onmessage = m => {
+      if (m.data === 'ping') { try { ws.send('pong'); } catch(e){} return; }
+      let d; try { d = JSON.parse(m.data); } catch(e){ return; }
+      (Array.isArray(d) ? d : [d]).forEach(u => {
+        const ev = state.events.find(e => e.slug === u.slug); if (!ev) return;
+        const changed = u.score != null && u.score !== ev.score;
+        if (u.score != null) ev.score = u.score;
+        if (u.period != null) ev.period = u.period;
+        if (u.elapsed != null) ev.elapsed = u.elapsed;
+        if (u.live != null) ev.live = u.live;
+        if (u.ended) ev.ended = true;
+        patchCard(ev, changed);
+      });
+      setStatus(true);
+    };
+    ws.onclose = () => { clearTimeout(wsTimer); wsTimer = setTimeout(connectWS, 5000); };
+    ws.onerror = () => { try { ws.close(); } catch(e){} };
+  }
+
+  /* ---------- render ---------- */
+  function scoresOf(e){
+    const s = String(e.score||'');
+    if (!s || /,/.test(s)) {            // tennis-style "6-4, 3-2" → sets won + current set
+      const sets = s.split(',').map(x => x.trim().split('-').map(Number)).filter(x => x.length === 2 && !x.some(isNaN));
+      if (!sets.length) return [null,null];
+      const cur = sets[sets.length-1];
+      return [cur[0], cur[1]];
+    }
+    const p = s.split('-').map(x => x.trim());
+    return p.length === 2 ? p : [null,null];
+  }
+  function statusBadge(e){
+    if (e.ended) return `<span class="badge end">FINAL</span>`;
+    if (e.live){
+      const per = PERIOD[e.period] || e.period || '';
+      const soccer = /^(1H|2H|ET)$/.test(e.period);
+      const el = e.elapsed ? ` · ${esc(soccer && /^\d+:\d+$/.test(e.elapsed) ? (+e.elapsed.split(':')[0]) + "'" : e.elapsed)}` : '';
+      return `<span class="badge live">LIVE</span><span>${esc(per)}${el}</span>`;
+    }
+    return `<span class="badge soon">${esc(e.start ? dayRO(e.start) : 'În curând')}</span>`;
+  }
+  const btn = (p, cls, label, href) => {
+    const c = cents(p);
+    if (c == null) return `<span class="px empty">—</span>`;
+    return `<a class="px ${cls}" href="${href}" target="_blank" rel="noopener" title="Probabilitate implicită ${c}%">${label ? `<small>${esc(label)}</small>` : ''}${c}¢</a>`;
+  };
+  function logo(t){
+    return `<span class="logo">${t.logo ? `<img src="${esc(t.logo)}" alt="" loading="lazy" onerror="this.remove()">` : ''}${t.logo ? '' : esc(initials(t.name))}</span>`;
+  }
+  function card(e){
+    const href = `${PM}/event/${encodeURIComponent(e.slug)}`;
+    const [s0,s1] = scoresOf(e);
+    const lead = (+s0 > +s1) ? 0 : (+s1 > +s0) ? 1 : -1;
+    const rows = e.teams.map((t,i) => `
+      <div class="team">${logo(t)}<span class="tname">${esc(t.name)}</span>
+        ${(e.live||e.ended) && (i===0?s0:s1) != null ? `<span class="score ${lead===i?'lead':lead<0?'':'trail'}" data-s="${i}">${esc(i===0?s0:s1)}</span>` : ''}
+      </div>
+      <div class="mkts">
+        ${btn(e.ml[i], i===0?'a':'b', '', href)}
+        ${e.spread ? btn(e.spread[i].p, 'n', e.spread[i].label, href) : `<span class="px empty">—</span>`}
+        ${e.total ? btn(e.total[i].p, 'n', e.total[i].label, href) : `<span class="px empty">—</span>`}
+      </div>`).join('');
+    const p0 = cents(e.ml[0]), p1 = cents(e.ml[1]);
+    const bar = (p0 != null && p1 != null && e.draw == null) ? `<div class="bar"><i style="width:${Math.round(100*p0/((p0+p1)||1))}%"></i></div>` : '';
+    return `
+      <article class="card" data-slug="${esc(e.slug)}">
+        <div class="card-top">
+          <span class="st">${statusBadge(e)}</span>
+          <span class="vol">${money(e.vol)} vol.</span>
+          <a class="ext" href="${href}" target="_blank" rel="noopener" aria-label="Deschide sursa">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 3h7v7M10 14 21 3M21 14v7H3V3h7"/></svg>
+          </a>
+        </div>
+        <div class="rows">
+          ${rows}
+          ${e.draw != null ? `<div class="draw-row">Egal ${btn(e.draw,'n','',href)}</div>` : ''}
+        </div>
+        ${bar}
+      </article>`;
+  }
+  function patchCard(e, flash){
+    const el = document.querySelector(`.card[data-slug="${CSS.escape(e.slug)}"]`); if (!el) return;
+    el.querySelector('.st').innerHTML = statusBadge(e);
+    const [s0,s1] = scoresOf(e);
+    el.querySelectorAll('.score').forEach(n => {
+      const v = n.dataset.s === '0' ? s0 : s1;
+      if (v != null) n.textContent = v;
+      if (flash) { n.classList.remove('flash'); void n.offsetWidth; n.classList.add('flash'); }
+    });
+  }
+
+  function filtered(){
+    const q = state.q.trim().toLowerCase();
+    return state.events.filter(e =>
+      (state.league === 'all' || e.league === state.league) &&
+      (!q || (e.title + ' ' + e.league + ' ' + e.teams.map(t=>t.name).join(' ')).toLowerCase().includes(q)));
+  }
+  function setStatus(ok){
+    $('#dot').className = 'dot' + (ok ? ' ok' : '');
+    if (state.error) { $('#stat').textContent = 'Nu s-au putut încărca datele'; return; }
+    const n = state.events.length;
+    $('#stat').textContent = (DEMO ? 'Mod demo · ' : '') +
+      `${n} ${n===1?'meci':'meciuri'} · actualizat la ${state.last ? state.last.toLocaleTimeString('ro-RO') : '—'}` +
+      (state.mode === 'live' && !DEMO ? ' · scoruri în timp real' : '');
+  }
+  function renderLeagues(){
+    const counts = {};
+    state.events.forEach(e => counts[e.league] = (counts[e.league]||0) + 1);
+    const leagues = Object.keys(counts).sort((a,b) => counts[b]-counts[a]);
+    if (state.league !== 'all' && !counts[state.league]) state.league = 'all';
+    const item = (k, label, n) => `<button data-l="${esc(k)}" class="${state.league===k?'on':''}">${esc(label)}<span class="cnt">${n}</span></button>`;
+    $('#side').innerHTML = `<div class="lbl">Ligi</div>` + item('all','Toate', state.events.length) + leagues.map(l => item(l, l, counts[l])).join('');
+    $('#chips').innerHTML = [`<button data-l="all" class="${state.league==='all'?'on':''}">Toate</button>`]
+      .concat(leagues.map(l => `<button data-l="${esc(l)}" class="${state.league===l?'on':''}">${esc(l)}</button>`)).join('');
+  }
+  function render(){
+    $('#title').textContent = state.mode === 'live' ? 'Sport Live' : 'Urmează (24h)';
+    renderLeagues(); setStatus(!state.error);
+    const list = $('#list');
+    if (state.loading) { list.innerHTML = '<div class="skel"></div>'.repeat(4); return; }
+    if (state.error) {
+      list.innerHTML = `<div class="err"><b>Datele nu au putut fi încărcate</b>Sursa nu răspunde momentan sau conexiunea a fost blocată.<br><button id="retry">Încearcă din nou</button></div>`;
+      $('#retry').onclick = () => { state.loading = true; render(); load(); };
+      return;
+    }
+    const evs = filtered();
+    if (!evs.length) {
+      list.innerHTML = `<div class="empty-state"><b>${state.mode==='live' ? 'Niciun meci live acum' : 'Nimic programat în următoarele 24h'}</b>
+        ${state.mode==='live' ? 'Vezi ce urmează în tab-ul „Urmează”.' : 'Revino mai târziu.'}
+        ${state.mode==='live' ? '<br><button data-go="soon">Vezi meciurile următoare</button>' : ''}</div>`;
+      const g = list.querySelector('[data-go]'); if (g) g.onclick = () => setMode('soon');
+      return;
+    }
+    const groups = {};
+    evs.forEach(e => (groups[e.league] = groups[e.league] || []).push(e));
+    list.innerHTML = Object.entries(groups)
+      .sort((a,b) => b[1].reduce((s,e)=>s+e.vol,0) - a[1].reduce((s,e)=>s+e.vol,0))
+      .map(([lg, items]) => `
+        <section class="league">
+          <div class="league-h"><h2>${esc(lg)}</h2><div class="cols"><span>Câștigător</span><span>Handicap</span><span>Total</span></div></div>
+          ${items.map(card).join('')}
+        </section>`).join('');
+  }
+
+  function setMode(m){
+    state.mode = m; state.loading = true; state.league = 'all';
+    document.querySelectorAll('.tabs button').forEach(b => b.classList.toggle('on', b.dataset.mode === m));
+    render(); load();
+  }
+
+  /* ---------- events ---------- */
+  document.querySelectorAll('.tabs button').forEach(b => b.onclick = () => setMode(b.dataset.mode));
+  document.addEventListener('click', ev => {
+    const b = ev.target.closest('[data-l]'); if (!b) return;
+    state.league = b.dataset.l; render();
+  });
+  let qt; $('#q').addEventListener('input', ev => { clearTimeout(qt); qt = setTimeout(() => { state.q = ev.target.value; render(); }, 150); });
+  document.addEventListener('visibilitychange', () => { if (!document.hidden) load(); });
+  setInterval(() => { if (!document.hidden) load(); }, REFRESH_MS);
+
+  /* ---------- demo data (?demo=1) ---------- */
+  function demoData(){
+    const s = (slug,title,series,teams,score,period,elapsed,vol,mk) => ({ slug, title, live:true, score, period, elapsed, volume:vol,
+      series:[{title:series}], teams:teams.map(n=>({name:n})), spreadsMainLine: mk.sp, totalsMainLine: mk.to, markets: mk.m });
+    const m2 = (a,b,pa) => ({ sportsMarketType:'moneyline', outcomes:JSON.stringify([a,b]), outcomePrices:JSON.stringify([pa,1-pa]) });
+    const sp = (a,b,l,pa) => ({ sportsMarketType:'spreads', line:l, outcomes:JSON.stringify([a,b]), outcomePrices:JSON.stringify([pa,1-pa]) });
+    const to = (l,po) => ({ sportsMarketType:'totals', line:l, outcomes:JSON.stringify(['Over','Under']), outcomePrices:JSON.stringify([po,1-po]) });
+    const y = (g,p) => ({ sportsMarketType:'moneyline', groupItemTitle:g, outcomes:'["Yes","No"]', outcomePrices:JSON.stringify([p,1-p]) });
+    return [
+      s('demo-1','FCSB vs. Universitatea Craiova','SuperLiga',['FCSB','Universitatea Craiova'],'1-0','2H','63:12',412000,
+        { to:2.5, m:[ y('FCSB',.71), y('Draw',.21), y('Universitatea Craiova',.09), to(2.5,.38) ] }),
+      s('demo-2','Rapid București vs. CFR Cluj','SuperLiga',['Rapid București','CFR Cluj'],'1-1','1H','38:40',188000,
+        { to:2.5, m:[ y('Rapid București',.36), y('Draw',.39), y('CFR Cluj',.26), to(2.5,.61) ] }),
+      s('demo-3','Lakers vs. Celtics','NBA',['Lakers','Celtics'],'78-82','Q3','05:30',2630000,
+        { sp:3.5, to:221.5, m:[ m2('Lakers','Celtics',.41), sp('Lakers','Celtics',3.5,.52), to(221.5,.49) ] }),
+      s('demo-4','Japan Open: T. Gibson vs. A. Krueger','WTA',['T. Gibson','A. Krueger'],'1-6, 1-4','S2','',263100,
+        { sp:1.5, to:22.5, m:[ m2('T. Gibson','A. Krueger',.03), sp('T. Gibson','A. Krueger',1.5,.52), to(22.5,.09) ] }),
+    ];
+  }
+
+  render(); load(); connectWS();
+})();
+</script>
+</body>
+</html>
