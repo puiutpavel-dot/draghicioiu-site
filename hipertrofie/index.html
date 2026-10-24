@@ -1,0 +1,609 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Hipertrofie · jurnal de antrenament · draghicioiu.ro</title>
+<meta name="description" content="Jurnal de antrenament pentru hipertrofie: notezi seturile cu vocea, filmezi seturile, urmărești 1RM estimat și volumul pe grupe musculare.">
+<meta name="theme-color" content="#0c0e13">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect x='3' y='3' width='18' height='18' rx='6' fill='%23e5484d'/%3E%3Cpath d='M7 12h10M8.5 9v6M15.5 9v6' stroke='white' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f6f7f9; --surface:#ffffff; --surface-2:#f1f3f6; --border:#e3e6eb;
+  --text:#14171c; --muted:#6b7280; --faint:#9aa1ac;
+  --accent:#e5484d; --accent-soft:rgba(229,72,77,.10); --on-accent:#fff;
+  --ok:#16a34a; --ok-soft:rgba(22,163,74,.10); --warn:#b7791f; --warn-soft:rgba(183,121,31,.12);
+  --shadow:0 1px 2px rgba(16,24,40,.05); --radius:14px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0c0e13; --surface:#151821; --surface-2:#1c202b; --border:#262b37;
+    --text:#eef1f6; --muted:#8b93a3; --faint:#5d6576;
+    --accent:#ff5c61; --accent-soft:rgba(255,92,97,.14);
+    --ok:#2fbf71; --ok-soft:rgba(47,191,113,.13); --warn:#f2b84b; --warn-soft:rgba(242,184,75,.13);
+    --shadow:none; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0c0e13; --surface:#151821; --surface-2:#1c202b; --border:#262b37;
+  --text:#eef1f6; --muted:#8b93a3; --faint:#5d6576;
+  --accent:#ff5c61; --accent-soft:rgba(255,92,97,.14);
+  --ok:#2fbf71; --ok-soft:rgba(47,191,113,.13); --warn:#f2b84b; --warn-soft:rgba(242,184,75,.13);
+  --shadow:none; color-scheme:dark;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html,body{margin:0}
+body{background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;font-size:15px;line-height:1.45;-webkit-font-smoothing:antialiased;padding-bottom:calc(76px + env(safe-area-inset-bottom,0px))}
+a{color:inherit;text-decoration:none}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:6px}
+.wrap{max-width:760px;margin:0 auto;padding:0 16px}
+
+.top{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--border);padding-top:env(safe-area-inset-top,0px)}
+.top .wrap{display:flex;align-items:center;gap:12px;height:56px}
+.back{color:var(--muted);font-size:13px;white-space:nowrap}
+.back:hover{color:var(--text)}
+.brand{font-weight:800;font-size:16px;letter-spacing:-.01em;white-space:nowrap}
+.brand span{color:var(--accent)}
+.spacer{flex:1}
+.pill{font-size:12px;color:var(--muted);background:var(--surface-2);border:1px solid var(--border);border-radius:999px;padding:3px 10px;white-space:nowrap}
+
+.tabs{position:fixed;left:0;right:0;bottom:0;z-index:30;background:color-mix(in srgb,var(--surface) 92%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid var(--border);padding-bottom:env(safe-area-inset-bottom,0px)}
+.tabs .wrap{display:grid;grid-template-columns:repeat(4,1fr);height:64px}
+.tabs button{background:none;border:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:var(--faint);font-size:11px;font-weight:600}
+.tabs button svg{width:22px;height:22px}
+.tabs button.on{color:var(--accent)}
+
+main{padding:18px 0 24px}
+h1{font-size:26px;letter-spacing:-.02em;margin:4px 0 4px}
+h2{font-size:17px;margin:0 0 10px;letter-spacing:-.01em}
+.sub{color:var(--muted);margin:0 0 16px;font-size:14px}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:16px;margin-bottom:14px}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:12px;border:1px solid var(--border);background:var(--surface-2);padding:10px 14px;font-weight:600;font-size:14px;min-height:44px}
+.btn:hover{border-color:var(--faint)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.btn.ghost{background:none}
+.btn.sm{min-height:34px;padding:6px 10px;font-size:13px;border-radius:10px}
+.btn.block{width:100%}
+.btn svg{width:18px;height:18px}
+label.f{display:flex;flex-direction:column;gap:5px;font-size:12px;color:var(--muted);font-weight:600}
+.in{width:100%;background:var(--surface-2);border:1px solid var(--border);border-radius:10px;padding:10px 12px;min-height:44px;font-size:16px}
+.in:focus{outline:none;border-color:var(--accent)}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.chk{display:flex;align-items:center;gap:8px;font-size:14px;color:var(--muted)}
+.chk input{width:18px;height:18px;accent-color:var(--accent)}
+
+.mic{position:relative;width:100%;min-height:64px;font-size:16px;border-radius:16px}
+.mic.live{background:var(--accent);border-color:var(--accent);color:#fff;animation:pulse 1.2s ease-in-out infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 var(--accent-soft)}50%{box-shadow:0 0 0 10px var(--accent-soft)}}
+.heard{margin-top:10px;font-size:14px;color:var(--muted);min-height:20px}
+.heard b{color:var(--text);font-weight:600}
+.hint{font-size:12px;color:var(--faint);margin-top:8px}
+
+.ex-group{margin-bottom:14px}
+.ex-head{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:6px}
+.ex-head b{font-size:15px}
+.ex-head small{color:var(--faint);font-size:12px}
+.set{display:grid;grid-template-columns:28px 1fr auto;gap:10px;align-items:center;padding:9px 0;border-top:1px solid var(--border)}
+.set:first-of-type{border-top:0}
+.set .n{width:24px;height:24px;border-radius:7px;background:var(--surface-2);display:grid;place-items:center;font-size:12px;font-weight:700;color:var(--muted)}
+.set .n.w{background:var(--warn-soft);color:var(--warn)}
+.set .main{font-variant-numeric:tabular-nums;font-weight:600}
+.set .main span{color:var(--muted);font-weight:500}
+.set .meta{font-size:12px;color:var(--faint);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.set .acts{display:flex;gap:6px}
+.ico{width:34px;height:34px;border-radius:9px;border:1px solid var(--border);background:var(--surface-2);display:grid;place-items:center;color:var(--muted)}
+.ico svg{width:16px;height:16px}
+.ico.has{color:var(--accent);border-color:var(--accent);background:var(--accent-soft)}
+.empty{color:var(--faint);text-align:center;padding:22px 8px;font-size:14px}
+
+.timer{display:flex;align-items:center;gap:12px;justify-content:space-between}
+.timer .t{font-size:28px;font-weight:800;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.timer .t.done{color:var(--ok)}
+
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
+.stat{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:12px}
+.stat small{display:block;color:var(--muted);font-size:12px}
+.stat b{font-size:22px;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+
+.hist-item{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 0;border-top:1px solid var(--border)}
+.hist-item:first-child{border-top:0}
+.hist-item .d{font-weight:600}
+.hist-item .s{font-size:13px;color:var(--muted)}
+details.hist summary{list-style:none;cursor:pointer}
+details.hist summary::-webkit-details-marker{display:none}
+details.hist[open] .hist-body{padding:4px 0 10px}
+
+.chart{width:100%;height:auto;display:block}
+.chart .grid line{stroke:var(--border)}
+.chart text{fill:var(--faint);font-size:11px;font-family:inherit}
+.chart .ln{fill:none;stroke:var(--accent);stroke-width:2.5;stroke-linejoin:round;stroke-linecap:round}
+.chart .ar{fill:var(--accent-soft)}
+.chart .dt{fill:var(--surface);stroke:var(--accent);stroke-width:2}
+
+.vol{display:grid;gap:8px}
+.vol .r{display:grid;grid-template-columns:110px 1fr 46px;gap:10px;align-items:center;font-size:13px}
+.vol .bar{height:10px;background:var(--surface-2);border-radius:99px;overflow:hidden;position:relative}
+.vol .bar i{position:absolute;inset:0 auto 0 0;background:var(--accent);border-radius:99px}
+.vol .bar i.ok{background:var(--ok)}
+.vol .r span:last-child{text-align:right;font-variant-numeric:tabular-nums;color:var(--muted)}
+.legend{font-size:12px;color:var(--faint);margin-top:10px}
+
+.cmp{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.cmp video{width:100%;aspect-ratio:9/16;object-fit:contain;background:#000;border-radius:12px}
+.cmp .cap{font-size:12px;color:var(--muted);margin-top:4px;min-height:16px}
+.seg{display:inline-flex;background:var(--surface-2);border:1px solid var(--border);border-radius:10px;padding:3px}
+.seg button{border:0;background:none;padding:6px 10px;border-radius:7px;font-size:13px;font-weight:600;color:var(--muted)}
+.seg button.on{background:var(--surface);color:var(--text);box-shadow:var(--shadow)}
+
+.toast{position:fixed;left:50%;bottom:calc(84px + env(safe-area-inset-bottom,0px));transform:translateX(-50%) translateY(20px);background:var(--text);color:var(--bg);padding:10px 16px;border-radius:12px;font-size:14px;font-weight:600;opacity:0;pointer-events:none;transition:.25s;z-index:60;max-width:calc(100% - 32px);text-align:center}
+.toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+dialog{border:1px solid var(--border);border-radius:18px;background:var(--surface);color:var(--text);padding:0;width:min(520px,calc(100% - 24px))}
+dialog::backdrop{background:rgba(0,0,0,.5)}
+dialog .dh{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;border-bottom:1px solid var(--border)}
+dialog .db{padding:14px 16px}
+dialog video{width:100%;max-height:70vh;background:#000;border-radius:12px}
+.note{font-size:13px;color:var(--muted);background:var(--surface-2);border-radius:12px;padding:12px 14px}
+@media (max-width:420px){.grid3{gap:8px}.stats{gap:8px}.stat b{font-size:19px}.vol .r{grid-template-columns:92px 1fr 40px}}
+</style>
+</head>
+<body>
+<header class="top">
+<div class="wrap">
+<a class="back" href="/" aria-label="Înapoi la draghicioiu.ro">← Acasă</a>
+<div class="brand">Hiper<span>trofie</span></div>
+<div class="spacer"></div>
+<span class="pill" title="Datele rămân în acest browser până pornim sincronizarea">Beta web</span>
+</div>
+</header>
+
+<main class="wrap">
+
+<!-- AZI -->
+<section id="v-azi" data-view>
+<h1 id="aziTitle">Antrenamentul de azi</h1>
+<p class="sub" id="aziSub">Spune setul cu voce tare sau completează câmpurile.</p>
+
+<div class="card" id="startCard">
+<h2>Pornește un antrenament</h2>
+<p class="sub" style="margin-bottom:12px">Fiecare set se salvează imediat pe acest dispozitiv.</p>
+<button class="btn primary block" id="startBtn">Începe antrenamentul</button>
+</div>
+
+<div id="liveArea" hidden>
+<div class="card">
+<button class="btn mic" id="micBtn" aria-live="polite">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg>
+<span id="micLbl">Ține apăsat și dictează setul</span>
+</button>
+<div class="heard" id="heard"></div>
+<div class="hint" id="micHint">Exemplu: „genuflexiuni 100 kilograme 8 repetări RIR 2”.</div>
+</div>
+
+<div class="card">
+<h2>Set nou</h2>
+<label class="f" style="margin-bottom:10px">Exercițiu
+<select class="in" id="fEx"></select>
+</label>
+<div class="grid3" style="margin-bottom:10px">
+<label class="f">Kg<input class="in" id="fKg" type="number" inputmode="decimal" step="0.5" min="0" placeholder="0"></label>
+<label class="f">Repetări<input class="in" id="fReps" type="number" inputmode="numeric" step="1" min="0" placeholder="0"></label>
+<label class="f">RIR<input class="in" id="fRir" type="number" inputmode="decimal" step="0.5" min="0" max="10" placeholder="–"></label>
+</div>
+<div class="row" style="justify-content:space-between;margin-bottom:12px">
+<label class="chk"><input type="checkbox" id="fWarm"> Set de încălzire</label>
+<button class="btn sm ghost" id="addExBtn" type="button">+ Exercițiu propriu</button>
+</div>
+<button class="btn primary block" id="saveSet">Salvează setul</button>
+</div>
+
+<div class="card" id="timerCard" hidden>
+<div class="timer">
+<div><small style="color:var(--muted);font-size:12px">Pauză</small><div class="t" id="timerT">2:00</div></div>
+<div class="row">
+<button class="btn sm" data-rest="-30">−30s</button>
+<button class="btn sm" data-rest="30">+30s</button>
+<button class="btn sm ghost" id="timerStop">Gata</button>
+</div>
+</div>
+</div>
+
+<div class="card">
+<div class="row" style="justify-content:space-between;margin-bottom:6px">
+<h2 style="margin:0">Seturile de azi</h2>
+<span class="pill" id="setCount">0 seturi</span>
+</div>
+<div id="todaySets"></div>
+</div>
+
+<button class="btn block" id="endBtn">Termină antrenamentul</button>
+</div>
+</section>
+
+<!-- ISTORIC -->
+<section id="v-istoric" data-view hidden>
+<h1>Istoric</h1>
+<p class="sub">Toate antrenamentele salvate pe acest dispozitiv.</p>
+<div class="card" id="histList"></div>
+<div class="card">
+<h2>Copie de siguranță</h2>
+<p class="sub" style="margin-bottom:12px">Exportă jurnalul ca fișier. Clipurile video nu intră în export.</p>
+<div class="row">
+<button class="btn sm" id="expBtn">Exportă</button>
+<label class="btn sm" style="cursor:pointer">Importă<input type="file" accept="application/json" id="impIn" hidden></label>
+</div>
+</div>
+</section>
+
+<!-- PROGRES -->
+<section id="v-progres" data-view hidden>
+<h1>Progres</h1>
+<p class="sub">1RM estimat (Epley), din seturile de lucru cu 1–12 repetări.</p>
+<div class="card">
+<label class="f" style="margin-bottom:12px">Exercițiu<select class="in" id="pEx"></select></label>
+<div class="stats" id="pStats"></div>
+<div id="pChart"></div>
+</div>
+<div class="card">
+<h2>Volum pe grupe musculare · ultimele 7 zile</h2>
+<div class="vol" id="volList"></div>
+<p class="legend">Se numără seturile de lucru (fără încălzire) cu RIR 4 sau mai puțin, ori fără RIR notat. Verde: cel puțin 10 seturi pe săptămână.</p>
+</div>
+</section>
+
+<!-- VIDEO -->
+<section id="v-video" data-view hidden>
+<h1>Compară seturi</h1>
+<p class="sub">Alege două clipuri și rulează-le în paralel, cu încetinitorul.</p>
+<div class="card">
+<div class="grid3" style="grid-template-columns:1fr 1fr;margin-bottom:12px">
+<label class="f">Stânga<select class="in" id="vA"></select></label>
+<label class="f">Dreapta<select class="in" id="vB"></select></label>
+</div>
+<div class="cmp">
+<div><video id="vidA" playsinline muted></video><div class="cap" id="capA"></div></div>
+<div><video id="vidB" playsinline muted></video><div class="cap" id="capB"></div></div>
+</div>
+<div class="row" style="justify-content:space-between;margin-top:12px">
+<button class="btn primary sm" id="vPlay">Redă ambele</button>
+<div class="seg" id="vSpeed"><button data-s="0.25">0.25×</button><button data-s="0.5" class="on">0.5×</button><button data-s="1">1×</button></div>
+</div>
+<input type="range" id="vSeek" min="0" max="1000" value="0" style="width:100%;margin-top:12px;accent-color:var(--accent)" aria-label="Poziție în clipuri">
+</div>
+<p class="note">Clipurile rămân doar pe acest dispozitiv. Filmează un set din butonul cu camera de lângă el, în tab-ul Azi.</p>
+</section>
+
+</main>
+
+<nav class="tabs" aria-label="Secțiuni">
+<div class="wrap">
+<button data-tab="azi" class="on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6.5 6.5v11M17.5 6.5v11M3 9.5v5M21 9.5v5M6.5 12h11"/></svg>Azi</button>
+<button data-tab="istoric"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="3"/><path d="M4 10h16M9 3v4M15 3v4"/></svg>Istoric</button>
+<button data-tab="progres"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 19h16M6 15l4-4 3 3 5-6"/></svg>Progres</button>
+<button data-tab="video"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="3" y="6" width="13" height="12" rx="3"/><path d="m16 10 5-3v10l-5-3"/></svg>Video</button>
+</div>
+</nav>
+
+<input type="file" accept="video/*" capture="environment" id="vidIn" hidden>
+<dialog id="vidDlg"><div class="dh"><b id="vidDlgT">Clip</b><button class="btn sm ghost" id="vidDlgX">Închide</button></div><div class="db"><video id="vidDlgV" controls playsinline></video><div class="row" style="margin-top:10px;justify-content:space-between"><div class="seg" id="dlgSpeed"><button data-s="0.25">0.25×</button><button data-s="0.5">0.5×</button><button data-s="1" class="on">1×</button></div><button class="btn sm ghost" id="vidDel">Șterge clipul</button></div></div></dialog>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+(()=>{
+'use strict';
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const KEY='hipertrofie.v1';
+
+/* ---------- Exerciții de bază (aceleași ca în schema Supabase v1) ---------- */
+const BASE=[
+['genuflexiuni','Genuflexiuni cu haltera',['genuflexiuni','squat','genoflexiuni','genuflexiune'],'Cvadriceps'],
+['bench','Împins la piept cu haltera',['impins la piept','bench press','bench','impins','piept'],'Piept'],
+['incline','Împins înclinat cu gantere',['impins inclinat','incline','inclinat'],'Piept'],
+['rdl','Îndreptări românești',['indreptari romanesti','romanian deadlift','rdl','indreptari'],'Femurali'],
+['tractiuni','Tracțiuni',['tractiuni','tractiune','pull up','pullups','pull-up'],'Spate'],
+['ramat','Ramat cu haltera',['ramat','barbell row','row'],'Spate'],
+['ohp','Presă militară',['presa militara','overhead press','ohp','militara'],'Umeri'],
+['laterale','Ridicări laterale',['ridicari laterale','fluturari laterale','lateral raise','laterale'],'Umeri'],
+['legpress','Presă pentru picioare',['presa pentru picioare','presa picioare','leg press','presa'],'Cvadriceps'],
+['legcurl','Flexii femurale',['flexii femurale','leg curl','femurale'],'Femurali'],
+['biceps','Flexii biceps cu haltera',['flexii biceps','biceps','curl'],'Biceps'],
+['triceps','Extensii triceps la cablu',['extensii triceps','triceps','pushdown'],'Triceps'],
+['gambe','Ridicări pe vârfuri',['ridicari pe varfuri','calf raise','gambe','varfuri'],'Gambe']
+].map(([id,name,aliases,muscle])=>({id,name,aliases,muscle}));
+const MUSCLES=['Piept','Spate','Umeri','Cvadriceps','Femurali','Biceps','Triceps','Gambe','Fesieri','Abdomen'];
+
+/* ---------- Stocare ---------- */
+let db;
+function load(){
+  try{ const d=JSON.parse(localStorage.getItem(KEY)); if(d&&Array.isArray(d.workouts)) return {workouts:d.workouts,custom:d.custom||[],active:d.active||null}; }catch(e){}
+  return {workouts:[],custom:[],active:null};
+}
+function save(){ try{ localStorage.setItem(KEY,JSON.stringify(db)); }catch(e){ toast('Nu am putut salva în browser'); } }
+db=load();
+const exercises=()=>[...BASE,...db.custom];
+const exById=id=>exercises().find(e=>e.id===id)||{id,name:id,muscle:'—',aliases:[]};
+const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,7);
+const active=()=>db.workouts.find(w=>w.id===db.active)||null;
+
+/* Videoclipuri în IndexedDB */
+let idb=null;
+function openIDB(){ return new Promise(res=>{ try{ const r=indexedDB.open('hipertrofie-video',1); r.onupgradeneeded=()=>r.result.createObjectStore('v'); r.onsuccess=()=>{idb=r.result;res(idb)}; r.onerror=()=>res(null);}catch(e){res(null)} }); }
+function idbPut(k,v){ return new Promise((res,rej)=>{ if(!idb) return rej(); const t=idb.transaction('v','readwrite'); t.objectStore('v').put(v,k); t.oncomplete=res; t.onerror=rej; }); }
+function idbGet(k){ return new Promise(res=>{ if(!idb) return res(null); const r=idb.transaction('v').objectStore('v').get(k); r.onsuccess=()=>res(r.result||null); r.onerror=()=>res(null); }); }
+function idbDel(k){ return new Promise(res=>{ if(!idb) return res(); const t=idb.transaction('v','readwrite'); t.objectStore('v').delete(k); t.oncomplete=res; t.onerror=res; }); }
+
+/* ---------- Utilitare ---------- */
+const norm=s=>s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[„”"]/g,' ').replace(/\s+/g,' ').trim();
+const fmt=n=>(Math.round(n*10)/10).toLocaleString('ro-RO');
+const e1rm=s=>(!s.warm&&s.kg>0&&s.reps>=1&&s.reps<=12)?s.kg*(1+s.reps/30):null;
+const dateStr=t=>new Date(t).toLocaleDateString('ro-RO',{weekday:'short',day:'numeric',month:'short'});
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+let toastT; function toast(m){ const t=$('#toast'); t.textContent=m; t.classList.add('on'); clearTimeout(toastT); toastT=setTimeout(()=>t.classList.remove('on'),2200); }
+
+/* ---------- Parser vocal ---------- */
+const WORDNUM={zero:0,unu:1,una:1,o:1,un:1,doi:2,doua:2,trei:3,patru:4,cinci:5,sase:6,sapte:7,opt:8,noua:9,zece:10,unsprezece:11,doisprezece:12,douasprezece:12,treisprezece:13,paisprezece:14,cincisprezece:15,saisprezece:16,saptesprezece:17,optsprezece:18,nouasprezece:19,douazeci:20};
+function parseSpeech(raw){
+  let t=' '+norm(raw)+' ';
+  // cuvinte → cifre ("opt repetari" → "8 repetari"), virgulă zecimală
+  t=t.replace(/\b([a-z]+)\b/g,w=>WORDNUM[w]!==undefined&&!['o','un'].includes(w)?String(WORDNUM[w]):w);
+  t=t.replace(/(\d),(\d)/g,'$1.$2').replace(/\bsi jumatate\b/g,'.5').replace(/(\d) \.5/g,'$1.5');
+  const out={};
+  // exercițiu: cel mai lung alias găsit
+  let best=null;
+  for(const ex of exercises()) for(const a of ex.aliases.concat([ex.name])){ const na=norm(a); if(na&&t.includes(' '+na+' ')&&(!best||na.length>best.len)) best={id:ex.id,len:na.length}; }
+  if(best) out.ex=best.id;
+  const num='(\\d+(?:\\.\\d+)?)';
+  let m;
+  if((m=t.match(new RegExp('\\brir\\s*'+num)))||(m=t.match(new RegExp(num+'\\s*(?:de\\s*)?rir\\b')))||(m=t.match(new RegExp(num+'\\s*(?:repetari|repetitii)?\\s*in rezerva'))))
+  { out.rir=+m[1]; t=t.replace(m[0],' '); }
+  if((m=t.match(new RegExp(num+'\\s*(?:x|ori|pe)\\s*'+num+'(?!\\s*(?:kg|kile|kilo))')))&&!/(repetari|repetitii|rep)\b/.test(t.slice(t.indexOf(m[0])+m[0].length,t.indexOf(m[0])+m[0].length+12)))
+  { out.kg=+m[1]; out.reps=Math.round(+m[2]); t=t.replace(m[0],' '); }
+  if(out.kg===undefined&&(m=t.match(new RegExp(num+'\\s*(?:de\\s*)?(?:kg|kilograme|kilogram|kile|kilo|kgs)\\b')))){ out.kg=+m[1]; t=t.replace(m[0],' '); }
+  if(out.reps===undefined&&(m=t.match(new RegExp(num+'\\s*(?:de\\s*)?(?:repetari|repetitii|repetare|repetitie|reps|rep|ori)\\b')))){ out.reps=Math.round(+m[1]); t=t.replace(m[0],' '); }
+  if(/\b(incalzire|warm up|warmup)\b/.test(t)) out.warm=true;
+  const rest=[...t.matchAll(/\b\d+(?:\.\d+)?\b/g)].map(x=>+x[0]);
+  if(out.kg===undefined&&out.reps===undefined&&rest.length>=2){ out.kg=rest[0]; out.reps=Math.round(rest[1]); }
+  else if(out.kg===undefined&&rest.length) out.kg=rest[0];
+  else if(out.reps===undefined&&rest.length) out.reps=Math.round(rest[0]);
+  return out;
+}
+window.__parseSpeech=parseSpeech;
+
+/* ---------- Formular ---------- */
+function fillSelect(sel,withAll){
+  const groups={};
+  exercises().forEach(e=>(groups[e.muscle]=groups[e.muscle]||[]).push(e));
+  sel.innerHTML=Object.keys(groups).map(g=>`<optgroup label="${esc(g)}">${groups[g].map(e=>`<option value="${e.id}">${esc(e.name)}</option>`).join('')}</optgroup>`).join('');
+}
+function applyParsed(p){
+  if(p.ex) $('#fEx').value=p.ex;
+  if(p.kg!==undefined) $('#fKg').value=p.kg;
+  if(p.reps!==undefined) $('#fReps').value=p.reps;
+  if(p.rir!==undefined) $('#fRir').value=p.rir;
+  if(p.warm) $('#fWarm').checked=true;
+}
+let lastTranscript='';
+function saveSet(){
+  const w=active(); if(!w) return;
+  const kg=parseFloat($('#fKg').value), reps=parseInt($('#fReps').value,10), rirV=$('#fRir').value;
+  if(!(reps>=0)||isNaN(reps)){ toast('Completează repetările'); $('#fReps').focus(); return; }
+  const s={id:uid(),ex:$('#fEx').value,kg:isNaN(kg)?0:kg,reps,rir:rirV===''?null:+rirV,warm:$('#fWarm').checked,at:Date.now()};
+  if(lastTranscript) s.voice=lastTranscript;
+  w.sets.push(s); save();
+  lastTranscript=''; $('#heard').innerHTML=''; $('#fRir').value=''; $('#fWarm').checked=false;
+  renderToday(); startRest();
+  const prev=bestBefore(s.ex,s.at), now=e1rm(s);
+  toast(now&&prev&&now>prev?`Record nou: 1RM estimat ${fmt(now)} kg`:'Set salvat');
+}
+function bestBefore(ex,t){ let b=0; for(const w of db.workouts) for(const s of w.sets) if(s.ex===ex&&s.at<t){ const v=e1rm(s); if(v>b) b=v; } return b; }
+
+/* ---------- Microfon ---------- */
+const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+let rec=null, recOn=false, finalTxt='';
+function setupMic(){
+  const btn=$('#micBtn');
+  if(!SR){ $('#micLbl').textContent='Dictarea nu merge în acest browser'; btn.disabled=true; btn.style.opacity=.6; $('#micHint').textContent='Pe iPhone merge în Safari. Pe Android și desktop, în Chrome. Între timp folosește câmpurile de mai jos.'; return; }
+  rec=new SR(); rec.lang='ro-RO'; rec.interimResults=true; rec.continuous=true; rec.maxAlternatives=1;
+  rec.onresult=e=>{ let interim=''; for(let i=e.resultIndex;i<e.results.length;i++){ const r=e.results[i]; if(r.isFinal) finalTxt+=r[0].transcript+' '; else interim+=r[0].transcript; } const txt=(finalTxt+interim).trim(); $('#heard').innerHTML='Am auzit: <b>'+esc(txt)+'</b>'; applyParsed(parseSpeech(txt)); };
+  rec.onerror=e=>{ if(e.error==='not-allowed'||e.error==='service-not-allowed') toast('Permite accesul la microfon'); stopMic(); };
+  rec.onend=()=>{ if(recOn) stopMic(true); };
+  const start=ev=>{ ev.preventDefault(); if(recOn) return; finalTxt=''; recOn=true; btn.classList.add('live'); $('#micLbl').textContent='Te ascult… dă drumul când termini'; try{rec.start()}catch(e){} };
+  btn.addEventListener('pointerdown',start);
+  ['pointerup','pointerleave','pointercancel'].forEach(t=>btn.addEventListener(t,()=>{ if(recOn) { try{rec.stop()}catch(e){} } }));
+  btn.addEventListener('keydown',e=>{ if((e.key===' '||e.key==='Enter')&&!recOn) start(e); });
+  btn.addEventListener('keyup',e=>{ if((e.key===' '||e.key==='Enter')&&recOn){ try{rec.stop()}catch(err){} } });
+  btn.addEventListener('contextmenu',e=>e.preventDefault());
+}
+function stopMic(ended){
+  recOn=false; $('#micBtn').classList.remove('live'); $('#micLbl').textContent='Ține apăsat și dictează setul';
+  const txt=finalTxt.trim();
+  if(ended&&txt){ lastTranscript=txt; const p=parseSpeech(txt); applyParsed(p); if(p.reps!==undefined&&(p.kg!==undefined||exById($('#fEx').value).id==='tractiuni')) toast('Verifică valorile și apasă Salvează'); }
+}
+
+/* ---------- Timer pauză ---------- */
+let restEnd=0, restIv=null;
+function startRest(sec=120){ restEnd=Date.now()+sec*1000; $('#timerCard').hidden=false; tick(); clearInterval(restIv); restIv=setInterval(tick,250); }
+function tick(){ const left=Math.max(0,Math.round((restEnd-Date.now())/1000)); const el=$('#timerT'); el.textContent=Math.floor(left/60)+':'+String(left%60).padStart(2,'0'); el.classList.toggle('done',left===0); if(left===0){ clearInterval(restIv); if(navigator.vibrate) navigator.vibrate([200,100,200]); } }
+$$('[data-rest]').forEach(b=>b.addEventListener('click',()=>{ restEnd=Math.max(Date.now(),restEnd)+(+b.dataset.rest)*1000; clearInterval(restIv); restIv=setInterval(tick,250); tick(); }));
+$('#timerStop').addEventListener('click',()=>{ clearInterval(restIv); $('#timerCard').hidden=true; });
+
+/* ---------- Randare seturi ---------- */
+const ICON_CAM='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="3" y="6" width="13" height="12" rx="3"/><path d="m16 10 5-3v10l-5-3"/></svg>';
+const ICON_DEL='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/></svg>';
+function setsHTML(w,editable){
+  if(!w.sets.length) return '<div class="empty">Niciun set încă.</div>';
+  const order=[], by={};
+  w.sets.forEach(s=>{ if(!by[s.ex]){by[s.ex]=[];order.push(s.ex)} by[s.ex].push(s); });
+  return order.map(ex=>{
+    const e=exById(ex); let n=0;
+    return `<div class="ex-group"><div class="ex-head"><b>${esc(e.name)}</b><small>${esc(e.muscle)}</small></div>`+
+    by[ex].map(s=>{ const lbl=s.warm?'Î':String(++n); const r=e1rm(s);
+      return `<div class="set"><div class="n${s.warm?' w':''}">${lbl}</div><div><div class="main">${fmt(s.kg)} kg <span>×</span> ${s.reps}${s.rir!=null?` <span>· RIR ${fmt(s.rir)}</span>`:''}</div><div class="meta">${r?'1RM est. '+fmt(r)+' kg':''}${s.voice?(r?' · ':'')+'„'+esc(s.voice)+'”':''}</div></div>
+      <div class="acts"><button class="ico${s.video?' has':''}" data-vid="${s.id}" aria-label="${s.video?'Vezi clipul':'Filmează setul'}">${ICON_CAM}</button>${editable?`<button class="ico" data-del="${s.id}" aria-label="Șterge setul">${ICON_DEL}</button>`:''}</div></div>`;
+    }).join('')+'</div>';
+  }).join('');
+}
+function renderToday(){
+  const w=active();
+  $('#startCard').hidden=!!w; $('#liveArea').hidden=!w;
+  $('#aziSub').textContent=w?'Ține apăsat microfonul și spune setul, sau completează câmpurile.':'Spune setul cu voce tare sau completează câmpurile.';
+  if(!w) return;
+  $('#todaySets').innerHTML=setsHTML(w,true);
+  const work=w.sets.filter(s=>!s.warm).length;
+  $('#setCount').textContent=work+(work===1?' set':' seturi');
+  // ultimul exercițiu folosit rămâne selectat
+  const last=w.sets[w.sets.length-1]; if(last&&!$('#fEx').dataset.touched) $('#fEx').value=last.ex;
+}
+document.addEventListener('click',async e=>{
+  const d=e.target.closest('[data-del]');
+  if(d){ const w=active(); const s=w&&w.sets.find(x=>x.id===d.dataset.del); if(!s) return; if(!confirm('Ștergi acest set?')) return; if(s.video) await idbDel(s.video); w.sets=w.sets.filter(x=>x!==s); save(); renderToday(); return; }
+  const v=e.target.closest('[data-vid]');
+  if(v){ const s=findSet(v.dataset.vid); if(!s) return; if(s.video) openClip(s); else { pendingSet=s.id; $('#vidIn').value=''; $('#vidIn').click(); } }
+});
+function findSet(id){ for(const w of db.workouts) for(const s of w.sets) if(s.id===id) return s; return null; }
+
+/* ---------- Video per set ---------- */
+let pendingSet=null, dlgSet=null, dlgURL=null;
+$('#vidIn').addEventListener('change',async()=>{
+  const f=$('#vidIn').files[0], s=findSet(pendingSet); if(!f||!s) return;
+  if(!idb) await openIDB();
+  try{ const k='v_'+s.id; await idbPut(k,f); s.video=k; save(); renderAll(); toast('Clip salvat pe dispozitiv'); }
+  catch(err){ toast('Nu am putut salva clipul. Spațiu insuficient?'); }
+});
+async function openClip(s){
+  const blob=await idbGet(s.video);
+  if(!blob){ toast('Clipul nu mai e pe acest dispozitiv'); delete s.video; save(); renderAll(); return; }
+  dlgSet=s; if(dlgURL) URL.revokeObjectURL(dlgURL); dlgURL=URL.createObjectURL(blob);
+  const e=exById(s.ex); $('#vidDlgT').textContent=`${e.name} · ${fmt(s.kg)} kg × ${s.reps}`;
+  const v=$('#vidDlgV'); v.src=dlgURL; v.playbackRate=1; $$('#dlgSpeed button').forEach(b=>b.classList.toggle('on',b.dataset.s==='1'));
+  $('#vidDlg').showModal();
+}
+$('#vidDlgX').addEventListener('click',()=>$('#vidDlg').close());
+$('#vidDlg').addEventListener('close',()=>{ const v=$('#vidDlgV'); v.pause(); v.removeAttribute('src'); v.load(); });
+$('#dlgSpeed').addEventListener('click',e=>{ const b=e.target.closest('button'); if(!b) return; $('#vidDlgV').playbackRate=+b.dataset.s; $$('#dlgSpeed button').forEach(x=>x.classList.toggle('on',x===b)); });
+$('#vidDel').addEventListener('click',async()=>{ if(!dlgSet||!confirm('Ștergi clipul?')) return; await idbDel(dlgSet.video); delete dlgSet.video; save(); $('#vidDlg').close(); renderAll(); });
+
+/* ---------- Istoric ---------- */
+function renderHistory(){
+  const done=db.workouts.filter(w=>w.sets.length).slice().sort((a,b)=>b.started-a.started);
+  if(!done.length){ $('#histList').innerHTML='<div class="empty">Încă nu ai antrenamente salvate.</div>'; return; }
+  $('#histList').innerHTML=done.map(w=>{
+    const work=w.sets.filter(s=>!s.warm), tonnage=work.reduce((a,s)=>a+s.kg*s.reps,0);
+    const exs=[...new Set(w.sets.map(s=>exById(s.ex).name))];
+    const dur=w.ended?Math.round((w.ended-w.started)/60000):null;
+    return `<details class="hist"><summary class="hist-item"><div><div class="d">${dateStr(w.started)}${w.id===db.active?' · <span style="color:var(--accent)">în curs</span>':''}</div><div class="s">${work.length} seturi · ${exs.length} exerciții${dur?` · ${dur} min`:''}</div></div><div class="s" style="text-align:right">${fmt(tonnage)} kg<br>volum</div></summary><div class="hist-body">${setsHTML(w,false)}</div></details>`;
+  }).join('');
+}
+$('#expBtn').addEventListener('click',()=>{
+  const data=JSON.stringify({app:'hipertrofie',version:1,exported:new Date().toISOString(),workouts:db.workouts.map(w=>({...w,sets:w.sets.map(({video,...s})=>s)})),custom:db.custom},null,2);
+  const a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([data],{type:'application/json'})); a.download='hipertrofie-'+new Date().toISOString().slice(0,10)+'.json'; a.click(); setTimeout(()=>URL.revokeObjectURL(a.href),2000);
+});
+$('#impIn').addEventListener('change',async e=>{
+  const f=e.target.files[0]; if(!f) return;
+  try{ const d=JSON.parse(await f.text()); if(!Array.isArray(d.workouts)) throw 0;
+    const have=new Set(db.workouts.map(w=>w.id)); let added=0;
+    d.workouts.forEach(w=>{ if(!have.has(w.id)&&Array.isArray(w.sets)){ db.workouts.push(w); added++; } });
+    (d.custom||[]).forEach(c=>{ if(!db.custom.find(x=>x.id===c.id)) db.custom.push(c); });
+    save(); fillSelect($('#fEx')); renderAll(); toast(added?`Am importat ${added} antrenamente`:'Nimic nou de importat');
+  }catch(err){ toast('Fișierul nu e un export valid'); }
+  e.target.value='';
+});
+
+/* ---------- Progres ---------- */
+function renderProgress(){
+  const sel=$('#pEx'); const used=new Set(); db.workouts.forEach(w=>w.sets.forEach(s=>used.add(s.ex)));
+  const list=exercises().filter(e=>used.has(e.id)); const cur=sel.value;
+  sel.innerHTML=list.length?list.map(e=>`<option value="${e.id}">${esc(e.name)}</option>`).join(''):'<option>Niciun exercițiu înregistrat</option>';
+  if(cur&&list.find(e=>e.id===cur)) sel.value=cur;
+  const ex=list.length?sel.value:null;
+  // serii: cel mai bun 1RM pe antrenament
+  const pts=[];
+  db.workouts.slice().sort((a,b)=>a.started-b.started).forEach(w=>{ let b=0; w.sets.forEach(s=>{ if(s.ex===ex){ const v=e1rm(s); if(v>b) b=v; } }); if(b) pts.push({t:w.started,v:b}); });
+  const best=pts.reduce((a,p)=>Math.max(a,p.v),0);
+  let topKg=0, topReps=0; db.workouts.forEach(w=>w.sets.forEach(s=>{ if(s.ex===ex&&!s.warm){ if(s.kg>topKg||(s.kg===topKg&&s.reps>topReps)){topKg=s.kg;topReps=s.reps} } }));
+  const change=pts.length>1?((pts[pts.length-1].v-pts[0].v)/pts[0].v*100):null;
+  $('#pStats').innerHTML=`<div class="stat"><small>1RM estimat maxim</small><b>${best?fmt(best):'–'}</b></div><div class="stat"><small>Cel mai greu set</small><b>${topKg?fmt(topKg)+'×'+topReps:'–'}</b></div><div class="stat"><small>Evoluție</small><b style="color:${change>0?'var(--ok)':change<0?'var(--accent)':'inherit'}">${change===null?'–':(change>0?'+':'')+fmt(change)+'%'}</b></div>`;
+  $('#pChart').innerHTML=chart(pts);
+  renderVolume();
+}
+function chart(pts){
+  if(pts.length<2) return '<div class="empty">'+(pts.length?'Mai ai nevoie de încă un antrenament pentru grafic.':'Fă primele seturi și graficul apare aici.')+'</div>';
+  const W=640,H=200,pl=38,pr=10,pt=12,pb=26;
+  const vs=pts.map(p=>p.v), lo=Math.floor(Math.min(...vs)*0.95), hi=Math.ceil(Math.max(...vs)*1.03);
+  const x=i=>pl+(W-pl-pr)*(i/(pts.length-1)), y=v=>pt+(H-pt-pb)*(1-(v-lo)/((hi-lo)||1));
+  const ticks=[0,.5,1].map(f=>lo+(hi-lo)*f);
+  const path=pts.map((p,i)=>(i?'L':'M')+x(i).toFixed(1)+' '+y(p.v).toFixed(1)).join(' ');
+  const area=path+` L${x(pts.length-1).toFixed(1)} ${H-pb} L${pl} ${H-pb} Z`;
+  const lbls=[0,Math.floor((pts.length-1)/2),pts.length-1].filter((v,i,a)=>a.indexOf(v)===i);
+  return `<svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="1RM estimat în timp"><g class="grid">${ticks.map(v=>`<line x1="${pl}" x2="${W-pr}" y1="${y(v)}" y2="${y(v)}"/><text x="${pl-6}" y="${y(v)+4}" text-anchor="end">${Math.round(v)}</text>`).join('')}</g><path class="ar" d="${area}"/><path class="ln" d="${path}" vector-effect="non-scaling-stroke"/>${pts.map((p,i)=>`<circle class="dt" cx="${x(i)}" cy="${y(p.v)}" r="3.5" vector-effect="non-scaling-stroke"><title>${dateStr(p.t)}: ${fmt(p.v)} kg</title></circle>`).join('')}${lbls.map(i=>`<text x="${x(i)}" y="${H-6}" text-anchor="${i===0?'start':i===pts.length-1?'end':'middle'}">${new Date(pts[i].t).toLocaleDateString('ro-RO',{day:'numeric',month:'short'})}</text>`).join('')}</svg>`;
+}
+function renderVolume(){
+  const since=Date.now()-7*864e5, cnt={};
+  db.workouts.forEach(w=>w.sets.forEach(s=>{ if(s.at>=since&&!s.warm&&(s.rir==null||s.rir<=4)){ const m=exById(s.ex).muscle; cnt[m]=(cnt[m]||0)+1; } }));
+  const rows=MUSCLES.filter(m=>cnt[m]||!['Fesieri','Abdomen'].includes(m));
+  const max=Math.max(20,...Object.values(cnt));
+  $('#volList').innerHTML=rows.map(m=>{ const n=cnt[m]||0; return `<div class="r"><span>${m}</span><div class="bar"><i class="${n>=10?'ok':''}" style="width:${Math.min(100,n/max*100)}%"></i></div><span>${n}</span></div>`; }).join('');
+}
+$('#pEx').addEventListener('change',renderProgress);
+
+/* ---------- Comparare video ---------- */
+const vURL={A:null,B:null};
+function renderVideoTab(){
+  const withVid=[]; db.workouts.slice().sort((a,b)=>b.started-a.started).forEach(w=>w.sets.forEach(s=>{ if(s.video) withVid.push(s); }));
+  const opts='<option value="">Alege un clip</option>'+withVid.map(s=>`<option value="${s.id}">${esc(exById(s.ex).name)} · ${fmt(s.kg)}×${s.reps} · ${dateStr(s.at)}</option>`).join('');
+  ['A','B'].forEach(k=>{ const sel=$('#v'+k), cur=sel.value; sel.innerHTML=opts; if(cur&&withVid.find(s=>s.id===cur)) sel.value=cur; });
+  if(withVid.length&&!$('#vA').value){ $('#vA').value=withVid[Math.min(1,withVid.length-1)].id; loadSide('A'); }
+  if(withVid.length>1&&!$('#vB').value){ $('#vB').value=withVid[0].id; loadSide('B'); }
+}
+async function loadSide(k){
+  const s=findSet($('#v'+k).value), v=$('#vid'+k);
+  if(vURL[k]){ URL.revokeObjectURL(vURL[k]); vURL[k]=null; }
+  if(!s||!s.video){ v.removeAttribute('src'); v.load(); $('#cap'+k).textContent=''; return; }
+  const b=await idbGet(s.video); if(!b){ $('#cap'+k).textContent='Clip indisponibil'; return; }
+  vURL[k]=URL.createObjectURL(b); v.src=vURL[k]; v.playbackRate=speed;
+  $('#cap'+k).textContent=`${exById(s.ex).name} · RIR ${s.rir!=null?fmt(s.rir):'–'}`;
+}
+let speed=0.5;
+$('#vA').addEventListener('change',()=>loadSide('A')); $('#vB').addEventListener('change',()=>loadSide('B'));
+$('#vSpeed').addEventListener('click',e=>{ const b=e.target.closest('button'); if(!b) return; speed=+b.dataset.s; ['A','B'].forEach(k=>$('#vid'+k).playbackRate=speed); $$('#vSpeed button').forEach(x=>x.classList.toggle('on',x===b)); });
+$('#vPlay').addEventListener('click',()=>{ const vs=['A','B'].map(k=>$('#vid'+k)).filter(v=>v.src); if(!vs.length){ toast('Alege cel puțin un clip'); return; } const playing=vs.some(v=>!v.paused); vs.forEach(v=>{ v.playbackRate=speed; playing?v.pause():v.play().catch(()=>{}); }); $('#vPlay').textContent=playing?'Redă ambele':'Pauză'; });
+$('#vSeek').addEventListener('input',e=>{ const f=e.target.value/1000; ['A','B'].forEach(k=>{ const v=$('#vid'+k); if(v.duration) v.currentTime=v.duration*f; }); });
+$('#vidA').addEventListener('timeupdate',e=>{ const v=e.target; if(v.duration&&!v.paused) $('#vSeek').value=Math.round(v.currentTime/v.duration*1000); });
+['A','B'].forEach(k=>$('#vid'+k).addEventListener('ended',()=>{ if(['A','B'].every(x=>{const v=$('#vid'+x);return !v.src||v.paused||v.ended})) $('#vPlay').textContent='Redă ambele'; }));
+
+/* ---------- Tab-uri ---------- */
+function show(tab){
+  $$('[data-view]').forEach(s=>s.hidden=s.id!=='v-'+tab);
+  $$('.tabs button').forEach(b=>b.classList.toggle('on',b.dataset.tab===tab));
+  if(tab==='istoric') renderHistory(); if(tab==='progres') renderProgress(); if(tab==='video') renderVideoTab(); if(tab==='azi') renderToday();
+  if(location.hash.slice(1)!==tab) history.replaceState(null,'','#'+tab);
+  window.scrollTo(0,0);
+}
+$$('.tabs button').forEach(b=>b.addEventListener('click',()=>show(b.dataset.tab)));
+function renderAll(){ renderToday(); const v=$$('[data-view]').find(s=>!s.hidden); if(v){ const t=v.id.slice(2); if(t!=='azi') show(t); } }
+
+/* ---------- Acțiuni ---------- */
+$('#startBtn').addEventListener('click',()=>{ const w={id:uid(),started:Date.now(),ended:null,sets:[]}; db.workouts.push(w); db.active=w.id; save(); renderToday(); });
+$('#endBtn').addEventListener('click',()=>{ const w=active(); if(!w) return; if(!w.sets.length){ db.workouts=db.workouts.filter(x=>x!==w); } else { w.ended=Date.now(); } db.active=null; save(); clearInterval(restIv); $('#timerCard').hidden=true; toast(w.sets.length?'Antrenament salvat':'Antrenament gol, l-am șters'); renderToday(); });
+$('#saveSet').addEventListener('click',saveSet);
+$('#fEx').addEventListener('change',()=>$('#fEx').dataset.touched='1');
+$('#addExBtn').addEventListener('click',()=>{
+  const name=(prompt('Numele exercițiului:')||'').trim(); if(!name) return;
+  const muscle=(prompt('Grupa musculară principală ('+MUSCLES.join(', ')+'):','')||'').trim();
+  const m=MUSCLES.find(x=>norm(x)===norm(muscle))||'Altele';
+  const ex={id:'c_'+uid(),name,aliases:[norm(name)],muscle:m}; db.custom.push(ex); save(); fillSelect($('#fEx')); $('#fEx').value=ex.id; $('#fEx').dataset.touched='1'; toast('Exercițiu adăugat');
+});
+
+/* ---------- Pornire ---------- */
+fillSelect($('#fEx')); setupMic(); openIDB();
+const start=(location.hash||'#azi').slice(1); show(['azi','istoric','progres','video'].includes(start)?start:'azi');
+})();
+</script>
+</body>
+</html>
