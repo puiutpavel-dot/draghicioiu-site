@@ -188,7 +188,7 @@ try {
 let loc = await citesteJson("gaz-localitati.json");
 const vechimeZile = loc?.actualizat ? (Date.now() - Date.parse(loc.actualizat)) / 864e5 : 999;
 const complet = fortat || vechimeZile > 6.5;
-if (complet) {
+if (complet) try {
   log("Actualizare completă: localități gaz + tarife de distribuție + coduri poștale");
   const L = await localitatiGaz();
   const toate = Object.entries(L).flatMap(([j, arr]) => arr.map((l) => ({ j, ...l })));
@@ -239,6 +239,10 @@ if (complet) {
     log(`Coduri poștale: ${total} (fără București), ${potrivite} legate de o localitate cu rețea de gaz, ${Object.keys(pePrefix).length} fișiere`);
   } else log("Coduri poștale: descărcare eșuată, păstrez fișierele vechi");
   if (loc?.judete) { loc.resedinte ||= {}; await scrieJson("gaz-localitati.json", loc); }
+} catch (e) {
+  // Sursa ANRE indisponibilă (ex. posf.ro cere autentificare): păstrez localitățile și codurile poștale vechi.
+  log("Actualizare completă eșuată, păstrez gaz-localitati.json și cp/ vechi –", e.message);
+  loc = await citesteJson("gaz-localitati.json");
 }
 
 // 3) Oferte gaz pe județ (zilnic): o cerere pe județ, la reședința de județ
@@ -280,6 +284,7 @@ try {
 }
 
 if (!rez.curent && !rez.gaz) { log("Nicio dată – anre.json rămâne neschimbat"); process.exit(0); }
+if (rez.curent_vechi && rez.gaz_vechi) { log("ANRE indisponibil (curent și gaz) – anre.json și istoric.json rămân neschimbate"); process.exit(0); }
 await scrieJson("anre.json", rez);
 log("Salvat anre.json");
 
