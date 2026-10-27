@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RoGo – curse programate cu Tesla între orașe | draghicioiu.ro</title>
+<meta name="description" content="RoGo: curse programate cu Tesla între orașele României, la preț fix. Pilot în pregătire. Căutăm șoferi cu Tesla și flote autorizate ARR.">
+<meta name="theme-color" content="#14213D">
+<link rel="canonical" href="https://draghicioiu.ro/rogo/">
+<meta property="og:title" content="RoGo – curse programate cu Tesla între orașe">
+<meta property="og:description" content="Preț fix pe rută, rezervi cu până la 14 zile înainte. Pilot în pregătire.">
+<meta property="og:url" content="https://draghicioiu.ro/rogo/">
+<meta property="og:type" content="website">
+<style>
+  :root{
+    --ink:#14213D; --soft:#4A5568; --muted:#6B7280; --bg:#F4F5F8; --card:#FFFFFF; --line:#DDE1E8;
+    --accent:#F2B705; --on-accent:#14213D; --good:#1F7A4A; --good-bg:#E3F3EA; --hero:#14213D; --on-hero:#F7F5EF;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --ink:#EEF1F7; --soft:#C3C9D4; --muted:#9AA3B2; --bg:#0E1424; --card:#161E33; --line:#27324C;
+      --good:#5CC38A; --good-bg:#16301F; --hero:#0A1020; }
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+  a{color:inherit}
+  .wrap{max-width:1040px;margin:0 auto;padding:0 16px}
+  header.top{background:var(--hero);color:var(--on-hero)}
+  .bar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 0}
+  .logo{font-weight:900;font-size:26px;letter-spacing:-.5px;text-decoration:none;color:var(--on-hero)}
+  .logo span{color:var(--accent)}
+  .bar nav{display:flex;gap:16px;flex-wrap:wrap;font-size:14px}
+  .bar nav a{text-decoration:none;opacity:.85}
+  .bar nav a:hover{opacity:1;text-decoration:underline}
+  .hero{padding:48px 0 64px}
+  .pill{display:inline-block;background:rgba(242,183,5,.16);color:var(--accent);border:1px solid rgba(242,183,5,.45);border-radius:999px;padding:4px 12px;font-size:13px;font-weight:700}
+  h1{font-size:clamp(32px,6vw,54px);line-height:1.08;margin:16px 0 14px;letter-spacing:-1px}
+  .hero p{font-size:clamp(17px,2.4vw,20px);max-width:640px;opacity:.9;margin:0 0 26px}
+  .btns{display:flex;gap:10px;flex-wrap:wrap}
+  .btn{display:inline-block;padding:13px 20px;border-radius:12px;font-weight:700;text-decoration:none}
+  .btn.y{background:var(--accent);color:var(--on-accent)}
+  .btn.o{border:1px solid rgba(247,245,239,.4);color:var(--on-hero)}
+  section{padding:56px 0}
+  h2{font-size:clamp(26px,4vw,34px);margin:0 0 8px;letter-spacing:-.5px}
+  .lead{color:var(--soft);margin:0 0 28px;max-width:680px}
+  .grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px}
+  .card h3{margin:0 0 6px;font-size:18px}
+  .card p{margin:0;color:var(--soft)}
+  .num{display:inline-flex;width:34px;height:34px;border-radius:50%;background:var(--accent);color:var(--on-accent);font-weight:900;align-items:center;justify-content:center;margin-bottom:10px}
+  table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden}
+  th,td{padding:12px 14px;text-align:left;border-bottom:1px solid var(--line)}
+  th{font-size:12px;text-transform:uppercase;letter-spacing:.6px;color:var(--muted)}
+  td.r,th.r{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+  tr:last-child td{border-bottom:0}
+  .note{font-size:14px;color:var(--muted);margin-top:10px}
+  .split{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+  .big{font-size:40px;font-weight:900;letter-spacing:-1px}
+  ul.check{list-style:none;padding:0;margin:12px 0 0}
+  ul.check li{padding:6px 0 6px 28px;position:relative;color:var(--soft)}
+  ul.check li:before{content:"";position:absolute;left:4px;top:13px;width:12px;height:7px;border-left:3px solid var(--good);border-bottom:3px solid var(--good);transform:rotate(-45deg)}
+  .alt{background:var(--card);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .status{display:flex;gap:10px;align-items:flex-start;background:var(--good-bg);color:var(--good);border-radius:14px;padding:14px 16px;font-weight:600}
+  footer{padding:28px 0 40px;color:var(--muted);font-size:14px}
+  .scroll{overflow-x:auto}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <div class="bar">
+      <a class="logo" href="#">Ro<span>Go</span></a>
+      <nav aria-label="Secțiuni">
+        <a href="#cum">Cum funcționează</a>
+        <a href="#rute">Rute</a>
+        <a href="#soferi">Șoferi</a>
+        <a href="#flote">Flote</a>
+        <a href="/">draghicioiu.ro</a>
+      </nav>
+    </div>
+    <div class="hero">
+      <span class="pill">Pilot în pregătire</span>
+      <h1>Curse programate cu Tesla între orașele României.</h1>
+      <p>Alegi ruta, ziua și ora. Prețul e fix de la rezervare: fără tarif dinamic, fără surprize. Mașina e doar pentru tine.</p>
+      <div class="btns">
+        <a class="btn y" href="#soferi">Ai Tesla? Intră în pilot</a>
+        <a class="btn o" href="#flote">Ești flotă autorizată ARR</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+<section id="cum">
+  <div class="wrap">
+    <h2>Cum funcționează</h2>
+    <p class="lead">RoGo e o aplicație românească pentru drumuri între orașe, rezervate din timp. Fiecare cursă are un șofer verificat și o mașină electrică.</p>
+    <div class="grid">
+      <div class="card"><div class="num">1</div><h3>Alegi ruta</h3><p>De unde pleci, unde mergi, adresa exactă de preluare și de destinație.</p></div>
+      <div class="card"><div class="num">2</div><h3>Programezi</h3><p>Cu cel puțin o oră și cel mult 14 zile înainte. Vezi prețul final înainte să confirmi.</p></div>
+      <div class="card"><div class="num">3</div><h3>Un șofer confirmă</h3><p>Un șofer autorizat din orașul de plecare preia cursa. Îi vezi numele, mașina și numărul.</p></div>
+      <div class="card"><div class="num">4</div><h3>Urci cu PIN</h3><p>Cursa pornește doar după ce șoferul introduce PIN-ul tău. Îl urmărești pe hartă până ajunge.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="rute" class="alt">
+  <div class="wrap">
+    <h2>Rute și prețuri</h2>
+    <p class="lead">Rețeaua acoperă toate reședințele de județ și Aeroportul Otopeni. Prețul e fix pe rută, indiferent de trafic sau de ora din zi.</p>
+    <div class="scroll">
+    <table>
+      <thead><tr><th>Rută</th><th class="r">Distanță</th><th class="r">Durată</th><th class="r">Preț fix</th></tr></thead>
+      <tbody>
+        <tr><td>București → Brașov</td><td class="r">170 km</td><td class="r">~2 h 15</td><td class="r">650 lei</td></tr>
+        <tr><td>Aeroport Otopeni → Brașov</td><td class="r">180 km</td><td class="r">~2 h 25</td><td class="r">700 lei</td></tr>
+        <tr><td>Brașov → Sibiu</td><td class="r">145 km</td><td class="r">~1 h 55</td><td class="r">560 lei</td></tr>
+        <tr><td>București → Sibiu</td><td class="r">280 km</td><td class="r">~3 h 45</td><td class="r">950 lei</td></tr>
+        <tr><td>Alba Iulia → Sibiu</td><td class="r">64 km</td><td class="r">~50 min</td><td class="r">240 lei</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p class="note">Prețuri orientative pentru pilot; pot fi ajustate înainte de lansare. Plecările sunt disponibile din orașele în care avem șoferi autorizați.</p>
+    <div class="grid" style="margin-top:22px">
+      <div class="card"><h3>A 5-a cursă cu reducere</h3><p>După 4 curse făcute, a 5-a are o reducere de până la 100 lei.</p></div>
+      <div class="card"><h3>Doar Tesla</h3><p>Mașini electrice, liniștite și curate. Ideale pentru drumuri de câteva ore.</p></div>
+      <div class="card"><h3>Plată cu cardul</h3><p>Cardul e doar autorizat la rezervare și se încasează la finalul cursei.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="soferi">
+  <div class="wrap">
+    <div class="split">
+      <div>
+        <h2>Pentru șoferi</h2>
+        <p class="lead">Căutăm primii 5–10 șoferi cu Tesla proprie pentru pilot.</p>
+        <div class="card">
+          <div class="big">15%</div>
+          <p>comision RoGo, față de ~25% la aplicațiile mari. Dintr-o cursă București → Brașov de 650 lei îți rămân <strong>552,50 lei</strong>.</p>
+        </div>
+        <ul class="check">
+          <li>Curse programate cu cel puțin o oră înainte: îți planifici ziua.</li>
+          <li>Preț fix știut dinainte, fără curse ieftine pe distanțe lungi.</li>
+          <li>Câștigurile și comisioanele le vezi în aplicație, pe fiecare cursă.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Ce îți trebuie</h3>
+        <ul class="check">
+          <li>Tesla (Model 3, Y, S sau X), cu copie conformă valabilă.</li>
+          <li>Atestat ARR pentru transport în regim de închiriere.</li>
+          <li>Autorizație de transport alternativ valabilă: pe firma ta sau prin flota parteneră.</li>
+          <li>Preiei curse din localitatea în care e autorizat operatorul tău, conform OUG 49/2019.</li>
+        </ul>
+        <div class="btns" style="margin-top:16px">
+          <a class="btn y" href="tel:+40765373595">Sună: 0765 373 595</a>
+          <a class="btn" style="border:1px solid var(--line)" href="https://wa.me/40765373595?text=Salut%2C%20am%20Tesla%20%C8%99i%20vreau%20s%C4%83%20intru%20%C3%AEn%20pilotul%20RoGo.">WhatsApp</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="flote" class="alt">
+  <div class="wrap">
+    <h2>Pentru flote autorizate ARR</h2>
+    <p class="lead">Lucrezi cu mai mulți șoferi sub autorizația firmei tale? Un parteneriat cu RoGo aduce curse lungi, programate, la comision mic.</p>
+    <div class="grid">
+      <div class="card"><h3>Curse lungi, nu scurte</h3><p>Drumuri între orașe, cu preț fix. O singură cursă poate valora cât o zi întreagă în oraș.</p></div>
+      <div class="card"><h3>Comision 15%</h3><p>Firma și șoferii păstrează 85% din fiecare cursă.</p></div>
+      <div class="card"><h3>Totul verificat</h3><p>Fiecare șofer e legat de CUI-ul flotei. Verificăm autorizația ARR și valabilitatea ei înainte de activare.</p></div>
+    </div>
+    <div class="btns" style="margin-top:20px">
+      <a class="btn y" href="https://wa.me/40765373595?text=Salut%2C%20reprezint%20o%20flot%C4%83%20autorizat%C4%83%20ARR%20%C8%99i%20m%C4%83%20intereseaz%C4%83%20RoGo.">Scrie-ne pe WhatsApp</a>
+      <a class="btn" style="border:1px solid var(--line)" href="tel:+40765373595">0765 373 595</a>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Unde suntem acum</h2>
+    <p class="lead">Aplicația pentru iPhone și Android e construită și în teste. Pregătim autorizarea platformei și recrutăm primii șoferi și primele flote.</p>
+    <div class="status">Lansarea curselor cu plată are loc după obținerea avizului pentru platformă. Până atunci, nu se pot rezerva curse reale.</div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    RoGo · fondator Daniel Drăghicioiu, co-fondator Bogdan Gherghișan · <a href="/">draghicioiu.ro</a> · <a href="/#contact">Contact</a>
+  </div>
+</footer>
+</body>
+</html>
