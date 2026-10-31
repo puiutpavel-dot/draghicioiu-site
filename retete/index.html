@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Rețete de familie · draghicioiu.ro</title>
+<meta name="description" content="Rețete de familie scrise de mână: Prăjitura Crèm Olé, Cornulețe fragede și Pavlova ruladă.">
+<link rel="canonical" href="https://draghicioiu.ro/retete/">
+<meta name="theme-color" content="#b5485d">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ctext y='19' font-size='18'%3E%F0%9F%8D%B0%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#fbf5ec; --card:#fffdf9; --ink:#2b2118; --muted:#86725f; --line:#eadfce;
+  --accent:#b5485d; --accent-soft:#f6dfe3; --gold:#d39b3a; --ok:#4f8a5b; --ok-soft:#e1efe2;
+  --shadow:0 10px 30px -12px rgba(80,50,20,.25);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#1b1613; --card:#251f1a; --ink:#f3e8da; --muted:#b39f8a; --line:#3a3029;
+    --accent:#e07a8e; --accent-soft:#3d2429; --gold:#e5b25c; --ok:#7cc08a; --ok-soft:#22332500;
+    --shadow:0 10px 30px -12px rgba(0,0,0,.6);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#1b1613; --card:#251f1a; --ink:#f3e8da; --muted:#b39f8a; --line:#3a3029;
+  --accent:#e07a8e; --accent-soft:#3d2429; --gold:#e5b25c; --ok:#7cc08a; --ok-soft:#223325;
+  --shadow:0 10px 30px -12px rgba(0,0,0,.6);
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font-family:"Fraunces",Georgia,serif;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+.wrap{max-width:880px;margin:0 auto;padding:0 16px 80px}
+
+.back{display:inline-block;margin:16px 16px 0;color:var(--muted);text-decoration:none;font-size:14px}
+.back:hover{color:var(--accent)}
+/* HERO */
+.hero{position:relative;text-align:center;padding:56px 0 34px;overflow:hidden}
+.hero h1{font-family:"Caveat",cursive;font-weight:700;font-size:clamp(46px,9vw,78px);margin:0;line-height:1;color:var(--accent)}
+.hero p{margin:10px 0 0;color:var(--muted);font-size:17px}
+.floaty{position:absolute;inset:0;pointer-events:none;z-index:-0}
+.floaty span{position:absolute;font-size:26px;opacity:.55;animation:drift 9s ease-in-out infinite}
+@keyframes drift{0%,100%{transform:translateY(0) rotate(-8deg)}50%{transform:translateY(-16px) rotate(10deg)}}
+.hero h1,.hero p{position:relative;z-index:1}
+
+/* TABS */
+.tabs{position:sticky;top:0;z-index:5;background:var(--bg);padding:10px 0;margin-bottom:18px}
+.tabbar{position:relative;display:flex;gap:4px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:5px;box-shadow:var(--shadow);overflow-x:auto;scrollbar-width:none}
+.tabbar::-webkit-scrollbar{display:none}
+.tab{position:relative;z-index:1;flex:1 0 auto;border:0;background:none;color:var(--muted);font:600 15px "Fraunces",serif;padding:10px 16px;border-radius:999px;cursor:pointer;white-space:nowrap;transition:color .3s}
+.tab[aria-selected="true"]{color:#fff}
+.pill{position:absolute;top:5px;bottom:5px;left:0;border-radius:999px;background:var(--accent);transition:transform .45s cubic-bezier(.6,.0,.2,1.3),width .45s cubic-bezier(.6,0,.2,1.3)}
+
+/* RECIPE */
+.recipe{animation:fadeup .55s ease both}
+@keyframes fadeup{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+.rhead{text-align:center;margin:6px 0 22px}
+.rhead h2{font-family:"Caveat",cursive;font-size:clamp(40px,7vw,56px);margin:0;line-height:1.05}
+.rhead .note{display:inline-block;margin-top:6px;font-family:"Caveat",cursive;font-size:24px;color:var(--accent);transform:rotate(-3deg)}
+.chips{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:14px}
+.chip{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-size:14px;color:var(--muted)}
+.chip b{color:var(--ink)}
+
+.section{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:22px 18px;margin-bottom:22px;box-shadow:var(--shadow)}
+.shead{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px}
+.shead h3{margin:0;font-family:"Caveat",cursive;font-size:34px;line-height:1;color:var(--accent)}
+.bowl{position:relative;display:flex;align-items:center;gap:8px;font-size:14px;color:var(--muted);white-space:nowrap}
+.bowl .b{font-size:30px;display:inline-block;transition:transform .2s}
+.bowl.bump .b{animation:bump .45s ease}
+@keyframes bump{30%{transform:scale(1.35) rotate(-10deg)}60%{transform:scale(.9) rotate(6deg)}}
+.bowl.full .count{color:var(--ok);font-weight:700}
+.reset{border:0;background:none;color:var(--muted);font:inherit;font-size:13px;cursor:pointer;text-decoration:underline;padding:0}
+
+.ings{list-style:none;margin:0 0 18px;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px}
+.ing{opacity:0;animation:pop .55s cubic-bezier(.3,1.5,.5,1) forwards;animation-delay:calc(var(--i)*75ms + 120ms)}
+@keyframes pop{from{opacity:0;transform:translateY(18px) scale(.85)}to{opacity:1;transform:none}}
+.ing button{width:100%;display:flex;align-items:center;gap:12px;text-align:left;background:var(--bg);border:1.5px solid var(--line);border-radius:16px;padding:10px 12px;color:var(--ink);font:inherit;cursor:pointer;transition:border-color .25s,background .25s,transform .15s}
+.ing button:hover{border-color:var(--gold);transform:translateY(-2px)}
+.ing button:active{transform:scale(.97)}
+.emo{flex:none;width:44px;height:44px;display:grid;place-items:center;font-size:26px;background:var(--card);border-radius:12px;transition:transform .3s}
+.ing button:hover .emo{animation:wobble .6s ease}
+@keyframes wobble{25%{transform:rotate(-14deg) scale(1.1)}50%{transform:rotate(10deg)}75%{transform:rotate(-5deg)}}
+.txt{flex:1;min-width:0}
+.q{display:block;font-weight:700;font-size:15px;color:var(--accent)}
+.n{font-size:15px;background:linear-gradient(var(--muted),var(--muted)) no-repeat 0 55%/0% 1.5px;transition:background-size .45s ease,color .3s}
+.alt{display:block;font-size:12.5px;color:var(--muted);font-style:italic}
+.tick{flex:none;width:24px;height:24px;border-radius:50%;border:2px solid var(--line);display:grid;place-items:center;transition:all .3s}
+.tick svg{width:14px;height:14px;stroke:#fff;stroke-width:3;fill:none;stroke-dasharray:20;stroke-dashoffset:20;transition:stroke-dashoffset .35s .1s}
+.ing.done button{background:var(--ok-soft);border-color:var(--ok)}
+.ing.done .n{background-size:100% 1.5px;color:var(--muted)}
+.ing.done .q{color:var(--muted)}
+.ing.done .emo{opacity:.35;transform:scale(.8)}
+.ing.done .tick{background:var(--ok);border-color:var(--ok)}
+.ing.done .tick svg{stroke-dashoffset:0}
+
+.steps{list-style:none;margin:0;padding:0;counter-reset:s}
+.steps li{counter-increment:s;position:relative;padding:4px 0 14px 46px;opacity:0;transform:translateX(-12px);transition:opacity .5s,transform .5s}
+.steps li.in{opacity:1;transform:none}
+.steps li::before{content:counter(s);position:absolute;left:0;top:2px;width:32px;height:32px;border-radius:50%;background:var(--accent-soft);color:var(--accent);font-weight:700;display:grid;place-items:center;font-size:15px}
+.steps li::after{content:"";position:absolute;left:15px;top:38px;bottom:2px;width:2px;background:var(--line)}
+.steps li:last-child::after{display:none}
+.method-label{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:4px 0 12px}
+
+.flyer{position:fixed;z-index:50;font-size:26px;pointer-events:none;will-change:transform}
+footer{text-align:center;color:var(--muted);font-family:"Caveat",cursive;font-size:22px;margin-top:30px}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .ing,.steps li{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+<a class="back" href="/">← draghicioiu.ro</a>
+<header class="hero">
+  <div class="floaty" aria-hidden="true">
+    <span style="left:6%;top:22%">🥚</span>
+    <span style="left:16%;top:68%;animation-delay:-2s">🍫</span>
+    <span style="left:84%;top:18%;animation-delay:-4s">🍓</span>
+    <span style="left:91%;top:62%;animation-delay:-1s">🫐</span>
+    <span style="left:74%;top:78%;animation-delay:-6s">🌰</span>
+    <span style="left:28%;top:12%;animation-delay:-3s">🧈</span>
+  </div>
+  <h1>Rețete de familie</h1>
+  <p>Scrise de mână, păstrate cu drag</p>
+</header>
+
+<main class="wrap">
+  <nav class="tabs"><div class="tabbar" role="tablist" id="tabbar"><span class="pill" id="pill"></span></div></nav>
+  <div id="panel" role="tabpanel"></div>
+  <footer>Poftă bună! 🍰</footer>
+</main>
+
+<script>
+const R = [
+ {
+  id:"crem-ole", tab:"Crèm Olé", title:"Prăjitura Crèm Olé",
+  chips:[["🔥","190°"],["⏱","~20 min"],["🍫","3 straturi"]],
+  sections:[
+   {name:"Blat", ings:[
+     ["🥚","8","ouă întregi"],["🧂","puțină","sare"],["🥄","8 linguri","zahăr"],
+     ["🍫","2 plicuri","Crèm Olé de cacao"],["✨","1 plic","praf de copt"]],
+    steps:[
+     "Se mixează ouăle întregi cu puțină sare, apoi se adaugă zahărul, mixând până devine ca o spumă.",
+     "Se pun cele 2 plicuri de Crèm Olé de cacao și praful de copt.",
+     "Se mixează la turație mică (sau cu telul) până se încorporează totul.",
+     "Se pune în tavă pe hârtie de copt, se nivelează și se coace la 190° aproximativ 20 de minute. Se lasă blatul să se răcească."]},
+   {name:"Cremă", ings:[
+     ["🥛","400 ml","frișcă lichidă rece"],["🥛","400 ml","lapte rece"],["🥄","2 linguri","zahăr"],
+     ["🌼","1 plic","zahăr vanilinat"],["🍮","2 plicuri","Crèm Olé de vanilie"]],
+    steps:[
+     "Se mixează toate până se întărește crema.",
+     "Se pune crema în tava în care este blatul rece și se nivelează."]},
+   {name:"Glazură", ings:[
+     ["🍫","150 g","ciocolată neagră"],["🧈","50 g","unt"],["🥄","2 linguri","zahăr"],["🥛","2–3 linguri","frișcă lichidă"]],
+    steps:[
+     "Se topesc toate în microunde, apoi se amestecă bine.",
+     "Se toarnă glazura peste cremă."]}
+  ]
+ },
+ {
+  id:"cornulete", tab:"Cornulețe", title:"Cornulețe fragede", note:"f.f. bune!",
+  chips:[["🔥","180°"],["⏱","~20 min"],["❄️","1–2 h la frigider"],["🥐","72–84 buc."]],
+  sections:[
+   {name:"Aluat", ings:[
+     ["🌾","500 g","făină"],["🧈","250 g","untură curată"],["🥛","200 g","smântână"],
+     ["🌼","1 plic","zahăr vanilinat"],["🧂","puțină","sare"],["🥚","1","gălbenuș de ou"]],
+    steps:[
+     "Se frământă toate într-un castron până se obține o coca moluță.",
+     "Se dă la frigider 1–2 ore (chiar și peste noapte).",
+     "Când se lucrează cu ea, se lasă puțin după ce se scoate de la frigider, să se înmoaie coca."]},
+   {name:"Umplutură", ings:[
+     ["🍬","după gust","rahat"],["🍓","sau","gemul preferat"],["🌰","dacă e moale","nucă măcinată (amestecată cu gemul)"]],
+    steps:[
+     "Se face sul și se împarte în 6–7 bile.",
+     "Se întinde cu sucitorul fiecare bilă în cerc, cât mai subțire.",
+     "Se taie rotundul în 12 triunghiuri și pe capătul mare se pune rahat sau gem.",
+     "Se rulează fiecare triunghi spre vârf.",
+     "Se coc la 180° aproximativ 20 de minute — să fie rumene, dar foarte puțin."]}
+  ]
+ },
+ {
+  id:"pavlova", tab:"Pavlova", title:"Pavlova",
+  chips:[["🔥","150°"],["⏱","~20 min"],["🌀","ruladă"]],
+  sections:[
+   {name:"Blat", ings:[
+     ["🥚","7","albușuri","5 pentru tavă mai mică"],["🧂","puțină","sare"],
+     ["🥄","7 linguri","zahăr","5 pentru tavă mai mică"],["🌰","2 linguri","nucă măcinată (sau alune)"]],
+    steps:[
+     "Albușurile se bat spumă cu puțină sare, apoi se adaugă zahărul.",
+     "Se toarnă în tavă pe hârtie de copt și se nivelează.",
+     "Se presară nuca (sau alunele) măcinată.",
+     "Se coace la 150° aproximativ 20 de minute.",
+     "Se pune deasupra o altă hârtie de copt și, după ce s-a răcorit puțin, se răstoarnă.",
+     "Se desprinde cu grijă hârtia pe care s-a copt și se lasă să se răcească."]},
+   {name:"Cremă & fructe", ings:[
+     ["🥛","200 ml","frișcă lichidă"],["🧀","250 g","mascarpone"],["🍚","2 linguri","zahăr pudră"],
+     ["🌼","1 plic","zahăr vanilinat"],["🧂","puțină","sare"],["🍓","după gust","zmeură, căpșuni, afine"]],
+    steps:[
+     "Se mixează frișca, mascarpone, zahărul pudră, vanilinul și sarea până se întăresc.",
+     "Se întinde crema cu spatula peste blat și se nivelează.",
+     "Se pun fructele și se rulează pe lungimea blatului.",
+     "Se lasă la frigider."]}
+  ]
+ }
+];
+
+const bar=document.getElementById('tabbar'), pill=document.getElementById('pill'), panel=document.getElementById('panel');
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+let io;
+
+R.forEach((r,i)=>{
+  const b=document.createElement('button');
+  b.className='tab';b.role='tab';b.textContent=r.tab;b.dataset.i=i;
+  b.onclick=()=>show(i,true);
+  bar.appendChild(b);
+});
+
+function movePill(btn){
+  pill.style.width=btn.offsetWidth+'px';
+  pill.style.transform=`translateX(${btn.offsetLeft}px)`;
+}
+
+function show(i,push){
+  const r=R[i];
+  [...bar.querySelectorAll('.tab')].forEach((t,k)=>t.setAttribute('aria-selected',k===i));
+  movePill(bar.querySelectorAll('.tab')[i]);
+  if(push) try{history.replaceState(null,'','#'+r.id)}catch(e){}
+  let n=0;
+  panel.innerHTML=`<article class="recipe">
+    <div class="rhead"><h2>${r.title}</h2>${r.note?`<div class="note">${r.note}</div>`:''}
+      <div class="chips">${r.chips.map(c=>`<span class="chip">${c[0]} <b>${c[1]}</b></span>`).join('')}</div></div>
+    ${r.sections.map((s,si)=>`<section class="section" data-s="${si}">
+      <div class="shead"><h3>${s.name}</h3>
+        <div class="bowl"><span class="count">0/${s.ings.length}</span><span class="b">🥣</span></div></div>
+      <ul class="ings">${s.ings.map(g=>`<li class="ing" style="--i:${n++}"><button type="button" aria-pressed="false">
+        <span class="emo">${g[0]}</span>
+        <span class="txt"><span class="q">${g[1]}</span><span class="n">${g[2]}</span>${g[3]?`<span class="alt">(${g[3]})</span>`:''}</span>
+        <span class="tick"><svg viewBox="0 0 16 16"><path d="M3 8.5l3.2 3L13 4.5"/></svg></span></button></li>`).join('')}</ul>
+      <div class="method-label">Mod de preparare</div>
+      <ol class="steps">${s.steps.map(t=>`<li>${t}</li>`).join('')}</ol>
+      <button class="reset" type="button">Debifează tot</button>
+    </section>`).join('')}
+  </article>`;
+  panel.querySelectorAll('.section').forEach(sec=>{
+    const bowl=sec.querySelector('.bowl');
+    const update=()=>{
+      const all=sec.querySelectorAll('.ing'),d=sec.querySelectorAll('.ing.done').length;
+      bowl.querySelector('.count').textContent=`${d}/${all.length}`;
+      bowl.classList.toggle('full',d===all.length);
+    };
+    sec.querySelectorAll('.ing button').forEach(btn=>btn.onclick=()=>{
+      const li=btn.parentElement,on=!li.classList.contains('done');
+      li.classList.toggle('done',on);btn.setAttribute('aria-pressed',on);
+      if(on) fly(btn.querySelector('.emo'),bowl,update); else update();
+    });
+    sec.querySelector('.reset').onclick=()=>{sec.querySelectorAll('.ing.done').forEach(l=>{l.classList.remove('done');l.querySelector('button').setAttribute('aria-pressed','false')});update();};
+  });
+  if(io) io.disconnect();
+  io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.2});
+  panel.querySelectorAll('.steps li').forEach((li,k)=>{li.style.transitionDelay=(k%6)*70+'ms';io.observe(li)});
+}
+
+function fly(src,bowl,done){
+  const target=bowl.querySelector('.b');
+  if(reduce||!src.animate){done();return;}
+  const a=src.getBoundingClientRect(),b=target.getBoundingClientRect();
+  const f=document.createElement('span');f.className='flyer';f.textContent=src.textContent;
+  f.style.left=a.left+a.width/2-13+'px';f.style.top=a.top+a.height/2-16+'px';
+  document.body.appendChild(f);
+  const dx=b.left+b.width/2-(a.left+a.width/2),dy=b.top+b.height/2-(a.top+a.height/2);
+  f.animate([
+    {transform:'translate(0,0) scale(1) rotate(0)'},
+    {transform:`translate(${dx*.5}px,${dy*.5-90}px) scale(1.3) rotate(180deg)`,offset:.5},
+    {transform:`translate(${dx}px,${dy}px) scale(.4) rotate(360deg)`,opacity:.2}
+  ],{duration:700,easing:'cubic-bezier(.4,0,.3,1)'}).onfinish=()=>{
+    f.remove();bowl.classList.remove('bump');void bowl.offsetWidth;bowl.classList.add('bump');done();
+  };
+}
+
+const start=Math.max(0,R.findIndex(r=>'#'+r.id===location.hash));
+show(start,false);
+addEventListener('resize',()=>movePill(bar.querySelector('[aria-selected="true"]')));
+document.fonts&&document.fonts.ready.then(()=>movePill(bar.querySelector('[aria-selected="true"]')));
+</script>
+</body>
+</html>
