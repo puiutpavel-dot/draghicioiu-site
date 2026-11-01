@@ -103,6 +103,23 @@ body{background:var(--bg);color:var(--ink);font-family:"Fraunces",Georgia,serif;
 .steps li:last-child::after{display:none}
 .method-label{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:4px 0 12px}
 
+/* LIDL */
+.lidl{display:block;margin-top:3px;font-size:12px;line-height:1.35;color:var(--muted)}
+.lidl b{color:var(--ink);font-weight:600;white-space:nowrap}
+.lidl.miss{font-style:italic}
+.lidl .sub{color:var(--gold);font-weight:600}
+.cart{max-width:520px;margin:16px auto 0;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:14px 16px;box-shadow:var(--shadow);text-align:left}
+.cart h4{margin:0 0 8px;font-size:15px;display:flex;align-items:center;gap:8px}
+.cart .rows{display:flex;flex-wrap:wrap;gap:8px 18px}
+.cart .big{font-size:24px;font-weight:700;color:var(--accent);line-height:1.1}
+.cart .lbl{font-size:12.5px;color:var(--muted)}
+.cart details{margin-top:10px;font-size:13px}
+.cart summary{cursor:pointer;color:var(--muted)}
+.cart ul{margin:8px 0 0;padding:0;list-style:none}
+.cart li{display:flex;justify-content:space-between;gap:10px;padding:4px 0;border-top:1px dashed var(--line)}
+.cart li span:last-child{white-space:nowrap;font-weight:600}
+.cart .fine{margin:10px 0 0;font-size:12px;color:var(--muted)}
+
 .flyer{position:fixed;z-index:50;font-size:26px;pointer-events:none;will-change:transform}
 footer{text-align:center;color:var(--muted);font-family:"Caveat",cursive;font-size:22px;margin-top:30px}
 
@@ -207,6 +224,66 @@ const R = [
  }
 ];
 
+// Prețuri din lista oficială Lidl România („Prețurile la zi”), descărcată pe 1 noiembrie 2026.
+const LIDL_DATE="1 noiembrie 2026";
+const L={
+ oua:["10 Ouă M Sol","10 buc",10.99,10],
+ sare:["Kania Sare de mare iodată","1 kg",1.99,1000],
+ zahar:["Furnicuța Zahăr","1 kg",3.99,1000],
+ cremaCacao:["Belbake Cremă pt. prăjituri cu gust de ciocolată","55 g",2.49,1,true],
+ cremaVanilie:["Belbake Cremă pt. prăjituri cu gust de vanilie","50 g",2.69,1,true],
+ praf:["Belbake Praf de copt","5×10 g",1.49,5],
+ frisca:["Pilos Smântână pentru frișcă 36%","500 g",14.99,500],
+ lapte:["Pilos Lapte de consum 3,5%","1 l",5.29,1000],
+ vanilinat:["Belbake Zahăr vanilinat","5×8 g",0.75,5],
+ ciocolata:["Ciocolată neagră (marca Lidl)","100 g",5.29,100],
+ unt:["Pilos Unt german 82%","250 g",7.99,250],
+ faina:["Belbake Făină albă de grâu 000","1 kg",1.99,1000],
+ smantana:["Pilos Smântână 20%","400 g",6.09,400],
+ gem:["Maribel Gem de căpșuni","450 g",9.99,450],
+ nuca:["Belbake Miez de nucă măcinat/tocat","220 g",14.99,220],
+ mascarpone:["Milbona Mascarpone","250 g",8.99,250],
+ pudra:["Belbake Zahăr pudră","500 g",2.99,500],
+ zmeura:["Zmeură","125 g",12.99,125],
+ capsuni:["Căpșuni românești","250 g",11.49,250],
+ afine:["Afine caserolă","250 g",19.99,250]
+};
+// [produs, cantitate folosită în unitatea pachetului]; 0 = nu e în lista Lidl; opt = opțional, nu intră în total
+const P={
+ "crem-ole":[
+  [[["oua",8]],[["sare",1]],[["zahar",120]],[["cremaCacao",2]],[["praf",1]]],
+  [[["frisca",400]],[["lapte",400]],[["zahar",30]],[["vanilinat",1]],[["cremaVanilie",2]]],
+  [[["ciocolata",150]],[["unt",50]],[["zahar",30]],[["frisca",40]]]],
+ "cornulete":[
+  [[["faina",500]],0,[["smantana",200]],[["vanilinat",1]],[["sare",1]],[["oua",1]]],
+  [0,[["gem",200]],{opt:[["nuca",50]]}]],
+ "pavlova":[
+  [[["oua",7]],[["sare",1]],[["zahar",105]],[["nuca",15]]],
+  [[["frisca",200]],[["mascarpone",250]],[["pudra",20]],[["vanilinat",1]],[["sare",1]],[["zmeura",125],["capsuni",250],["afine",250]]]]
+};
+const lei=x=>x.toFixed(2).replace('.',',')+' lei';
+function lidlLine(e){
+  if(e===0) return `<span class="lidl miss">🛒 nu e în lista Lidl</span>`;
+  const opt=!!(e&&e.opt), arr=opt?e.opt:e;
+  return `<span class="lidl">🛒 ${arr.map(([k])=>{const x=L[k];return `${x[4]?'<span class="sub">înlocuitor:</span> ':''}${x[0]} · ${x[1]} · <b>${lei(x[2])}</b>`}).join(' + ')}${opt?' <i>(opțional)</i>':''}</span>`;
+}
+function cart(id){
+  const use={},miss=[];
+  P[id].forEach((sec,si)=>sec.forEach((e,ii)=>{
+    if(e===0){miss.push(R.find(r=>r.id===id).sections[si].ings[ii][2]);return}
+    if(e.opt) return;
+    e.forEach(([k,a])=>use[k]=(use[k]||0)+a);
+  }));
+  let buy=0,used=0;const rows=[];
+  for(const k in use){const x=L[k],n=Math.ceil(use[k]/x[3]-1e-9);buy+=n*x[2];used+=use[k]/x[3]*x[2];
+    rows.push(`<li><span>${n>1?n+'× ':''}${x[0]} (${x[1]})</span><span>${lei(n*x[2])}</span></li>`)}
+  return `<div class="cart"><h4>🛒 Coș Lidl</h4>
+    <div class="rows"><div><div class="big">${lei(buy)}</div><div class="lbl">de cumpărat (pachete întregi)</div></div>
+    <div><div class="big">~${lei(used)}</div><div class="lbl">cât se folosește în rețetă</div></div></div>
+    <details><summary>Lista de cumpărături (${rows.length} produse)</summary><ul>${rows.join('')}</ul></details>
+    <p class="fine">Prețuri din lista oficială Lidl „Prețurile la zi”, ${LIDL_DATE}. Pot varia între magazine și nu includ ofertele.${miss.length?` Nu sunt în listă, deci nici în total: ${miss.join(', ')}.`:''}</p></div>`;
+}
+
 const bar=document.getElementById('tabbar'), pill=document.getElementById('pill'), panel=document.getElementById('panel');
 const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
 let io;
@@ -231,13 +308,13 @@ function show(i,push){
   let n=0;
   panel.innerHTML=`<article class="recipe">
     <div class="rhead"><h2>${r.title}</h2>${r.note?`<div class="note">${r.note}</div>`:''}
-      <div class="chips">${r.chips.map(c=>`<span class="chip">${c[0]} <b>${c[1]}</b></span>`).join('')}</div></div>
+      <div class="chips">${r.chips.map(c=>`<span class="chip">${c[0]} <b>${c[1]}</b></span>`).join('')}</div>${P[r.id]?cart(r.id):''}</div>
     ${r.sections.map((s,si)=>`<section class="section" data-s="${si}">
       <div class="shead"><h3>${s.name}</h3>
         <div class="bowl"><span class="count">0/${s.ings.length}</span><span class="b">🥣</span></div></div>
-      <ul class="ings">${s.ings.map(g=>`<li class="ing" style="--i:${n++}"><button type="button" aria-pressed="false">
+      <ul class="ings">${s.ings.map((g,gi)=>`<li class="ing" style="--i:${n++}"><button type="button" aria-pressed="false">
         <span class="emo">${g[0]}</span>
-        <span class="txt"><span class="q">${g[1]}</span><span class="n">${g[2]}</span>${g[3]?`<span class="alt">(${g[3]})</span>`:''}</span>
+        <span class="txt"><span class="q">${g[1]}</span><span class="n">${g[2]}</span>${g[3]?`<span class="alt">(${g[3]})</span>`:''}${P[r.id]?lidlLine(P[r.id][si][gi]):''}</span>
         <span class="tick"><svg viewBox="0 0 16 16"><path d="M3 8.5l3.2 3L13 4.5"/></svg></span></button></li>`).join('')}</ul>
       <div class="method-label">Mod de preparare</div>
       <ol class="steps">${s.steps.map(t=>`<li>${t}</li>`).join('')}</ol>
