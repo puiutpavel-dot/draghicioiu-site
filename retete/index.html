@@ -133,6 +133,16 @@ body{background:var(--bg);color:var(--ink);font-family:"Fraunces",Georgia,serif;
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .emo{background:#efe4d3}}
 :root[data-theme="dark"] .emo{background:#efe4d3}
 
+/* OFERTE LIDL CU POZĂ */
+.deal{max-width:520px;margin:12px auto 0;display:flex;gap:14px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:12px;box-shadow:var(--shadow);text-align:left;color:inherit;text-decoration:none;transition:transform .2s,border-color .2s}
+.deal:hover{transform:translateY(-2px);border-color:var(--gold)}
+.deal img{flex:none;width:104px;height:104px;object-fit:cover;object-position:center;transform:none;background:#fff;border-radius:12px}
+.deal .tag{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#fff;background:var(--accent);border-radius:999px;padding:2px 8px;white-space:nowrap}
+.deal .nm{display:block;font-weight:600;font-size:15px;margin:4px 0 2px;line-height:1.3}
+.deal .pr{font-size:13px;color:var(--muted)}
+.deal .pr b{color:var(--accent);font-size:16px}
+.deal .for{display:block;font-size:12.5px;color:var(--muted);font-style:italic;margin-top:2px}
+
 .flyer{position:fixed;z-index:50;font-size:26px;pointer-events:none;will-change:transform}
 footer{text-align:center;color:var(--muted);font-family:"Caveat",cursive;font-size:22px;margin-top:30px}
 
@@ -299,6 +309,23 @@ function cart(id){
     <p class="fine">Prețuri din lista oficială Lidl „Prețurile la zi”, ${LIDL_DATE}. Pot varia între magazine și nu includ ofertele.${miss.length?` Nu sunt în listă, deci nici în total: ${miss.join(', ')}.`:''}</p></div>`;
 }
 
+// Produse din oferta lidl.ro care se potrivesc cu rețetele (pozele sunt de pe lidl.ro, 2 noiembrie 2026).
+// Fiecare dispare singur de pe pagină după ultima zi a ofertei.
+const D={
+ "crem-ole":[{img:"img/lidl-unt.webp",name:"DELUXE Unt cu sare de mare din Camargue",pack:"250 g",lp:"7,99",fara:"10,89",from:"5",to:"2026-11-08",toTxt:"8 nov.",for:"pentru glazură (unt)",url:"https://www.lidl.ro/p/deluxe-unt-cu-sare-de-mare-din-camergue/p11030371"}],
+ "cornulete":[{img:"img/lidl-smantana.webp",name:"PILOS Cremă de smântână natur",pack:"200 g",lp:"4,99",fara:"6,49",from:"2",to:"2026-11-08",toTxt:"8 nov.",for:"pentru aluat (smântână)",url:"https://www.lidl.ro/p/crema-de-smantana/p11707505"}],
+ "pavlova":[{img:"img/lidl-afine.webp",name:"FRESHONA Fructe de pădure congelate",pack:"750 g",lp:"14,29",fara:"15,99",from:"5",to:"2026-11-08",toTxt:"8 nov.",for:"pentru cremă & fructe (zmeură, afine) — se dezgheață și se scurg bine",url:"https://www.lidl.ro/p/freshona-afine-de-cultura-congelate/p11008792"}]
+};
+function deals(id){
+  const now=new Date();
+  return (D[id]||[]).filter(d=>now<=new Date(d.to+'T23:59:59')).map(d=>`<a class="deal" href="${d.url}" target="_blank" rel="noopener">
+    <img src="${d.img}" alt="${d.name}, ${d.pack}" loading="lazy" width="104" height="104">
+    <span><span class="tag">Ofertă Lidl · ${d.from}–${d.toTxt}</span>
+    <span class="nm">${d.name} · ${d.pack}</span>
+    <span class="pr"><b>${d.lp} lei</b> cu Lidl Plus · ${d.fara} lei fără</span>
+    <span class="for">${d.for}</span></span></a>`).join('');
+}
+
 const bar=document.getElementById('tabbar'), pill=document.getElementById('pill'), panel=document.getElementById('panel');
 const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
 let io;
@@ -323,7 +350,7 @@ function show(i,push){
   let n=0;
   panel.innerHTML=`<article class="recipe">
     <div class="rhead"><h2>${r.title}</h2>${r.note?`<div class="note">${r.note}</div>`:''}
-      <div class="chips">${r.chips.map(c=>`<span class="chip">${c[0]} <b>${c[1]}</b></span>`).join('')}</div>${P[r.id]?cart(r.id):''}</div>
+      <div class="chips">${r.chips.map(c=>`<span class="chip">${c[0]} <b>${c[1]}</b></span>`).join('')}</div>${P[r.id]?cart(r.id):''}${deals(r.id)}</div>
     ${r.sections.map((s,si)=>`<section class="section" data-s="${si}">
       <div class="shead"><h3>${s.name}</h3>
         <div class="bowl"><span class="count">0/${s.ings.length}</span><span class="b">🥣</span></div></div>
