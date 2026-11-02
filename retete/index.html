@@ -319,7 +319,7 @@ const D={
 function deals(id){
   const now=new Date();
   return (D[id]||[]).filter(d=>now<=new Date(d.to+'T23:59:59')).map(d=>`<a class="deal" href="${d.url}" target="_blank" rel="noopener">
-    <img src="${d.img}" alt="${d.name}, ${d.pack}" loading="lazy" width="104" height="104">
+    <img src="${d.img}" alt="${d.name}, ${d.pack}" width="104" height="104">
     <span><span class="tag">Ofertă Lidl · ${d.from}–${d.toTxt}</span>
     <span class="nm">${d.name} · ${d.pack}</span>
     <span class="pr"><b>${d.lp} lei</b> cu Lidl Plus · ${d.fara} lei fără</span>
