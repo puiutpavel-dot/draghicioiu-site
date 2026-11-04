@@ -1,0 +1,403 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Launch Tracker — Daniel Drăghicioiu</title>
+<meta name="description" content="50 de platforme unde să-ți lansezi produsul, ordonate pe valuri, cu progres salvat. / 50 places to launch your product, in wave order, with saved progress.">
+<link rel="canonical" href="https://draghicioiu.ro/launch/">
+<link rel="icon" href="/launch/logo.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/launch/logo.png">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Launch Tracker: 50 places to launch your product">
+<meta property="og:description" content="A free checklist of 50 launch platforms, grouped into 4 waves. Track every submission, no signup.">
+<meta property="og:url" content="https://draghicioiu.ro/launch/">
+<meta property="og:image" content="https://draghicioiu.ro/launch/cover.png">
+<meta property="og:image:width" content="1270">
+<meta property="og:image:height" content="760">
+<meta name="twitter:card" content="summary_large_image">
+<style>
+:root{
+  --bg:#f7f6f3; --surface:#ffffff; --ink:#16181d; --muted:#5d6370; --line:#e4e2dc;
+  --accent:#2f5bea; --accent-soft:#e8eefe; --ok:#11845b; --ok-soft:#e1f4ec;
+  --warn:#a0610a; --warn-soft:#fbf0de; --skip:#8a8f99; --skip-soft:#eeeff1;
+  --radius:14px;
+  --font: ui-sans-serif, -apple-system, "SF Pro Text", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#101216; --surface:#181b21; --ink:#eceef2; --muted:#9aa1ad; --line:#2a2e36;
+    --accent:#7d9bff; --accent-soft:#1f2a4a; --ok:#4fd19c; --ok-soft:#14342a;
+    --warn:#f0b35a; --warn-soft:#3a2b14; --skip:#80868f; --skip-soft:#24272d;
+  }
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);line-height:1.45;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.wrap{max-width:920px;margin:0 auto;padding:40px 16px 64px}
+
+header{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:28px}
+.eyebrow{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin:0 0 10px}
+h1{font-size:clamp(26px,4.5vw,38px);line-height:1.1;letter-spacing:-.02em;margin:0 0 10px;font-weight:750}
+.sub{color:var(--muted);margin:0;max-width:560px;font-size:16px}
+.lang{display:flex;border:1px solid var(--line);border-radius:999px;overflow:hidden;flex-shrink:0;background:var(--surface)}
+.lang button{border:0;background:none;color:var(--muted);font:600 13px var(--font);padding:7px 12px;cursor:pointer}
+.lang button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+
+.progress{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px 20px;margin-bottom:20px}
+.progress-top{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+.progress-num{font-size:28px;font-weight:750;letter-spacing:-.02em}
+.progress-num small{font-size:15px;color:var(--muted);font-weight:500}
+.progress-meta{color:var(--muted);font-size:14px;display:flex;gap:14px;flex-wrap:wrap}
+.dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px;vertical-align:1px}
+.bar{height:10px;background:var(--line);border-radius:999px;overflow:hidden;display:flex}
+.bar span{display:block;height:100%;transition:width .3s ease}
+.bar .b-live{background:var(--ok)} .bar .b-sent{background:var(--accent)} .bar .b-skip{background:var(--skip)}
+
+.waves{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px;margin-bottom:10px}
+.waves button{border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:10px;padding:10px 8px;font:600 13px var(--font);cursor:pointer;text-align:left;min-width:0}
+.waves button .n{display:block;font-size:11px;color:var(--muted);font-weight:600;margin-bottom:2px}
+.waves button .t{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.waves button[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft);color:var(--accent)}
+.waves button[aria-pressed="true"] .n{color:var(--accent)}
+.wave-note{color:var(--muted);font-size:14px;margin:0 0 18px;min-height:20px}
+
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px}
+.filters input,.filters select{font:14px var(--font);color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:9px 11px;min-width:0}
+.filters input{flex:1 1 200px}
+.filters select{flex:0 1 auto}
+.btn{font:600 14px var(--font);border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:10px;padding:9px 13px;cursor:pointer}
+.btn:hover{border-color:var(--muted)}
+.btn.ghost{color:var(--muted)}
+
+.group-h{display:flex;align-items:baseline;gap:10px;margin:26px 0 10px}
+.group-h h2{font-size:17px;margin:0;letter-spacing:-.01em}
+.group-h span{color:var(--muted);font-size:13px}
+
+.list{display:flex;flex-direction:column;gap:8px}
+.item{display:grid;grid-template-columns:40px 1fr auto;gap:14px;align-items:start;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;transition:border-color .15s}
+.item[data-status="live"]{border-color:color-mix(in srgb,var(--ok) 45%,var(--line))}
+.item[data-status="skip"]{opacity:.55}
+.ico{width:40px;height:40px;border-radius:10px;background:var(--bg);border:1px solid var(--line);display:grid;place-items:center;overflow:hidden;font-weight:700;color:var(--muted)}
+.ico img{width:22px;height:22px}
+.name{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.name a{font-weight:700;text-decoration:none;font-size:16px}
+.name a:hover{text-decoration:underline}
+.domain{color:var(--muted);font-size:13px}
+.desc{margin:4px 0 8px;color:var(--muted);font-size:14px}
+.tags{display:flex;gap:6px;flex-wrap:wrap}
+.tag{font-size:12px;font-weight:600;padding:3px 8px;border-radius:999px;background:var(--bg);border:1px solid var(--line);color:var(--muted)}
+.tag.free{background:var(--ok-soft);color:var(--ok);border-color:transparent}
+.tag.freemium{background:var(--accent-soft);color:var(--accent);border-color:transparent}
+.tag.paid{background:var(--warn-soft);color:var(--warn);border-color:transparent}
+.side{display:flex;flex-direction:column;align-items:flex-end;gap:6px}
+.status{font:600 13px var(--font);border-radius:999px;padding:6px 10px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer}
+.status[data-v="sent"]{background:var(--accent-soft);color:var(--accent);border-color:transparent}
+.status[data-v="live"]{background:var(--ok-soft);color:var(--ok);border-color:transparent}
+.status[data-v="skip"]{background:var(--skip-soft);color:var(--skip);border-color:transparent}
+.date{font-size:12px;color:var(--muted)}
+.empty{text-align:center;color:var(--muted);padding:40px 0}
+
+footer{margin-top:44px;padding-top:22px;border-top:1px solid var(--line);color:var(--muted);font-size:14px;display:flex;flex-direction:column;gap:6px}
+footer a{color:var(--accent);font-weight:600;text-decoration:none}
+footer a:hover{text-decoration:underline}
+
+@media (max-width:640px){
+  header{flex-direction:column-reverse}
+  .waves{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .waves button:first-child{grid-column:1/-1}
+  .item{grid-template-columns:36px 1fr;gap:12px}
+  .ico{width:36px;height:36px}
+  .side{grid-column:1/-1;flex-direction:row;justify-content:space-between;align-items:center}
+  .filters select{flex:1 1 calc(50% - 4px)}
+  .group-h{flex-direction:column;gap:2px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div>
+      <p class="eyebrow">Launch Tracker</p>
+      <h1 id="t-title"></h1>
+      <p class="sub" id="t-sub"></p>
+    </div>
+    <div class="lang" role="group" aria-label="Language">
+      <button data-lang="ro">RO</button>
+      <button data-lang="en">EN</button>
+    </div>
+  </header>
+
+  <section class="progress" aria-live="polite">
+    <div class="progress-top">
+      <div class="progress-num" id="p-num"></div>
+      <div class="progress-meta" id="p-meta"></div>
+    </div>
+    <div class="bar"><span class="b-live" id="b-live"></span><span class="b-sent" id="b-sent"></span><span class="b-skip" id="b-skip"></span></div>
+  </section>
+
+  <nav class="waves" id="waves" aria-label="Waves"></nav>
+  <p class="wave-note" id="wave-note"></p>
+
+  <div class="filters">
+    <input type="search" id="q" autocomplete="off">
+    <select id="f-type"></select>
+    <select id="f-price"></select>
+    <select id="f-status"></select>
+    <button class="btn" id="export"></button>
+    <button class="btn ghost" id="reset"></button>
+  </div>
+
+  <main id="out"></main>
+
+  <footer>
+    <span id="t-note"></span>
+    <span id="t-credit"></span>
+  </footer>
+</div>
+
+<script>
+(function(){
+// [id, name, domain, wave, type, price, cadence, descRO, descEN]
+const D = [
+[1,"Hacker News","news.ycombinator.com",3,"community","free","","Postează un Show HN și primești feedback direct de la mii de developeri.","Post a Show HN and get blunt feedback from thousands of developers."],
+[2,"Reddit","reddit.com",3,"community","free","","Spune povestea produsului în subreddit-uri de nișă. Citește regulile fiecăruia.","Share your story in niche subreddits. Read each one's rules first."],
+[3,"Product Hunt","producthunt.com",3,"launch","free","daily","Lansare gratuită: concurezi pentru voturi în clasamentul zilei.","Free launch competing for upvotes on the daily leaderboard."],
+[4,"GeekNews","news.hada.io",3,"community","free","","Comunitate tech din Coreea: postează un Show GN.","Korean tech community: share what you built as a Show GN post."],
+[5,"What Launched Today","whatlaunched.today",2,"launch","free","daily","Coadă zilnică gratuită, cu backlink do-follow.","Free daily launch queue with a do-follow backlink."],
+[6,"Indie Hackers","indiehackers.com",3,"community","free","","Scrie povestea lansării și adaugă produsul într-o comunitate mare de fondatori.","Write your launch story and list your product in a big founder community."],
+[7,"BetaList","betalist.com",2,"launch","freemium","","Arăți startup-ul early adopterilor. Coadă gratuită sau listare plătită mai rapidă.","Show your startup to early adopters. Free queue or faster paid listing."],
+[8,"Uneed","uneed.best",2,"launch","freemium","daily","Coadă zilnică gratuită sau plătești ca să-ți alegi singur data.","Free daily launch line, or pay to skip it and pick your date."],
+[9,"Peerlist","peerlist.io",2,"launch","free","weekly","Lansezi pe Launchpad lunea și primești voturi și feedback de la builderi.","Launch on Launchpad any Monday for upvotes and builder feedback."],
+[10,"DevHunt","devhunt.org",3,"launch","free","","Pentru unelte de developeri: se votează cu contul de GitHub.","For dev tools: developers vote with their GitHub accounts."],
+[11,"Launching Next","launchingnext.com",4,"launch","free","daily","Trimiți gratuit, pentru o șansă în lista zilnică de startup-uri noi.","Submit free for a shot at the daily list of new startups."],
+[12,"AlternativeTo","alternativeto.net",1,"directory","free","","Te listezi ca alternativă la aplicații mari, ca să te găsească cine le caută.","List as an alternative so people searching big apps find you."],
+[13,"SaaSHub","saashub.com",1,"directory","free","","Listezi și verifici produsul, ca să apară ca alternativă software.","List and verify your product so buyers find it as an alternative."],
+[14,"G2","g2.com",1,"review","free","","Profil gratuit și recenziile pe care cumpărătorii B2B le citesc înainte să aleagă.","Free profile and the reviews B2B buyers read before they pick."],
+[15,"Capterra","capterra.com",1,"review","free","","Listare unde firmele compară software după recenzii și preț.","Listing where businesses compare software by reviews and price."],
+[16,"GetApp","getapp.com",1,"review","free","","Director de software de business, plin de recenzii.","Business software directory packed with user reviews."],
+[17,"TrustRadius","trustradius.com",1,"review","free","","Profil gratuit cu recenzii verificate pentru cumpărători B2B.","Free profile with verified reviews for B2B buyers."],
+[18,"Slashdot","slashdot.org",1,"directory","free","","Director de software unde cumpărătorii compară unelte.","Business software directory where buyers compare tools."],
+[19,"Launch Llama","tools.launchllama.co",4,"directory","freemium","","Director curatoriat pentru fondatori, cu opțiune gratuită.","Curated directory built for founders, with a free option."],
+[20,"Futurepedia","futurepedia.io",4,"ai","paid","","Listare plătită într-un director AI mare, folosit de profesioniști.","Paid listing in a large AI tools directory used by professionals."],
+[21,"There's An AI For That","theresanaiforthat.com",4,"ai","paid","","Listare plătită pe unul dintre cele mai mari directoare AI.","Paid listing on one of the biggest AI directories."],
+[22,"Toolify","toolify.ai",4,"ai","paid","","Listare plătită într-un director cu zeci de mii de unelte AI.","Paid listing in a directory of tens of thousands of AI tools."],
+[23,"Future Tools","futuretools.io",4,"ai","free","","Trimiți gratuit unealta AI pentru directorul lui Matt Wolfe.","Submit your AI tool free to Matt Wolfe's directory."],
+[24,"ConfettiSaaS","confettisaas.com",4,"directory","unknown","","Director SaaS curatoriat, răsfoit de fondatori.","Curated SaaS directory that founders browse."],
+[25,"Fazier","fazier.com",4,"launch","free","daily","Trimiți gratuit și apari într-un feed zilnic de produse noi.","Submit free and get featured in a daily feed of new products."],
+[26,"Rank Anything","rankanything.online",4,"directory","unknown","","Adaugi produsul în clasamente tip tier list, votate de comunitate.","Add your product to community tier lists where people upvote."],
+[27,"Crunchbase","crunchbase.com",1,"directory","free","","Profilul startup-ului într-o bază de date mare de companii.","Your startup's profile in a big private-company database."],
+[28,"Aura++","auraplusplus.com",2,"launch","unknown","daily","Programezi o lansare zilnică, strângi voturi și badge-uri, păstrezi pagina proiectului.","Schedule a daily launch, earn votes and badges, keep a project page."],
+[29,"StartupBase","startupbase.io",4,"launch","free","daily","Lansare gratuită pe un site cu produse noi în fiecare zi.","Free launch on a site where new products go live daily."],
+[30,"SideProjectors","sideprojectors.com",1,"directory","free","","Prezinți sau vinzi proiectul ori găsești un co-fondator. Gratuit.","Showcase or sell your side project, or find a co-founder. Free."],
+[31,"Microlaunch","microlaunch.net",2,"launch","unknown","","Comunitate care votează, dă feedback și chiar critică ideile.","Community that votes, gives feedback and even roasts ideas."],
+[32,"Better Launch","betterlaunch.co",2,"launch","freemium","","7 zile gratuit în feed sau plătești ca să rămâi fixat sus.","Free for 7 days in the feed, or pay to pin it on top."],
+[33,"FoundrList","foundrlist.com",2,"launch","freemium","weekly","Clasament săptămânal gratuit sau plătești ca să sari peste așteptare.","Free weekly ranked board, or pay to skip the wait."],
+[34,"PeerPush","peerpush.com",3,"launch","unknown","daily","Lipești URL-ul, strângi voturi și concurezi pentru produsul zilei.","Paste your URL, get upvotes and compete for Product of the Day."],
+[35,"twelve.tools","twelve.tools",4,"launch","unknown","daily","Un site care arată 12 unelte noi în fiecare zi.","Get featured on a site that shows 12 new tools every day."],
+[36,"Shipybara","shipybara.com",2,"launch","unknown","weekly","Lansare în lista de luni, unde comunitatea votează produse noi.","Launch in a Monday lineup where people upvote new products."],
+[37,"Hashnode","hashnode.com",3,"community","free","","Scrii povestea lansării pe o platformă de blog pentru developeri.","Write your launch story on a blogging platform for developers."],
+[38,"SaaSCity","saascity.io",2,"launch","unknown","weekly","Runde săptămânale în care produsul crește ca o clădire pe hartă.","Weekly rounds where your product grows as a building on a map."],
+[39,"500.tools","500.tools",4,"directory","paid","","Listă curatoriată limitată la 500 de unelte. Plătit, adesea epuizat.","Curated list capped at 500 tools. Paid, often sold out."],
+[40,"SourceForge","sourceforge.net",1,"directory","free","","Găzduiești un proiect open-source sau listezi software-ul pentru cumpărători.","Host open-source projects or list business software for buyers."],
+[41,"AI Directories","aidirectori.es",4,"ai","paid","","Plătești o dată și îți trimit unealta AI în peste 100 de directoare.","Pay once and they submit your AI tool to 100+ directories."],
+[42,"Startup Fame","startupfa.me",4,"directory","unknown","daily","Director de startup-uri curatoriat, actualizat zilnic.","Curated startup directory that updates every day."],
+[43,"GitHub","github.com",1,"community","free","","Faci proiectul public, ca developerii să-l găsească și să-i dea stea.","Open-source it as a public repo developers can find and star."],
+[44,"PitchWall","pitchwall.co",4,"ai","unknown","daily","Director care arată zilnic unelte AI noi.","Directory that shows new AI tools daily."],
+[45,"ScrollLaunch","scrolllaunch.com",2,"launch","unknown","weekly","Clasament săptămânal cu voturi, gândit ca alternativă la Product Hunt.","Weekly upvote leaderboard built as a Product Hunt alternative."],
+[46,"RankInPublic","rankinpublic.xyz",2,"launch","unknown","weekly","Turnee săptămânale: produsele se înfruntă 1 la 1 în voturile comunității.","Weekly tournaments where products face off 1v1 in community votes."],
+[47,"TinyLaunch","tinylaunch.com",2,"launch","unknown","","Runde cu clasament; primii 3 primesc badge și backlink.","Ranked rounds where the top 3 win badges and a backlink."],
+[48,"Tiny Startups","tinystartups.com",4,"directory","freemium","","Listare gratuită sau plătești cât vrei ca să urci mai sus.","List free, or pay what you want to rank higher."],
+[49,"Nick Launches","nicklaunches.com",2,"launch","unknown","weekly","Listă săptămânală pentru builderi, cu pagină permanentă de produs.","Weekly list for builders with a permanent product page."],
+[50,"Wellfound","wellfound.com",1,"directory","free","","Profil de startup și anunțuri de job gratuite (fost AngelList Talent).","Free startup profile and job posts (formerly AngelList Talent)."]
+];
+
+const T = {
+ro:{
+  title:"50 de locuri unde să-ți lansezi produsul",
+  sub:"Urmează ordinea pe valuri, bifează pe unde ai trimis și nu rata nicio platformă. Progresul se salvează în browserul tău.",
+  of:"din 50 trimise", live:"live", sent:"trimise", skip:"sărite",
+  all:"Toate", allNote:"Toate cele 50 de platforme, grupate în ordinea recomandată.",
+  wave:"Valul",
+  waves:{1:"Fundație",2:"Pre-lansare",3:"Ziua lansării",4:"După lansare"},
+  waveNotes:{
+    1:"Profile permanente. Fă-le înainte de orice: dau credibilitate și backlink-uri de durată.",
+    2:"Cozi și programări. Trimite cu 1–4 săptămâni înainte, ca să prinzi o dată bună.",
+    3:"Ziua mare. Product Hunt dimineața devreme (ora SUA), apoi HN, Reddit și comunitățile.",
+    4:"Directoare. Trimite la câteva pe zi în săptămânile de după, pentru trafic constant."
+  },
+  q:"Caută platformă…",
+  anyType:"Orice tip", anyPrice:"Orice preț", anyStatus:"Orice status",
+  types:{community:"Comunitate",launch:"Platformă de lansare",directory:"Director",ai:"Director AI",review:"Review-uri B2B"},
+  prices:{free:"Gratuit",freemium:"Gratuit + plătit",paid:"Plătit",unknown:"Preț neverificat"},
+  cad:{daily:"Zilnic",weekly:"Săptămânal"},
+  st:{todo:"De trimis",sent:"Trimis",live:"Live",skip:"Sărit"},
+  export:"Export CSV", reset:"Resetează",
+  resetQ:"Ștergi tot progresul salvat?",
+  empty:"Nicio platformă nu se potrivește filtrelor.",
+  on:"pe",
+  note:"Prețurile și regulile platformelor se schimbă des, așa că verifică pe site înainte să plătești.",
+  credit:'Construit de Daniel Drăghicioiu. Ai nevoie de o aplicație iOS sau de un site? <a href="https://draghicioiu.ro">draghicioiu.ro</a>'
+},
+en:{
+  title:"50 places to launch your product",
+  sub:"Follow the wave order, tick off where you've submitted, and don't miss a platform. Progress is saved in your browser.",
+  of:"of 50 submitted", live:"live", sent:"submitted", skip:"skipped",
+  all:"All", allNote:"All 50 platforms, grouped in the recommended order.",
+  wave:"Wave",
+  waves:{1:"Foundation",2:"Pre-launch",3:"Launch day",4:"After launch"},
+  waveNotes:{
+    1:"Permanent profiles. Do these first: they add credibility and lasting backlinks.",
+    2:"Queues and scheduling. Submit 1–4 weeks ahead to land a good date.",
+    3:"The big day. Product Hunt early morning (US time), then HN, Reddit and communities.",
+    4:"Directories. Submit to a few per day in the weeks after for steady traffic."
+  },
+  q:"Search platforms…",
+  anyType:"Any type", anyPrice:"Any price", anyStatus:"Any status",
+  types:{community:"Community",launch:"Launch platform",directory:"Directory",ai:"AI directory",review:"B2B reviews"},
+  prices:{free:"Free",freemium:"Free + paid",paid:"Paid",unknown:"Price unverified"},
+  cad:{daily:"Daily",weekly:"Weekly"},
+  st:{todo:"To do",sent:"Submitted",live:"Live",skip:"Skipped"},
+  export:"Export CSV", reset:"Reset",
+  resetQ:"Clear all saved progress?",
+  empty:"No platforms match these filters.",
+  on:"on",
+  note:"Pricing and rules change often, so check each site before paying.",
+  credit:'Built by Daniel Drăghicioiu. Need an iOS app or a website? <a href="https://draghicioiu.ro">draghicioiu.ro</a>'
+}
+};
+
+const KEY="launchtracker.v1";
+function load(){try{return JSON.parse(localStorage.getItem(KEY))||{}}catch(e){return {}}}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(store))}catch(e){}}
+const store=load();
+store.s=store.s||{};
+const S={lang:store.lang||((navigator.language||"").toLowerCase().startsWith("ro")?"ro":"en"),wave:0,type:"",price:"",status:"",q:""};
+
+const $=id=>document.getElementById(id);
+const st=id=>(store.s[id]&&store.s[id].v)||"todo";
+
+function opts(sel,first,map,val){
+  sel.innerHTML='<option value="">'+first+'</option>'+Object.keys(map).map(k=>'<option value="'+k+'"'+(k===val?' selected':'')+'>'+map[k]+'</option>').join("");
+}
+
+function fmtDate(ts){
+  try{return new Date(ts).toLocaleDateString(S.lang==="ro"?"ro-RO":"en-GB",{day:"numeric",month:"short"})}catch(e){return ""}
+}
+
+function renderStatic(){
+  const t=T[S.lang];
+  document.documentElement.lang=S.lang;
+  $("t-title").textContent=t.title;
+  $("t-sub").textContent=t.sub;
+  $("t-note").textContent=t.note;
+  $("t-credit").innerHTML=t.credit;
+  $("q").placeholder=t.q;
+  $("export").textContent=t.export;
+  $("reset").textContent=t.reset;
+  opts($("f-type"),t.anyType,t.types,S.type);
+  opts($("f-price"),t.anyPrice,t.prices,S.price);
+  opts($("f-status"),t.anyStatus,t.st,S.status);
+  document.querySelectorAll(".lang button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.lang===S.lang));
+  const w=$("waves");
+  w.innerHTML=[0,1,2,3,4].map(n=>{
+    const count=n?D.filter(d=>d[3]===n).length:D.length;
+    const label=n?t.waves[n]:t.all;
+    const top=n?(t.wave+" "+n+" · "+count):count;
+    return '<button data-w="'+n+'" aria-pressed="'+(S.wave===n)+'"><span class="n">'+top+'</span><span class="t">'+label+'</span></button>';
+  }).join("");
+  $("wave-note").textContent=S.wave?t.waveNotes[S.wave]:t.allNote;
+}
+
+function renderProgress(){
+  const t=T[S.lang];
+  let live=0,sent=0,skip=0;
+  D.forEach(d=>{const v=st(d[0]);if(v==="live")live++;else if(v==="sent")sent++;else if(v==="skip")skip++;});
+  const done=live+sent;
+  $("p-num").innerHTML=done+' <small>'+t.of+'</small>';
+  $("p-meta").innerHTML=
+    '<span><i class="dot" style="background:var(--ok)"></i>'+live+' '+t.live+'</span>'+
+    '<span><i class="dot" style="background:var(--accent)"></i>'+sent+' '+t.sent+'</span>'+
+    '<span><i class="dot" style="background:var(--skip)"></i>'+skip+' '+t.skip+'</span>';
+  $("b-live").style.width=(live/D.length*100)+"%";
+  $("b-sent").style.width=(sent/D.length*100)+"%";
+  $("b-skip").style.width=(skip/D.length*100)+"%";
+}
+
+function itemHTML(d){
+  const t=T[S.lang];
+  const [id,name,dom,wave,type,price,cad,ro,en]=d;
+  const v=st(id);
+  const rec=store.s[id];
+  const tags='<span class="tag '+price+'">'+t.prices[price]+'</span><span class="tag">'+t.types[type]+'</span>'+(cad?'<span class="tag">'+t.cad[cad]+'</span>':'');
+  const sel='<select class="status" data-id="'+id+'" data-v="'+v+'" aria-label="Status '+name+'">'+
+    Object.keys(t.st).map(k=>'<option value="'+k+'"'+(k===v?' selected':'')+'>'+t.st[k]+'</option>').join("")+'</select>';
+  const date=(v!=="todo"&&rec&&rec.d)?'<span class="date">'+fmtDate(rec.d)+'</span>':'';
+  return '<article class="item" data-status="'+v+'">'+
+    '<div class="ico" data-l="'+name[0]+'"><img loading="lazy" alt="" src="https://www.google.com/s2/favicons?domain='+dom+'&sz=64"></div>'+
+    '<div><div class="name"><a href="https://'+dom+'" target="_blank" rel="noopener">'+name+'</a><span class="domain">'+dom+'</span></div>'+
+    '<p class="desc">'+(S.lang==="ro"?ro:en)+'</p><div class="tags">'+tags+'</div></div>'+
+    '<div class="side">'+sel+date+'</div></article>';
+}
+
+function renderList(){
+  const t=T[S.lang];
+  const q=S.q.trim().toLowerCase();
+  const rows=D.filter(d=>
+    (!S.wave||d[3]===S.wave)&&(!S.type||d[4]===S.type)&&(!S.price||d[5]===S.price)&&
+    (!S.status||st(d[0])===S.status)&&
+    (!q||(d[1]+" "+d[2]+" "+d[7]+" "+d[8]).toLowerCase().includes(q)));
+  if(!rows.length){$("out").innerHTML='<p class="empty">'+t.empty+'</p>';return;}
+  let html="";
+  [1,2,3,4].forEach(w=>{
+    const g=rows.filter(d=>d[3]===w);
+    if(!g.length)return;
+    if(!S.wave) html+='<div class="group-h"><h2>'+w+'. '+t.waves[w]+'</h2><span>'+t.waveNotes[w]+'</span></div>';
+    html+='<div class="list">'+g.map(itemHTML).join("")+'</div>';
+  });
+  $("out").innerHTML=html;
+  $("out").querySelectorAll(".ico img").forEach(img=>img.addEventListener("error",()=>{const p=img.parentNode;p.textContent=p.dataset.l;}));
+}
+
+function renderAll(){renderStatic();renderProgress();renderList();}
+
+document.querySelector(".lang").addEventListener("click",e=>{
+  const b=e.target.closest("button");if(!b)return;
+  S.lang=b.dataset.lang;store.lang=S.lang;save();renderAll();
+});
+$("waves").addEventListener("click",e=>{
+  const b=e.target.closest("button");if(!b)return;
+  S.wave=+b.dataset.w;renderStatic();renderList();
+});
+$("q").addEventListener("input",e=>{S.q=e.target.value;renderList();});
+$("f-type").addEventListener("change",e=>{S.type=e.target.value;renderList();});
+$("f-price").addEventListener("change",e=>{S.price=e.target.value;renderList();});
+$("f-status").addEventListener("change",e=>{S.status=e.target.value;renderList();});
+$("out").addEventListener("change",e=>{
+  const s=e.target.closest(".status");if(!s)return;
+  const id=s.dataset.id,v=s.value;
+  if(v==="todo")delete store.s[id];else store.s[id]={v:v,d:Date.now()};
+  save();renderProgress();renderList();
+});
+$("reset").addEventListener("click",()=>{
+  if(!confirm(T[S.lang].resetQ))return;
+  store.s={};save();renderProgress();renderList();
+});
+$("export").addEventListener("click",()=>{
+  const t=T[S.lang];
+  const esc=x=>'"'+String(x).replace(/"/g,'""')+'"';
+  const lines=[["#","Platform","URL","Wave","Type","Price","Status","Date"].map(esc).join(",")];
+  D.forEach(d=>{
+    const r=store.s[d[0]];
+    lines.push([d[0],d[1],"https://"+d[2],d[3]+" "+t.waves[d[3]],t.types[d[4]],t.prices[d[5]],t.st[st(d[0])],r&&r.d?new Date(r.d).toISOString().slice(0,10):""].map(esc).join(","));
+  });
+  const blob=new Blob(["\ufeff"+lines.join("\n")],{type:"text/csv;charset=utf-8"});
+  const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="launch-tracker.csv";
+  document.body.appendChild(a);a.click();a.remove();
+});
+
+renderAll();
+})();
+</script>
+</body>
+</html>
