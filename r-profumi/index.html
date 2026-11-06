@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>R. Profumi · parfumuri de nișă – schiță de site</title>
+<meta name="description" content="Schiță de site pregătită de Daniel Drăghicioiu pentru R. Profumi: parfumuri de nișă și decanturi.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#0d0a08">
+<link rel="icon" href="img/logo.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Inter:wght@400;500;600&display=swap">
+<style>
+:root{
+--bg:#0d0a08;--bg-2:#16110d;--card:#1d1712;--ink:#f3ece4;--ink-2:#b3a597;--line:#3a2e24;
+--acc:#c98a52;--acc-2:#e7b582;
+--serif:"Cormorant Garamond",Georgia,serif;
+--sans:-apple-system,BlinkMacSystemFont,"Inter","Helvetica Neue",Arial,sans-serif;color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit}
+img{max-width:100%;display:block}
+.demo{background:#000;color:#ccc;font-size:12px;text-align:center;padding:8px 16px}
+.demo a{color:var(--acc-2)}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+nav.top{position:sticky;top:0;z-index:30;background:color-mix(in srgb,var(--bg) 82%,transparent);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid var(--line)}
+nav.top .wrap{display:flex;align-items:center;gap:20px;height:56px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-family:var(--serif);font-size:22px;font-weight:600;letter-spacing:.04em}
+.brand img{width:32px;height:32px;border-radius:50%}
+nav.top .links{display:flex;gap:24px;flex:1;justify-content:center;font-size:13px}
+nav.top .links a{text-decoration:none;opacity:.75}
+nav.top .links a:hover{opacity:1}
+.btn{display:inline-flex;align-items:center;gap:8px;border-radius:999px;padding:11px 22px;font-weight:500;font-size:15px;text-decoration:none;border:1px solid transparent;transition:.2s}
+.btn-p{background:var(--acc);color:#1a0f06}
+.btn-p:hover{background:var(--acc-2)}
+.btn-s{border-color:var(--line);color:var(--ink)}
+.btn-s:hover{border-color:var(--acc)}
+.btn-sm{padding:7px 14px;font-size:13px}
+/* hero */
+.hero{padding:72px 0 64px;background:radial-gradient(ellipse at 70% 30%,#3a2412 0%,transparent 60%)}
+.hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center}
+.eyebrow{font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--acc-2)}
+h1{font-family:var(--serif);font-weight:500;font-size:clamp(42px,6.5vw,72px);line-height:1.02;margin:14px 0 18px}
+h1 em{color:var(--acc-2)}
+.lead{color:var(--ink-2);font-size:18px;max-width:30em;margin:0 0 28px}
+.cta-row{display:flex;gap:12px;flex-wrap:wrap}
+.hero-art{position:relative;aspect-ratio:1;border-radius:24px;overflow:hidden;box-shadow:0 30px 80px -30px #000}
+.hero-art img{width:100%;height:100%;object-fit:cover}
+.hero-art .badge{position:absolute;left:16px;bottom:16px;background:rgba(13,10,8,.78);backdrop-filter:blur(8px);padding:8px 14px;border-radius:999px;font-size:13px}
+.stats{display:flex;gap:32px;margin-top:36px;flex-wrap:wrap}
+.stats div b{display:block;font-family:var(--serif);font-size:30px;font-weight:600;color:var(--ink)}
+.stats div{font-size:13px;color:var(--ink-2)}
+/* sections */
+section{padding:72px 0}
+.alt{background:var(--bg-2)}
+h2{font-family:var(--serif);font-weight:500;font-size:clamp(32px,4.5vw,46px);line-height:1.1;margin:8px 0 14px}
+.sec-lead{color:var(--ink-2);max-width:36em;margin:0 0 36px}
+/* brands */
+.marquee{overflow:hidden;border-block:1px solid var(--line);padding:18px 0;mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent)}
+.track{display:flex;gap:44px;width:max-content;animation:scroll 46s linear infinite;font-family:var(--serif);font-size:24px;color:var(--ink-2);white-space:nowrap}
+.track span:nth-child(odd){color:var(--ink)}
+@keyframes scroll{to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion:reduce){.track{animation:none}}
+/* picks */
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px}
+.chip{background:none;border:1px solid var(--line);color:var(--ink-2);border-radius:999px;padding:7px 14px;font:inherit;font-size:13px;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--acc);color:#1a0f06;border-color:var(--acc)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:18px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden;display:flex;flex-direction:column}
+.card img{aspect-ratio:1;object-fit:cover;width:100%}
+.card .body{padding:16px 18px 18px;display:flex;flex-direction:column;gap:6px;flex:1}
+.card .house{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--acc-2)}
+.card h3{font-family:var(--serif);font-weight:600;font-size:23px;margin:0;line-height:1.15}
+.card p{margin:0;color:var(--ink-2);font-size:14px;flex:1}
+.notes{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.notes span{font-size:11.5px;border:1px solid var(--line);border-radius:999px;padding:3px 9px;color:var(--ink-2)}
+.card .ask{margin-top:12px;align-self:flex-start}
+/* steps */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;counter-reset:s}
+.step{border:1px solid var(--line);border-radius:18px;padding:24px;background:var(--card)}
+.step::before{counter-increment:s;content:"0" counter(s);font-family:var(--serif);font-size:34px;color:var(--acc)}
+.step h3{margin:8px 0 6px;font-size:18px;font-weight:600}
+.step p{margin:0;color:var(--ink-2);font-size:14.5px}
+/* gallery */
+.gal{display:grid;grid-template-columns:2fr 1fr 1fr;grid-template-rows:1fr 1fr;gap:12px}
+.gal img{width:100%;height:100%;object-fit:cover;border-radius:16px;aspect-ratio:1}
+.gal img:first-child{grid-row:span 2;aspect-ratio:auto}
+/* quiz */
+.quiz{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:28px}
+.quiz .opts{display:flex;flex-wrap:wrap;gap:10px;margin:16px 0 20px}
+.result{border-top:1px solid var(--line);padding-top:18px;min-height:60px;color:var(--ink-2)}
+.result b{color:var(--ink);font-family:var(--serif);font-size:22px;font-weight:600}
+/* contact */
+.contact{text-align:center}
+.contact .logo{width:96px;height:96px;border-radius:50%;margin:0 auto 18px;border:1px solid var(--line)}
+.contact .cta-row{justify-content:center}
+footer{background:#080605;color:var(--ink-2);font-size:12px;padding:26px 0 40px}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+footer a{color:var(--ink)}
+.fab{position:fixed;right:18px;bottom:18px;z-index:40;box-shadow:0 10px 30px -8px #000}
+@media (max-width:820px){
+ nav.top .links{display:none}
+ nav.top .wrap{justify-content:space-between}
+ .hero{padding:44px 0}
+ .hero .wrap{grid-template-columns:1fr;gap:32px}
+ .steps{grid-template-columns:1fr}
+ .gal{grid-template-columns:1fr 1fr;grid-template-rows:auto}
+ .gal img:first-child{grid-column:span 2;grid-row:auto;aspect-ratio:1}
+ section{padding:56px 0}
+}
+</style>
+</head>
+<body>
+<div class="demo">Schiță de site pregătită de <a href="https://draghicioiu.ro/">Daniel Drăghicioiu</a> pentru R. Profumi, pe baza paginii de Instagram. Nu este site-ul oficial.</div>
+
+<nav class="top"><div class="wrap">
+<a class="brand" href="#"><img src="img/logo.jpg" alt="">R. Profumi</a>
+<div class="links"><a href="#case">Case de parfum</a><a href="#recomandari">Recomandări</a><a href="#decanturi">Decanturi</a><a href="#ghid">Ce mi se potrivește?</a><a href="#contact">Contact</a></div>
+<a class="btn btn-p btn-sm" href="https://ig.me/m/r.profumi" target="_blank" rel="noopener">Scrie-ne</a>
+</div></nav>
+
+<header class="hero"><div class="wrap">
+<div>
+<div class="eyebrow">Parfumerie de nișă</div>
+<h1>Parfumuri rare,<br><em>alese cu pasiune</em></h1>
+<p class="lead">Xerjoff, Initio, Roja, Creed, Montale, Orto Parisi și alte case de nișă, prezentate de cineva care le poartă, le testează și le iubește. Disponibile și în decanturi, ca să descoperi un parfum fără să cumperi flaconul întreg.</p>
+<div class="cta-row">
+<a class="btn btn-p" href="#recomandari">Vezi recomandările</a>
+<a class="btn btn-s" href="#decanturi">Cum funcționează decanturile</a>
+</div>
+<div class="stats">
+<div><b>20+</b>case de nișă</div>
+<div><b>236</b>parfumuri prezentate</div>
+<div><b>1.400+</b>pasionați pe Instagram</div>
+</div>
+</div>
+<div class="hero-art"><img src="img/vitrina.jpg" alt="Vitrină cu flacoane de parfum de nișă"><span class="badge">Din colecția R. Profumi</span></div>
+</div></header>
+
+<div class="marquee" id="case" aria-label="Case de parfum"><div class="track">
+<span>Xerjoff</span><span>Initio</span><span>Roja Parfums</span><span>Creed</span><span>Montale</span><span>Mancera</span><span>Orto Parisi</span><span>Nishane</span><span>Amouage</span><span>Laurent Mazzone</span><span>Bois 1920</span><span>MasqueMilano</span><span>Casamorati</span><span>Jousset</span><span>Pantheon Roma</span><span>Franck Boclet</span><span>Guerlain</span><span>Acqua di Parma</span>
+<span>Xerjoff</span><span>Initio</span><span>Roja Parfums</span><span>Creed</span><span>Montale</span><span>Mancera</span><span>Orto Parisi</span><span>Nishane</span><span>Amouage</span><span>Laurent Mazzone</span><span>Bois 1920</span><span>MasqueMilano</span><span>Casamorati</span><span>Jousset</span><span>Pantheon Roma</span><span>Franck Boclet</span><span>Guerlain</span><span>Acqua di Parma</span>
+</div></div>
+
+<section id="recomandari"><div class="wrap">
+<div class="eyebrow">Recomandări</div>
+<h2>Din vitrina R. Profumi</h2>
+<p class="sec-lead">Câteva dintre parfumurile prezentate recent. Întreabă de disponibilitate, flacon sau decant.</p>
+<div class="filters" role="group" aria-label="Filtrează după stil">
+<button class="chip" data-f="all" aria-pressed="true">Toate</button>
+<button class="chip" data-f="gourmand" aria-pressed="false">Gourmand</button>
+<button class="chip" data-f="oriental" aria-pressed="false">Oriental și lemnos</button>
+<button class="chip" data-f="fresh" aria-pressed="false">Proaspăt și elegant</button>
+</div>
+<div class="grid" id="grid"></div>
+</div></section>
+
+<section class="alt" id="decanturi"><div class="wrap">
+<div class="eyebrow">Decanturi</div>
+<h2>Încearcă înainte de flacon</h2>
+<p class="sec-lead">Parfumurile de nișă sunt o investiție. Un decant îți dă timp să porți parfumul câteva zile, pe pielea ta, înainte să decizi.</p>
+<div class="steps">
+<div class="step"><h3>Alegi parfumul</h3><p>Din recomandări sau din orice postare R. Profumi. Nu știi ce să alegi? Folosește ghidul de mai jos.</p></div>
+<div class="step"><h3>Ne scrii</h3><p>Trimite un mesaj pe Instagram cu parfumul dorit. Primești disponibilitatea și variantele de decant.</p></div>
+<div class="step"><h3>Îl porți și decizi</h3><p>Decantul ajunge la tine, gata de pulverizat. Dacă te cucerește, întreabă de flaconul întreg.</p></div>
+</div>
+</div></section>
+
+<section id="ghid"><div class="wrap">
+<div class="eyebrow">Ghid rapid</div>
+<h2>Ce parfum ți se potrivește?</h2>
+<div class="quiz">
+<div>Ce stil de arome te atrage cel mai mult?</div>
+<div class="opts" role="group">
+<button class="chip" data-q="gourmand" aria-pressed="false">Dulce, cafea, vanilie</button>
+<button class="chip" data-q="oriental" aria-pressed="false">Intens, oud, condimente</button>
+<button class="chip" data-q="fresh" aria-pressed="false">Proaspăt, curat, elegant</button>
+</div>
+<div class="result" id="result" aria-live="polite">Alege un stil și îți propunem un parfum din colecție.</div>
+</div>
+</div></section>
+
+<section class="alt"><div class="wrap">
+<div class="eyebrow">Galerie</div>
+<h2>Colecția</h2>
+<div class="gal">
+<img src="img/raft.jpg" alt="Rafturi luminate cu parfumuri de nișă" loading="lazy">
+<img src="img/roja.jpg" alt="Roja Parfums Oceania" loading="lazy">
+<img src="img/initio.jpg" alt="Initio Sugar Blast și Wild Rush" loading="lazy">
+<img src="img/montale.jpg" alt="Flacoane Montale Rendez-vous" loading="lazy">
+<img src="img/bois1920.jpg" alt="Bois 1920 Durocaffe printre boabe de cafea" loading="lazy">
+</div>
+</div></section>
+
+<section class="contact" id="contact"><div class="wrap">
+<img class="logo" src="img/logo.jpg" alt="Sigla R. Profumi">
+<h2>Hai să găsim parfumul tău</h2>
+<p class="sec-lead" style="margin-inline:auto">Scrie-ne pe Instagram pentru disponibilitate, decanturi sau o recomandare personalizată.</p>
+<div class="cta-row">
+<a class="btn btn-p" href="https://ig.me/m/r.profumi" target="_blank" rel="noopener">Trimite mesaj pe Instagram</a>
+<a class="btn btn-s" href="https://www.instagram.com/r.profumi/" target="_blank" rel="noopener">@r.profumi</a>
+</div>
+</div></section>
+
+<footer><div class="wrap">
+<span>© R. Profumi · parfumuri de nișă</span>
+<span>Schiță de <a href="https://draghicioiu.ro/">draghicioiu.ro</a></span>
+</div></footer>
+
+<a class="btn btn-p fab" href="https://ig.me/m/r.profumi" target="_blank" rel="noopener" aria-label="Scrie-ne pe Instagram">Scrie-ne</a>
+
+<script>
+const P=[
+{h:"Initio",n:"Sugar Blast & Wild Rush",img:"initio.jpg",s:"gourmand",d:"Noutățile Initio din 2026, prezentate în pereche.",t:["noutate 2026","nișă"]},
+{h:"Jousset",n:"Le Gourmand",img:"jousset.jpg",s:"gourmand",d:"Propus drept poate cel mai gourmand parfum din colecție.",t:["dulce","opulent"]},
+{h:"Bois 1920",n:"Durocaffe",img:"bois1920.jpg",s:"gourmand",d:"Pentru pasionații de nișă pură, construit în jurul cafelei.",t:["cafea","ciocolată neagră","cacao","vanilie","paciuli"]},
+{h:"Roja Parfums",n:"Oceania",img:"roja.jpg",s:"fresh",d:"Flaconul de colecție Roja, cu etichetă inspirată de valuri.",t:["Roja","lux"]},
+{h:"Orto Parisi",n:"Orto Parisi",img:"ortoparisi.jpg",s:"oriental",d:"Una dintre cele mai apreciate prezentări de pe pagină.",t:["avangardă","intens"]},
+{h:"Montale",n:"Rendez-vous à Moscou, Milan, Paris",img:"montale.jpg",s:"oriental",d:"Casă de nișă cu raport foarte bun între calitate și preț.",t:["Pierre Montale","trio"]},
+{h:"Christian Dior Privée",n:"Ambre Nuit & Santal",img:"christian-dior.jpg",s:"fresh",d:"Din colecția privată Dior, pentru ținute elegante.",t:["ambră","santal"]},
+{h:"Xerjoff",n:"Colecția Xerjoff",img:"vitrina.jpg",s:"oriental",d:"Vitrină plină de flacoane Xerjoff, una dintre casele preferate.",t:["Shooting Stars","Ouverture"]}
+];
+const g=document.getElementById('grid');
+function render(f){g.innerHTML=P.filter(p=>f==='all'||p.s===f).map(p=>`<article class="card"><img src="img/${p.img}" alt="${p.h} ${p.n}" loading="lazy"><div class="body"><div class="house">${p.h}</div><h3>${p.n}</h3><p>${p.d}</p><div class="notes">${p.t.map(x=>`<span>${x}</span>`).join('')}</div><a class="btn btn-s btn-sm ask" href="https://ig.me/m/r.profumi" target="_blank" rel="noopener">Întreabă de decant</a></div></article>`).join('')}
+render('all');
+document.querySelectorAll('[data-f]').forEach(b=>b.onclick=()=>{document.querySelectorAll('[data-f]').forEach(x=>x.setAttribute('aria-pressed',x===b));render(b.dataset.f)});
+const R={gourmand:["Bois 1920 Durocaffe","Cafea, ciocolată neagră și vanilie. Pentru cine vrea un parfum care miroase a desert cu caracter."],oriental:["Orto Parisi sau Montale","Arome puternice și hotărâte, cu oud și condimente. Nimic subtil."],fresh:["Dior Privée sau Roja Oceania","Eleganță curată, potrivită la birou, la o terasă sau seara."]};
+document.querySelectorAll('[data-q]').forEach(b=>b.onclick=()=>{document.querySelectorAll('[data-q]').forEach(x=>x.setAttribute('aria-pressed',x===b));const r=R[b.dataset.q];document.getElementById('result').innerHTML=`<b>${r[0]}</b><br>${r[1]} <a href="https://ig.me/m/r.profumi" target="_blank" rel="noopener">Cere un decant →</a>`});
+</script>
+</body>
+</html>
