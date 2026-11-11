@@ -168,6 +168,11 @@ nav.top .wrap{justify-content:space-between}
 .care p{margin:0;color:var(--ink-2);font-size:14px}
 @media (max-width:900px){.styles{grid-template-columns:repeat(2,minmax(0,1fr))}.care{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:520px){.care{grid-template-columns:1fr}}
+.strip{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;max-width:1180px;margin:44px auto 0;padding:0 22px}
+.strip img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:22px;display:block;background:#161617}
+@media (max-width:734px){.strip{grid-template-columns:repeat(2,minmax(0,1fr));padding:0 12px;gap:8px}.strip img{border-radius:16px}}
+.st{background-size:cover;background-position:center}
+.st:before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 45%,rgba(0,0,0,.88) 100%)}
 </style>
 </head>
 <body>
@@ -191,7 +196,7 @@ nav.top .wrap{justify-content:space-between}
 <main id="top">
 <section class="hero">
 <div class="wrap rv">
-<p class="eyebrow">Tatuaje de Robert Popescu</p>
+<p class="eyebrow">Tatuaje de Robert Popescu · Timișoara</p>
 <h1 class="h-xl">Realism.<br>Pe piele.</h1>
 <p class="lede">Portrete, animale și compoziții mari în black &amp; grey, plus lucrări color. Vezi stilurile, trimite ideea ta și programează-te din telefon.</p>
 <div class="links-row">
@@ -199,10 +204,11 @@ nav.top .wrap{justify-content:space-between}
 <a class="btn btn-s" href="#portofoliu">Vezi portofoliul</a>
 </div>
 </div>
-<div class="hero-img rv">
-<div class="frame">
-<div class="leaf" aria-hidden="true"><svg viewBox="0 0 64 64"><path d="M14 52l20-20M34 32l7-7 7 7-7 7z" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M48 18l6-6" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><path d="M10 56c3-1 5-3 6-6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" opacity=".6"/></svg></div>
-</div>
+<div class="strip rv">
+<img src="porumbel.jpg" alt="Tatuaj black &amp; grey cu porumbel, pe antebraț" width="492" height="594">
+<img src="urs.jpg" alt="Tatuaj cu urs și motive tradiționale românești, pe umăr" width="492" height="598">
+<img src="inima.jpg" alt="Tatuaj pe gambă cu inimă și trandafir" width="492" height="598">
+<img src="aripa.jpg" alt="Tatuaj black &amp; grey cu aripă, pe antebraț" width="492" height="438" loading="lazy">
 </div>
 </section>
 
@@ -227,10 +233,10 @@ nav.top .wrap{justify-content:space-between}
 <div class="rv">
 <p class="eyebrow">Portofoliu</p>
 <h2 class="h-l">Alege stilul. Vezi lucrările.</h2>
-<p class="lede">Stilurile care se văd cel mai des în lucrările de pe Instagram.</p>
+<p class="lede">Lucrări reale, grupate pe stiluri.</p>
 </div>
 <div class="styles" id="styles"></div>
-<p class="note">În site-ul final, fiecare stil se deschide cu fotografiile lucrărilor reale, puse cu acordul artistului. Până atunci, lucrările se văd pe <a href="https://www.instagram.com/benny_tatuaje/" target="_blank" rel="noopener">Instagram</a>.</p>
+<p class="note">Fotografii din postările <a href="https://www.instagram.com/benny_tatuaje/" target="_blank" rel="noopener">@benny_tatuaje</a>, folosite cu acordul artistului. În site-ul final intră fotografiile originale, la rezoluție mare.</p>
 </div>
 </section>
 
@@ -327,8 +333,8 @@ nav.top .wrap{justify-content:space-between}
 <script>
 const e=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const ST=[["Realism black & grey","Umbre fine și volum"],["Portrete","Chipuri redate fidel"],["Animale","Urs, gorilă"],["Religios","Iisus, cruci, porumbei"],["Color","Acuarelă și zodii"],["Japonez","Crap koi și flori"]];
-const ART=['<svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="20" fill="currentColor" opacity=".55"/><circle cx="38" cy="26" r="12" fill="#0d0d0f" opacity=".6"/></svg>','<svg viewBox="0 0 64 64"><circle cx="32" cy="24" r="10" stroke="currentColor" stroke-width="1.6" fill="none"/><path d="M14 54c2-12 10-18 18-18s16 6 18 18" stroke="currentColor" stroke-width="1.6" fill="none"/></svg>','<svg viewBox="0 0 64 64"><circle cx="18" cy="20" r="5" fill="currentColor"/><circle cx="32" cy="14" r="5" fill="currentColor"/><circle cx="46" cy="20" r="5" fill="currentColor"/><path d="M32 28c-10 0-16 8-16 15 0 6 6 7 16 7s16-1 16-7c0-7-6-15-16-15z" fill="currentColor"/></svg>','<svg viewBox="0 0 64 64"><path d="M32 8v48M18 24h28" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>','<svg viewBox="0 0 64 64"><circle cx="24" cy="28" r="14" fill="#d9a441"/><circle cx="40" cy="28" r="14" fill="#bf5af2" opacity=".8"/><circle cx="32" cy="42" r="14" fill="#0a84ff" opacity=".8"/></svg>','<svg viewBox="0 0 64 64"><path d="M6 34c8-8 14-8 20 0s12 8 20 0 8-8 12-4" stroke="currentColor" stroke-width="1.6" fill="none"/><path d="M6 44c8-8 14-8 20 0s12 8 20 0 8-8 12-4" stroke="currentColor" stroke-width="1.6" fill="none"/><circle cx="46" cy="18" r="7" fill="currentColor" opacity=".6"/></svg>'];
-document.getElementById("styles").innerHTML=ST.map(([n,d],i)=>`<a class="st rv" href="#idee" style="text-decoration:none;color:inherit">${ART[i]}<h3>${e(n)}</h3><p>${e(d)}</p></a>`).join("");
+const IMG=["clepsidra","chip","gorila","iisus","zodie","koi"];
+document.getElementById("styles").innerHTML=ST.map(([n,d],i)=>`<a class="st rv" href="#idee" style="text-decoration:none;color:#f5f5f7;background-image:url(${IMG[i]}.jpg)"><h3>${e(n)}</h3><p style="color:#d2d2d7">${e(d)}</p></a>`).join("");
 const sel=document.getElementById("f-stil");ST.forEach(s=>{const o=document.createElement("option");o.textContent=s[0];sel.appendChild(o)});const o2=document.createElement("option");o2.textContent="Nu știu încă";sel.appendChild(o2);
 document.getElementById("order").addEventListener("submit",ev=>{ev.preventDefault();const v=id=>document.getElementById(id).value.trim();
 const dt=v("f-data")?new Date(v("f-data")+"T12:00").toLocaleDateString("ro-RO",{weekday:"long",day:"numeric",month:"long"}):"";
