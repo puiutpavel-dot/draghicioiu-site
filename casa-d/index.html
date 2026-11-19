@@ -128,6 +128,40 @@ tr.new td{animation:flash 1.2s}
 footer{margin-top:26px;font-size:13px;color:var(--muted);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 footer a{text-decoration:underline;text-underline-offset:3px}
 
+/* portofel + butoane */
+.btn{font:inherit;font-size:14px;font-weight:650;color:var(--ink);border:1px solid var(--line);background:var(--glass2);border-radius:999px;padding:9px 16px;cursor:pointer;white-space:nowrap}
+.btn:hover{background:rgba(255,255,255,.13)}
+.btn:disabled{opacity:.5;cursor:default}
+.btn.gold{background:var(--gold);border-color:var(--gold);color:#1a1304}
+.btn.y{color:var(--yes);border-color:rgba(61,220,151,.45);background:rgba(61,220,151,.10)}
+.btn.n{color:var(--no);border-color:rgba(255,107,122,.45);background:rgba(255,107,122,.10)}
+.btn.sm{padding:6px 13px;font-size:13px}
+.walbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:flex-end;margin:-6px 0 14px;font-size:14px}
+.walbar .who{color:var(--muted)} .walbar .who b{color:var(--ink);font-weight:650}
+.mine{display:block;font-size:12.5px;color:var(--gold);margin-top:3px}
+td.act{white-space:nowrap}
+td.act .btn+.btn{margin-left:6px}
+dialog{border:1px solid var(--line);border-radius:var(--r);background:#11131a;color:var(--ink);padding:22px;width:min(440px,calc(100vw - 28px));font:inherit}
+dialog::backdrop{background:rgba(0,0,0,.62);backdrop-filter:blur(3px)}
+dialog h3{margin:0 0 4px;font-size:18px;line-height:1.3}
+dialog .dcat{font-size:11px;letter-spacing:.12em;font-weight:700;color:var(--gold)}
+.sides{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:16px 0 14px}
+.sides .btn{padding:12px;font-size:15px;border-radius:14px;opacity:.55}
+.sides .btn.on{opacity:1;box-shadow:0 0 0 2px currentColor inset}
+.amt{display:flex;gap:8px;align-items:center}
+.amt input{flex:1;min-width:0;height:46px;border-radius:14px;border:1px solid var(--line);background:var(--glass);color:var(--ink);font:inherit;font-size:18px;padding:0 14px;outline:none}
+.amt input:focus{border-color:var(--teal)}
+.chips{display:flex;gap:8px;margin-top:10px}
+.est{margin:14px 0 0;font-size:14px;color:var(--muted);min-height:40px}
+.est b{color:var(--ink)}
+.dmsg{margin:10px 0 0;font-size:14px;min-height:20px;color:var(--teal)}
+.dmsg.bad{color:var(--no)}
+.dact{display:flex;justify-content:flex-end;gap:10px;margin-top:14px}
+.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);background:#1b1e27;border:1px solid var(--line);border-radius:14px;padding:12px 18px;font-size:14.5px;max-width:calc(100vw - 28px);z-index:50;box-shadow:0 10px 40px rgba(0,0,0,.5)}
+.toast.bad{border-color:var(--no)}
+.demo.live{background:var(--teal);color:#02150f}
+.demo a{color:inherit}
+
 @media (max-width:860px){
   .hero{grid-template-columns:1fr;justify-items:center;text-align:center;padding-bottom:52px}
   .live{align-self:center}
@@ -152,7 +186,7 @@ footer a{text-decoration:underline;text-underline-offset:3px}
 </style>
 </head>
 <body>
-<div class="demo">VERSIUNE DEMO <span>· date simulate, generate în pagină · fără bani reali · contractul nu este încă publicat pe blockchain</span></div>
+<div class="demo" id="banner">VERSIUNE DEMO <span>· date simulate, generate în pagină · fără bani reali · contractul nu este încă publicat pe blockchain</span></div>
 <div class="wrap">
 
 <header>
@@ -163,6 +197,12 @@ footer a{text-decoration:underline;text-underline-offset:3px}
   </label>
   <a class="home" href="/">← draghicioiu.ro</a>
 </header>
+
+<div class="walbar" id="walbar" hidden>
+  <span class="who" id="walWho" hidden></span>
+  <button class="btn sm" id="btnFaucet" hidden>+ 1.000 tUSDC de test</button>
+  <button class="btn gold" id="btnConnect">Conectează portofelul</button>
+</div>
 
 <section class="card hero" aria-label="Activitate live">
   <div class="live">LIVE</div>
@@ -200,7 +240,7 @@ footer a{text-decoration:underline;text-underline-offset:3px}
 <section class="card panel">
   <h2>Piețe de fotbal <small>ordonate după pot</small></h2>
   <div class="tw"><table>
-    <thead><tr><th>#</th><th>Întrebare</th><th>Stare</th><th>Se închide</th><th>DA</th><th>Cotă DA / NU</th><th>Pot</th></tr></thead>
+    <thead><tr><th>#</th><th>Întrebare</th><th>Stare</th><th>Se închide</th><th>DA</th><th>Cotă DA / NU</th><th>Pot</th><th>Pronostic</th></tr></thead>
     <tbody id="tM"></tbody>
   </table></div>
 </section>
@@ -208,7 +248,7 @@ footer a{text-decoration:underline;text-underline-offset:3px}
 <section class="card panel">
   <h2>Mize recente <small>ultimele 12</small></h2>
   <div class="tw"><table>
-    <thead><tr><th>Tx</th><th>Vechime</th><th>Portofel</th><th>Piață</th><th>Variantă</th><th>Sumă</th></tr></thead>
+    <thead><tr><th>Miză</th><th>Vechime</th><th>Portofel</th><th>Piață</th><th>Variantă</th><th>Sumă</th></tr></thead>
     <tbody id="tB"></tbody>
   </table></div>
 </section>
@@ -217,147 +257,44 @@ footer a{text-decoration:underline;text-underline-offset:3px}
   <h2>Cum funcționează <small>contract v1, peer-to-peer</small></h2>
   <div class="how">
     <div><em>createMarket</em><b>1. Se deschide o piață</b>O întrebare despre fotbal cu răspuns DA sau NU și o oră de închidere.</div>
-    <div><em>bet</em><b>2. Oricine mizează</b>Pe DA sau pe NU, până la închidere. Nu există „casă” care să țină contra.</div>
+    <div><em>bet</em><b>2. Oricine mizează</b>Pe DA sau pe NU, până la închidere, cu tokeni de test. Nu există „casă” care să țină contra.</div>
     <div><em>resolve</em><b>3. Se introduce rezultatul</b>DA, NU sau Invalid. La Invalid, toți își primesc miza înapoi.</div>
     <div><em>claim</em><b>4. Câștigătorii își împart potul</b>Proporțional cu miza. Un câștigător nu primește niciodată mai puțin decât a mizat.</div>
   </div>
 </section>
 
 <footer>
-  <span>Casa D · proiect experimental de <a href="/">Daniel Drăghicioiu</a>. Cifrele de pe această pagină sunt simulate și nu reprezintă tranzacții reale.</span>
-  <span>v0.1 demo · tUSDC = token de test, fără valoare</span>
+  <span id="footL">Casa D · proiect experimental de <a href="/">Daniel Drăghicioiu</a>. Cifrele de pe această pagină sunt simulate și nu reprezintă tranzacții reale.</span>
+  <span id="footR">v0.2 demo · tUSDC = token de test, fără valoare</span>
 </footer>
 </div>
 
-<script>
-(function(){
-"use strict";
-var $=function(id){return document.getElementById(id)};
-var fmt=new Intl.NumberFormat("ro-RO",{maximumFractionDigits:0});
-var fmt2=new Intl.NumberFormat("ro-RO",{minimumFractionDigits:2,maximumFractionDigits:2});
-var FEE=0.02, DAY=864e5, now=Date.now();
-function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
-function hex(n){var s="";while(s.length<n)s+=Math.floor(Math.random()*16).toString(16);return s}
-function short(a){return a.slice(0,8)+"..."+a.slice(-4)}
+<dialog id="dlg" aria-labelledby="dQ">
+  <span class="dcat" id="dCat"></span>
+  <h3 id="dQ"></h3>
+  <div class="sides">
+    <button type="button" class="btn y" id="dYes">DA</button>
+    <button type="button" class="btn n" id="dNo">NU</button>
+  </div>
+  <label class="amt"><input id="dAmt" type="number" inputmode="decimal" min="0.01" step="0.01" value="10" aria-label="Suma în tUSDC"><span class="muted">tUSDC</span></label>
+  <div class="chips">
+    <button type="button" class="btn sm" data-a="10">10</button>
+    <button type="button" class="btn sm" data-a="50">50</button>
+    <button type="button" class="btn sm" data-a="100">100</button>
+    <button type="button" class="btn sm" data-a="500">500</button>
+  </div>
+  <p class="est num" id="dEst"></p>
+  <p class="dmsg" id="dMsg" role="status"></p>
+  <div class="dact">
+    <button type="button" class="btn" id="dCancel">Închide</button>
+    <button type="button" class="btn gold" id="dGo">Plasează pronosticul</button>
+  </div>
+</dialog>
+<div class="toast" id="toast" role="status" hidden></div>
 
-// --- date simulate ---
-var markets=[
- ["SUPERLIGA","Campioana SuperLigii 2026-27 va fi o echipă din București?",190,.52],
- ["NAȚIONALA","România se califică la EURO 2028?",480,.63],
- ["LIGA CAMPIONILOR","Finala Ligii Campionilor 2027 se decide la penalty-uri?",192,.16],
- ["SUPERLIGA","Golgheterul SuperLigii 2026-27 marchează cel puțin 20 de goluri?",185,.31],
- ["CUPA ROMÂNIEI","Finala Cupei României 2027 are peste 2,5 goluri?",178,.46],
- ["LIGA CAMPIONILOR","O echipă din Anglia câștigă Liga Campionilor 2026-27?",192,.38],
- ["EUROPA","O echipă românească ajunge în primăvara europeană 2026-27?",28,.44],
- ["SUPERLIGA","O nou-promovată termină SuperLiga 2026-27 în play-off?",120,.22],
- ["NAȚIONALA","România câștigă primul meci oficial din 2027?",125,.57],
- ["LIGA CAMPIONILOR","Se marchează peste 3,5 goluri în finala Ligii Campionilor 2027?",192,.29]
-].map(function(m,i){
-  var pot=3000+Math.random()*42000*(i<4?1.6:1);
-  return{id:i+1,cat:m[0],q:m[1],close:now+m[2]*DAY+Math.random()*DAY,yes:pot*m[3],no:pot*(1-m[3]),open:true};
-});
-markets.push({id:11,cat:"TEST",q:"Piață de test: se marchează în prima repriză?",close:now-40*DAY,yes:9120,no:6480,open:false,res:"DA"});
-markets.push({id:12,cat:"TEST",q:"Piață de test: meciul se termină egal?",close:now-12*DAY,yes:14300,no:18750,open:false,res:"NU"});
-
-var wallets=[];for(var w=0;w<140;w++)wallets.push("0x"+hex(40));
-var walletBase=1184, seen={}, bets=[], betCount=18342+Math.floor(Math.random()*400), volBase=0;
-markets.forEach(function(m){volBase+=m.yes+m.no});
-var volExtra=612400;
-
-function pickMarket(){
-  var open=markets.filter(function(m){return m.open}),tot=0,r;
-  open.forEach(function(m){tot+=Math.sqrt(m.yes+m.no)});
-  r=Math.random()*tot;
-  for(var i=0;i<open.length;i++){r-=Math.sqrt(open[i].yes+open[i].no);if(r<=0)return open[i]}
-  return open[0];
-}
-function makeBet(t){
-  var m=pickMarket(),p=m.yes/(m.yes+m.no);
-  var side=Math.random()<(p*.8+.1);
-  var amt=Math.max(1,Math.round(Math.exp(2.2+Math.random()*3.6)*100)/100);
-  if(side)m.yes+=amt;else m.no+=amt;
-  var a=wallets[Math.floor(Math.pow(Math.random(),1.6)*wallets.length)];
-  seen[a]=1; betCount++; volExtra+=amt;
-  var b={tx:"0x"+hex(64),t:t||Date.now(),a:a,m:m,side:side,amt:amt,fresh:!t};
-  bets.unshift(b); if(bets.length>60)bets.pop();
-  return b;
-}
-for(var k=40;k>=1;k--)makeBet(Date.now()-k*4200-Math.random()*2500);
-
-// --- afișare ---
-function age(t){var s=Math.max(1,Math.round((Date.now()-t)/1000));
-  if(s<60)return "acum "+s+"s"; if(s<3600)return "acum "+Math.floor(s/60)+" min"; return "acum "+Math.floor(s/3600)+" h"}
-function closeTxt(m){
-  var d=(m.close-Date.now())/DAY;
-  if(d<0)return new Date(m.close).toLocaleDateString("ro-RO",{day:"numeric",month:"short",year:"numeric"});
-  if(d<1)return "în "+Math.max(1,Math.round(d*24))+" h"; if(d<60)return "în "+Math.round(d)+" zile";
-  return new Date(m.close).toLocaleDateString("ro-RO",{day:"numeric",month:"short",year:"numeric"});
-}
-// cota = cât primește un câștigător la 1 tUSDC mizat (comisionul se ia doar din potul pierzător)
-function odds(m,yes){var win=yes?m.yes:m.no,lose=yes?m.no:m.yes;return 1+lose*(1-FEE)/win}
-var filter="";
-function match(s){return !filter||s.toLowerCase().indexOf(filter)>-1}
-
-function render(){
-  var sorted=markets.slice().sort(function(a,b){return(b.yes+b.no)-(a.yes+a.no)});
-  $("betCount").textContent=fmt.format(betCount);
-  $("sOpen").textContent=markets.filter(function(m){return m.open}).length;
-  $("sVol").textContent=fmt.format(volBase+volExtra);
-  $("sWal").textContent=fmt.format(walletBase+Object.keys(seen).length);
-
-  $("feat").innerHTML=sorted.filter(function(m){return m.open}).slice(0,3).map(function(m){
-    var p=m.yes/(m.yes+m.no)*100;
-    return '<article class="card fm"><span class="cat">'+m.cat+'</span><h4>'+esc(m.q)+'</h4>'+
-      '<div class="split"><i style="width:'+p.toFixed(1)+'%"></i></div>'+
-      '<div class="row num"><b>DA '+p.toFixed(0)+'%</b><b>NU '+(100-p).toFixed(0)+'%</b></div>'+
-      '<div class="meta num">Pot '+fmt.format(m.yes+m.no)+' tUSDC · se închide '+closeTxt(m)+'</div></article>';
-  }).join("");
-
-  var rows=sorted.filter(function(m){return match(m.q+" "+m.cat)}).map(function(m){
-    var p=m.yes/(m.yes+m.no)*100;
-    var st=m.open?'<span class="pill o">Deschisă</span>':'<span class="pill c">Rezolvată: '+m.res+'</span>';
-    return '<tr><td class="muted num">#'+m.id+'</td><td class="q">'+esc(m.q)+'</td><td>'+st+'</td><td class="num">'+closeTxt(m)+
-      '</td><td class="num"><b>'+p.toFixed(0)+'%</b></td><td class="num">'+fmt2.format(odds(m,true))+' / '+fmt2.format(odds(m,false))+
-      '</td><td class="num">'+fmt.format(m.yes+m.no)+' <span class="muted">tUSDC</span></td></tr>';
-  });
-  $("tM").innerHTML=rows.join("")||'<tr><td colspan="7" class="empty">Nicio piață nu se potrivește căutării.</td></tr>';
-
-  var bl=bets.filter(function(b){return match(b.a+" "+b.tx+" "+b.m.q)}).slice(0,12).map(function(b){
-    var r='<tr'+(b.fresh?' class="new"':'')+'><td class="addr">'+b.tx.slice(0,8)+"..."+b.tx.slice(-6)+'</td><td class="muted num" data-t="'+b.t+'">'+age(b.t)+
-      '</td><td class="addr">'+short(b.a)+'</td><td class="q">'+esc(b.m.q)+'</td><td><span class="pill '+(b.side?"y":"n")+'">'+(b.side?"DA":"NU")+
-      '</span></td><td class="num">'+fmt2.format(b.amt)+' <span class="muted">tUSDC</span></td></tr>';
-    b.fresh=false; return r;
-  });
-  $("tB").innerHTML=bl.join("")||'<tr><td colspan="6" class="empty">Nicio miză nu se potrivește căutării.</td></tr>';
-
-  var l=bets[0];
-  $("lAddr").textContent=short(l.a);
-  $("lSide").innerHTML='<span class="pill '+(l.side?"y":"n")+'">'+(l.side?"DA":"NU")+'</span>';
-  $("lAmt").textContent=fmt2.format(l.amt)+" tUSDC";
-  $("lMkt").textContent="#"+l.m.id+" · "+l.m.cat;
-
-  var slice=bets.slice(0,60).reverse(),mx=Math.log(1+Math.max.apply(null,slice.map(function(b){return b.amt})));
-  $("bars").innerHTML=slice.map(function(b){
-    return '<i class="'+(b.side?"":"n")+'" style="height:'+Math.max(8,Math.log(1+b.amt)/mx*100).toFixed(0)+'%"></i>'}).join("");
-}
-
-// --- ceas live ---
-var prog=$("prog"),C=628.3,nextAt,started;
-function schedule(){started=Date.now();nextAt=started+2200+Math.random()*4300}
-function tick(){
-  var t=Date.now();
-  if(t>=nextAt){makeBet();render();schedule()}
-  prog.style.strokeDashoffset=(C*(1-Math.min(1,(t-started)/(nextAt-started)))).toFixed(1);
-  $("betSub").textContent="următoarea în ~"+Math.max(0,Math.ceil((nextAt-t)/1000))+"s";
-}
-setInterval(tick,100);
-setInterval(function(){
-  var c=document.querySelectorAll("[data-t]");
-  for(var i=0;i<c.length;i++)c[i].textContent=age(+c[i].getAttribute("data-t"));
-},1000);
-$("q").addEventListener("input",function(e){filter=e.target.value.trim().toLowerCase();render()});
-schedule();render();
-})();
-</script>
+<script src="vendor/ethers.umd.min.js"></script>
+<script src="vendor/abi.js"></script>
+<script src="chain.js"></script>
+<script src="app.js"></script>
 </body>
 </html>
