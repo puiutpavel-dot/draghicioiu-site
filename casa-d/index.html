@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Casa D Explorer — piețe de predicții DA/NU · Daniel Drăghicioiu</title>
-<meta name="description" content="Casa D: explorer pentru piețe de predicții peer-to-peer DA/NU. Versiune demo cu date simulate, fără bani reali.">
+<title>Casa D Explorer — piețe de predicții pe fotbal · Daniel Drăghicioiu</title>
+<meta name="description" content="Casa D: explorer pentru piețe de predicții peer-to-peer DA/NU pe fotbal. Versiune demo cu date simulate, fără bani reali.">
 <link rel="canonical" href="https://draghicioiu.ro/casa-d/">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230a0c12'/%3E%3Cpath d='M20 14h14c11 0 18 7 18 18s-7 18-18 18H20z' fill='none' stroke='%23f2b84b' stroke-width='7'/%3E%3C/svg%3E">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Casa D Explorer">
-<meta property="og:description" content="Piețe de predicții peer-to-peer DA/NU. Demo cu date simulate, fără bani reali.">
+<meta property="og:description" content="Piețe de predicții peer-to-peer DA/NU pe fotbal. Demo cu date simulate, fără bani reali.">
 <meta property="og:url" content="https://draghicioiu.ro/casa-d/">
 <meta name="theme-color" content="#07080d">
 <style>
@@ -156,7 +156,7 @@ footer a{text-decoration:underline;text-underline-offset:3px}
 <div class="wrap">
 
 <header>
-  <a class="brand" href="/casa-d/"><b>Casa <i>D</i></b><small>EXPLORER</small></a>
+  <a class="brand" href="/casa-d/"><b>Casa <i>D</i></b><small>EXPLORER · FOTBAL</small></a>
   <label class="search">
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
     <input id="q" type="search" placeholder="Caută piețe, mize sau portofele" autocomplete="off" aria-label="Caută piețe, mize sau portofele">
@@ -198,7 +198,7 @@ footer a{text-decoration:underline;text-underline-offset:3px}
 <section class="feat" id="feat" aria-label="Cele mai mari piețe"></section>
 
 <section class="card panel">
-  <h2>Piețe <small>ordonate după pot</small></h2>
+  <h2>Piețe de fotbal <small>ordonate după pot</small></h2>
   <div class="tw"><table>
     <thead><tr><th>#</th><th>Întrebare</th><th>Stare</th><th>Se închide</th><th>DA</th><th>Cotă DA / NU</th><th>Pot</th></tr></thead>
     <tbody id="tM"></tbody>
@@ -216,7 +216,7 @@ footer a{text-decoration:underline;text-underline-offset:3px}
 <section class="card panel">
   <h2>Cum funcționează <small>contract v1, peer-to-peer</small></h2>
   <div class="how">
-    <div><em>createMarket</em><b>1. Se deschide o piață</b>O întrebare cu răspuns DA sau NU și o oră de închidere.</div>
+    <div><em>createMarket</em><b>1. Se deschide o piață</b>O întrebare despre fotbal cu răspuns DA sau NU și o oră de închidere.</div>
     <div><em>bet</em><b>2. Oricine mizează</b>Pe DA sau pe NU, până la închidere. Nu există „casă” care să țină contra.</div>
     <div><em>resolve</em><b>3. Se introduce rezultatul</b>DA, NU sau Invalid. La Invalid, toți își primesc miza înapoi.</div>
     <div><em>claim</em><b>4. Câștigătorii își împart potul</b>Proporțional cu miza. Un câștigător nu primește niciodată mai puțin decât a mizat.</div>
@@ -242,22 +242,22 @@ function short(a){return a.slice(0,8)+"..."+a.slice(-4)}
 
 // --- date simulate ---
 var markets=[
- ["CRIPTO","Bitcoin închide anul 2026 peste 100.000 $?",42,.41],
- ["SPORT","România se califică la EURO 2028?",480,.63],
- ["METEO","Ninge în București în ziua de Crăciun 2026?",36,.27],
- ["CRIPTO","Ethereum trece de 5.000 $ până la 1 martie 2027?",102,.34],
- ["ECONOMIE","Inflația anuală din România scade sub 5% în decembrie 2026?",44,.38],
- ["SPORT","Campioana SuperLigii 2026-27 va fi o echipă din București?",190,.52],
- ["TECH","Apare un iPhone pliabil până la finalul lui 2027?",400,.58],
- ["ECONOMIE","Cursul euro depășește 5,20 lei până la 30 iunie 2027?",223,.47],
- ["SPORT","Finala Ligii Campionilor 2027 se decide la penalty-uri?",192,.16],
- ["METEO","Vara 2027 aduce peste 42°C în România?",270,.44]
+ ["SUPERLIGA","Campioana SuperLigii 2026-27 va fi o echipă din București?",190,.52],
+ ["NAȚIONALA","România se califică la EURO 2028?",480,.63],
+ ["LIGA CAMPIONILOR","Finala Ligii Campionilor 2027 se decide la penalty-uri?",192,.16],
+ ["SUPERLIGA","Golgheterul SuperLigii 2026-27 marchează cel puțin 20 de goluri?",185,.31],
+ ["CUPA ROMÂNIEI","Finala Cupei României 2027 are peste 2,5 goluri?",178,.46],
+ ["LIGA CAMPIONILOR","O echipă din Anglia câștigă Liga Campionilor 2026-27?",192,.38],
+ ["EUROPA","O echipă românească ajunge în primăvara europeană 2026-27?",28,.44],
+ ["SUPERLIGA","O nou-promovată termină SuperLiga 2026-27 în play-off?",120,.22],
+ ["NAȚIONALA","România câștigă primul meci oficial din 2027?",125,.57],
+ ["LIGA CAMPIONILOR","Se marchează peste 3,5 goluri în finala Ligii Campionilor 2027?",192,.29]
 ].map(function(m,i){
   var pot=3000+Math.random()*42000*(i<4?1.6:1);
   return{id:i+1,cat:m[0],q:m[1],close:now+m[2]*DAY+Math.random()*DAY,yes:pot*m[3],no:pot*(1-m[3]),open:true};
 });
-markets.push({id:11,cat:"SPORT",q:"Se marchează peste 2,5 goluri în finala Cupei României 2026?",close:now-190*DAY,yes:9120,no:6480,open:false,res:"DA"});
-markets.push({id:12,cat:"CRIPTO","q":"Bitcoin atinge un nou maxim istoric în vara lui 2026?",close:now-95*DAY,yes:14300,no:18750,open:false,res:"NU"});
+markets.push({id:11,cat:"TEST",q:"Piață de test: se marchează în prima repriză?",close:now-40*DAY,yes:9120,no:6480,open:false,res:"DA"});
+markets.push({id:12,cat:"TEST",q:"Piață de test: meciul se termină egal?",close:now-12*DAY,yes:14300,no:18750,open:false,res:"NU"});
 
 var wallets=[];for(var w=0;w<140;w++)wallets.push("0x"+hex(40));
 var walletBase=1184, seen={}, bets=[], betCount=18342+Math.floor(Math.random()*400), volBase=0;
