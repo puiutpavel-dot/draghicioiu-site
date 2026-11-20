@@ -98,6 +98,16 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--acc);outline-off
 .note{margin-top:28px;font-size:13px;color:var(--muted);background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px}
 .note p{margin:0 0 8px}.note p:last-child{margin:0}
 .note b{color:var(--ink);font-weight:600}
+.drop{display:flex;align-items:center;gap:12px;flex-wrap:wrap;border:1.5px dashed var(--line);border-radius:12px;padding:16px}
+.drop.over{border-color:var(--acc);background:var(--ok-soft)}
+.cu-hint{color:var(--muted);font-size:14px}
+.cu-status{font-size:14px;color:var(--muted);margin-top:10px;min-height:1.4em}
+.cu-status.err{color:#d6281f}
+.cu-res{margin-top:10px;font-size:14px;border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.cu-res h4{margin:0 0 6px;font-size:15px}
+.cu-res ul{margin:0 0 8px;padding-left:18px}.cu-res li{margin:2px 0}
+.cu-res .w{background:var(--warn-soft);color:var(--warn);border-radius:8px;padding:8px 10px;margin:8px 0 0}
+.cu-res details{margin-top:8px}.cu-res pre{white-space:pre-wrap;max-height:220px;overflow:auto;font-size:12px;color:var(--muted);margin:6px 0 0}
 </style>
 </head>
 <body>
@@ -105,7 +115,7 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--acc);outline-off
   <header>
     <a class="back" href="/">← draghicioiu.ro</a>
     <h1>Cereri avize din Certificatul de Urbanism</h1>
-    <p>Completezi o singură dată datele din Certificatul de Urbanism, bifezi avizele cerute și descarci cererile gata completate, câte una pentru fiecare avizator. Avizatorii se aleg automat după județul amplasamentului.</p>
+    <p>Încarci Certificatul de Urbanism, verifici datele și avizele recunoscute și descarci cererile gata completate, câte una pentru fiecare avizator. Poți completa și manual. Avizatorii se aleg automat după județul amplasamentului.</p>
     <div class="stamps">
       <span class="stamp">42 de județe, peste 350 de avizatori</span>
       <span class="stamp">Gratuit, fără cont</span>
@@ -114,6 +124,18 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--acc);outline-off
   </header>
 
   <form id="f" novalidate autocomplete="on">
+    <fieldset id="cu-up">
+      <legend><span class="n">↑</span>Încarcă Certificatul de Urbanism</legend>
+      <p class="sub">Alege PDF-ul certificatului sau poze ale paginilor. Datele și avizele cerute se completează singure mai jos; tu doar le verifici. Fișierul nu pleacă din browserul tău.</p>
+      <div class="drop" id="cu-drop">
+        <input type="file" id="cu-file" accept="application/pdf,image/*" multiple hidden>
+        <button type="button" class="btn" id="cu-pick">Alege fișierul</button>
+        <span class="cu-hint">sau trage-l aici · PDF, JPG, PNG</span>
+      </div>
+      <div class="cu-status" id="cu-status" role="status" aria-live="polite"></div>
+      <div class="cu-res" id="cu-res" hidden></div>
+    </fieldset>
+
     <fieldset>
       <legend><span class="n">1</span>Solicitant</legend>
       <p class="sub">Poate fi persoană fizică sau juridică și poate fi diferit de beneficiarul investiției.</p>
@@ -229,6 +251,7 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--acc);outline-off
 <script src="jszip.min.js" defer></script>
 <script src="aviz-mai.js" defer></script>
 <script src="cereri.js" defer></script>
+<script src="cu.js" defer></script>
 <script>
 document.addEventListener('DOMContentLoaded', async function () {
   'use strict';
@@ -411,6 +434,70 @@ document.addEventListener('DOMContentLoaded', async function () {
     if (e.target.id === 'a_judet') render();
     sync(); save();
   });
+
+  /* încărcare Certificat de Urbanism: citește fișierul, completează pașii 3-5 */
+  function judCode(name) {
+    var n = String(name || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z]/g, '');
+    if (!n) return '';
+    return codes.filter(function (c) { return JUD[c].normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z]/g, '') === n; })[0] || '';
+  }
+  function setv(id, v, keep) { var el = $(id); if (!el || !v || (keep && el.value.trim())) return false; el.value = v; return true; }
+  function applyCU(R, info) {
+    var got = [];
+    if (setv('cu_nr', R.f.cu_nr)) got.push('nr. ' + R.f.cu_nr + (R.f.cu_data ? ' din ' + ro(R.f.cu_data) : ''));
+    setv('cu_data', R.f.cu_data); setv('cu_valab', R.f.cu_valab);
+    if (setv('cu_emis', R.f.cu_emis)) got.push('emis de ' + R.f.cu_emis);
+    if (setv('continut', R.f.continut)) got.push('lucrarea: ' + R.f.continut);
+    if (R.f.continut || R.f.cu_nr) $('tip_dc').value = R.f.tip_dc;
+    var A = R.amp || {}, jc = judCode(A.judet);
+    if (jc || A.loc) {
+      $('adrsame').checked = false;
+      if (jc) $('a_judet').value = jc;
+      setv('a_loc', A.loc); setv('a_str', A.str); setv('a_nr', A.nr); setv('a_cad', A.cad); setv('a_cf', A.cf);
+      got.push('amplasament: ' + [A.loc, jc ? 'jud. ' + JUD[jc] : ''].filter(Boolean).join(', '));
+    }
+    var So = R.sol || {};
+    if (So.nume) {
+      if (!$('nume').value.trim()) {
+        f.elements.tip_entitate.forEach(function (r) { r.checked = r.value === (So.pjur ? 'pjur' : 'pfiz'); });
+        $('nume').value = So.nume;
+        var D = So.adr || {};
+        setv('c_loc', D.loc, 1); setv('c_judet', D.judet, 1); setv('c_str', D.str, 1); setv('c_nr', D.nr, 1);
+        setv('tel', So.tel, 1); setv('email', So.email, 1);
+      }
+      if (!$('benesol').checked) setv('beneficiari', So.nume);
+      got.push('solicitant: ' + So.nume);
+    }
+    if (R.avize.length) { AV.forEach(function (a) { S[a.id].on = false; }); R.avize.forEach(function (id) { if (S[id]) S[id].on = true; }); }
+    sync(); render(); save();
+    var names = R.avize.map(function (id) { return AV.filter(function (a) { return a.id === id; })[0]; }).filter(Boolean).map(function (a) { return a.t; });
+    var h = '<h4>' + (R.found ? 'Am citit certificatul. Verifică datele înainte de descărcare.' : 'Nu am recunoscut un certificat de urbanism în acest fișier.') + '</h4>';
+    if (got.length) h += '<ul>' + got.map(function (g) { return '<li>' + esc(g) + '</li>'; }).join('') + '</ul>';
+    if (names.length) h += '<b>' + names.length + (names.length === 1 ? ' aviz bifat' : ' avize bifate') + ':</b> ' + esc(names.join(' · '));
+    else if (R.found) h += '<b>Nu am găsit avize în certificat.</b> Bifează-le manual la pasul 5.';
+    var warn = R.warn.slice();
+    if (info.ocr) warn.unshift('Certificatul este scanat, deci textul a fost recunoscut automat și poate avea greșeli, mai ales la numere.');
+    if (R.found) warn.push('Avizele scrise de mână sau cu denumiri neobișnuite nu sunt recunoscute. Adaugă-le la „Alt aviz cerut prin CU”.');
+    warn.forEach(function (w) { h += '<div class="w">' + esc(w) + '</div>'; });
+    h += '<details><summary>Textul citit din certificat</summary><pre>' + esc(info.text.slice(0, 20000)) + '</pre></details>';
+    $('cu-res').innerHTML = h; $('cu-res').hidden = false;
+  }
+  function loadCU(files) {
+    if (!files || !files.length) return;
+    var st = $('cu-status'); st.className = 'cu-status'; $('cu-res').hidden = true; $('cu-pick').disabled = true;
+    CU.read(files, function (t) { st.textContent = t; }).then(function (info) {
+      st.textContent = '';
+      applyCU(CU.parse(info.text), info);
+    }).catch(function (e) {
+      st.className = 'cu-status err';
+      st.textContent = 'Nu am putut citi fișierul' + (e && e.message ? ': ' + e.message : '.') + ' Poți completa datele manual.';
+    }).then(function () { $('cu-pick').disabled = false; $('cu-file').value = ''; });
+  }
+  $('cu-pick').addEventListener('click', function () { $('cu-file').click(); });
+  $('cu-file').addEventListener('change', function () { loadCU(this.files); });
+  ['dragenter', 'dragover'].forEach(function (ev) { $('cu-drop').addEventListener(ev, function (e) { e.preventDefault(); this.classList.add('over'); }); });
+  ['dragleave', 'drop'].forEach(function (ev) { $('cu-drop').addEventListener(ev, function (e) { e.preventDefault(); this.classList.remove('over'); }); });
+  $('cu-drop').addEventListener('drop', function (e) { loadCU(e.dataTransfer.files); });
 
   $('reset').addEventListener('click', function () {
     if (!confirm('Ștergi toate datele introduse?')) return;
