@@ -52,24 +52,24 @@ pre{background:#0e1017;border:1px solid var(--line);border-radius:12px;padding:1
 <body>
 <div class="wrap">
   <div class="top"><h1>Casa <i>D</i> · administrare</h1><a href="../">← înapoi la explorer</a></div>
-  <p class="sub">Doar pentru rețeaua de test. Tokenii nu au valoare și nu se folosesc bani reali. Nu folosi aici un portofel în care ții fonduri reale.</p>
+  <p class="sub">Doar pentru rețeaua de test TRON Nile. Tokenii nu au valoare și nu se folosesc bani reali. Folosește un portofel TronLink nou, în care nu ții fonduri reale.</p>
 
   <section class="card">
     <h2><span>1</span>Portofel</h2>
-    <p id="wState">Conectează portofelul cu care administrezi contractul.</p>
+    <p id="wState">Conectează portofelul TronLink cu care administrezi contractul. În TronLink, alege rețeaua „Nile Testnet”.</p>
     <div class="row"><button class="btn gold" id="bConnect">Conectează portofelul</button></div>
-    <p id="wGas" hidden>Ai nevoie de puțin <b>ETH de test</b> pentru taxele de rețea. Îl iei gratuit dintr-un „faucet” Base Sepolia (caută „Base Sepolia faucet”).</p>
+    <p id="wGas" hidden>Ai nevoie de <b>TRX de test</b> pentru taxele de rețea (publicarea contractelor consumă câteva sute). Îi iei gratuit de la <a id="aFaucet" target="_blank" rel="noopener">faucet-ul Nile</a>: lipești adresa portofelului și primești 2.000 TRX de test.</p>
   </section>
 
   <section class="card" id="secDeploy" hidden>
     <h2><span>2</span>Publicarea contractelor</h2>
     <div id="dNone">
-      <p>Contractele nu sunt încă publicate. Publicarea înseamnă <b>2 tranzacții</b> pe care le confirmi în portofel: tokenul de test (tUSDC) și contractul de piețe, cu comision 2%.</p>
+      <p>Contractele nu sunt încă publicate. Publicarea înseamnă <b>2 tranzacții</b> pe care le confirmi în TronLink: tokenul de test (tUSDC) și contractul de piețe, cu comision 2%.</p>
       <div class="row"><button class="btn gold" id="bDeploy">Publică contractele</button></div>
       <p style="margin-top:16px">Sau, dacă le-ai publicat deja, lipește adresele:</p>
       <div class="grid2">
-        <label>Adresă token tUSDC<input id="inTok" placeholder="0x…" autocomplete="off"></label>
-        <label>Adresă contract piețe<input id="inMkt" placeholder="0x…" autocomplete="off"></label>
+        <label>Adresă token tUSDC<input id="inTok" placeholder="T…" autocomplete="off"></label>
+        <label>Adresă contract piețe<input id="inMkt" placeholder="T…" autocomplete="off"></label>
       </div>
       <div class="row"><button class="btn" id="bUse">Folosește aceste adrese</button></div>
     </div>
@@ -123,32 +123,33 @@ pre{background:#0e1017;border:1px solid var(--line);border-radius:12px;padding:1
 <script>
 (function(){
 "use strict";
-var $=function(id){return document.getElementById(id)},CD=window.CasaD,ART=window.CASAD_ART;
+var $=function(id){return document.getElementById(id)},CD=window.CasaD;
 var fmt2=new Intl.NumberFormat("ro-RO",{minimumFractionDigits:2,maximumFractionDigits:2});
-var cfg=null,w=null,C=null,busy=false,armed=null;
+var cfg=null,w=null,busy=false,armed=null;
 function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
 function msg(id,t,bad){var e=$(id);e.textContent=t||"";e.className="msg"+(bad?" bad":"")}
 function lock(on){busy=on;["bDeploy","bUse","bCreate","bFees"].forEach(function(i){$(i).disabled=on});
   document.querySelectorAll("#list button").forEach(function(b){b.disabled=on})}
+function step(id,sign,wait){return function(st){msg(id,st==="sign"?sign:wait)}}
 
 function showDeploy(){
   $("secDeploy").hidden=false;
   $("dNone").hidden=cfg.live;$("dDone").hidden=!cfg.live;
   ["secCreate","secList","secFees"].forEach(function(i){$(i).hidden=!cfg.live});
-  if(!cfg.live)return;
-  $("aMkt").textContent=cfg.market;$("aMkt").href=cfg.explorer+"/address/"+cfg.market;
-  $("aTok").textContent=cfg.token;$("aTok").href=cfg.explorer+"/address/"+cfg.token;
+  if(!cfg.live)return Promise.resolve();
+  $("aMkt").textContent=cfg.market;$("aMkt").href=cfg.explorer+"/contract/"+cfg.market;
+  $("aTok").textContent=cfg.token;$("aTok").href=cfg.explorer+"/contract/"+cfg.token;
   $("dLocal").hidden=!cfg.local;
   $("cfgOut").textContent='"token": "'+cfg.token+'",\n"market": "'+cfg.market+'"';
-  C=CD.contracts(cfg,w.signer);
   return refresh();
 }
 function useAddresses(tok,mkt){cfg.token=tok;cfg.market=mkt;cfg.live=true;cfg.local=true;CD.saveLocal(cfg);return showDeploy()}
 
 function refresh(){
-  return Promise.all([C.pm.owner(),C.pm.getMarkets(),C.pm.accruedFees()]).then(function(r){
-    $("aOwn").textContent=r[0];
-    $("secNotOwner").hidden=r[0].toLowerCase()===w.address.toLowerCase();
+  return Promise.all([CD.call(cfg,"pm","owner"),CD.call(cfg,"pm","getMarkets"),CD.call(cfg,"pm","accruedFees")]).then(function(r){
+    var owner=CD.toBase58(r[0]);
+    $("aOwn").textContent=owner;
+    $("secNotOwner").hidden=owner===w.address;
     $("fees").textContent=fmt2.format(CD.num(r[2]));
     var now=Date.now();
     $("list").innerHTML=r[1].map(function(m,i){
@@ -168,38 +169,35 @@ function refresh(){
 }
 
 $("bConnect").addEventListener("click",function(){
-  CD.loadConfig("../config.json").then(function(c){cfg=c;return CD.connect(cfg)}).then(function(x){
-    w=x;return w.provider.getBalance(w.address);
-  }).then(function(bal){
-    $("wState").innerHTML='Conectat: <b class="mono">'+w.address+'</b> · '+esc(cfg.chainName)+' · '+Number(ethers.formatEther(bal)).toFixed(4)+' ETH de test';
-    $("wGas").hidden=bal>0n;$("bConnect").hidden=true;
+  CD.loadConfig("../config.json").then(function(c){cfg=c;$("aFaucet").href=cfg.faucet;return CD.connect(cfg)}).then(function(x){
+    w=x;return CD.api(cfg,"/wallet/getaccount",{address:w.address,visible:true});
+  }).then(function(acc){
+    var trx=Number(acc&&acc.balance||0)/1e6;
+    $("wState").innerHTML='Conectat: <b class="mono">'+w.address+'</b> · '+esc(cfg.chainName)+' · '+fmt2.format(trx)+' TRX de test';
+    $("wGas").hidden=trx>=400;$("bConnect").hidden=true;
     return showDeploy();
   }).catch(function(e){$("wState").textContent=CD.err(e)});
 });
-if(window.ethereum&&window.ethereum.on){window.ethereum.on("accountsChanged",function(){location.reload()});window.ethereum.on("chainChanged",function(){location.reload()})}
+CD.onWalletChange(function(){if(w)location.reload()});
 
 $("bDeploy").addEventListener("click",function(){
   if(busy)return;lock(true);var tok;
-  msg("mDeploy","Tranzacția 1 din 2: confirmă în portofel publicarea tokenului de test…");
-  new ethers.ContractFactory(ART.MockUSDC.abi,ART.MockUSDC.bytecode,w.signer).deploy().then(function(c){
-    msg("mDeploy","Tranzacția 1 din 2: se confirmă pe rețea…");return c.waitForDeployment();
-  }).then(function(c){return c.getAddress()}).then(function(a){
-    tok=a;msg("mDeploy","Tranzacția 2 din 2: confirmă în portofel publicarea contractului de piețe…");
-    return new ethers.ContractFactory(ART.PredictionMarket.abi,ART.PredictionMarket.bytecode,w.signer).deploy(tok,200);
-  }).then(function(c){msg("mDeploy","Tranzacția 2 din 2: se confirmă pe rețea…");return c.waitForDeployment()})
-  .then(function(c){return c.getAddress()}).then(function(mkt){
+  msg("mDeploy","Tranzacția 1 din 2: confirmă în TronLink publicarea tokenului de test, apoi așteaptă confirmarea rețelei…");
+  CD.deploy(cfg,w,"MockUSDC",[]).then(function(a){
+    tok=a;msg("mDeploy","Tranzacția 2 din 2: confirmă în TronLink publicarea contractului de piețe, apoi așteaptă confirmarea rețelei…");
+    return CD.deploy(cfg,w,"PredictionMarket",[tok,200]);
+  }).then(function(mkt){
     return useAddresses(tok,mkt).then(function(){msg("mDeploy","Contractele sunt publicate.")});
-  }).catch(function(e){msg("mDeploy",CD.err(e)+(tok?" Tokenul a fost publicat la "+tok+".":""),true)}).then(function(){lock(false)});
+  }).catch(function(e){msg("mDeploy",CD.err(e)+(tok?" Tokenul a fost deja publicat la "+tok+".":""),true)}).then(function(){lock(false)});
 });
 $("bUse").addEventListener("click",function(){
   var t=$("inTok").value.trim(),m=$("inMkt").value.trim();
-  if(!CD.isAddr(t)||!CD.isAddr(m)){msg("mDeploy","Ambele adrese trebuie să înceapă cu 0x și să aibă 42 de caractere.",true);return}
+  if(!CD.isAddr(t)||!CD.isAddr(m)){msg("mDeploy","Ambele adrese trebuie să fie adrese TRON valide (încep cu T și au 34 de caractere).",true);return}
   lock(true);
-  w.provider.getCode(m).then(function(code){
-    if(code==="0x")throw{friendly:"La adresa contractului de piețe nu există niciun contract pe această rețea."};
-    return useAddresses(t,m);
-  }).then(function(){msg("mDeploy","Adresele au fost salvate în acest browser.")})
-  .catch(function(e){cfg.live=false;msg("mDeploy",e&&e.friendly||"Adresele nu par să fie contractele Casa D pe această rețea.",true);showDeploy()}).then(function(){lock(false)});
+  var probe={network:cfg.network,api:cfg.api,token:t,market:m};
+  Promise.all([CD.call(probe,"pm","marketCount"),CD.call(probe,"token","decimals")]).then(function(){return useAddresses(t,m)})
+  .then(function(){msg("mDeploy","Adresele au fost salvate în acest browser.")})
+  .catch(function(){msg("mDeploy","La aceste adrese nu am găsit contractele Casa D pe "+cfg.chainName+".",true)}).then(function(){lock(false)});
 });
 $("bCopy").addEventListener("click",function(){
   var t=$("cfgOut").textContent;
@@ -214,8 +212,8 @@ $("bCreate").addEventListener("click",function(){
   var q=$("inQ").value.trim(),t=new Date($("inClose").value).getTime();
   if(!q){msg("mCreate","Scrie întrebarea.",true);return}
   if(!(t>Date.now()+60000)){msg("mCreate","Ora de închidere trebuie să fie în viitor.",true);return}
-  lock(true);msg("mCreate","Confirmă în portofel…");
-  C.pm.createMarket($("inCat").value,q,Math.floor(t/1000)).then(function(tx){msg("mCreate","Se înregistrează pe blockchain…");return tx.wait()})
+  lock(true);msg("mCreate","Verific…");
+  CD.send(cfg,w,"pm","createMarket",[$("inCat").value,q,Math.floor(t/1000)],step("mCreate","Confirmă în TronLink…","Se înregistrează pe blockchain…"))
     .then(function(){$("inQ").value="";return refresh()}).then(function(){msg("mCreate","Piața a fost creată.")})
     .catch(function(e){msg("mCreate",CD.err(e),true)}).then(function(){lock(false)});
 });
@@ -225,15 +223,15 @@ $("list").addEventListener("click",function(e){
   if(b.hasAttribute("data-res")){armed={id:+b.getAttribute("data-res"),o:+b.getAttribute("data-o"),label:b.getAttribute("data-l")};refresh();return}
   if(b.hasAttribute("data-cancel")){armed=null;refresh();return}
   if(b.hasAttribute("data-go")&&armed){
-    var a=armed;armed=null;lock(true);msg("mList","Confirmă în portofel…");
-    C.pm.resolve(a.id,a.o).then(function(tx){msg("mList","Se înregistrează pe blockchain…");return tx.wait()})
+    var a=armed;armed=null;lock(true);msg("mList","Verific…");
+    CD.send(cfg,w,"pm","resolve",[a.id,a.o],step("mList","Confirmă în TronLink…","Se înregistrează pe blockchain…"))
       .then(function(){return refresh()}).then(function(){msg("mList","Rezultatul a fost introdus. Câștigătorii își pot revendica sumele.")})
       .catch(function(e){msg("mList",CD.err(e),true);return refresh()}).then(function(){lock(false)});
   }
 });
 $("bFees").addEventListener("click",function(){
-  if(busy)return;lock(true);msg("mFees","Confirmă în portofel…");
-  C.pm.withdrawFees().then(function(tx){return tx.wait()}).then(function(){return refresh()})
+  if(busy)return;lock(true);msg("mFees","Verific…");
+  CD.send(cfg,w,"pm","withdrawFees",[],step("mFees","Confirmă în TronLink…","Se înregistrează pe blockchain…")).then(function(){return refresh()})
     .then(function(){msg("mFees","Comisionul a fost trimis în portofelul tău.")})
     .catch(function(e){msg("mFees",CD.err(e),true)}).then(function(){lock(false)});
 });

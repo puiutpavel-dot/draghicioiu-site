@@ -1,8 +1,10 @@
 {
-  "chainId": 84532,
-  "chainName": "Base Sepolia",
-  "rpc": "https://sepolia.base.org",
-  "explorer": "https://sepolia.basescan.org",
+  "network": "nile",
+  "chainName": "TRON Nile",
+  "api": "https://nile.trongrid.io",
+  "hostMatch": "nile",
+  "explorer": "https://nile.tronscan.org/#",
+  "faucet": "https://nileex.io/join/getJoinPage",
   "token": "",
   "market": ""
 }

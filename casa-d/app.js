@@ -7,13 +7,14 @@ var fmt=new Intl.NumberFormat("ro-RO",{maximumFractionDigits:0});
 var fmt2=new Intl.NumberFormat("ro-RO",{minimumFractionDigits:2,maximumFractionDigits:2});
 var DAY=864e5;
 function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
-function hex(n){var s="";while(s.length<n)s+=Math.floor(Math.random()*16).toString(16);return s}
+var B58="123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz";
+function fakeAddr(){var s="T";while(s.length<34)s+=B58.charAt(Math.floor(Math.random()*58));return s}
 
 // Starea afișată. Aceeași formă în demo și live.
 // market: {id,n,cat,q,close(ms),yes,no,status:"open"|"closed"|"yes"|"no"|"invalid",my:{yes,no,due,done}|null}
 // bet:    {n,t(ms),a,m(market),side,amt,fresh}
 var S={live:false,fee:0.02,markets:[],bets:[],betCount:0,volume:0,wallets:0,me:null,balance:0};
-var cfg=null,read=null,wallet=null,filter="",busy=false;
+var cfg=null,wallet=null,filter="",busy=false;
 
 /* ---------- afișare ---------- */
 function age(t){var s=Math.max(1,Math.round((Date.now()-t)/1000));
@@ -135,7 +136,7 @@ function startDemo(){
   S.markets.push({id:10,n:11,cat:"TEST",q:"Piață de test: se marchează în prima repriză?",close:now-40*DAY,yes:9120,no:6480,status:"yes",my:null});
   S.markets.push({id:11,n:12,cat:"TEST",q:"Piață de test: meciul se termină egal?",close:now-12*DAY,yes:14300,no:18750,status:"no",my:null});
 
-  var wallets=[],seen={};for(var w=0;w<140;w++)wallets.push("0x"+hex(40));
+  var wallets=[],seen={};for(var w=0;w<140;w++)wallets.push(fakeAddr());
   S.betCount=18342+Math.floor(Math.random()*400);
   S.volume=612400;S.markets.forEach(function(m){S.volume+=m.yes+m.no});
   function pick(){
@@ -164,9 +165,9 @@ function startDemo(){
 /* ---------- mod LIVE ---------- */
 var POLL=6000,lastCount=-1;
 function refresh(){
-  var c=CD.contracts(cfg,read),me=S.me;
-  var calls=[c.pm.getMarkets(),c.pm.getRecentBets(60),c.pm.betCount(),c.pm.bettorCount(),c.pm.totalVolume()];
-  if(me){calls.push(c.pm.positions(me));calls.push(c.token.balanceOf(me))}
+  var me=S.me;
+  var calls=[CD.call(cfg,"pm","getMarkets"),CD.call(cfg,"pm","getRecentBets",[60]),CD.call(cfg,"pm","betCount"),CD.call(cfg,"pm","bettorCount"),CD.call(cfg,"pm","totalVolume")];
+  if(me){calls.push(CD.call(cfg,"pm","positions",[me]));calls.push(CD.call(cfg,"token","balanceOf",[me]))}
   return Promise.all(calls).then(function(r){
     var now=Date.now(),pos=me&&S.me===me?r[5]:null;
     S.markets=r[0].map(function(m,i){
@@ -178,7 +179,7 @@ function refresh(){
     var count=Number(r[2]);
     S.bets=r[1].map(function(b,i){
       var n=count-i;
-      return{n:n,t:Number(b.time)*1000,a:b.user,m:S.markets[Number(b.marketId)],side:b.yes,amt:CD.num(b.amount),fresh:lastCount>=0&&n>lastCount};
+      return{n:n,t:Number(b.time)*1000,a:CD.toBase58(b.user),m:S.markets[Number(b.marketId)],side:b.yes,amt:CD.num(b.amount),fresh:lastCount>=0&&n>lastCount};
     });
     lastCount=count;S.betCount=count;S.wallets=Number(r[3]);S.volume=CD.num(r[4]);
     if(pos)S.balance=CD.num(r[6]);
@@ -191,24 +192,14 @@ function setBanner(bad){
     :'TESTNET · '+esc(cfg.chainName)+' <span>· pronosticuri reale pe blockchain, cu tokeni de test fără valoare · fără bani reali'+(cfg.local?' · contract salvat doar în acest browser':'')+'</span>';
 }
 function startLive(){
-  S.live=true;read=CD.reader(cfg);
+  S.live=true;
   $("walbar").hidden=false;
   $("footL").innerHTML='Casa D · proiect experimental de <a href="/">Daniel Drăghicioiu</a>. Rulează pe rețeaua de test '+esc(cfg.chainName)+'; tokenii tUSDC nu au nicio valoare.';
-  $("footR").innerHTML='Contract: <a class="mono" target="_blank" rel="noopener" href="'+esc(cfg.explorer)+'/address/'+cfg.market+'">'+CD.short(cfg.market)+'</a> · neauditat';
+  $("footR").innerHTML='Contract: <a class="mono" target="_blank" rel="noopener" href="'+esc(cfg.explorer)+'/contract/'+cfg.market+'">'+CD.short(cfg.market)+'</a> · neauditat';
   dueLabel="actualizare în";
   onDue=function(){refresh().then(function(){schedule(POLL)})};
-  c0();
-  function c0(){
-    CD.contracts(cfg,read).pm.feeBps().then(function(f){S.fee=Number(f)/10000}).catch(function(){}).then(function(){return refresh()}).then(function(){schedule(POLL)});
-  }
-  if(window.ethereum&&window.ethereum.on){
-    window.ethereum.on("accountsChanged",function(a){
-      if(!wallet)return;
-      if(!a||!a.length){wallet=null;S.me=null;render();return}
-      connect(true);
-    });
-    window.ethereum.on("chainChanged",function(){if(wallet){wallet=null;S.me=null;render()}});
-  }
+  CD.call(cfg,"pm","feeBps").then(function(f){S.fee=Number(f)/10000}).catch(function(){}).then(function(){return refresh()}).then(function(){schedule(POLL)});
+  CD.onWalletChange(function(){if(wallet){wallet=null;S.me=null;render()}});
 }
 
 function connect(silent){
@@ -221,8 +212,7 @@ function lock(on){busy=on;$("btnFaucet").disabled=on;$("dGo").disabled=on||!S.li
 $("btnConnect").addEventListener("click",function(){connect().catch(function(){})});
 $("btnFaucet").addEventListener("click",function(){
   if(busy)return;lock(true);toast("Confirmă în portofel…");
-  ensureWallet().then(function(w){return CD.contracts(cfg,w.signer).token.faucet()})
-    .then(function(tx){toast("Se trimit tokenii de test…");return tx.wait()})
+  ensureWallet().then(function(w){return CD.send(cfg,w,"token","faucet",[],function(st){if(st==="wait")toast("Se trimit tokenii de test…")})})
     .then(function(){return refresh()}).then(function(){toast("Ai primit 1.000 tUSDC de test.")})
     .catch(function(e){toast(CD.err(e),true)}).then(function(){lock(false)});
 });
@@ -258,19 +248,19 @@ $("dGo").addEventListener("click",function(){
   if(!(a>0)){dmsg("Scrie o sumă mai mare decât zero.",true);return}
   try{amt=CD.units(a.toFixed(6))}catch(e){dmsg("Sumă nevalidă.",true);return}
   lock(true);dmsg("Conectez portofelul…");
-  var c;
-  ensureWallet().then(function(w){
-    c=CD.contracts(cfg,w.signer);
-    return Promise.all([c.token.balanceOf(w.address),c.token.allowance(w.address,cfg.market)]);
+  var w;
+  ensureWallet().then(function(x){
+    w=x;
+    return Promise.all([CD.call(cfg,"token","balanceOf",[w.address]),CD.call(cfg,"token","allowance",[w.address,cfg.market])]);
   }).then(function(r){
     if(r[0]<amt)throw{friendly:"Ai doar "+fmt2.format(CD.num(r[0]))+" tUSDC. Apasă „+ 1.000 tUSDC de test” și încearcă din nou."};
     if(r[1]>=amt)return;
     dmsg("Pasul 1 din 2: aprobă suma în portofel…");
-    return c.token.approve(cfg.market,amt).then(function(tx){dmsg("Pasul 1 din 2: se confirmă aprobarea…");return tx.wait()});
+    return CD.send(cfg,w,"token","approve",[cfg.market,amt],function(st){if(st==="wait")dmsg("Pasul 1 din 2: se confirmă aprobarea…")});
   }).then(function(){
     dmsg("Confirmă pronosticul în portofel…");
-    return c.pm.bet(id,side,amt);
-  }).then(function(tx){dmsg("Se înregistrează pe blockchain…");return tx.wait()})
+    return CD.send(cfg,w,"pm","bet",[id,side,amt],function(st){if(st==="wait")dmsg("Se înregistrează pe blockchain…")});
+  })
   .then(function(){return refresh()})
   .then(function(){$("dlg").close();toast("Pronostic plasat: "+(side?"DA":"NU")+" cu "+fmt2.format(a)+" tUSDC.")})
   .catch(function(e){dmsg(e&&e.friendly||CD.err(e),true)})
@@ -282,8 +272,7 @@ document.addEventListener("click",function(e){
   if(b.hasAttribute("data-bet")){openBet(+b.getAttribute("data-bet"),b.getAttribute("data-side")==="1");return}
   if(busy)return;
   var id=+b.getAttribute("data-claim");lock(true);toast("Confirmă în portofel…");
-  ensureWallet().then(function(w){return CD.contracts(cfg,w.signer).pm.claim(id)})
-    .then(function(tx){toast("Se trimite câștigul…");return tx.wait()})
+  ensureWallet().then(function(w){return CD.send(cfg,w,"pm","claim",[id],function(st){if(st==="wait")toast("Se trimite câștigul…")})})
     .then(function(){return refresh()}).then(function(){toast("Suma a ajuns în portofelul tău.")})
     .catch(function(e){toast(CD.err(e),true)}).then(function(){lock(false)});
 });
