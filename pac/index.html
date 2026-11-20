@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dosar PAC după Codul urbanismului 2026 | draghicioiu.ro</title>
+<meta name="description" content="Structura proiectului pentru autorizarea construirii (PAC, fosta DTAC) după Legea 169/2026: ce piese se cer, în funcție de tipul lucrării și de clasa de consecințe.">
+<meta name="robots" content="noindex">
+<link rel="canonical" href="https://draghicioiu.ro/pac/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Sans+Condensed:wght@600&display=swap" rel="stylesheet">
+<style>
+/* Aceeași paletă ca /borderou/: pagina e sora lui, pentru etapa dinaintea borderoului. */
+:root{
+  --bg:#f2f5f7; --surface:#ffffff; --ink:#17222b; --muted:#5a6a77; --line:#d3dbe1;
+  --accent:#0f5c75; --accent-ink:#ffffff; --vol:#ddebf7; --head:#e1e5e8;
+  --warn:#9a5600; --good:#1c7446; --soft:#eef2f5;
+  --display:"IBM Plex Sans Condensed","Arial Narrow",Arial,sans-serif;
+  --body:"IBM Plex Sans","Segoe UI",Arial,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#10171c; --surface:#19232a; --ink:#e5ecf1; --muted:#93a3af; --line:#2d3b45;
+    --accent:#56b6d3; --accent-ink:#06222b; --vol:#1c3346; --head:#25313a;
+    --warn:#e3a550; --good:#62c592; --soft:#212d35; color-scheme:dark;
+  }
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font:15px/1.55 var(--body)}
+h1,h2,h3{font-family:var(--display);font-weight:600;margin:0;text-wrap:balance}
+a{color:var(--accent)}
+button,input,select{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.top{display:flex;flex-wrap:wrap;gap:6px 20px;align-items:baseline;padding:14px 20px;border-bottom:1px solid var(--line);background:var(--surface)}
+.top h1{font-size:22px}
+.top p{margin:0;color:var(--muted)}
+.back{margin-left:auto;text-decoration:none;font-weight:500}.back:hover{text-decoration:underline}
+.wrap{max-width:1100px;margin:0 auto;padding:20px;display:flex;flex-direction:column;gap:18px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:18px}
+.panel h2{font-size:18px;margin-bottom:10px}
+.panel h3{font-size:15px;margin:16px 0 6px}
+.panel p{margin:0 0 10px}
+.panel ul{margin:0 0 10px;padding-left:20px}
+.panel li{margin:3px 0}
+.lead{font-size:16px}
+.muted{color:var(--muted)}
+.facts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:6px}
+@media (max-width:760px){.facts{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.fact{background:var(--soft);border-radius:6px;padding:10px 12px}
+.fact b{display:block;font-family:var(--display);font-size:20px}
+.fact span{font-size:13px;color:var(--muted)}
+.form{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+@media (max-width:860px){.form{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:480px){.form{grid-template-columns:minmax(0,1fr)}}
+.f{display:flex;flex-direction:column;gap:4px;min-width:0}
+label{font-size:12px;color:var(--muted);font-weight:500}
+select{background:var(--surface);border:1px solid var(--line);border-radius:4px;padding:7px 8px;width:100%}
+.sum{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 4px}
+.chip{display:inline-flex;gap:6px;align-items:baseline;padding:4px 10px;border-radius:999px;border:1px solid var(--line);font-size:13px}
+.chip b{font-size:15px;font-variant-numeric:tabular-nums}
+.chip.good{color:var(--good);border-color:currentColor}.chip.warn{color:var(--warn);border-color:currentColor}
+.tw{overflow-x:auto;margin-top:8px}
+table{border-collapse:collapse;width:100%}
+th,td{border:1px solid var(--line);padding:7px 9px;vertical-align:top;text-align:left}
+thead th{background:var(--head);font-size:12.5px;font-weight:600}
+tr.grp td{background:var(--vol);font-weight:600}
+td.st{font-size:12.5px;font-weight:600}
+td.st.ob{color:var(--good)}td.st.dc{color:var(--warn)}
+td small{display:block;color:var(--muted);font-size:12.5px;margin-top:2px}
+.cols{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+@media (max-width:760px){.cols{grid-template-columns:minmax(0,1fr)}}
+.note{border-left:3px solid var(--warn);background:var(--soft);padding:10px 14px;border-radius:0 6px 6px 0;font-size:14px}
+.links{display:flex;gap:10px;flex-wrap:wrap}
+.btn{display:inline-block;border:1px solid var(--line);border-radius:5px;padding:7px 12px;text-decoration:none;font-weight:500;background:var(--surface)}
+.btn:hover{border-color:var(--accent)}
+</style>
+</head>
+<body>
+<header class="top">
+  <h1>Dosar PAC după Codul urbanismului 2026</h1>
+  <p>Fosta DTAC · Legea nr. 169/2026, anexele 2 și 3</p>
+  <a class="back" href="/">← draghicioiu.ro</a>
+</header>
+
+<main class="wrap">
+
+<section class="panel">
+  <p class="lead">Din 25 august 2026, documentația pentru autorizația de construire se numește <strong>proiect pentru autorizarea construirii (PAC)</strong> și are conținutul stabilit de anexa nr. 2 din noul Cod. Pagina arată ce piese intră în proiect și cum se schimbă lista în funcție de lucrare.</p>
+  <div class="facts">
+    <div class="fact"><b>5</b><span>componente de bază ale proiectului</span></div>
+    <div class="fact"><b>11</b><span>puncte fixe în memoriul de arhitectură</span></div>
+    <div class="fact"><b>CC1–CC4</b><span>clasa de consecințe decide piesele de inginerie</span></div>
+    <div class="fact"><b>150 mp</b><span>pragul pentru varianta simplificată în rural</span></div>
+  </div>
+</section>
+
+<section class="panel">
+  <h2>Ce piese se cer pentru lucrarea ta</h2>
+  <p class="muted">Alege situația și lista se recalculează. Este o citire orientativă a anexelor, nu înlocuiește certificatul de urbanism.</p>
+  <div class="form">
+    <div class="f"><label for="regim">Conținut-cadru</label>
+      <select id="regim">
+        <option value="std">Standard (anexa nr. 2)</option>
+        <option value="rural">Simplificat: locuință unifamilială în rural, max. 150 mp (anexa nr. 3)</option>
+      </select></div>
+    <div class="f"><label for="lucrare">Tipul lucrării</label>
+      <select id="lucrare">
+        <option value="nou">Construcție nouă</option>
+        <option value="exist">Intervenție pe clădire existentă</option>
+        <option value="int">Intervenție doar la interior</option>
+      </select></div>
+    <div class="f"><label for="cc">Clasa de consecințe</label>
+      <select id="cc">
+        <option value="1">CC1</option>
+        <option value="2" selected>CC2</option>
+        <option value="3">CC3</option>
+        <option value="4">CC4</option>
+      </select></div>
+    <div class="f"><label for="sub">Niveluri subterane (fără demisol)</label>
+      <select id="sub">
+        <option value="0">Niciunul sau unul</option>
+        <option value="2">Mai mult de unul</option>
+      </select></div>
+  </div>
+  <div class="sum" id="sum" aria-live="polite"></div>
+  <div class="tw">
+    <table>
+      <thead><tr><th>Piesă</th><th style="width:104px">Statut</th></tr></thead>
+      <tbody id="rows"></tbody>
+    </table>
+  </div>
+</section>
+
+<section class="panel">
+  <h2>Structura din anexa nr. 2</h2>
+  <div class="cols">
+    <div>
+      <h3>Planuri generale</h3>
+      <ul>
+        <li>Plan de încadrare, la o scară între 1:25.000 și 1:1.000, cu reglementările urbanistice aplicabile.</li>
+        <li>Plan de situație cu situația actuală și plan cu situația propusă: electronic, 1:1.000 sau 1:500, Stereo '70.</li>
+        <li>Planul actual poartă viza oficiului de cadastru și vine cu minimum două fotografii.</li>
+        <li>Plan al construcțiilor subterane, cu branșamentele și racordurile de pe domeniul public.</li>
+      </ul>
+      <h3>Proiectul de arhitectură</h3>
+      <ul>
+        <li>Memoriu tehnic cu 11 puncte: teren, lucrări propuse, soluții, acces, parcări, utilități, deșeuri, vecini, mediu.</li>
+        <li>Planurile tuturor nivelurilor, acoperișul, fațadele și secțiunile principale.</li>
+        <li>Documente grafice și fotografice de încadrare în vecinătăți și peisaj.</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Clădiri existente, în plus</h3>
+      <ul>
+        <li>Analiză diagnostic și releveu detaliat.</li>
+        <li>Expertiză tehnică de rezistență și stabilitate, cu clasa de risc seismic unde accelerația terenului este de cel puțin 0,15 g.</li>
+        <li>La lucrările doar de interior nu se mai cer piesele despre sit, volumetrie, acoperiș și fațade.</li>
+      </ul>
+      <h3>Proiectul de inginerie</h3>
+      <ul>
+        <li>Memorii tehnice de specialitate și documentație geotehnică verificată.</li>
+        <li>Expertiză privind influența asupra vecinătăților, după caz.</li>
+        <li>Breviar de calcul la CC3 și CC4.</li>
+        <li>Soluții principiale de structură și instalații la CC2 și CC3.</li>
+        <li>Planuri de cofraj schematice și secțiuni generale la CC4 și la mai mult de un nivel subteran.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="panel">
+  <h2>Varianta simplificată din anexa nr. 3</h2>
+  <p>Se aplică locuințelor unifamiliale din mediul rural cu cel mult 150 mp suprafață desfășurată. Are șase piese, inclusiv un proiect de împrejmuire.</p>
+  <ul>
+    <li>Memoriul tehnic este înlocuit de un memoriu-sinteză cu date numerice: suprafața terenului din cartea funciară, suprafețele construite și desfășurate, POT și CUT, existent și propus.</li>
+    <li>Planșele de arhitectură au scară fixă, 1:50, cu materialele și cromatica indicate.</li>
+    <li>Planul de situație actual acoperă și o zonă de cel puțin 25 m în jurul limitelor cadastrale.</li>
+    <li>La clădirile existente se adaugă releveul și expertiza tehnică.</li>
+  </ul>
+</section>
+
+<section class="panel">
+  <h2>Ce nu acoperă pagina</h2>
+  <ul>
+    <li><strong>Proiectul tehnic de execuție.</strong> Nu are anexă proprie în Cod; regulile lui sunt în articolele despre elaborare și verificare.</li>
+    <li><strong>Restul dosarului de autorizare:</strong> cererea, certificatul de urbanism, avizele, dovada dreptului asupra imobilului.</li>
+    <li><strong>Lucrările inginerești.</strong> Ministerul poate emite prin ordin norme-cadru separate pentru ele.</li>
+  </ul>
+  <p class="note">Rezumat orientativ, făcut după textul publicat în Monitorul Oficial nr. 661 din 10 august 2026. Nu este consultanță juridică. Pentru un proiect concret contează textul oficial, certificatul de urbanism și proiectantul.</p>
+  <div class="links">
+    <a class="btn" href="/borderou/">Borderou DTAC · PTE</a>
+    <a class="btn" href="/avize/">Cereri avize</a>
+  </div>
+</section>
+
+</main>
+
+<script>
+(function(){
+  var OB='Obligatoriu', DC='După caz';
+  function build(regim, lucrare, cc, sub){
+    var exist = lucrare!=='nou', inter = lucrare==='int', g=[];
+    if(regim==='rural'){
+      g.push(['Planuri generale',[
+        ['Plan de încadrare în zonă',OB],
+        ['Plan de situație, situația actuală',OB,'Electronic, 1:1.000 sau 1:500, Stereo \'70, vizat de OCPI, cu zona de 25 m din jur'],
+        ['Plan de situație, situația propusă',OB,'Construcții noi, menținute și desființate, cu cote și regim de înălțime'],
+        ['Plan de marcare a branșamentelor și racordurilor',OB]
+      ]]);
+      g.push(['Proiect de arhitectură',[
+        ['Memoriu-sinteză',OB,'Suprafețe, POT și CUT existent și propus, soluții, utilități'],
+        ['Planuri niveluri, acoperiș, fațade, secțiuni',OB,'Scara 1:50, cu materiale și cromatică'],
+        ['Documente grafice și fotografice de încadrare',OB]
+      ]]);
+      g.push(['Împrejmuire',[['Planuri ale împrejmuirii',OB,'Materiale, cromatică și firidele pentru echipamente']]]);
+      if(exist) g.push(['Clădire existentă',[
+        ['Releveu detaliat',OB,'Planuri cotate, secțiuni, fațade'],
+        ['Expertiză tehnică de rezistență și stabilitate',OB]
+      ]]);
+      return g;
+    }
+    g.push(['Planuri generale',[
+      ['Plan de încadrare',OB,'Scară între 1:25.000 și 1:1.000'],
+      ['Plan de situație, situația actuală',OB,'Electronic, 1:1.000 sau 1:500, Stereo \'70, vizat de OCPI'],
+      ['Minimum două fotografii relevante',OB],
+      ['Plan de situație, situația propusă',OB,'Cote pe trei dimensiuni, regim de înălțime, cota ±0,00'],
+      ['Plan al construcțiilor subterane',OB,'Branșamente și racorduri pe domeniul public']
+    ]]);
+    var arh=[['Memoriu tehnic de arhitectură',OB,'11 puncte, de la a) la k)'],
+             ['Planurile tuturor nivelurilor, cu funcțiuni',OB]];
+    if(!inter){
+      arh.push(['Plan de acoperiș sau terase, fațade, secțiuni principale',OB]);
+      arh.push(['Documente grafice și fotografice de încadrare',OB]);
+    }
+    g.push(['Proiect de arhitectură',arh]);
+    if(exist) g.push(['Clădire existentă',[
+      ['Analiză diagnostic',OB],
+      ['Expertiză tehnică de rezistență și stabilitate',OB],
+      ['Clasa de risc seismic în expertiză',DC,'Unde accelerația terenului este de cel puțin 0,15 g'],
+      ['Releveu detaliat',OB,'Planuri cotate ale tuturor nivelurilor, secțiuni, fațade']
+    ]]);
+    var ing=[['Memorii tehnice de specialitate',OB,'Structură și instalații, soluții principiale'],
+             ['Documentație geotehnică verificată',OB],
+             ['Expertiză privind influența asupra vecinătăților',DC,'Poate fi preliminară la autorizare']];
+    if(cc>=3) ing.push(['Breviar de calcul cu schemele structurale',OB,'Cerut la CC3 și CC4']);
+    if(cc===2||cc===3) ing.push(['Piese desenate: soluții principiale de structură și instalații',OB,'Cerute la CC2 și CC3']);
+    if(cc===4||sub>1) ing.push(['Planuri de cofraj schematice, planuri de nivel și secțiuni generale',OB,'Cerute la CC4 și la mai mult de un nivel subteran']);
+    g.push(['Proiect de inginerie',ing]);
+    return g;
+  }
+  var $=function(id){return document.getElementById(id)};
+  function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;')}
+  function render(){
+    var regim=$('regim').value, rural=regim==='rural';
+    $('cc').disabled=rural; $('sub').disabled=rural;
+    var lucr=$('lucrare').value;
+    var g=build(regim, lucr, +$('cc').value, +$('sub').value), h='', ob=0, dc=0;
+    g.forEach(function(gr){
+      h+='<tr class="grp"><td colspan="2">'+esc(gr[0])+'</td></tr>';
+      gr[1].forEach(function(r){
+        if(r[1]===OB) ob++; else dc++;
+        h+='<tr><td>'+esc(r[0])+(r[2]?'<small>'+esc(r[2])+'</small>':'')+'</td><td class="st '+(r[1]===OB?'ob':'dc')+'">'+r[1]+'</td></tr>';
+      });
+    });
+    $('rows').innerHTML=h;
+    $('sum').innerHTML='<span class="chip good"><b>'+ob+'</b> obligatorii</span><span class="chip warn"><b>'+dc+'</b> după caz</span>';
+  }
+  ['regim','lucrare','cc','sub'].forEach(function(id){$(id).addEventListener('change',render)});
+  render();
+})();
+</script>
+</body>
+</html>
