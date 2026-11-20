@@ -128,6 +128,9 @@ tr.new td{animation:flash 1.2s}
 footer{margin-top:26px;font-size:13px;color:var(--muted);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 footer a{text-decoration:underline;text-underline-offset:3px}
 
+[hidden]{display:none!important}
+.mact{display:none;margin-top:8px}
+.mact .btn+.btn{margin-left:6px}
 /* portofel + butoane */
 .btn{font:inherit;font-size:14px;font-weight:650;color:var(--ink);border:1px solid var(--line);background:var(--glass2);border-radius:999px;padding:9px 16px;cursor:pointer;white-space:nowrap}
 .btn:hover{background:rgba(255,255,255,.13)}
@@ -163,6 +166,9 @@ dialog .dcat{font-size:11px;letter-spacing:.12em;font-weight:700;color:var(--gol
 .demo a{color:inherit}
 
 @media (max-width:860px){
+  .mact{display:block}
+  th.act,td.act{display:none}
+  td:nth-last-child(2),th:nth-last-child(2){text-align:right}
   .hero{grid-template-columns:1fr;justify-items:center;text-align:center;padding-bottom:52px}
   .live{align-self:center}
   .last{justify-self:center;display:grid;grid-template-columns:repeat(2,auto);gap:0 26px;min-width:0}
@@ -240,7 +246,7 @@ dialog .dcat{font-size:11px;letter-spacing:.12em;font-weight:700;color:var(--gol
 <section class="card panel">
   <h2>Piețe de fotbal <small>ordonate după pot</small></h2>
   <div class="tw"><table>
-    <thead><tr><th>#</th><th>Întrebare</th><th>Stare</th><th>Se închide</th><th>DA</th><th>Cotă DA / NU</th><th>Pot</th><th>Pronostic</th></tr></thead>
+    <thead><tr><th>#</th><th>Întrebare</th><th>Stare</th><th>Se închide</th><th>DA</th><th>Cotă DA / NU</th><th>Pot</th><th class="act">Pronostic</th></tr></thead>
     <tbody id="tM"></tbody>
   </table></div>
 </section>
