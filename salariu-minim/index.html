@@ -1,0 +1,415 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Salariul Minim – jocul: reziști o lună în București? | draghicioiu.ro</title>
+<meta name="description" content="Joc gratuit: ai 2.699 lei, salariul minim net, și 30 de zile în București. Alegi chiria, transportul și ce mănânci în fiecare zi. Ajungi la sfârșitul lunii?">
+<link rel="canonical" href="https://draghicioiu.ro/salariu-minim/">
+<meta property="og:title" content="Salariul Minim – reziști o lună în București?">
+<meta property="og:description" content="2.699 lei, 30 de zile, un oraș scump. Fiecare alegere se trece pe bon.">
+<meta property="og:url" content="https://draghicioiu.ro/salariu-minim/">
+<meta name="theme-color" content="#1b1d22">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=DM+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --asfalt:#1b1d22; --asfalt2:#25282f; --linie:#383c46;
+  --hartie:#f6f1e4; --hartie2:#ebe4d2; --cerneala:#23211c; --sters:#7b7566;
+  --galben:#ffd21f; --rosu:#e5484d; --verde:#2f9e5b; --alb:#f3f1ea; --gri:#9aa0ad;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--asfalt);color:var(--alb);font-family:"Bricolage Grotesque",system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.45;
+  background-image:repeating-linear-gradient(90deg,transparent 0 46px,rgba(255,255,255,.018) 46px 47px)}
+button{font:inherit;color:inherit;cursor:pointer}
+.wrap{max-width:560px;margin:0 auto;padding:14px 14px 56px;padding-top:max(14px,env(safe-area-inset-top))}
+.top{display:flex;justify-content:space-between;align-items:center;font-size:13px;color:var(--gri);margin-bottom:10px}
+.top a{color:inherit;text-decoration:none}
+.top a:hover{color:var(--alb)}
+.mono{font-family:"DM Mono",ui-monospace,Menlo,monospace}
+
+/* HUD */
+.hud{position:sticky;top:0;z-index:5;background:var(--asfalt);padding:8px 0 10px;border-bottom:1px dashed var(--linie);margin-bottom:14px}
+.hud-row{display:flex;justify-content:space-between;align-items:flex-end;gap:12px}
+.zi{font-size:13px;color:var(--gri);letter-spacing:.04em;text-transform:uppercase}
+.zi b{color:var(--alb);font-weight:700}
+.bani{font-family:"DM Mono",monospace;font-weight:500;font-size:30px;line-height:1;color:var(--galben);font-variant-numeric:tabular-nums}
+.bani.neg{color:var(--rosu)}
+.bani small{font-size:14px;color:var(--gri);margin-left:4px}
+.zile{display:grid;grid-template-columns:repeat(30,1fr);gap:2px;margin:9px 0 8px}
+.zile i{height:5px;background:var(--linie);border-radius:1px}
+.zile i.we{background:#4a4f5c}
+.zile i.f{background:var(--galben)}
+.zile i.azi{background:var(--alb)}
+.bare{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.bara label{display:flex;justify-content:space-between;font-size:12px;color:var(--gri);margin-bottom:3px}
+.bara label span{font-family:"DM Mono",monospace;color:var(--alb)}
+.tr{height:8px;background:var(--asfalt2);border-radius:99px;overflow:hidden}
+.tr b{display:block;height:100%;border-radius:99px;background:var(--verde);transition:width .35s ease,background .35s}
+.tr b.mid{background:var(--galben)} .tr b.low{background:var(--rosu)}
+
+/* Card */
+.rez{font-size:14px;border-left:3px solid var(--galben);padding:6px 0 6px 10px;margin:0 0 12px;color:#d9d6cc}
+.rez .d{font-family:"DM Mono",monospace;font-size:12.5px;color:var(--gri);display:block;margin-top:2px}
+h1{font-size:clamp(38px,11vw,56px);line-height:.95;margin:18px 0 12px;font-weight:800;letter-spacing:-.02em}
+h1 em{font-style:normal;color:var(--galben)}
+h2{font-size:23px;line-height:1.15;margin:0 0 6px;font-weight:700;letter-spacing:-.01em}
+.eti{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--galben);margin-bottom:6px}
+p.sub{margin:0 0 14px;color:#c9c6bc;font-size:15.5px}
+.opt{display:grid;gap:8px}
+.o{display:flex;justify-content:space-between;align-items:center;gap:12px;width:100%;text-align:left;background:var(--asfalt2);border:1px solid var(--linie);border-radius:12px;padding:12px 14px;min-height:56px;transition:transform .08s,border-color .15s,background .15s}
+.o:hover{border-color:#5a6070}
+.o:active{transform:scale(.985);background:#2d3039}
+.o:focus-visible{outline:2px solid var(--galben);outline-offset:2px}
+.o[disabled]{opacity:.38;cursor:not-allowed}
+.o .n{font-weight:700;font-size:16px;display:block}
+.o .e{font-size:12.5px;color:var(--gri);display:block;margin-top:1px}
+.o .p{font-family:"DM Mono",monospace;font-size:15px;white-space:nowrap;color:var(--alb)}
+.o .p.plus{color:#6fd698} .o .p.zero{color:var(--gri)}
+.cta{display:block;width:100%;background:var(--galben);color:#1b1d22;border:0;border-radius:12px;padding:15px;font-weight:800;font-size:17px;margin-top:6px}
+.cta:active{transform:scale(.985)}
+.cta.sec{background:transparent;color:var(--alb);border:1px solid var(--linie);font-weight:700}
+.fapte{list-style:none;padding:0;margin:0 0 18px;display:grid;gap:8px;font-size:15px;color:#d9d6cc}
+.fapte li{display:flex;gap:10px}
+.fapte li::before{content:"→";color:var(--galben);font-family:"DM Mono",monospace}
+
+/* Bon */
+.bon{margin-top:22px;background:var(--hartie);color:var(--cerneala);font-family:"DM Mono",monospace;font-size:12.5px;padding:14px 14px 18px;position:relative;
+  --z:linear-gradient(135deg,transparent 50%,var(--hartie) 50%),linear-gradient(225deg,transparent 50%,var(--hartie) 50%)}
+.bon::before,.bon::after{content:"";position:absolute;left:0;right:0;height:8px;background:linear-gradient(135deg,var(--asfalt) 50%,transparent 50%) 0 0/12px 8px repeat-x,linear-gradient(225deg,var(--asfalt) 50%,transparent 50%) 0 0/12px 8px repeat-x}
+.bon::before{top:0}
+.bon::after{bottom:0;transform:rotate(180deg)}
+.bon h3{font:inherit;text-align:center;letter-spacing:.14em;margin:6px 0 2px;font-weight:500}
+.bon .sm{text-align:center;color:var(--sters);font-size:11px;margin-bottom:8px}
+.bon hr{border:0;border-top:1px dashed #b8b09a;margin:8px 0}
+.l{display:flex;justify-content:space-between;gap:10px;padding:1.5px 0}
+.l span:first-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.l.h{color:var(--sters);margin-top:5px}
+.l.t{font-weight:500;font-size:14px}
+.l .v{white-space:nowrap;font-variant-numeric:tabular-nums}
+.l .v.plus{color:#1d7a43}
+.final-t{font-size:clamp(30px,9vw,42px);line-height:1;margin:6px 0 10px;font-weight:800;letter-spacing:-.02em}
+.nota{font-size:12px;color:var(--gri);margin-top:26px;line-height:1.5}
+.nota a{color:#c9c6bc}
+@keyframes intra{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+#card{animation:intra .22s ease}
+@media (prefers-reduced-motion:reduce){#card{animation:none}.tr b{transition:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top"><a href="/">← draghicioiu.ro</a><span class="mono" id="rec"></span></div>
+  <div class="hud" id="hud" hidden>
+    <div class="hud-row">
+      <div class="zi" id="zi"></div>
+      <div class="bani" id="bani"></div>
+    </div>
+    <div class="zile" id="zile" aria-hidden="true"></div>
+    <div class="bare">
+      <div class="bara"><label>Energie <span id="enN"></span></label><div class="tr"><b id="enB"></b></div></div>
+      <div class="bara"><label>Moral <span id="moN"></span></label><div class="tr"><b id="moB"></b></div></div>
+    </div>
+  </div>
+  <main id="card" aria-live="polite"></main>
+  <section class="bon" id="bon" hidden></section>
+  <p class="nota">Salariul minim net de 2.699 lei este cel valabil de la 1 iulie 2026 (4.325 lei brut, HG 146/2026). Chiriile, prețurile și întâmplările sunt orientative, gândite pentru joc – nu sunt statistici. Joc de <a href="/">draghicioiu.ro</a>.</p>
+</div>
+
+<script>
+(function(){
+"use strict";
+var SALARIU=2699, ZILE=30;
+var NUME_ZI=["Luni","Marți","Miercuri","Joi","Vineri","Sâmbătă","Duminică"];
+
+var LOCUINTE=[
+ {id:"gars",n:"Garsonieră în Militari",e:"Singur, liniște. Moral +2 pe zi.",chirie:1700,util:350,mo:2,en:0},
+ {id:"cam",n:"Cameră într-un apartament împărțit",e:"Doi colegi, o baie. Fără bonus, fără minus.",chirie:1100,util:200,mo:0,en:0},
+ {id:"pat",n:"Pat într-o cameră cu încă doi",e:"Ieftin, dar dormi prost. Moral −2, energie −1 pe zi.",chirie:650,util:100,mo:-2,en:-1}
+];
+var TRANSPORT=[
+ {id:"abo",n:"Abonament lunar STB + metrou",e:"Plătești o dată și ai scăpat de grijă.",cost:140,zi:0,en:0,mo:0},
+ {id:"bil",n:"Bilete la bucată",e:"10 lei în fiecare zi de lucru.",cost:0,zi:10,en:0,mo:0},
+ {id:"jos",n:"Pe jos și cu bicicleta veche",e:"Gratis. Energie −4, moral −1 în zilele de lucru.",cost:0,zi:0,en:-4,mo:-1}
+];
+var MESE=[
+ {n:"Gătești acasă",e:"Orez, cartofi, ouă. Energie +10",b:-15,en:10,mo:0,bon:"Gătit acasă"},
+ {n:"Meniul zilei la cantină",e:"Ciorbă și felul doi. Energie +12, moral +2",b:-32,en:12,mo:2,bon:"Meniul zilei"},
+ {n:"Shaorma sau livrare",e:"Energie +9, moral +6",b:-48,en:9,mo:6,bon:"Shaorma / livrare"},
+ {n:"Doi covrigi și apă",e:"Energie +3, moral −4",b:-6,en:3,mo:-4,bon:"Covrigi"},
+ {n:"Sari peste masă",e:"Energie −6, moral −6",b:0,en:-6,mo:-6,bon:"Fără masă"}
+];
+var WEEKEND=[
+ {n:"Tură extra la descărcat marfă",e:"Energie −12, moral −5",b:130,en:-12,mo:-5,bon:"Tură extra",cat:"extra",r:"Ai cărat lăzi opt ore. Te dor mâinile, dar ai 130 de lei în plus."},
+ {n:"Stai acasă și dormi",e:"Energie +8, moral +4",b:0,en:8,mo:4,r:"Ai dormit până la prânz. Uneori asta e tot ce trebuie."},
+ {n:"Ieși cu prietenii în oraș",e:"Moral +14",b:-60,en:-2,mo:14,bon:"Ieșire în oraș",cat:"iesiri",r:"Două beri, multe glume. Pentru o seară ai uitat de buget."},
+ {n:"Plimbare în Herăstrău",e:"Gratis. Moral +7, energie +2",b:0,en:2,mo:7,r:"Aer, frunze, lac. Nu te-a costat nimic."}
+];
+// cond: functie care decide daca evenimentul poate aparea
+var EVENIMENTE=[
+ {t:"E ziua unei colege și se face chetă pentru cadou.",c:[
+   {n:"Pui 30 de lei",e:"Moral +4",b:-30,mo:4,bon:"Chetă cadou",r:"Ai pus banii în plic și ai semnat felicitarea."},
+   {n:"„N-am mărunt azi”",e:"Moral −6",mo:-6,r:"Toată lumea a observat. Ți-a stat tortul în gât."}]},
+ {t:"Îți scapă telefonul pe scări și ecranul e crăpat tot.",c:[
+   {n:"Îl duci la reparat",e:"",b:-250,bon:"Ecran telefon",r:"250 de lei pentru o bucată de sticlă. Doare."},
+   {n:"Pui o folie peste și mergi așa",e:"Moral −8",mo:-8,r:"Citești mesajele printre crăpături."}]},
+ {t:"Te trezești cu gâtul inflamat și frisoane.",c:[
+   {n:"Treci pe la farmacie",e:"Energie +6",b:-45,en:6,bon:"Farmacie",r:"Pastile, spray de gât și un ceai. Îți revii repede."},
+   {n:"Ceai și răbdare",e:"Energie −12",en:-12,r:"Te-ai târât trei zile prin viață."}]},
+ {t:"Colegii comandă pizza la birou și te întreabă dacă intri.",c:[
+   {n:"Intri și tu",e:"Moral +6, energie +4",b:-35,en:4,mo:6,bon:"Pizza cu colegii",r:"Pizza caldă și bârfă bună."},
+   {n:"Mănânci pachetul tău",e:"Moral −3",mo:-3,r:"Orezul de ieri n-a mirosit niciodată mai trist."}]},
+ {t:"Șeful întreabă cine poate rămâne peste program săptămâna asta.",c:[
+   {n:"Rămâi tu",e:"Energie −12, moral −4",b:110,en:-12,mo:-4,bon:"Ore suplimentare",cat:"extra",r:"Ai ajuns acasă la zece seara, cu 110 lei în plus."},
+   {n:"Refuzi politicos",e:"Moral +2",mo:2,r:"Ai plecat la cinci fix. Mică victorie."}]},
+ {t:"Scoți geaca de iarnă din dulap și dai în buzunar peste o bancnotă uitată.",c:[
+   {n:"Noroc curat",e:"Moral +5",b:50,mo:5,bon:"Bani găsiți",cat:"extra",r:"50 de lei de la tine, cel de anul trecut. Mersi."}]},
+ {t:"Ți se dezlipește talpa la adidași în drum spre muncă.",c:[
+   {n:"Pereche nouă din piață",e:"",b:-120,bon:"Adidași",r:"Nu-s cine știe ce, dar țin la ploaie."},
+   {n:"Un tub de lipici",e:"Moral −4",b:-12,mo:-4,must:1,bon:"Lipici",r:"Ține. Deocamdată."}]},
+ {t:"Proprietarul scrie pe grup: întreținerea a ieșit cu 90 de lei mai mult luna asta.",cond:function(s){return s.loc.id!=="pat"},c:[
+   {n:"Plătești și taci",e:"",b:-90,must:1,bon:"Întreținere în plus",r:"Ai trimis banii pe loc. Măcar e liniște."},
+   {n:"Te cerți cu el până lasă din preț",e:"Moral −7",b:-60,mo:-7,must:1,bon:"Întreținere în plus",r:"A lăsat 30 de lei, după o oră de mesaje acide."}]},
+ {t:"Te sună mama: „Îți trimit un pachet cu microbuzul, da?”",c:[
+   {n:"„Da, mamă, trimite”",e:"Energie +10, moral +6",en:10,mo:6,r:"Zacuscă, sarmale, cozonac. Trei zile ai mâncat ca acasă."},
+   {n:"„Mă descurc, stai liniștită”",e:"Moral +2",mo:2,r:"Mândria e și ea un fel de hrană."}]},
+ {t:"Primești notificare: abonamentul de streaming se reînnoiește mâine.",c:[
+   {n:"Îl păstrezi",e:"Moral +5",b:-40,mo:5,bon:"Streaming",cat:"iesiri",r:"Serile cu un serial fac luna mai suportabilă."},
+   {n:"Îl anulezi",e:"Moral −5",mo:-5,r:"Te uiți la tavan. Tavanul e gratis."}]},
+ {t:"La supermarket e ofertă mare la carne, conserve și paste.",c:[
+   {n:"Faci provizii",e:"Energie +14, moral +3",b:-80,en:14,mo:3,bon:"Provizii la ofertă",cat:"mancare",r:"Ai umplut congelatorul. Te simți om gospodar."},
+   {n:"Treci mai departe",e:"",r:"Ofertele sunt pentru cei care au bani de ofertă."}]},
+ {t:"Te apucă o durere de măsea de nu mai vezi în față.",c:[
+   {n:"Urgență la dentist",e:"",b:-200,bon:"Dentist",r:"O plombă și 200 de lei mai târziu, ești om din nou."},
+   {n:"Calmante și speranță",e:"Energie −10, moral −8",b:-20,en:-10,mo:-8,must:1,bon:"Calmante",r:"Dormi pe o parte și mesteci pe cealaltă."}]},
+ {t:"Un prieten bun îți scrie: „Mă poți ajuta cu 100 de lei până la salariu?”",c:[
+   {n:"Îi dai",e:"Moral +5",b:-100,mo:5,bon:"Împrumut unui prieten",r:"Știi cum e. Poate îi vezi înapoi luna viitoare."},
+   {n:"„Sunt și eu pe zero”",e:"Moral −5",mo:-5,r:"E adevărul, dar tot te simți prost."}]},
+ {t:"Diseară e concert gratuit în aer liber, în centru.",c:[
+   {n:"Te duci",e:"Moral +10, energie −4",en:-4,mo:10,r:"Ai cântat cu două mii de necunoscuți. A meritat frigul."},
+   {n:"Rămâi acasă",e:"Energie +3",en:3,r:"Te-ai culcat devreme, ca oamenii cuminți."}]},
+ {t:"Mașina de spălat din apartament a murit. Colegii vor să strângă bani de una la mâna a doua.",cond:function(s){return s.loc.id!=="gars"},c:[
+   {n:"Contribui",e:"",b:-70,bon:"Mașină de spălat",r:"Ai haine curate și colegi mulțumiți."},
+   {n:"Speli de mână în cadă",e:"Energie −6, moral −5",en:-6,mo:-5,r:"Blugii se usucă în trei zile. Ai numărat."}]},
+ {t:"Ieși de la muncă și toarnă cu găleata. Autobuzul vine în 25 de minute.",c:[
+   {n:"Chemi o mașină",e:"",b:-28,bon:"Ride-sharing",cat:"transport",r:"Cald, uscat, cu 28 de lei mai sărac."},
+   {n:"Aștepți în stație",e:"Energie −6, moral −4",en:-6,mo:-4,r:"Ai ajuns acasă ud până la piele."}]},
+ {t:"Ai o pereche de căști bune pe care ai putea-o vinde online.",c:[
+   {n:"Le vinzi",e:"Moral −2",b:90,mo:-2,bon:"Căști vândute",cat:"extra",r:"S-au dat în două ore. 90 de lei."},
+   {n:"Le păstrezi",e:"",r:"Muzica în autobuz nu are preț."}]},
+ {t:"Reduceri de sezon: o geacă de iarnă ca lumea, la 180 de lei.",c:[
+   {n:"O cumperi",e:"Moral +8, energie +4",b:-180,en:4,mo:8,bon:"Geacă de iarnă",r:"Pentru prima dată nu-ți mai e frig în stație."},
+   {n:"Mai ții un an geaca veche",e:"Moral −4, energie −3",en:-3,mo:-4,r:"Fermoarul se închide doar pe jumătate. Merge."}]},
+ {t:"Vineri, după program, colegii merg la o bere.",c:[
+   {n:"Mergi cu ei",e:"Moral +10",b:-45,mo:10,bon:"Bere cu colegii",cat:"iesiri",r:"Ai râs cum n-ai mai râs de mult."},
+   {n:"„Am treabă, altă dată”",e:"Moral −4",mo:-4,r:"Ai văzut pozele seara, pe grup."}]},
+ {t:"A venit factura la telefon.",c:[
+   {n:"Plătești abonamentul",e:"",b:-40,must:1,bon:"Factură telefon",r:"Plătită. Ai net până luna viitoare."},
+   {n:"Treci pe cartelă",e:"Moral −2",b:-20,mo:-2,must:1,bon:"Cartelă telefon",r:"Mai puțini giga, mai mulți lei."}]},
+ {t:"S-a lăsat frigul și caloriferul abia e călduț.",c:[
+   {n:"Pornești aeroterma",e:"",b:-60,bon:"Curent în plus",r:"E cald. Contorul se învârte vesel."},
+   {n:"Dormi îmbrăcat, cu două pături",e:"Energie −7, moral −5",en:-7,mo:-5,r:"Dimineața îți vezi respirația în cameră."}]},
+ {t:"Un vecin se mută și caută pe cineva să-l ajute cu căratul.",c:[
+   {n:"Îl ajuți",e:"Energie −8",b:80,en:-8,bon:"Ajutor la mutat",cat:"extra",r:"Un dulap, patru etaje, fără lift. 80 de lei."},
+   {n:"Ai alte planuri",e:"",r:"Spatele tău îți mulțumește."}]}
+];
+
+var S, $=function(id){return document.getElementById(id)};
+function lei(x){var n=Math.round(x),s=Math.abs(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g,".");return (n<0?"−":"")+s}
+function semn(x){return (x>0?"+":"")+lei(x)}
+function clamp(v){return Math.max(0,Math.min(100,v))}
+function esc(t){return String(t).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function eWeekend(z){var d=(z-1)%7;return d>=5}
+function citesteRecord(){try{var v=parseInt(localStorage.getItem("salmin_record"),10);return isNaN(v)?null:v}catch(e){return null}}
+function scrieRecord(v){try{localStorage.setItem("salmin_record",String(v))}catch(e){}}
+function arataRecord(){var r=citesteRecord();$("rec").textContent=r===null?"":"record: "+lei(r)+" lei"}
+
+function nou(){
+  S={zi:0,bani:SALARIU,en:70,mo:70,loc:null,tr:null,bon:[],ch:{chirie:0,transport:0,mancare:0,neprevazute:0,iesiri:0,extra:0},
+     ev:EVENIMENTE.map(function(_,i){return i}),rez:null,gata:false};
+  S.bon.push({h:"Ziua 1"});S.bon.push({t:"Salariu net",v:SALARIU});
+}
+function misca(o,catImplicita){
+  var b=o.b||0;
+  S.bani+=b; S.en=clamp(S.en+(o.en||0)); S.mo=clamp(S.mo+(o.mo||0));
+  if(b!==0){
+    var cat=o.cat||catImplicita||"neprevazute";
+    if(b>0) S.ch.extra+=b; else S.ch[cat]+=-b;
+    S.bon.push({t:o.bon||o.n,v:b});
+  }
+}
+function delta(o){
+  var p=[]; if(o.b) p.push(semn(o.b)+" lei"); if(o.en) p.push("energie "+semn(o.en)); if(o.mo) p.push("moral "+semn(o.mo));
+  return p.join(" · ");
+}
+
+/* ---------- randare ---------- */
+function hud(){
+  $("hud").hidden=S.zi<1;
+  if(S.zi<1) return;
+  var z=Math.min(S.zi,ZILE);
+  $("zi").innerHTML="<b>Ziua "+z+"</b> din "+ZILE+" · "+NUME_ZI[(z-1)%7];
+  $("bani").innerHTML=lei(S.bani)+"<small>lei</small>";
+  $("bani").className="bani"+(S.bani<0?" neg":"");
+  var h="";for(var i=1;i<=ZILE;i++)h+='<i class="'+(i<z?"f":i===z?"azi":eWeekend(i)?"we":"")+'"></i>';
+  $("zile").innerHTML=h;
+  [["en",S.en],["mo",S.mo]].forEach(function(p){
+    $(p[0]+"N").textContent=p[1];
+    var b=$(p[0]+"B");b.style.width=p[1]+"%";b.className=p[1]<=20?"low":p[1]<=45?"mid":"";
+  });
+}
+function bon(){
+  var el=$("bon"); el.hidden=S.zi<1&&!S.loc; if(el.hidden) return;
+  var r=S.bon.slice(-14),h='<h3>BONUL LUNII</h3><div class="sm">București · salariul minim</div><hr>';
+  if(S.bon.length>r.length) h+='<div class="l h"><span>… '+(S.bon.length-r.length)+' rânduri mai sus</span></div>';
+  r.forEach(function(x){
+    h+=x.h?'<div class="l h"><span>— '+esc(x.h)+' —</span></div>'
+          :'<div class="l"><span>'+esc(x.t)+'</span><span class="v'+(x.v>0?" plus":"")+'">'+semn(x.v)+'</span></div>';
+  });
+  h+='<hr><div class="l t"><span>ÎN PORTOFEL</span><span class="v">'+lei(S.bani)+' lei</span></div>';
+  el.innerHTML=h;
+}
+function ecran(html){
+  var c=$("card"); c.innerHTML=html; c.style.animation="none"; void c.offsetWidth; c.style.animation="";
+  hud(); bon(); arataRecord();
+}
+function rezHtml(){
+  if(!S.rez) return ""; var r=S.rez; S.rez=null;
+  return '<div class="rez">'+esc(r.t)+(r.d?'<span class="d">'+esc(r.d)+'</span>':'')+'</div>';
+}
+function butoane(lista,gata){
+  var h='<div class="opt">';
+  lista.forEach(function(o,i){
+    var b=o.b||0, blocat=b<0&&!o.must&&S.bani+b<0;
+    h+='<button class="o" data-i="'+i+'"'+(blocat?" disabled":"")+'><span><span class="n">'+esc(o.n)+'</span>'+
+       (blocat?'<span class="e">Nu-ți ajung banii</span>':o.e?'<span class="e">'+esc(o.e)+'</span>':'')+'</span>'+
+       '<span class="p'+(b>0?" plus":b===0?" zero":"")+'">'+(b===0?"gratis":semn(b)+" lei")+'</span></button>';
+  });
+  h+='</div>';
+  setTimeout(function(){
+    Array.prototype.forEach.call(document.querySelectorAll("#card .o"),function(el){
+      el.addEventListener("click",function(){gata(lista[+el.getAttribute("data-i")])});
+    });
+  },0);
+  return h;
+}
+
+/* ---------- ecrane ---------- */
+function intro(){
+  nou();
+  ecran('<h1>Reziști o lună cu <em>salariul minim</em> în București?</h1>'+
+    '<ul class="fapte"><li>Primești <b class="mono">2.699 lei</b> în mână. Atât.</li>'+
+    '<li>Alegi unde stai, cu ce mergi la muncă și ce mănânci în fiecare zi.</li>'+
+    '<li>Dacă energia sau moralul ajung la zero, luna s-a terminat pentru tine.</li></ul>'+
+    '<button class="cta" id="start">Ia salariul</button>');
+  $("start").addEventListener("click",locuinta);
+}
+function locuinta(){
+  var l=LOCUINTE.map(function(x){return {n:x.n,e:x.e+" Chirie "+lei(x.chirie)+" + utilități "+lei(x.util)+".",b:-(x.chirie+x.util),must:1,ref:x}});
+  ecran('<div class="eti">Înainte de ziua 1</div><h2>Unde stai luna asta?</h2><p class="sub">Chiria și utilitățile se plătesc în avans, din salariu.</p>'+
+    butoane(l,function(o){
+      S.loc=o.ref; S.bani-=o.ref.chirie+o.ref.util; S.ch.chirie+=o.ref.chirie+o.ref.util;
+      S.bon.push({t:"Chirie",v:-o.ref.chirie}); S.bon.push({t:"Utilități",v:-o.ref.util});
+      transport();
+    }));
+}
+function transport(){
+  var l=TRANSPORT.map(function(x){return {n:x.n,e:x.e,b:-x.cost,must:1,ref:x}});
+  ecran('<div class="eti">Înainte de ziua 1</div><h2>Cum ajungi la muncă?</h2><p class="sub">Ți-au rămas '+lei(S.bani)+' lei pentru 30 de zile.</p>'+
+    butoane(l,function(o){
+      S.tr=o.ref; if(o.ref.cost){S.bani-=o.ref.cost;S.ch.transport+=o.ref.cost;S.bon.push({t:"Abonament transport",v:-o.ref.cost});}
+      ziNoua();
+    }));
+}
+function ziNoua(){
+  S.zi++;
+  if(S.zi>ZILE) return final("luna");
+  if(S.zi>1) S.bon.push({h:"Ziua "+S.zi});
+  var we=eWeekend(S.zi);
+  // uzura zilnica
+  S.mo=clamp(S.mo+S.loc.mo); S.en=clamp(S.en+S.loc.en);
+  if(we){ S.en=clamp(S.en-3); }
+  else{
+    S.en=clamp(S.en-8+S.tr.en); S.mo=clamp(S.mo-3+S.tr.mo);
+    if(S.tr.zi){ S.bani-=S.tr.zi; S.ch.transport+=S.tr.zi; S.bon.push({t:"Bilete transport",v:-S.tr.zi}); }
+  }
+  if(verifica()) return;
+  if(we) weekend(); else masa();
+}
+function verifica(){
+  if(S.en<=0){final("energie");return true}
+  if(S.mo<=0){final("moral");return true}
+  return false;
+}
+function weekend(){
+  ecran(rezHtml()+'<div class="eti">Zi liberă</div><h2>Ce faci azi?</h2><p class="sub">Nu mergi la muncă. Poți să te odihnești, să ieși sau să mai faci un ban.</p>'+
+    butoane(WEEKEND,function(o){
+      misca(o,"iesiri"); S.rez={t:o.r,d:delta(o)};
+      if(!verifica()) masa();
+    }));
+}
+function masa(){
+  var we=eWeekend(S.zi);
+  ecran(rezHtml()+'<div class="eti">'+(we?"Zi liberă":"Zi de lucru")+'</div><h2>Ce mănânci azi?</h2><p class="sub">'+
+    (we?"Ziua tot trebuie hrănită.":"Opt ore de muncă te costă 8 puncte de energie și 3 de moral.")+'</p>'+
+    butoane(MESE,function(o){
+      misca(o,"mancare");
+      if(verifica()) return;
+      if(!we&&Math.random()<0.68){ var e=trageEveniment(); if(e) return eveniment(e); }
+      ziNoua();
+    }));
+}
+function trageEveniment(){
+  var bune=S.ev.filter(function(i){var e=EVENIMENTE[i];return !e.cond||e.cond(S)});
+  if(!bune.length) return null;
+  var i=bune[Math.floor(Math.random()*bune.length)];
+  S.ev.splice(S.ev.indexOf(i),1);
+  return EVENIMENTE[i];
+}
+function eveniment(e){
+  ecran('<div class="eti">Se întâmplă ceva</div><h2>'+esc(e.t)+'</h2><p class="sub">&nbsp;</p>'+
+    butoane(e.c,function(o){
+      var inainte=S.bani; misca(o,"neprevazute");
+      S.rez={t:o.r,d:delta(o)};
+      if(inainte>=0&&S.bani<0){ S.mo=clamp(S.mo-8); S.rez.d+=" · ai intrat pe datorie, moral −8"; }
+      if(!verifica()) ziNoua();
+    }));
+}
+function final(cum){
+  S.gata=true;
+  var titlu,text,supravietuit=cum==="luna";
+  if(cum==="energie"){titlu="Ai căzut din picioare";text="În ziua "+S.zi+" corpul a zis stop. Prea puțină mâncare, prea multă oboseală. Luna a câștigat."}
+  else if(cum==="moral"){titlu="Ai cedat nervos";text="În ziua "+S.zi+" ți-ai făcut bagajul și ai luat trenul spre casă. Orașul ăsta nu iartă."}
+  else if(S.bani<0){titlu="Ai ajuns la salariu… pe datorie";text="Ai dus luna până la capăt, dar începi următoarea cu "+lei(-S.bani)+" lei minus."}
+  else if(S.bani<250){titlu="La limită";text="Ai ajuns în ziua de salariu cu "+lei(S.bani)+" lei în buzunar. O singură surpriză în plus și nu mai ajungeai."}
+  else if(S.bani<700){titlu="Maestru al bugetului";text="Ai terminat luna cu "+lei(S.bani)+" lei puși deoparte. Puțini reușesc asta."}
+  else{titlu="Legendă a economiei";text="Ți-au rămas "+lei(S.bani)+" lei. Cum ai făcut asta cu salariul minim rămâne un mister."}
+  var scor=supravietuit?Math.round(S.bani+S.en+S.mo):0, rec=citesteRecord(), recordNou=supravietuit&&(rec===null||scor>rec);
+  if(recordNou) scrieRecord(scor);
+  var c=S.ch, linii=[["Chirie și utilități",-c.chirie],["Mâncare",-c.mancare],["Transport",-c.transport],["Neprevăzute",-c.neprevazute],["Ieșiri și mici plăceri",-c.iesiri]];
+  var b='<h3>RAPORT DE LUNĂ</h3><div class="sm">'+(supravietuit?"30 de zile":"oprit în ziua "+S.zi)+' · '+esc(S.loc.n.toLowerCase())+'</div><hr>'+
+    '<div class="l"><span>Salariu net</span><span class="v plus">+'+lei(SALARIU)+'</span></div>'+
+    (c.extra?'<div class="l"><span>Bani în plus</span><span class="v plus">+'+lei(c.extra)+'</span></div>':'');
+  linii.forEach(function(x){if(x[1])b+='<div class="l"><span>'+x[0]+'</span><span class="v">'+semn(x[1])+'</span></div>'});
+  b+='<hr><div class="l t"><span>RĂMAS</span><span class="v">'+lei(S.bani)+' lei</span></div>'+
+     '<div class="l"><span>Energie / moral</span><span class="v">'+S.en+' / '+S.mo+'</span></div>'+
+     (supravietuit?'<div class="l t"><span>SCOR</span><span class="v">'+lei(scor)+'</span></div>':'');
+  $("card").innerHTML=rezHtml()+'<div class="eti">'+(supravietuit?"Ziua de salariu":"Sfârșit")+'</div><div class="final-t">'+esc(titlu)+'</div><p class="sub">'+esc(text)+
+    (recordNou?" <b>Record nou.</b>":"")+'</p><button class="cta" id="iar">Joacă din nou</button><button class="cta sec" id="trimite">Trimite rezultatul</button>';
+  hud(); arataRecord();
+  var el=$("bon"); el.hidden=false; el.innerHTML=b;
+  $("iar").addEventListener("click",function(){window.scrollTo(0,0);intro()});
+  $("trimite").addEventListener("click",function(){
+    var msg=(supravietuit?"Am rezistat o lună în București cu salariul minim și mi-au rămas "+lei(S.bani)+" lei.":"N-am rezistat o lună în București cu salariul minim: m-am oprit în ziua "+S.zi+".")+" Tu?";
+    var url="https://draghicioiu.ro/salariu-minim/", btn=this;
+    if(navigator.share){navigator.share({title:"Salariul Minim – jocul",text:msg,url:url}).catch(function(){})}
+    else if(navigator.clipboard){navigator.clipboard.writeText(msg+" "+url).then(function(){btn.textContent="Copiat în clipboard"},function(){})}
+  });
+}
+window.__joc={get S(){return S},intro:intro};
+intro();
+})();
+</script>
+</body>
+</html>
