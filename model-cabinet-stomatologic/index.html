@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Model de site pentru cabinet stomatologic · draghicioiu.ro</title>
+<meta name="description" content="Model demonstrativ de site pentru un cabinet stomatologic: servicii, prețuri, program și programare online. Cabinetul și datele sunt fictive.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#0E6B68">
+<link rel="canonical" href="https://draghicioiu.ro/model-cabinet-stomatologic/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='6' fill='%230E6B68'/%3E%3Cpath d='M8 6c1.5 0 2.3.8 4 .8S14.500 6 16 6c2 0 3 1.700 3 3.800 0 3.200-1.200 8.200-2.600 8.200-1.300 0-1.200-4-2.400-4h-4c-1.200 0-1.100 4-2.400 4C6.200 18 5 13 5 9.800 5 7.700 6 6 8 6z' fill='white'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F3F7F6;--surface:#FFFFFF;--ink:#14262A;--muted:#55686C;--accent:#0E6B68;--accent-ink:#FFFFFF;--soft:#DDEEEC;--warm:#B4572A;--warm-soft:#FBEBDD;--line:#D5E1DF;--radius:18px;color-scheme:light}
+@media (prefers-color-scheme:dark){:root{--bg:#0E1719;--surface:#152225;--ink:#E8F0EF;--muted:#9DB0B3;--accent:#5FCFC4;--accent-ink:#06211F;--soft:#17302F;--warm:#F0A873;--warm-soft:#33241A;--line:#263A3D;color-scheme:dark}}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;font-size:16.5px;line-height:1.6;overflow-wrap:break-word}
+h1,h2,h3{font-family:Fraunces,Georgia,serif;font-weight:600;line-height:1.15;margin:0;text-wrap:balance}
+p{margin:0}
+a{color:var(--accent)}
+.wrap{max-width:1040px;margin:0 auto;padding:0 18px}
+.demo{background:var(--warm-soft);color:var(--warm);font-size:13.5px;font-weight:600;text-align:center;padding:9px 14px;border-bottom:1px solid var(--line)}
+.demo a{color:inherit}
+.bar{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.bar-in{display:flex;align-items:center;gap:14px;justify-content:space-between;padding:12px 18px;max-width:1040px;margin:0 auto}
+.brand{display:flex;align-items:center;gap:10px;font-family:Fraunces,Georgia,serif;font-weight:600;font-size:19px;color:var(--ink);text-decoration:none;min-width:0}
+.brand svg{flex:none}
+.brand span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.links{display:none;gap:22px;font-size:14.5px;font-weight:500}
+.links a{color:var(--muted);text-decoration:none}
+.links a:hover{color:var(--accent)}
+@media (min-width:820px){.links{display:flex}}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:46px;padding:0 20px;border-radius:999px;border:1px solid transparent;font:600 15px Inter,system-ui,sans-serif;text-decoration:none;cursor:pointer;white-space:nowrap}
+.btn-p{background:var(--accent);color:var(--accent-ink)}
+.btn-s{background:transparent;color:var(--ink);border-color:var(--line)}
+.btn-sm{min-height:40px;padding:0 16px;font-size:14px}
+.btn:focus-visible,a:focus-visible,select:focus-visible,input:focus-visible,button:focus-visible{outline:3px solid var(--warm);outline-offset:2px}
+.hero{padding:44px 0 34px}
+.hero-grid{display:grid;gap:28px;align-items:center}
+@media (min-width:860px){.hero-grid{grid-template-columns:1.1fr .9fr;gap:44px}.hero{padding:70px 0 54px}}
+.eyebrow{font-size:13px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+.hero h1{font-size:clamp(34px,6.4vw,56px)}
+.hero p.lead{font-size:18px;color:var(--muted);margin:16px 0 24px;max-width:48ch}
+.cta{display:flex;flex-wrap:wrap;gap:10px}
+.facts{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:22px;font-size:14px;color:var(--muted)}
+.facts b{color:var(--ink)}
+.art{background:var(--soft);border-radius:28px;padding:22px;position:relative;overflow:hidden}
+.art svg{display:block;width:100%;height:auto}
+.slot{position:absolute;left:18px;right:18px;bottom:18px;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:12px 14px;display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:14px}
+.slot b{display:block;font-size:15px}
+.dot{width:9px;height:9px;border-radius:50%;background:#2FA36B;flex:none}
+section{padding:46px 0}
+section.alt{background:var(--surface);border-block:1px solid var(--line)}
+.head{margin-bottom:24px;max-width:62ch}
+.head h2{font-size:clamp(26px,4.4vw,36px)}
+.head p{color:var(--muted);margin-top:10px}
+.cards{display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(230px,1fr))}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:20px}
+section.alt .card{background:var(--bg)}
+.card svg{width:34px;height:34px;color:var(--accent);margin-bottom:12px}
+.card h3{font-size:19px;margin-bottom:6px}
+.card p{font-size:15px;color:var(--muted)}
+.tbl{width:100%;border-collapse:collapse;background:var(--bg);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+.tbl th,.tbl td{padding:13px 16px;text-align:left;border-bottom:1px solid var(--line);font-size:15.5px}
+.tbl tr:last-child td{border-bottom:0}
+.tbl th{font-size:12.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.tbl td:last-child,.tbl th:last-child{text-align:right;white-space:nowrap;font-weight:600;font-variant-numeric:tabular-nums}
+.note{font-size:13.5px;color:var(--muted);margin-top:12px}
+.two{display:grid;gap:18px}
+@media (min-width:820px){.two{grid-template-columns:1fr 1fr;gap:26px}}
+.team{display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(210px,1fr))}
+.doc{display:flex;gap:14px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:16px}
+.av{width:54px;height:54px;border-radius:50%;background:var(--soft);color:var(--accent);display:grid;place-items:center;font:600 19px Fraunces,Georgia,serif;flex:none}
+.doc b{display:block}
+.doc span{font-size:14px;color:var(--muted)}
+form{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:22px}
+.f{display:grid;gap:14px}
+@media (min-width:560px){.f2{grid-template-columns:1fr 1fr}}
+label{display:grid;gap:6px;font-size:14px;font-weight:600}
+select,input{width:100%;min-height:48px;border-radius:12px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font:inherit;font-size:16px;padding:0 12px}
+.hours{display:flex;flex-wrap:wrap;gap:8px}
+.hours button{min-height:42px;padding:0 14px;border-radius:999px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font:600 14.5px Inter,system-ui,sans-serif;cursor:pointer;font-variant-numeric:tabular-nums}
+.hours button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.hours button:disabled{opacity:.4;cursor:not-allowed;text-decoration:line-through}
+.done{display:none;margin-top:16px;background:var(--soft);border-radius:14px;padding:14px 16px;font-size:15px}
+.done.on{display:block}
+.done b{display:block;margin-bottom:4px}
+.err{color:var(--warm);font-size:14px;font-weight:600;min-height:20px}
+.info{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:22px}
+.info dl{margin:0;display:grid;gap:12px}
+.info dt{font-size:12.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.info dd{margin:2px 0 0;font-weight:500}
+.map{margin-top:16px;border-radius:16px;overflow:hidden;border:1px solid var(--line)}
+.map svg{display:block;width:100%;height:auto}
+.pitch{background:var(--accent);color:var(--accent-ink);border-radius:26px;padding:30px 24px;display:grid;gap:18px}
+@media (min-width:760px){.pitch{grid-template-columns:1.3fr auto;align-items:center;padding:38px}}
+.pitch h2{font-size:clamp(24px,4vw,32px)}
+.pitch p{opacity:.9;margin-top:8px}
+.pitch ul{margin:14px 0 0;padding-left:20px;display:grid;gap:4px;font-size:15.5px}
+.pitch .btn{background:var(--accent-ink);color:var(--accent)}
+footer{padding:26px 0 46px;font-size:14px;color:var(--muted);text-align:center}
+</style>
+</head>
+<body>
+<div class="demo">Model demonstrativ. Cabinetul „Zâmbet Senin”, medicii, prețurile și datele de contact sunt inventate. <a href="/">← draghicioiu.ro</a></div>
+
+<header class="bar">
+<div class="bar-in">
+<a class="brand" href="#sus">
+<svg width="30" height="30" viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="7" fill="var(--accent)"/><path d="M8 6c1.500 0 2.300.800 4 .800S14.500 6 16 6c2 0 3 1.700 3 3.800 0 3.200-1.200 8.200-2.600 8.200-1.300 0-1.200-4-2.400-4h-4c-1.200 0-1.100 4-2.400 4C6.200 18 5 13 5 9.800 5 7.700 6 6 8 6z" fill="var(--accent-ink)"/></svg>
+<span>Zâmbet Senin</span>
+</a>
+<nav class="links" aria-label="Secțiuni">
+<a href="#servicii">Servicii</a><a href="#preturi">Prețuri</a><a href="#echipa">Echipa</a><a href="#contact">Program și contact</a>
+</nav>
+<a class="btn btn-p btn-sm" href="#programare">Programează-te</a>
+</div>
+</header>
+
+<main id="sus">
+<section class="hero">
+<div class="wrap hero-grid">
+<div>
+<p class="eyebrow">Cabinet stomatologic · Sectorul 6</p>
+<h1>Dinți sănătoși, fără drumuri și telefoane în plus.</h1>
+<p class="lead">Alegi tratamentul, ziua și ora direct de pe telefon. Primești confirmarea pe loc și un memento cu o zi înainte.</p>
+<div class="cta">
+<a class="btn btn-p" href="#programare">Programare online</a>
+<a class="btn btn-s" href="#preturi">Vezi prețurile</a>
+</div>
+<p class="facts"><span><b>Luni–Vineri</b> 10:00–20:00</span><span><b>Sâmbătă</b> cu programare</span><span><b>Consultație</b> de la 80 lei</span></p>
+</div>
+<div class="art">
+<svg viewBox="0 0 400 330" role="img" aria-label="Ilustrație: un dinte și un calendar de programări">
+<rect x="210" y="34" width="160" height="150" rx="18" fill="var(--surface)" stroke="var(--line)"/>
+<rect x="210" y="34" width="160" height="38" rx="18" fill="var(--accent)"/>
+<rect x="210" y="56" width="160" height="16" fill="var(--accent)"/>
+<g fill="var(--line)"><rect x="228" y="90" width="24" height="20" rx="5"/><rect x="262" y="90" width="24" height="20" rx="5"/><rect x="330" y="90" width="24" height="20" rx="5"/><rect x="228" y="120" width="24" height="20" rx="5"/><rect x="296" y="120" width="24" height="20" rx="5"/><rect x="330" y="120" width="24" height="20" rx="5"/><rect x="262" y="150" width="24" height="20" rx="5"/><rect x="296" y="150" width="24" height="20" rx="5"/></g>
+<rect x="296" y="90" width="24" height="20" rx="5" fill="var(--warm)"/>
+<rect x="262" y="120" width="24" height="20" rx="5" fill="var(--accent)"/>
+<path d="M92 70c22 0 34 12 58 12s36-12 58-12c30 0 44 26 44 56 0 48-18 122-38 122-20 0-18-60-36-60h-56c-18 0-16 60-36 60-20 0-38-74-38-122 0-30 14-56 44-56z" fill="var(--surface)" stroke="var(--accent)" stroke-width="6" stroke-linejoin="round"/>
+<path d="M104 112c10-10 24-12 34-8" fill="none" stroke="var(--accent)" stroke-width="6" stroke-linecap="round" opacity=".45"/>
+<path d="M60 44l5 12 12 5-12 5-5 12-5-12-12-5 12-5z" fill="var(--warm)"/>
+</svg>
+<div class="slot"><span><b>Mâine, 17:30</b>Detartraj · Dr. A. Exemplu</span><span class="dot" aria-hidden="true"></span></div>
+</div>
+</div>
+</section>
+
+<section class="alt" id="servicii">
+<div class="wrap">
+<div class="head"><h2>Servicii</h2><p>Lista se adaptează fiecărui cabinet. Fiecare serviciu poate avea pagina lui, cu explicații și durată.</p></div>
+<div class="cards">
+<article class="card"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="18" r="10"/><path d="M26 26l8 8"/></svg><h3>Consultație și plan</h3><p>Evaluare, radiografie la nevoie și un plan de tratament cu etape și costuri.</p></article>
+<article class="card"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 8c3 0 4 2 8 2s5-2 8-2c4 0 6 4 6 8 0 6-2 16-5 16s-3-8-5-8h-8c-2 0-2 8-5 8S6 22 6 16c0-4 2-8 6-8z"/></svg><h3>Stomatologie generală</h3><p>Obturații, tratamente de canal, extracții și urgențe dentare.</p></article>
+<article class="card"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 5l3 8 8 3-8 3-3 8-3-8-8-3 8-3z"/><path d="M31 27l1.500 4 4 1.500-4 1.500-1.500 4"/></svg><h3>Estetică și albire</h3><p>Albire profesională, fațete și refacerea formei dinților.</p></article>
+<article class="card"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 6h14l-2 9H15z"/><path d="M17 15v5M23 15v5M16 20h8M17 24h6M18 28h4M20 28v6"/></svg><h3>Implantologie</h3><p>Implanturi și coroane, cu etapele explicate dinainte.</p></article>
+<article class="card"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="14" width="8" height="10" rx="2"/><rect x="16" y="14" width="8" height="10" rx="2"/><rect x="27" y="14" width="8" height="10" rx="2"/><path d="M3 19h34"/></svg><h3>Ortodonție</h3><p>Aparate dentare pentru copii și adulți, cu controale programate automat.</p></article>
+<article class="card"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="20" cy="15" r="7"/><path d="M8 34c1-7 6-10 12-10s11 3 12 10"/><path d="M17 15c1 2 5 2 6 0"/></svg><h3>Stomatologie pentru copii</h3><p>Prima vizită, sigilări și tratamente făcute cu răbdare.</p></article>
+</div>
+</div>
+</section>
+
+<section id="preturi">
+<div class="wrap">
+<div class="head"><h2>Prețuri</h2><p>Pacienții caută prețul înainte să sune. O listă clară aduce mai multe programări decât „sunați pentru detalii”.</p></div>
+<table class="tbl">
+<thead><tr><th>Tratament</th><th>Preț</th></tr></thead>
+<tbody>
+<tr><td>Consultație</td><td>80 lei</td></tr>
+<tr><td>Detartraj și periaj profesional</td><td>250 lei</td></tr>
+<tr><td>Obturație fizionomică</td><td>180–280 lei</td></tr>
+<tr><td>Tratament de canal</td><td>350–700 lei</td></tr>
+<tr><td>Extracție</td><td>150–450 lei</td></tr>
+<tr><td>Albire profesională</td><td>900 lei</td></tr>
+<tr><td>Coroană ceramică</td><td>950–1.600 lei</td></tr>
+</tbody>
+</table>
+<p class="note">Valori de exemplu, puse doar ca să arate cum se prezintă lista. Cabinetul își trece propriile tarife.</p>
+</div>
+</section>
+
+<section class="alt" id="echipa">
+<div class="wrap">
+<div class="head"><h2>Echipa</h2><p>Aici vin fotografiile și specializările medicilor. În model sunt nume de exemplu.</p></div>
+<div class="team">
+<div class="doc"><span class="av" aria-hidden="true">AE</span><div><b>Dr. Ana Exemplu</b><span>Stomatologie generală</span></div></div>
+<div class="doc"><span class="av" aria-hidden="true">MM</span><div><b>Dr. Mihai Model</b><span>Implantologie</span></div></div>
+<div class="doc"><span class="av" aria-hidden="true">ID</span><div><b>Dr. Ioana Demo</b><span>Ortodonție</span></div></div>
+</div>
+</div>
+</section>
+
+<section id="programare">
+<div class="wrap">
+<div class="head"><h2>Programare online</h2><p>Încearcă formularul. În varianta reală, cererea ajunge la cabinet pe WhatsApp sau e-mail, iar pacientul primește un memento cu o zi înainte.</p></div>
+<div class="two">
+<form id="frm" novalidate>
+<div class="f">
+<label>Tratament
+<select id="srv">
+<option>Consultație</option><option>Detartraj și periaj</option><option>Obturație</option><option>Control ortodonție</option><option>Albire profesională</option><option>Urgență dentară</option>
+</select></label>
+<div class="f f2">
+<label>Medic
+<select id="doc"><option>Primul disponibil</option><option>Dr. Ana Exemplu</option><option>Dr. Mihai Model</option><option>Dr. Ioana Demo</option></select></label>
+<label>Ziua
+<input type="date" id="day"></label>
+</div>
+<div>
+<p style="font-size:14px;font-weight:600;margin-bottom:8px" id="hl">Ora</p>
+<div class="hours" id="hours" role="group" aria-labelledby="hl"></div>
+</div>
+<p class="err" id="err" role="alert"></p>
+<button class="btn btn-p" type="submit">Trimite cererea</button>
+</div>
+<div class="done" id="done" role="status"><b>Cerere înregistrată (demonstrație)</b><span id="sum"></span></div>
+</form>
+
+<div class="info" id="contact">
+<dl>
+<div><dt>Program</dt><dd>Luni–Vineri 10:00–20:00<br>Sâmbătă doar cu programare</dd></div>
+<div><dt>Telefon</dt><dd>07xx xxx xxx <span style="color:var(--muted);font-weight:400">(număr de exemplu)</span></dd></div>
+<div><dt>Adresă</dt><dd>Str. Exemplu nr. 1, Sector 6, București</dd></div>
+</dl>
+<div class="map">
+<svg viewBox="0 0 400 180" role="img" aria-label="Hartă ilustrativă cu poziția cabinetului">
+<rect width="400" height="180" fill="var(--soft)"/>
+<g stroke="var(--surface)" stroke-width="14" fill="none" stroke-linecap="round"><path d="M-10 60h420M-10 130h420M90-10v200M250-10v200M340-10l-70 200"/></g>
+<g fill="var(--line)"><rect x="110" y="76" width="54" height="40" rx="6"/><rect x="176" y="76" width="56" height="40" rx="6"/><rect x="20" y="76" width="54" height="40" rx="6"/></g>
+<path d="M214 40c-13 0-23 10-23 23 0 17 23 39 23 39s23-22 23-39c0-13-10-23-23-23z" fill="var(--warm)"/>
+<circle cx="214" cy="63" r="8" fill="var(--surface)"/>
+</svg>
+</div>
+<p class="note">În site-ul real, aici stă harta interactivă, cu buton de navigare.</p>
+</div>
+</div>
+</div>
+</section>
+
+<section>
+<div class="wrap">
+<div class="pitch">
+<div>
+<h2>Vrei un site ca acesta pentru cabinetul tău?</h2>
+<p>Îl adaptez cu numele, medicii, prețurile și fotografiile cabinetului.</p>
+<ul>
+<li>Programare online pe orice telefon</li>
+<li>Memento automat cu o zi înainte</li>
+<li>Instalare 2.000 lei, apoi 400 lei pe lună</li>
+</ul>
+</div>
+<a class="btn" href="/#contact">Cere o ofertă</a>
+</div>
+</div>
+</section>
+</main>
+
+<footer><div class="wrap">Model realizat de Daniel Drăghicioiu · <a href="/">draghicioiu.ro</a>. Cabinetul „Zâmbet Senin” nu există; orice asemănare cu un cabinet real este întâmplătoare.</div></footer>
+
+<script>
+(function(){
+var day=document.getElementById('day'),hours=document.getElementById('hours'),err=document.getElementById('err'),done=document.getElementById('done'),sum=document.getElementById('sum'),picked='';
+function iso(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
+var t=new Date();t.setDate(t.getDate()+1);if(t.getDay()===0)t.setDate(t.getDate()+1);
+day.min=iso(t);day.value=iso(t);
+function slots(){
+hours.textContent='';picked='';
+var d=new Date(day.value+'T12:00:00');
+if(isNaN(d)){return}
+if(d.getDay()===0){err.textContent='Duminica este închis. Alege altă zi.';return}
+err.textContent='';
+var list=d.getDay()===6?['10:00','10:45','11:30','12:15']:['10:00','11:30','13:00','14:30','16:00','17:30','19:00'];
+var busy=(d.getDate()*7+d.getMonth())%list.length;
+list.forEach(function(h,i){
+var b=document.createElement('button');b.type='button';b.textContent=h;b.setAttribute('aria-pressed','false');
+if(i===busy||i===(busy+3)%list.length){b.disabled=true;b.setAttribute('aria-label',h+', ocupat')}
+b.addEventListener('click',function(){
+picked=h;err.textContent='';
+Array.prototype.forEach.call(hours.children,function(x){x.setAttribute('aria-pressed',x===b?'true':'false')});
+});
+hours.appendChild(b);
+});
+}
+day.addEventListener('change',function(){done.classList.remove('on');slots()});
+slots();
+document.getElementById('frm').addEventListener('submit',function(e){
+e.preventDefault();
+if(!day.value){err.textContent='Alege ziua.';return}
+if(!picked){err.textContent='Alege o oră liberă.';return}
+var d=new Date(day.value+'T12:00:00');
+var nice=d.toLocaleDateString('ro-RO',{weekday:'long',day:'numeric',month:'long'});
+sum.textContent=document.getElementById('srv').value+' · '+document.getElementById('doc').value+' · '+nice+', ora '+picked+'. Aici nu se trimite nimic; în site-ul real, cabinetul primește cererea și pacientul primește confirmarea.';
+done.classList.add('on');
+});
+})();
+</script>
+</body>
+</html>
