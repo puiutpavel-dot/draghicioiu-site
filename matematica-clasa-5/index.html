@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Matematică clasa a V-a · cursul profesorului virtual · draghicioiu.ro</title>
+<meta name="description" content="Curs de matematică pentru clasa a V-a, în ordinea programei școlare: explicații pe înțelesul copiilor, exemple rezolvate și exerciții cu răspunsuri. Capitolul 1 este scris complet.">
+<meta name="theme-color" content="#24456B">
+<link rel="canonical" href="https://draghicioiu.ro/matematica-clasa-5/">
+<meta property="og:title" content="Matematică clasa a V-a – cursul profesorului virtual">
+<meta property="og:description" content="Lecții în ordinea programei, cu explicații, exemple rezolvate și exerciții cu răspunsuri.">
+<meta property="og:url" content="https://draghicioiu.ro/matematica-clasa-5/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect x='3' y='3' width='18' height='18' rx='6' fill='%2324456B'/%3E%3Cpath d='M8 12h8M12 8v8' stroke='white' stroke-width='1.8' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F4F2EC;--surface:#FFFEFA;--text:#1B2028;--muted:#5A6270;--accent:#24456B;--accent-soft:#E1E8F1;--mark:#9A5B1E;--mark-soft:#F4E8D8;--border:#DEDAD0;color-scheme:light}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#12151A;--surface:#1A1E25;--text:#E9EBEF;--muted:#A0A8B4;--accent:#8FB4E0;--accent-soft:#1F2B3A;--mark:#E0A866;--mark-soft:#33281A;--border:#2B313B;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#12151A;--surface:#1A1E25;--text:#E9EBEF;--muted:#A0A8B4;--accent:#8FB4E0;--accent-soft:#1F2B3A;--mark:#E0A866;--mark-soft:#33281A;--border:#2B313B;color-scheme:dark}
+*{box-sizing:border-box}
+html,body{margin:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;font-size:16.5px;line-height:1.6;overflow-wrap:break-word}
+a{color:var(--accent)}
+.wrap{max-width:980px;margin:0 auto;padding:24px 16px 72px}
+.top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.top a{color:var(--muted);text-decoration:none;font-weight:600;min-height:44px;display:inline-flex;align-items:center}
+.top a:hover{color:var(--text)}
+h1,h2,h3{font-family:Fraunces,Georgia,serif;letter-spacing:-.01em;line-height:1.15}
+.kicker{margin:36px 0 6px;color:var(--mark);font-weight:600;font-size:14px;letter-spacing:.06em;text-transform:uppercase}
+h1{font-size:clamp(34px,6.2vw,58px);margin:0 0 14px;font-weight:700}
+.lede{font-size:clamp(18px,2.3vw,21px);color:var(--muted);max-width:720px;margin:0}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:32px 0 8px}
+.stat{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:14px 16px}
+.stat b{display:block;font-family:Fraunces,Georgia,serif;font-size:28px;color:var(--accent);line-height:1.1}
+.stat span{font-size:14px;color:var(--muted)}
+h2{font-size:clamp(26px,3.6vw,34px);margin:56px 0 8px}
+.sub{color:var(--muted);margin:0 0 22px;max-width:700px}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;list-style:none;padding:0;margin:0;counter-reset:s}
+.steps li{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:16px;counter-increment:s}
+.steps li::before{content:counter(s);display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--accent-soft);color:var(--accent);font-weight:700;font-size:15px;margin-bottom:8px}
+.steps b{display:block}
+.steps span{font-size:14.5px;color:var(--muted)}
+.chaps{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.chap{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:18px 20px}
+.chap h3{font-size:19px;margin:0;display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.tag{flex:none;font-family:Inter,system-ui,sans-serif;font-size:12px;font-weight:600;letter-spacing:0;padding:3px 9px;border-radius:999px;background:var(--mark-soft);color:var(--mark);white-space:nowrap}
+.tag.ok{background:var(--accent-soft);color:var(--accent)}
+.cnt{margin:4px 0 8px;font-size:14px;color:var(--muted)}
+.chap ol{margin:0;padding-left:22px;font-size:15px}
+.chap li{margin:3px 0}
+.lesson{background:var(--surface);border:1px solid var(--border);border-radius:16px;margin-bottom:10px}
+.lesson>summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:14px;padding:14px 18px;min-height:60px}
+.lesson>summary::-webkit-details-marker{display:none}
+.lesson>summary::after{content:"+";margin-left:auto;font-size:24px;color:var(--muted);line-height:1}
+.lesson[open]>summary::after{content:"−"}
+.lesson .n{flex:none;width:32px;height:32px;border-radius:50%;background:var(--accent-soft);color:var(--accent);font-weight:700;display:grid;place-items:center;font-size:15px}
+.lesson .t{font-family:Fraunces,Georgia,serif;font-size:19px;line-height:1.25}
+.body{padding:0 20px 20px;border-top:1px solid var(--border)}
+.body h4{font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--mark);margin:20px 0 6px}
+.body p{margin:0 0 8px}
+.body ol{margin:0;padding-left:24px}
+.body li{margin:6px 0}
+.ex{background:var(--mark-soft);border-radius:12px;padding:2px 16px 10px;margin-top:16px}
+.ex h4{margin-top:14px}
+.check{margin-top:16px!important;padding:12px 16px;border-left:4px solid var(--accent);background:var(--accent-soft);border-radius:0 12px 12px 0}
+.ans{margin-top:14px}
+.ans summary{cursor:pointer;font-weight:600;color:var(--accent);min-height:44px;display:inline-flex;align-items:center}
+.ans ol{margin-top:4px}
+.foot{margin-top:48px;font-size:14px;color:var(--muted)}
+@media (max-width:720px){.steps{grid-template-columns:1fr 1fr}.chaps{grid-template-columns:1fr}}
+@media (max-width:420px){.steps{grid-template-columns:1fr}.lesson>summary{padding:12px 14px;gap:10px}.body{padding:0 14px 16px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="top"><a href="/">← draghicioiu.ro</a><a href="#lectii">Lecțiile ↓</a></div>
+
+<p class="kicker">Profesor virtual · clasa a V-a</p>
+<h1>Matematică de clasa a V&#8209;a, explicată pas cu pas</h1>
+<p class="lede">Un curs în ordinea capitolelor din programa școlară, cu explicații pe înțelesul unui copil de 11 ani, exemple rezolvate și exerciții cu răspunsuri. Primul capitol este scris complet, celelalte urmează.</p>
+
+<div class="stats">
+<div class="stat"><b>6</b><span>capitole în tot anul</span></div>
+<div class="stat"><b>49</b><span>de lecții planificate</span></div>
+<div class="stat"><b>12</b><span>lecții scrise complet</span></div>
+<div class="stat"><b>60</b><span>de exerciții cu răspunsuri</span></div>
+</div>
+
+<h2>Cum arată o lecție</h2>
+<p class="sub">Toate lecțiile au aceiași patru pași, în aceeași ordine.</p>
+<ol class="steps">
+<li><b>Explicația</b><span>Ideea lecției, spusă simplu, cu cuvintele profesorului.</span></li>
+<li><b>Exemplul rezolvat</b><span>O problemă lucrată de la început până la sfârșit.</span></li>
+<li><b>Exercițiile</b><span>Cinci, de la ușor la greu, cu răspunsurile ascunse până le ceri.</span></li>
+<li><b>Întrebarea de verificare</b><span>Arată dacă ai înțeles ideea, nu doar calculul.</span></li>
+</ol>
+
+<h2>Materia pe tot anul</h2>
+<p class="sub">Capitolele și lecțiile, în ordinea în care se predau la clasă.</p>
+<div class="chaps">
+<div class="chap"><h3><span>Capitolul 1. Operații cu numere naturale</span><span class="tag ok">scris complet</span></h3><p class="cnt">12 lecții</p><ol><li><a href="#lectia-1">Scrierea și citirea numerelor naturale</a></li><li><a href="#lectia-2">Axa numerelor, compararea, ordonarea și aproximările</a></li><li><a href="#lectia-3">Adunarea și scăderea</a></li><li><a href="#lectia-4">Înmulțirea și factorul comun</a></li><li><a href="#lectia-5">Împărțirea exactă și împărțirea cu rest</a></li><li><a href="#lectia-6">Puterea cu exponent natural</a></li><li><a href="#lectia-7">Reguli de calcul cu puteri, baza 10 și baza 2</a></li><li><a href="#lectia-8">Ordinea operațiilor și parantezele</a></li><li><a href="#lectia-9">Metoda reducerii la unitate</a></li><li><a href="#lectia-10">Metoda comparației</a></li><li><a href="#lectia-11">Metoda figurativă</a></li><li><a href="#lectia-12">Metoda mersului invers și metoda falsei ipoteze</a></li></ol></div>
+<div class="chap"><h3><span>Capitolul 2. Divizibilitatea numerelor naturale</span><span class="tag">urmează</span></h3><p class="cnt">5 lecții</p><ol><li>Divizor și multiplu</li><li>Divizori comuni și multipli comuni</li><li>Criteriile de divizibilitate cu 2, 5 și 10</li><li>Criteriile de divizibilitate cu 3 și 9</li><li>Numere prime și numere compuse</li></ol></div>
+<div class="chap"><h3><span>Capitolul 3. Fracții ordinare</span><span class="tag">urmează</span></h3><p class="cnt">11 lecții</p><ol><li>Fracții subunitare, echiunitare și supraunitare</li><li>Procente</li><li>Fracții echivalente</li><li>Compararea fracțiilor și reprezentarea pe axa numerelor</li><li>Introducerea și scoaterea întregilor din fracție</li><li>Cel mai mare divizor comun, amplificarea și simplificarea, fracții ireductibile</li><li>Cel mai mic multiplu comun și aducerea la același numitor</li><li>Adunarea și scăderea fracțiilor</li><li>Înmulțirea fracțiilor și puterile</li><li>Împărțirea fracțiilor</li><li>Fracții și procente dintr-un număr</li></ol></div>
+<div class="chap"><h3><span>Capitolul 4. Fracții zecimale</span><span class="tag">urmează</span></h3><p class="cnt">11 lecții</p><ol><li>Scrierea fracțiilor cu numitor putere a lui 10 sub formă zecimală</li><li>Aproximări, comparare și reprezentare pe axa numerelor</li><li>Adunarea și scăderea fracțiilor zecimale</li><li>Înmulțirea fracțiilor zecimale și puterile</li><li>Împărțirea a două numere naturale cu rezultat zecimal; media aritmetică</li><li>Transformarea unei fracții ordinare în fracție zecimală; fracții periodice</li><li>Împărțirea fracțiilor zecimale</li><li>Transformarea unei fracții zecimale în fracție ordinară</li><li>Numărul rațional pozitiv și ordinea operațiilor</li><li>Probleme cu fracții rezolvate prin metode aritmetice</li><li>Organizarea datelor: tabele, grafice, frecvență și medie</li></ol></div>
+<div class="chap"><h3><span>Capitolul 5. Elemente de geometrie</span><span class="tag">urmează</span></h3><p class="cnt">7 lecții</p><ol><li>Punct, dreaptă, plan, semidreaptă și segment</li><li>Poziții relative: puncte coliniare, drepte concurente și paralele</li><li>Lungimea unui segment, segmente congruente, mijlocul și simetricul față de un punct</li><li>Unghiul: elemente, interior și exterior</li><li>Măsura unghiului, raportorul și tipurile de unghiuri</li><li>Calcule cu grade și minute</li><li>Figuri congruente și axa de simetrie</li></ol></div>
+<div class="chap"><h3><span>Capitolul 6. Unități de măsură</span><span class="tag">urmează</span></h3><p class="cnt">3 lecții</p><ol><li>Unități de lungime și perimetrul</li><li>Unități de arie; aria pătratului și a dreptunghiului</li><li>Unități de volum; volumul cubului și al paralelipipedului dreptunghic</li></ol></div>
+</div>
+
+<h2 id="lectii">Capitolul 1. Operații cu numere naturale</h2>
+<p class="sub">Apasă pe o lecție ca să o deschizi. Rezolvă exercițiile pe caiet, apoi verifică răspunsurile.</p>
+<details class="lesson" id="lectia-1"><summary><span class="n">1</span><span class="t">Scrierea și citirea numerelor naturale</span></summary>
+<div class="body">
+<h4>Explicația</h4><p>Avem doar zece cifre, de la 0 la 9, dar cu ele putem scrie orice număr. Secretul este locul: aceeași cifră valorează altceva în funcție de poziția ei. De la dreapta la stânga avem unități, zeci, sute, apoi mii, zeci de mii, sute de mii, apoi milioane. Ca să citim ușor un număr mare, îl despărțim în grupe de câte trei cifre, pornind din dreapta.</p>
+<div class="ex"><h4>Exemplul rezolvat</h4><p>Numărul 3 406 215 are trei grupe: 3 milioane, 406 mii și 215 unități. Îl citim „trei milioane patru sute șase mii două sute cincisprezece”. Cifra 4 stă pe locul sutelor de mii, deci valorează 400 000.</p></div>
+<h4>Exerciții</h4><ol><li>Scrie cu cifre numărul „patru mii șaptezeci și doi”.</li><li>Scrie în cuvinte numărul 30 508.</li><li>Ce valoare are cifra 8 în numărul 582 914?</li><li>Care este cel mai mare număr de patru cifre diferite? Dar cel mai mic?</li><li>Câte numere de două cifre au cifra unităților 7?</li></ol>
+<p class="check"><b>Întrebarea de verificare.</b> Numerele 205 și 250 sunt scrise cu aceleași cifre. De ce nu sunt egale?</p>
+<details class="ans"><summary>Arată răspunsurile</summary><ol><li>4 072</li><li>treizeci de mii cinci sute opt</li><li>80 000 (zeci de mii)</li><li>9 876 și 1 023</li><li>9 numere</li></ol></details>
+</div></details>
+<details class="lesson" id="lectia-2"><summary><span class="n">2</span><span class="t">Axa numerelor, compararea, ordonarea și aproximările</span></summary>
+<div class="body">
+<h4>Explicația</h4><p>Axa numerelor este o dreaptă pe care numerele stau la distanțe egale, începând cu 0. Cu cât un număr este mai la dreapta, cu atât este mai mare. Ca să comparăm două numere, ne uităm întâi câte cifre au: cel cu mai multe cifre este mai mare. Dacă au la fel de multe, comparăm cifrele de la stânga la dreapta până găsim prima diferență. Rotunjirea înseamnă să înlocuim numărul cu unul apropiat și mai simplu: dacă cifra de după locul ales este 5 sau mai mare, rotunjim în sus, altfel în jos.</p>
+<div class="ex"><h4>Exemplul rezolvat</h4><p>Rotunjim 3 862 la sute. Cifra sutelor este 8, iar după ea urmează 6. Cum 6 este cel puțin 5, rotunjim în sus și obținem 3 900.</p></div>
+<h4>Exerciții</h4><ol><li>Compară numerele 45 987 și 45 897.</li><li>Ordonează crescător: 3 210, 3 021, 3 201, 3 120.</li><li>Rotunjește 6 748 la sute, apoi la mii.</li><li>Ce numere naturale se află pe axă între 98 și 103?</li><li>Un stadion are 23 640 de locuri. Rotunjește numărul la zeci de mii, apoi la mii.</li></ol>
+<p class="check"><b>Întrebarea de verificare.</b> Două numere au fiecare cinci cifre. Cum afli care este mai mare fără să le desenezi pe axă?</p>
+<details class="ans"><summary>Arată răspunsurile</summary><ol><li>45 987 &gt; 45 897</li><li>3 021, 3 120, 3 201, 3 210</li><li>6 700 și 7 000</li><li>99, 100, 101, 102</li><li>20 000 și 24 000</li></ol></details>
+</div></details>
+<details class="lesson" id="lectia-3"><summary><span class="n">3</span><span class="t">Adunarea și scăderea</span></summary>
+<div class="body">
+<h4>Explicația</h4><p>La adunare, numerele pe care le adunăm se numesc termeni, iar rezultatul se numește sumă. Adunarea are două proprietăți care ne ajută să calculăm repede: putem schimba ordinea termenilor și îi putem grupa cum vrem. Scăderea nu are aceste proprietăți: 9 − 4 nu este totuna cu 4 − 9. Adunarea și scăderea se verifică una prin cealaltă, așa că un termen necunoscut dintr-o sumă se află prin scădere.</p>
+<div class="ex"><h4>Exemplul rezolvat</h4><p>Calculăm 198 + 467 + 2. Schimbăm ordinea și grupăm numerele care dau o sumă rotundă: (198 + 2) + 467 = 200 + 467 = 667.</p></div>
+<h4>Exerciții</h4><ol><li>Calculează 4 578 + 2 364.</li><li>Calculează 9 003 − 4 765.</li><li>Calculează cât mai repede: 37 + 85 + 63 + 15.</li><li>Află numărul x din egalitatea x + 1 250 = 3 000.</li><li>O bibliotecă are 2 845 de cărți. Primește încă 360 și împrumută 1 127. Câte cărți rămân pe rafturi?</li></ol>
+<p class="check"><b>Întrebarea de verificare.</b> Cum verifici, fără calculator, dacă o scădere a fost făcută corect?</p>
+<details class="ans"><summary>Arată răspunsurile</summary><ol><li>6 942</li><li>4 238</li><li>200</li><li>x = 1 750</li><li>2 078 de cărți</li></ol></details>
+</div></details>
+<details class="lesson" id="lectia-4"><summary><span class="n">4</span><span class="t">Înmulțirea și factorul comun</span></summary>
+<div class="body">
+<h4>Explicația</h4><p>Înmulțirea este o adunare repetată: 4 × 6 înseamnă 6 + 6 + 6 + 6. Numerele pe care le înmulțim se numesc factori, iar rezultatul se numește produs. Ca la adunare, putem schimba ordinea factorilor și îi putem grupa. În plus, înmulțirea se „împarte” peste adunare și scădere: 5 × (10 + 2) = 5 × 10 + 5 × 2. Citită invers, regula se numește scoaterea factorului comun: 5 × 10 + 5 × 2 = 5 × (10 + 2).</p>
+<div class="ex"><h4>Exemplul rezolvat</h4><p>Calculăm 7 × 98 fără înmulțire lungă. Scriem 98 ca 100 − 2: 7 × 98 = 7 × 100 − 7 × 2 = 700 − 14 = 686.</p></div>
+<h4>Exerciții</h4><ol><li>Calculează 326 × 7.</li><li>Calculează 45 × 23.</li><li>Calculează cât mai repede: 25 × 17 × 4.</li><li>Scoate factorul comun și calculează: 36 × 8 + 36 × 2.</li><li>În fiecare dintre cele 15 cutii sunt 24 de creioane și 6 radiere. Câte obiecte sunt în total?</li></ol>
+<p class="check"><b>Întrebarea de verificare.</b> De ce este mai ușor să calculezi 25 × 4 × 17 decât 25 × 17 × 4, deși rezultatul este același?</p>
+<details class="ans"><summary>Arată răspunsurile</summary><ol><li>2 282</li><li>1 035</li><li>1 700</li><li>36 × 10 = 360</li><li>15 × 30 = 450 de obiecte</li></ol></details>
+</div></details>
+<details class="lesson" id="lectia-5"><summary><span class="n">5</span><span class="t">Împărțirea exactă și împărțirea cu rest</span></summary>
+<div class="body">
+<h4>Explicația</h4><p>Împărțirea răspunde la întrebarea „de câte ori încape?”. Numărul pe care îl împărțim se numește deîmpărțit, cel la care împărțim este împărțitorul, iar rezultatul este câtul. Uneori rămâne ceva pe dinafară, numit rest. Regula care leagă totul este: deîmpărțitul = împărțitorul × câtul + restul, iar restul este întotdeauna mai mic decât împărțitorul. Când restul este 0, împărțirea este exactă. La 0 nu se poate împărți.</p>
+<div class="ex"><h4>Exemplul rezolvat</h4><p>Împărțim 47 la 5. Cinci încape în 47 de 9 ori, pentru că 5 × 9 = 45, și rămân 2. Verificăm: 5 × 9 + 2 = 47, iar 2 este mai mic decât 5.</p></div>
+<h4>Exerciții</h4><ol><li>Calculează 936 : 4.</li><li>Află câtul și restul împărțirii lui 1 547 la 6.</li><li>Egalitatea 85 = 7 × 11 + 8 este adevărată. Arată ea câtul și restul împărțirii lui 85 la 7? Explică.</li><li>Ce resturi pot apărea la împărțirea unui număr la 5?</li><li>În excursie merg 250 de elevi, cu autocare de câte 48 de locuri. De câte autocare este nevoie?</li></ol>
+<p class="check"><b>Întrebarea de verificare.</b> De ce restul nu poate fi niciodată egal cu împărțitorul sau mai mare decât el?</p>
+<details class="ans"><summary>Arată răspunsurile</summary><ol><li>234</li><li>cât 257, rest 5</li><li>Nu: restul 8 nu este mai mic decât 7. Corect: 85 = 7 × 12 + 1</li><li>0, 1, 2, 3, 4</li><li>6 autocare</li></ol></details>
+</div></details>
+<details class="lesson" id="lectia-6"><summary><span class="n">6</span><span class="t">Puterea cu exponent natural</span></summary>
+<div class="body">
+<h4>Explicația</h4><p>Așa cum înmulțirea scurtează o adunare repetată, puterea scurtează o înmulțire repetată. În loc de 2 × 2 × 2 scriem 2³ și citim „2 la puterea a treia”. Numărul care se repetă este baza, iar numărul care arată de câte ori se repetă este exponentul. Două cazuri speciale: orice număr la puterea 1 rămâne el însuși, iar orice număr diferit de zero la puterea 0 este 1. Puterea a doua se mai numește pătrat, pentru că dă numărul de pătrățele dintr-un pătrat cu latura respectivă.</p>
+<div class="ex"><h4>Exemplul rezolvat</h4><p>Calculăm 4³. Baza este 4, exponentul este 3, deci înmulțim 4 de trei ori: 4 × 4 × 4 = 16 × 4 = 64. Atenție, 4³ nu este 4 × 3.</p></div>
+<h4>Exerciții</h4><ol><li>Calculează 2⁵.</li><li>Calculează 3⁴.</li><li>Scrie ca putere: 7 × 7 × 7 × 7 × 7 × 7.</li><li>Calculează pătratele numerelor 11, 12 și 15.</li><li>O foaie de hârtie se îndoaie în două de 6 ori la rând. Câte straturi are la final?</li></ol>
+<p class="check"><b>Întrebarea de verificare.</b> Care este diferența dintre 5 × 2 și 5²?</p>
+<details class="ans"><summary>Arată răspunsurile</summary><ol><li>32</li><li>81</li><li>7⁶</li><li>121, 144, 225</li><li>2⁶ = 64 de straturi</li></ol></details>
+</div></details>
+<details class="lesson" id="lectia-7"><summary><span class="n">7</span><span class="t">Reguli de calcul cu puteri, baza 10 și baza 2</span></summary>
+<div class="body">
+<h4>Explicația</h4><p>Când puterile au aceeași bază, calculele se fac cu exponenții. La înmulțire exponenții se adună: 2³ × 2⁴ = 2⁷. La împărțire se scad: 5⁹ : 5⁷ = 5². La putere ridicată la altă putere se înmulțesc: (3²)³ = 3⁶. Două puteri cu aceeași bază se compară după exponent, iar două puteri cu același exponent se compară după bază. Scrierea noastră obișnuită este în baza 10: fiecare cifră se înmulțește cu o putere a lui 10. Calculatoarele folosesc baza 2, cu doar două cifre, 0 și 1, iar fiecare loc valorează o putere a lui 2.</p>
+<div class="ex"><h4>Exemplul rezolvat</h4><p>În baza 10, 4 207 = 4 × 10³ + 2 × 10² + 0 × 10 + 7. În baza 2, scriem numărul 6 ca sumă de puteri ale lui 2: 6 = 4 + 2 = 1 × 2² + 1 × 2 + 0. Cifrele sunt 1, 1 și 0, deci 6 se scrie 110 în baza 2.</p></div>
+<h4>Exerciții</h4><ol><li>Scrie ca o singură putere și calculează: 2³ × 2⁴.</li><li>Scrie ca o singură putere și calculează: 5⁹ : 5⁷.</li><li>Scrie ca o singură putere și calculează: (3²)³.</li><li>Compară 3⁴ cu 4³.</li><li>Scrie numărul 13 în baza 2.</li></ol>
+<p class="check"><b>Întrebarea de verificare.</b> De ce nu putem aduna exponenții la 2³ × 5⁴?</p>
+<details class="ans"><summary>Arată răspunsurile</summary><ol><li>2⁷ = 128</li><li>5² = 25</li><li>3⁶ = 729</li><li>3⁴ &gt; 4³ (81 &gt; 64)</li><li>1101</li></ol></details>
+</div></details>
+<details class="lesson" id="lectia-8"><summary><span class="n">8</span><span class="t">Ordinea operațiilor și parantezele</span></summary>
+<div class="body">
+<h4>Explicația</h4><p>Dacă fiecare ar calcula în ordinea care îi place, același exercițiu ar avea mai multe rezultate. De aceea există o regulă comună. Întâi se calculează puterile, apoi înmulțirile și împărțirile, de la stânga la dreapta, și la final adunările și scăderile, tot de la stânga la dreapta. Parantezele schimbă ordinea: ce este în paranteză se calculează primul. Când sunt mai multe feluri de paranteze, începem cu cele rotunde, continuăm cu cele pătrate și terminăm cu acoladele.</p>
+<div class="ex"><h4>Exemplul rezolvat</h4><p>Calculăm 5 + 2 × 3². Întâi puterea: 3² = 9. Apoi înmulțirea: 2 × 9 = 18. La final adunarea: 5 + 18 = 23.</p></div>
+<h4>Exerciții</h4><ol><li>Calculează 20 − 4 × 3.</li><li>Calculează 48 : 6 + 2 × 5.</li><li>Calculează (15 + 9) : 4 × 3.</li><li>Calculează 100 − [3 × (8 + 2²) − 6].</li><li>Pune o pereche de paranteze astfel încât egalitatea să fie adevărată: 7 + 3 × 5 − 1 = 49.</li></ol>
+<p class="check"><b>Întrebarea de verificare.</b> Doi elevi calculează 6 + 4 × 2. Unul obține 20, celălalt 14. Cine are dreptate și ce a greșit celălalt?</p>
+<details class="ans"><summary>Arată răspunsurile</summary><ol><li>8</li><li>18</li><li>18</li><li>70</li><li>(7 + 3) × 5 − 1 = 49</li></ol></details>
+</div></details>
+<details class="lesson" id="lectia-9"><summary><span class="n">9</span><span class="t">Metoda reducerii la unitate</span></summary>
+<div class="body">
+<h4>Explicația</h4><p>Multe probleme spun cât costă sau cât fac mai multe lucruri la fel și întreabă despre alt număr de lucruri. Trucul este să aflăm întâi cât revine unuia singur, adică unității. Facem doi pași: împărțim ca să ajungem la unul, apoi înmulțim ca să ajungem la câți ne trebuie.</p>
+<div class="ex"><h4>Exemplul rezolvat</h4><p>Patru caiete costă 28 de lei. Cât costă 7 caiete? Un caiet costă 28 : 4 = 7 lei. Șapte caiete costă 7 × 7 = 49 de lei.</p></div>
+<h4>Exerciții</h4><ol><li>Șase pixuri costă 18 lei. Cât costă 10 pixuri?</li><li>O mașină consumă 21 de litri de benzină la 300 km. Cât consumă la 500 km?</li><li>Trei robinete la fel umplu 45 de găleți într-o oră. Câte găleți umplu 8 robinete într-o oră?</li><li>Opt kilograme de mere costă 40 de lei. Câte kilograme poți cumpăra cu 65 de lei?</li><li>O imprimantă scoate 240 de pagini în 4 minute. Câte pagini scoate în 15 minute?</li></ol>
+<p class="check"><b>Întrebarea de verificare.</b> De ce aflăm întâi prețul unui singur obiect, în loc să trecem direct de la 4 la 7?</p>
+<details class="ans"><summary>Arată răspunsurile</summary><ol><li>30 de lei</li><li>35 de litri</li><li>120 de găleți</li><li>13 kg</li><li>900 de pagini</li></ol></details>
+</div></details>
+<details class="lesson" id="lectia-10"><summary><span class="n">10</span><span class="t">Metoda comparației</span></summary>
+<div class="body">
+<h4>Explicația</h4><p>Uneori avem două cumpărături cu aceleași două feluri de obiecte și nu știm niciun preț. Le așezăm una sub alta și le comparăm. Dacă un fel de obiect apare în același număr în ambele, diferența de preț vine doar de la celălalt fel. Dacă nu apare în același număr, înmulțim una dintre cumpărături până când apare.</p>
+<div class="ex"><h4>Exemplul rezolvat</h4><p>Trei caiete și 2 pixuri costă 23 de lei. Trei caiete și 5 pixuri costă 35 de lei. Caietele sunt la fel de multe, deci diferența de 35 − 23 = 12 lei vine de la cele 3 pixuri în plus. Un pix costă 12 : 3 = 4 lei. Apoi 3 caiete costă 23 − 2 × 4 = 15 lei, deci un caiet costă 5 lei.</p></div>
+<h4>Exerciții</h4><ol><li>Două kilograme de mere și 3 kg de pere costă 26 de lei. Două kilograme de mere și 5 kg de pere costă 38 de lei. Cât costă un kilogram din fiecare?</li><li>Patru bilete de adult și unul de copil costă 95 de lei. Patru bilete de adult și 3 de copil costă 125 de lei. Cât costă fiecare fel de bilet?</li><li>Cinci creioane și 2 gume costă 16 lei. Trei creioane și 2 gume costă 12 lei. Cât costă un creion și cât costă o gumă?</li><li>Un caiet și 2 pixuri costă 13 lei. Două caiete și 3 pixuri costă 22 de lei. Cât costă un caiet și cât costă un pix?</li><li>Trei saci de făină și 4 saci de zahăr cântăresc 310 kg. Șase saci de făină și 4 saci de zahăr cântăresc 460 kg. Cât cântărește un sac din fiecare?</li></ol>
+<p class="check"><b>Întrebarea de verificare.</b> La exercițiul 4 niciun obiect nu apare în același număr în cele două cumpărături. Ce faci înainte să compari?</p>
+<details class="ans"><summary>Arată răspunsurile</summary><ol><li>mere 4 lei, pere 6 lei</li><li>adult 20 de lei, copil 15 lei</li><li>creion 2 lei, gumă 3 lei</li><li>caiet 5 lei, pix 4 lei</li><li>făină 50 kg, zahăr 40 kg</li></ol></details>
+</div></details>
+<details class="lesson" id="lectia-11"><summary><span class="n">11</span><span class="t">Metoda figurativă</span></summary>
+<div class="body">
+<h4>Explicația</h4><p>Când o problemă vorbește despre numere „cu atât mai mari” sau „de atâtea ori mai mari”, un desen ajută mai mult decât un calcul. Desenăm numărul cel mai mic ca un segment. Celelalte numere se desenează folosind același segment, repetat sau prelungit. Apoi numărăm câte segmente egale avem în total și aflăm cât valorează unul.</p>
+<div class="ex"><h4>Exemplul rezolvat</h4><p>Suma a două numere este 48, iar unul este de 3 ori mai mare decât celălalt. Numărul mic este un segment, cel mare este trei segmente, deci în total sunt 4 segmente egale. Un segment valorează 48 : 4 = 12. Numerele sunt 12 și 36.</p></div>
+<h4>Exerciții</h4><ol><li>Suma a două numere este 60, iar diferența lor este 14. Află numerele.</li><li>Ana are de 4 ori mai multe timbre decât Dan. Împreună au 85 de timbre. Câte are fiecare?</li><li>Suma a trei numere consecutive este 72. Află numerele.</li><li>Tatăl este cu 36 de ani mai mare decât fiul și are de 4 ori vârsta lui. Câți ani are fiecare?</li><li>Într-o curte sunt 54 de găini și rațe. Găinile sunt cu 6 mai multe decât dublul rațelor. Câte păsări sunt de fiecare fel?</li></ol>
+<p class="check"><b>Întrebarea de verificare.</b> La exercițiul 1, de ce scădem întâi diferența din sumă și abia apoi împărțim la 2?</p>
+<details class="ans"><summary>Arată răspunsurile</summary><ol><li>23 și 37</li><li>Dan 17, Ana 68</li><li>23, 24, 25</li><li>fiul 12 ani, tatăl 48 de ani</li><li>16 rațe, 38 de găini</li></ol></details>
+</div></details>
+<details class="lesson" id="lectia-12"><summary><span class="n">12</span><span class="t">Metoda mersului invers și metoda falsei ipoteze</span></summary>
+<div class="body">
+<h4>Explicația</h4><p>Mersul invers se folosește când știm rezultatul final și pașii făcuți, dar nu știm numărul de la care s-a pornit. Parcurgem pașii de la sfârșit spre început și facem de fiecare dată operația opusă: în loc de adunare scădem, în loc de înmulțire împărțim. Falsa ipoteză se folosește când avem două feluri de lucruri amestecate. Presupunem că toate sunt de un singur fel, vedem cu cât am greșit față de datele problemei și aflăm câte trebuie schimbate ca să dispară greșeala.</p>
+<div class="ex"><h4>Exemplul rezolvat</h4><p>Mers invers: m-am gândit la un număr, l-am înmulțit cu 3, am adunat 7 și am obținut 31. Mergem înapoi: 31 − 7 = 24, apoi 24 : 3 = 8. Numărul este 8.</p><p>Falsa ipoteză: într-o curte sunt 20 de găini și iepuri, cu 56 de picioare în total. Presupunem că toate sunt găini: ar fi 20 × 2 = 40 de picioare, cu 16 mai puține. Fiecare iepure aduce 2 picioare în plus față de o găină, deci sunt 16 : 2 = 8 iepuri și 12 găini.</p></div>
+<h4>Exerciții</h4><ol><li>M-am gândit la un număr, am scăzut 5, am înmulțit cu 4 și am obținut 48. Care este numărul?</li><li>M-am gândit la un număr, l-am împărțit la 2, am adunat 9, am înmulțit cu 3 și am obținut 60. Care este numărul?</li><li>Maria cheltuie jumătate din bani pe o carte, apoi 12 lei pe un suc și rămâne cu 18 lei. Câți lei a avut la început?</li><li>Într-o parcare sunt 30 de mașini și motociclete, cu 96 de roți în total. Câte vehicule sunt de fiecare fel?</li><li>La un test cu 20 de întrebări primești 5 puncte pentru un răspuns corect și pierzi 2 puncte pentru unul greșit. Un elev răspunde la toate și obține 72 de puncte. Câte răspunsuri corecte are?</li></ol>
+<p class="check"><b>Întrebarea de verificare.</b> La exercițiul 5, de ce un răspuns greșit înseamnă 7 puncte mai puțin, nu 2?</p>
+<details class="ans"><summary>Arată răspunsurile</summary><ol><li>17</li><li>22</li><li>60 de lei</li><li>18 mașini, 12 motociclete</li><li>16 răspunsuri corecte</li></ol></details>
+</div></details>
+
+<p class="foot">Explicațiile și exercițiile sunt scrise special pentru această pagină și nu sunt preluate din manuale. Ordinea lecțiilor urmează programa școlară de matematică pentru clasa a V-a; dacă la clasă ordinea diferă, urmează indicațiile profesorului. Pagină publicată pe <a href="/">draghicioiu.ro</a>.</p>
+</div>
+<script>
+(function(){
+  function openHash(){
+    var el=location.hash&&document.querySelector(location.hash);
+    if(el&&el.tagName==='DETAILS'){el.open=true;el.scrollIntoView();}
+  }
+  window.addEventListener('hashchange',openHash);openHash();
+})();
+</script>
+</body>
+</html>
