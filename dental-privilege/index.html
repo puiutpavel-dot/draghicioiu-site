@@ -212,6 +212,57 @@ form,.info{box-shadow:0 40px 70px -46px rgba(10,40,90,.55),0 1px 0 rgba(255,255,
 .art .chip{left:15%;transform:translateZ(100px)}
 .art .tooth{left:12%;top:10%;width:50%}
 @media (max-width:520px){.art .chip{font-size:12.5px;padding:8px 12px 8px 9px;left:17%}}
+
+/* Conținut mai bogat: cifre, bandă rulantă, pași, apel, întrebări, subsol */
+.band{padding:0;background:linear-gradient(135deg,#0A3F86,#0A6CDB 55%,#3AA0FF);color:#fff;overflow:hidden}
+.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:26px 14px;padding:44px 18px 34px;text-align:center}
+@media (min-width:760px){.stats{grid-template-columns:repeat(4,1fr)}}
+.stats b{display:block;font-size:clamp(40px,6.5vw,64px);font-weight:600;letter-spacing:-.04em;line-height:1;font-variant-numeric:tabular-nums}
+.stats span{display:block;margin-top:8px;font-size:15px;opacity:.85}
+.mq{border-top:1px solid rgba(255,255,255,.2);padding:14px 0;overflow:hidden;white-space:nowrap}
+.mq-t{display:inline-flex;gap:0;animation:mq 46s linear infinite}
+.mq-t span{font-size:15px;font-weight:500;padding:0 22px;opacity:.9;position:relative}
+.mq-t span::after{content:"";position:absolute;right:-3px;top:50%;width:5px;height:5px;border-radius:50%;background:#FFB86B;translate:0 -50%}
+@keyframes mq{to{transform:translateX(-50%)}}
+.chips{margin-top:34px;text-align:center}
+.chips p{font-size:13px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:14px}
+.chips ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:9px;justify-content:center}
+.chips li{padding:9px 16px;border-radius:999px;background:var(--bg);font-size:15px;font-weight:500;box-shadow:0 10px 18px -14px rgba(10,40,90,.6),0 0 0 1px color-mix(in srgb,var(--line) 70%,transparent)}
+section.dark{background:#0B1524;color:#F5F5F7}
+section.dark .head p{color:#A9B6C9}
+.steps{list-style:none;margin:0;padding:0;display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));counter-reset:none}
+.steps li{position:relative;background:linear-gradient(160deg,#16263D,#0F1C30);border-radius:22px;padding:26px 22px 24px;box-shadow:0 1px 0 rgba(255,255,255,.08) inset,0 30px 50px -30px #000}
+.steps span{display:grid;place-items:center;width:46px;height:46px;border-radius:14px;background:linear-gradient(145deg,#55AAFF,#0A5BC0);font-size:20px;font-weight:600;box-shadow:0 14px 20px -10px rgba(10,96,198,.9),inset 0 1px 0 rgba(255,255,255,.5);margin-bottom:16px}
+.steps h3{font-size:21px;margin-bottom:6px}
+.steps p{font-size:15.5px;color:#A9B6C9}
+.cta-b{padding:30px 0 72px}
+.cta-box{background:linear-gradient(135deg,#0A3F86,#0A6CDB 60%,#3AA0FF);color:#fff;border-radius:30px;padding:36px 26px;display:grid;gap:22px;box-shadow:0 50px 80px -46px rgba(10,80,180,.8);position:relative;overflow:hidden}
+.cta-box::after{content:"";position:absolute;right:-70px;top:-90px;width:280px;height:280px;border-radius:50%;background:rgba(255,255,255,.14)}
+@media (min-width:800px){.cta-box{grid-template-columns:1.25fr auto;align-items:center;padding:48px}}
+.cta-box h2{font-size:clamp(26px,4vw,40px);max-width:18ch}
+.cta-box p{margin-top:10px;opacity:.9;font-size:18px}
+.cta-a{display:flex;flex-wrap:wrap;gap:10px;position:relative;z-index:1}
+.btn-w{background:#fff;color:#0A4FA8;font-weight:600;box-shadow:0 16px 26px -14px rgba(0,0,0,.5)}
+.btn-g{background:rgba(255,255,255,.16);color:#fff;border-color:rgba(255,255,255,.5)}
+.faq{max-width:780px;margin:0 auto;display:grid;gap:10px}
+.faq details{background:var(--bg);border-radius:18px;padding:0 22px;box-shadow:0 20px 34px -28px rgba(10,40,90,.6)}
+.faq summary{cursor:pointer;list-style:none;font-size:18px;font-weight:600;padding:19px 34px 19px 0;position:relative}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";position:absolute;right:0;top:50%;translate:0 -50%;font-size:26px;font-weight:300;color:var(--accent);transition:rotate .2s}
+.faq details[open] summary::after{rotate:45deg}
+.faq details p{padding:0 0 20px;color:var(--muted);font-size:16.5px}
+footer{text-align:left;padding:46px 0 30px;font-size:15px;background:var(--surface);margin-top:0}
+.foot{display:grid;gap:26px;grid-template-columns:repeat(auto-fit,minmax(190px,1fr))}
+.foot b{display:block;color:var(--ink);margin-bottom:8px;font-size:15px}
+.foot a{text-decoration:none}
+.foot a:hover{text-decoration:underline}
+.fine{margin-top:30px;padding-top:18px;border-top:1px solid var(--line);font-size:12.5px;text-align:center}
+.callbar{position:fixed;left:10px;right:10px;bottom:calc(10px + env(safe-area-inset-bottom));z-index:30;display:flex;gap:8px;padding:8px;border-radius:999px;background:color-mix(in srgb,var(--bg) 82%,transparent);backdrop-filter:saturate(180%) blur(18px);box-shadow:0 20px 40px -16px rgba(0,0,0,.45),0 0 0 1px color-mix(in srgb,var(--line) 70%,transparent)}
+.callbar a{flex:1;min-height:46px;display:grid;place-items:center;border-radius:999px;text-decoration:none;font-weight:600;font-size:16px;color:var(--ink)}
+.callbar a.p{background:linear-gradient(180deg,#3493F7,#0A60C6);color:#fff}
+@media (min-width:820px){.callbar{display:none}}
+@media (max-width:819px){body{padding-bottom:84px}}
+@media (prefers-reduced-motion:reduce){.mq-t{animation:none}}
 </style>
 </head>
 <body>
@@ -224,7 +275,7 @@ form,.info{box-shadow:0 40px 70px -46px rgba(10,40,90,.55),0 1px 0 rgba(255,255,
 <span>Dental Privilege</span>
 </a>
 <nav class="links" aria-label="Secțiuni">
-<a href="#despre">Despre</a><a href="#servicii">Servicii</a><a href="#preturi">Prețuri</a><a href="#echipa">Echipa</a><a href="#contact">Program și contact</a>
+<a href="#despre">Despre</a><a href="#servicii">Servicii</a><a href="#preturi">Prețuri</a><a href="#echipa">Echipa</a><a href="#intrebari">Întrebări</a><a href="#contact">Program și contact</a>
 </nav>
 <a class="btn btn-p btn-sm" href="#programare">Programează-te</a>
 </div>
@@ -281,6 +332,16 @@ form,.info{box-shadow:0 40px 70px -46px rgba(10,40,90,.55),0 1px 0 rgba(255,255,
 </div>
 </section>
 
+<section class="band" aria-label="Cabinetul în cifre">
+<div class="wrap stats">
+<div><b data-n="2008">2008</b><span>anul deschiderii</span></div>
+<div><b data-n="18">18</b><span>ani de activitate</span></div>
+<div><b data-n="13">13</b><span>servicii stomatologice</span></div>
+<div><b data-n="10">10</b><span>ore de program pe zi</span></div>
+</div>
+<div class="mq" aria-hidden="true"><div class="mq-t"><span>Albire profesională</span><span>Alveoplastie</span><span>Chirurgie dento-alveolară</span><span>Endodonție</span><span>Estetică dentară</span><span>Implantologie</span><span>Odontologie</span><span>Ortodonție</span><span>Parodontologie</span><span>Pedodonție</span><span>Protetică</span><span>Stomatologie generală</span><span>Tratament parodontopatie</span><span>Albire profesională</span><span>Alveoplastie</span><span>Chirurgie dento-alveolară</span><span>Endodonție</span><span>Estetică dentară</span><span>Implantologie</span><span>Odontologie</span><span>Ortodonție</span><span>Parodontologie</span><span>Pedodonție</span><span>Protetică</span><span>Stomatologie generală</span><span>Tratament parodontopatie</span></div></div>
+</section>
+
 <section id="despre">
 <div class="wrap">
 <div class="head"><h2>Despre cabinet</h2><p>Dental Privilege funcționează din 2008 în zona Lujerului, în spatele Teatrului Masca, la intersecția cu strada Veteranilor.</p></div>
@@ -303,7 +364,19 @@ form,.info{box-shadow:0 40px 70px -46px rgba(10,40,90,.55),0 1px 0 rgba(255,255,
 <article class="card"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="14" width="8" height="10" rx="2"/><rect x="16" y="14" width="8" height="10" rx="2"/><rect x="27" y="14" width="8" height="10" rx="2"/><path d="M3 19h34"/></svg><h3>Ortodonție</h3><p>Aparate dentare pentru copii și adulți.</p></article>
 <article class="card"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="20" cy="15" r="7"/><path d="M8 34c1-7 6-10 12-10s11 3 12 10"/><path d="M17 15c1 2 5 2 6 0"/></svg><h3>Pedodonție</h3><p>Stomatologie pentru copii.</p></article>
 </div>
-<p class="note" style="font-size:15px">Mai facem: parodontologie și tratamentul parodontopatiei, chirurgie dento-alveolară și alveoplastie.</p>
+<div class="chips"><p>Toate serviciile cabinetului</p><ul><li>Albire profesională</li><li>Alveoplastie</li><li>Chirurgie dento-alveolară</li><li>Endodonție</li><li>Estetică dentară</li><li>Implantologie</li><li>Odontologie</li><li>Ortodonție</li><li>Parodontologie</li><li>Pedodonție</li><li>Protetică</li><li>Stomatologie generală</li><li>Tratament parodontopatie</li></ul></div>
+</div>
+</section>
+
+<section class="dark" id="pasi">
+<div class="wrap">
+<div class="head"><h2>Cum decurge o vizită</h2><p>Patru pași, de la programare până la un zâmbet sănătos.</p></div>
+<ol class="steps">
+<li><span>1</span><h3>Programare</h3><p>Online, la telefon sau pe e-mail, în ziua și la ora care ți se potrivesc.</p></li>
+<li><span>2</span><h3>Consultație</h3><p>Medicul evaluează starea dinților și îți explică ce a găsit.</p></li>
+<li><span>3</span><h3>Plan de tratament</h3><p>Primești tratamentele recomandate, etapele în timp și costul fiecărei intervenții.</p></li>
+<li><span>4</span><h3>Tratament</h3><p>Lucrăm pe etape, cu aparatură modernă, iar starea dinților este urmărită în timp.</p></li>
+</ol>
 </div>
 </section>
 
@@ -383,9 +456,41 @@ form,.info{box-shadow:0 40px 70px -46px rgba(10,40,90,.55),0 1px 0 rgba(255,255,
 </div>
 </section>
 
+<section class="cta-b">
+<div class="wrap">
+<div class="cta-box">
+<div><h2>O carie netratată la timp poate costa un dinte.</h2><p>Fă-ți o programare la consultație și afli exact ce ai de făcut.</p></div>
+<div class="cta-a"><a class="btn btn-w" href="#programare">Programare online</a><a class="btn btn-g" href="tel:+40741908559">Sună: 0741 908 559</a></div>
+</div>
+</div>
+</section>
+
+<section class="alt" id="intrebari">
+<div class="wrap">
+<div class="head"><h2>Întrebări frecvente</h2><p>Răspunsuri scurte la ce întreabă pacienții cel mai des.</p></div>
+<div class="faq">
+<details><summary>Cât costă o consultație?</summary><p>Consultația costă 50 de lei. La final primești planul de tratament, cu etapele și costurile.</p></details>
+<details><summary>Care este programul?</summary><p>De luni până vineri, între 10:00 și 20:00. Sâmbăta lucrăm doar cu programare.</p></details>
+<details><summary>Cum fac o programare?</summary><p>La telefon, la 0741 908 559 sau 0742 188 753, pe e-mail la dr.claudiaflorea@yahoo.com sau din formularul de programare online.</p></details>
+<details><summary>Unde se află cabinetul?</summary><p>În Militari, pe Calea Apeductului nr. 5, bl. B4A, sc. 1, ap. 1, în zona Lujerului, în spatele Teatrului Masca, la intersecția cu strada Veteranilor.</p></details>
+<details><summary>Ce cuprinde planul de tratament?</summary><p>Tratamentele recomandate, împărțirea lor pe etape în timp și costul fiecărei intervenții.</p></details>
+<details><summary>Ce tratamente faceți?</summary><p>De la stomatologie generală și tratamente de canal până la implanturi, protetică, ortodonție, parodontologie, stomatologie pentru copii și albire profesională.</p></details>
+</div>
+</div>
+</section>
 </main>
 
-<footer><div class="wrap">CMI Dr. Florea Claudia · Dental Privilege. Propunere de site realizată de Daniel Drăghicioiu · <a href="/">draghicioiu.ro</a></div></footer>
+<footer>
+<div class="wrap foot">
+<div><b>Dental Privilege</b><p>CMI Dr. Florea Claudia<br>Cabinet stomatologic în Militari, Sectorul 6, din 2008.</p></div>
+<div><b>Contact</b><p><a href="tel:+40741908559">0741 908 559</a><br><a href="tel:+40742188753">0742 188 753</a><br><a href="mailto:dr.claudiaflorea@yahoo.com">dr.claudiaflorea@yahoo.com</a></p></div>
+<div><b>Program</b><p>Luni–Vineri 10:00–20:00<br>Sâmbătă doar cu programare</p></div>
+<div><b>Pagini</b><p><a href="#servicii">Servicii</a><br><a href="#preturi">Prețuri</a><br><a href="#programare">Programare online</a><br><a href="#intrebari">Întrebări frecvente</a></p></div>
+</div>
+<div class="wrap fine">Propunere de site realizată de Daniel Drăghicioiu · <a href="/">draghicioiu.ro</a></div>
+</footer>
+<div class="callbar"><a href="tel:+40741908559">Sună</a><a class="p" href="#programare">Programează-te</a></div>
+
 
 <script>
 (function(){
@@ -460,6 +565,19 @@ var els=document.querySelectorAll('.head,.card,.tbl,.doc,form,.info');
 var io=new IntersectionObserver(function(en){en.forEach(function(x){if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target)}})},{rootMargin:'0px 0px -8% 0px'});
 Array.prototype.forEach.call(els,function(el,i){el.classList.add('rv');el.style.transitionDelay=(i%4*70)+'ms';io.observe(el)});
 }
+})();
+</script>
+<script>
+(function(){
+if(window.matchMedia('(prefers-reduced-motion: reduce)').matches||!('IntersectionObserver' in window))return;
+var io=new IntersectionObserver(function(en){en.forEach(function(x){if(!x.isIntersecting)return;io.unobserve(x.target);
+var el=x.target,end=+el.getAttribute('data-n'),from=end>1000?end-30:0,t0=null;
+function step(t){if(!t0)t0=t;var k=Math.min(1,(t-t0)/1100);k=1-Math.pow(1-k,3);el.textContent=Math.round(from+(end-from)*k);if(k<1)requestAnimationFrame(step)}
+requestAnimationFrame(step)})},{threshold:.6});
+Array.prototype.forEach.call(document.querySelectorAll('.stats b'),function(b){io.observe(b)});
+var more=document.querySelectorAll('.steps li,.chips,.faq details,.cta-box');
+var io2=new IntersectionObserver(function(en){en.forEach(function(x){if(x.isIntersecting){x.target.classList.add('in');io2.unobserve(x.target)}})},{rootMargin:'0px 0px -8% 0px'});
+Array.prototype.forEach.call(more,function(el,i){el.classList.add('rv');el.style.transitionDelay=(i%4*70)+'ms';io2.observe(el)});
 })();
 </script>
 </body>
