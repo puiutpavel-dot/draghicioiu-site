@@ -165,6 +165,53 @@ footer{border-top:1px solid var(--line);margin-top:10px;padding-top:22px;font-si
 .dots button[aria-current="true"]::before{background:var(--ink)}
 .slot{position:static;margin:8px 18px 18px}
 @media (prefers-reduced-motion:reduce){.sl{scroll-behavior:auto}}
+
+/* Adâncime: scenă 3D, umbre pe straturi, înclinare la cursor */
+.hero{background:radial-gradient(70% 55% at 50% -5%,color-mix(in srgb,var(--accent) 16%,transparent),transparent 72%)}
+.hero h1{background:linear-gradient(180deg,var(--ink) 40%,color-mix(in srgb,var(--accent) 70%,var(--ink)));-webkit-background-clip:text;background-clip:text;color:transparent;padding-bottom:.06em}
+.btn-p{background:linear-gradient(180deg,#3493F7,#0A60C6);color:#fff;box-shadow:0 14px 24px -12px rgba(10,96,198,.75),inset 0 1px 0 rgba(255,255,255,.4);transition:transform .15s,box-shadow .15s}
+.btn-p:hover{transform:translateY(-2px);box-shadow:0 20px 30px -14px rgba(10,96,198,.8),inset 0 1px 0 rgba(255,255,255,.4)}
+.btn-p:active{transform:translateY(1px)}
+.art{background:linear-gradient(160deg,color-mix(in srgb,var(--accent) 12%,var(--surface)),var(--surface) 55%);box-shadow:0 50px 90px -50px rgba(10,60,130,.55),0 2px 0 rgba(255,255,255,.6) inset;border:1px solid color-mix(in srgb,var(--line) 60%,transparent)}
+.scene{position:absolute;inset:0;perspective:1000px}
+.stage{position:absolute;inset:0;transform-style:preserve-3d;transform:rotateX(var(--rx,5deg)) rotateY(var(--ry,-10deg));transition:transform .25s ease-out}
+.orb{position:absolute;border-radius:50%;filter:blur(30px);transform:translateZ(-80px)}
+.o1{width:46%;aspect-ratio:1;left:6%;top:14%;background:#7DB6FF;opacity:.5}
+.o2{width:34%;aspect-ratio:1;right:8%;bottom:8%;background:#FFC98A;opacity:.45}
+.tooth{position:absolute;left:13%;top:9%;width:52%;height:auto;transform:translateZ(50px);filter:drop-shadow(0 26px 26px rgba(10,80,170,.28));animation:fl 6s ease-in-out infinite}
+.cal{position:absolute;right:7%;top:15%;width:35%;aspect-ratio:1/.96;border-radius:16px;background:var(--bg);box-shadow:0 30px 40px -18px rgba(10,50,110,.45),0 0 0 1px color-mix(in srgb,var(--line) 70%,transparent);transform:translateZ(110px) rotateY(-16deg) rotateX(4deg);overflow:hidden;animation:fl 7s ease-in-out -2s infinite}
+.cal-h{display:flex;gap:18%;justify-content:center;align-items:center;height:22%;background:linear-gradient(180deg,#3B98F8,#0A60C6)}
+.cal-h b{width:7%;height:46%;border-radius:4px;background:rgba(255,255,255,.75)}
+.cal-g{display:grid;grid-template-columns:repeat(3,1fr);gap:8%;padding:9% 10%;height:78%}
+.cal-g u{border-radius:22%;background:var(--line);text-decoration:none}
+.cal-g u.a{background:linear-gradient(180deg,#3B98F8,#0A60C6);box-shadow:0 6px 10px -4px rgba(10,96,198,.8)}
+.cal-g u.w{background:linear-gradient(180deg,#FFB86B,#E07A1F)}
+.chip{position:absolute;left:8%;bottom:11%;display:flex;align-items:center;gap:8px;padding:10px 15px 10px 11px;border-radius:999px;background:var(--bg);color:var(--ink);font-size:14px;font-weight:600;box-shadow:0 22px 30px -14px rgba(10,50,110,.5),0 0 0 1px color-mix(in srgb,var(--line) 70%,transparent);transform:translateZ(150px);animation:fl 5.500s ease-in-out -1s infinite}
+.chip svg{width:22px;height:22px;padding:3px;border-radius:50%;background:#22A565;color:#fff}
+.spark{position:absolute;left:9%;top:10%;width:9%;transform:translateZ(130px);animation:tw 3.600s ease-in-out infinite}
+@keyframes fl{0%,100%{translate:0 0}50%{translate:0 -9px}}
+@keyframes tw{0%,100%{scale:1;opacity:1}50%{scale:.7;opacity:.6}}
+.card,.doc{box-shadow:0 1px 0 rgba(255,255,255,.7) inset,0 24px 40px -30px rgba(10,40,90,.45);transition:transform .18s ease-out,box-shadow .18s;transform-style:preserve-3d;will-change:transform}
+.card:hover,.doc:hover{box-shadow:0 1px 0 rgba(255,255,255,.7) inset,0 40px 60px -32px rgba(10,40,90,.55)}
+.card>svg{width:54px;height:54px;padding:12px;border-radius:16px;background:linear-gradient(145deg,#55AAFF,#0A5BC0);color:#fff;box-shadow:0 14px 20px -10px rgba(10,96,198,.75),inset 0 1px 0 rgba(255,255,255,.5);margin-bottom:16px;transform:translateZ(30px)}
+.card h3,.card p{transform:translateZ(16px)}
+.tbl{box-shadow:0 30px 50px -36px rgba(10,40,90,.5)}
+form,.info{box-shadow:0 40px 70px -46px rgba(10,40,90,.55),0 1px 0 rgba(255,255,255,.7) inset}
+.hours button[aria-pressed="true"]{background:linear-gradient(180deg,#3493F7,#0A60C6);color:#fff;border-color:transparent;box-shadow:0 8px 14px -8px rgba(10,96,198,.8)}
+.av{background:linear-gradient(145deg,#55AAFF,#0A5BC0);color:#fff;box-shadow:0 10px 16px -8px rgba(10,96,198,.7),inset 0 1px 0 rgba(255,255,255,.5)}
+.rv{opacity:0;transform:translateY(28px) scale(.98)}
+.rv.in{opacity:1;transform:none;transition:opacity .6s ease,transform .7s cubic-bezier(.2,.7,.2,1)}
+@media (prefers-color-scheme:dark){.card,.doc,form,.info{box-shadow:0 1px 0 rgba(255,255,255,.06) inset,0 30px 50px -30px rgba(0,0,0,.9)}.art{box-shadow:0 50px 90px -50px rgba(40,120,255,.35),0 1px 0 rgba(255,255,255,.06) inset}.o1{opacity:.3}.o2{opacity:.22}}
+@media (prefers-reduced-motion:reduce){.tooth,.cal,.chip,.spark{animation:none}.stage,.card,.doc,.btn-p{transition:none}}
+.art .tooth{width:52%}
+.art .spark{width:9%;height:auto}
+.art .nv svg{width:20px;height:20px}
+.art .chip svg{width:22px;height:22px}
+.scene{perspective:1500px}
+.art .cal{right:11%;width:32%;transform:translateZ(80px) rotateY(-16deg) rotateX(4deg)}
+.art .chip{left:15%;transform:translateZ(100px)}
+.art .tooth{left:12%;top:10%;width:50%}
+@media (max-width:520px){.art .chip{font-size:12.5px;padding:8px 12px 8px 9px;left:17%}}
 </style>
 </head>
 <body>
@@ -198,17 +245,29 @@ footer{border-top:1px solid var(--line);margin-top:10px;padding-top:22px;font-si
 </div>
 <div class="art">
 <div class="sl" id="sl" tabindex="0" role="group" aria-roledescription="carusel" aria-label="Fotografii din cabinet">
-<figure class="s"><svg viewBox="0 0 400 330" role="img" aria-label="Ilustrație: un dinte și un calendar de programări">
-<rect x="210" y="34" width="160" height="150" rx="18" fill="var(--surface)" stroke="var(--line)"/>
-<rect x="210" y="34" width="160" height="38" rx="18" fill="var(--accent)"/>
-<rect x="210" y="56" width="160" height="16" fill="var(--accent)"/>
-<g fill="var(--line)"><rect x="228" y="90" width="24" height="20" rx="5"/><rect x="262" y="90" width="24" height="20" rx="5"/><rect x="330" y="90" width="24" height="20" rx="5"/><rect x="228" y="120" width="24" height="20" rx="5"/><rect x="296" y="120" width="24" height="20" rx="5"/><rect x="330" y="120" width="24" height="20" rx="5"/><rect x="262" y="150" width="24" height="20" rx="5"/><rect x="296" y="150" width="24" height="20" rx="5"/></g>
-<rect x="296" y="90" width="24" height="20" rx="5" fill="var(--warm)"/>
-<rect x="262" y="120" width="24" height="20" rx="5" fill="var(--accent)"/>
-<path d="M92 70c22 0 34 12 58 12s36-12 58-12c30 0 44 26 44 56 0 48-18 122-38 122-20 0-18-60-36-60h-56c-18 0-16 60-36 60-20 0-38-74-38-122 0-30 14-56 44-56z" fill="var(--surface)" stroke="var(--accent)" stroke-width="6" stroke-linejoin="round"/>
-<path d="M104 112c10-10 24-12 34-8" fill="none" stroke="var(--accent)" stroke-width="6" stroke-linecap="round" opacity=".45"/>
-<path d="M60 44l5 12 12 5-12 5-5 12-5-12-12-5 12-5z" fill="var(--warm)"/>
-</svg></figure>
+<figure class="s"><div class="scene" aria-label="Ilustrație 3D: un dinte, un calendar de programări și o confirmare" role="img"><div class="stage" id="stage">
+<span class="orb o1"></span><span class="orb o2"></span>
+<svg class="tooth" viewBox="30 50 240 240" aria-hidden="true">
+<defs>
+<radialGradient id="tg" cx="34%" cy="22%" r="95%"><stop offset="0" stop-color="#FFFFFF"/><stop offset=".45" stop-color="#EAF3FF"/><stop offset="1" stop-color="#9EC4F7"/></radialGradient>
+<linearGradient id="te" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFFFFF" stop-opacity=".9"/><stop offset="1" stop-color="#2F7FE0" stop-opacity=".55"/></linearGradient>
+<filter id="tb" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="7"/></filter>
+<filter id="ts" x="-30%" y="-80%" width="160%" height="260%"><feGaussianBlur stdDeviation="9"/></filter>
+<clipPath id="tc"><path d="M92 70c22 0 34 12 58 12s36-12 58-12c30 0 44 26 44 56 0 48-18 122-38 122-20 0-18-60-36-60h-56c-18 0-16 60-36 60-20 0-38-74-38-122 0-30 14-56 44-56z"/></clipPath>
+</defs>
+<ellipse cx="150" cy="272" rx="78" ry="10" fill="#0A4FA8" opacity=".28" filter="url(#ts)"/>
+<path d="M92 70c22 0 34 12 58 12s36-12 58-12c30 0 44 26 44 56 0 48-18 122-38 122-20 0-18-60-36-60h-56c-18 0-16 60-36 60-20 0-38-74-38-122 0-30 14-56 44-56z" fill="url(#tg)"/>
+<g clip-path="url(#tc)">
+<path d="M150 150c40 0 110-20 110 40s-40 70-110 70S40 250 40 190s70-40 110-40z" fill="#5E97E6" opacity=".28" filter="url(#tb)"/>
+<ellipse cx="112" cy="104" rx="38" ry="20" fill="#FFFFFF" opacity=".95" filter="url(#tb)" transform="rotate(-18 112 104)"/>
+<path d="M210 96c18 10 26 30 22 52" fill="none" stroke="#FFFFFF" stroke-width="7" stroke-linecap="round" opacity=".7" filter="url(#tb)"/>
+</g>
+<path d="M92 70c22 0 34 12 58 12s36-12 58-12c30 0 44 26 44 56 0 48-18 122-38 122-20 0-18-60-36-60h-56c-18 0-16 60-36 60-20 0-38-74-38-122 0-30 14-56 44-56z" fill="none" stroke="url(#te)" stroke-width="3"/>
+</svg>
+<div class="cal" aria-hidden="true"><i class="cal-h"><b></b><b></b></i><i class="cal-g"><u></u><u></u><u class="w"></u><u></u><u class="a"></u><u></u><u></u><u></u><u></u></i></div>
+<div class="chip" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.500l4.500 4.500L19 7.500"/></svg>Programare confirmată</div>
+<svg class="spark" viewBox="0 0 40 40" aria-hidden="true"><path d="M20 2l5 13 13 5-13 5-5 13-5-13-13-5 13-5z" fill="#FFB24A"/></svg>
+</div></div></figure>
 <figure class="s ph"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 40V16l18-9 18 9v24"/><path d="M18 40V26h12v14"/><path d="M4 40h40"/></svg><figcaption><b>Cabinetul</b>Fotografie de adăugat</figcaption></figure>
 <figure class="s ph"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="22" width="32" height="10" rx="3"/><path d="M12 32v6M36 32v6M14 22v-6a4 4 0 014-4h12a4 4 0 014 4v6"/></svg><figcaption><b>Recepția</b>Fotografie de adăugat</figcaption></figure>
 <figure class="s ph"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="17" cy="17" r="6"/><circle cx="33" cy="19" r="5"/><path d="M5 40c1-8 6-12 12-12s11 4 12 12M30 30c6-1 11 3 12 10"/></svg><figcaption><b>Echipa</b>Fotografie de adăugat</figcaption></figure>
@@ -382,6 +441,25 @@ var art=sl.parentNode;
 art.addEventListener('pointerenter',stop);art.addEventListener('pointerleave',start);
 art.addEventListener('focusin',stop);art.addEventListener('touchstart',stop,{passive:true});
 start();
+})();
+</script>
+<script>
+(function(){
+var still=window.matchMedia('(prefers-reduced-motion: reduce)').matches,fine=window.matchMedia('(hover:hover) and (pointer:fine)').matches;
+if(!still&&fine){
+var art=document.querySelector('.art'),stage=document.getElementById('stage');
+art.addEventListener('pointermove',function(e){var r=art.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;stage.style.setProperty('--ry',(x*26).toFixed(1)+'deg');stage.style.setProperty('--rx',(-y*20).toFixed(1)+'deg')});
+art.addEventListener('pointerleave',function(){stage.style.removeProperty('--ry');stage.style.removeProperty('--rx')});
+Array.prototype.forEach.call(document.querySelectorAll('.card,.doc'),function(c){
+c.addEventListener('pointermove',function(e){var r=c.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;c.style.transform='perspective(800px) rotateY('+(x*12).toFixed(1)+'deg) rotateX('+(-y*12).toFixed(1)+'deg) translateY(-6px)'});
+c.addEventListener('pointerleave',function(){c.style.transform=''});
+});
+}
+if(!still&&'IntersectionObserver' in window){
+var els=document.querySelectorAll('.head,.card,.tbl,.doc,form,.info');
+var io=new IntersectionObserver(function(en){en.forEach(function(x){if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target)}})},{rootMargin:'0px 0px -8% 0px'});
+Array.prototype.forEach.call(els,function(el,i){el.classList.add('rv');el.style.transitionDelay=(i%4*70)+'ms';io.observe(el)});
+}
 })();
 </script>
 </body>
