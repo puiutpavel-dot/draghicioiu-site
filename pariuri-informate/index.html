@@ -231,7 +231,7 @@ blockquote cite{display:block;margin-top:8px;font-family:Inter,system-ui,sans-se
 
 <div class="cm-box" id="cmNew" hidden>
 <h3>Analiză nouă</h3>
-<p class="cap" style="margin:0 0 8px">Autentificat ca <b id="cmMe"></b> · <button class="lnk" id="cmOut" type="button">Ieși din cont</button></p>
+<p class="cap" style="margin:0 0 8px">Autentificat ca <b id="cmMe"></b> · <button class="lnk" id="cmOut" type="button">Ieși din cont</button><button class="lnk danger" id="cmDel" type="button">Șterge contul</button></p>
 <div class="fields">
 <label>Meciul<input id="cmMatch" maxlength="80" placeholder="Echipa A – Echipa B"></label>
 <label>Pariul<input id="cmPick" maxlength="60" placeholder="1, X2, peste 2,5…"></label>
@@ -252,7 +252,7 @@ blockquote cite{display:block;margin-top:8px;font-family:Inter,system-ui,sans-se
 <ul>
 <li><b>Numele de utilizator</b>, ca să semneze postările. Este public.</li>
 <li><b>Parola</b>, păstrată doar ca amprentă criptografică. Nu o poate citi nimeni, nici administratorul.</li>
-<li><b>Adresa IP de la înregistrare</b>, folosită doar pentru limita de conturi noi de pe aceeași conexiune.</li>
+<li><b>Adresa IP de la înregistrare</b>, folosită doar pentru limita de conturi noi de pe aceeași conexiune. Se șterge automat după 7 zile.</li>
 <li><b>Data la care ai confirmat că ai peste 18 ani.</b></li>
 <li><b>Analizele, răspunsurile și raportările tale.</b> Analizele și răspunsurile sunt publice.</li>
 <li><b>Sesiunea de autentificare</b>: un cod păstrat în browserul tău, iar pe server doar amprenta lui.</li>
@@ -262,7 +262,7 @@ blockquote cite{display:block;margin-top:8px;font-family:Inter,system-ui,sans-se
 <h4>Unde stau datele și cine le vede</h4>
 <p>Datele contului și postările stau pe serverele Supabase din Uniunea Europeană (Irlanda). Nu le vindem și nu le dăm altcuiva. Ca la orice pagină web, serverul care găzduiește site-ul și Google Fonts, de unde se încarcă literele, văd adresa IP a dispozitivului tău.</p>
 <h4>Cât timp le păstrăm</h4>
-<p>Cât există contul. Îți poți șterge oricând propriile analize și răspunsuri din pagină. Pentru ștergerea întregului cont scrie la adresa de mai jos și spune numele de utilizator. Ștergem contul și tot ce ai postat în cel mult 30 de zile.</p>
+<p>Cât există contul, cu două excepții: adresa IP se șterge după 7 zile, iar sesiunile de autentificare după 90 de zile. Îți poți șterge oricând propriile analize și răspunsuri. Butonul „Șterge contul”, vizibil după autentificare, șterge pe loc contul împreună cu tot ce ai postat.</p>
 <h4>Drepturile tale</h4>
 <p>Poți cere să afli ce date avem despre tine, să le corectăm sau să le ștergem. Dacă socotești că datele îți sunt folosite greșit, poți depune plângere la Autoritatea Națională de Supraveghere a Prelucrării Datelor cu Caracter Personal (ANSPDCP).</p>
 <h4>Vârstă</h4>
@@ -387,6 +387,15 @@ blockquote cite{display:block;margin-top:8px;font-family:Inter,system-ui,sans-se
   $('cmLogin').addEventListener('click',function(){auth('pi_login')});
   $('cmReg').addEventListener('click',function(){auth('pi_register')});
   $('cmOut').addEventListener('click',function(){var t=token;setToken(null);me=null;rpc('pi_logout',{p_token:t}).then(load,load)});
+  $('cmDel').addEventListener('click',function(){
+    var b=this;
+    if(!b.dataset.sure){b.dataset.sure='1';b.textContent='Sigur? Se șterg contul și tot ce ai postat. Apasă din nou';return}
+    b.disabled=true;
+    rpc('pi_delete_account',{p_token:token}).then(function(){
+      setToken(null);me=null;b.disabled=false;delete b.dataset.sure;b.textContent='Șterge contul';
+      $('cmAuthMsg').textContent='Contul a fost șters.';load();
+    },function(e){b.disabled=false;b.textContent=e.message});
+  });
   $('cmSend').addEventListener('click',function(){
     var o=num($('cmOdds').value),p=num($('cmProb').value),btn=this;
     if(o===null||p===null){$('cmNewMsg').textContent='Completează cota și șansa estimată cu cifre.';return}
