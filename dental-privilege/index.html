@@ -147,6 +147,24 @@ footer{border-top:1px solid var(--line);margin-top:10px;padding-top:22px;font-si
 .map svg>rect:first-child{fill:color-mix(in srgb,var(--line) 55%,var(--bg))}
 .map svg g[stroke]{stroke:var(--bg)}
 @media (min-width:760px){#despre .cards{grid-template-columns:repeat(3,1fr)}}
+.art{padding:0;overflow:hidden}
+.sl{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;aspect-ratio:4/3;scroll-behavior:smooth}
+.sl::-webkit-scrollbar{display:none}
+.s{flex:0 0 100%;scroll-snap-align:center;margin:0;display:grid;place-items:center;position:relative;overflow:hidden}
+.s>svg{width:74%;height:auto}
+.s img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.ph{align-content:center;gap:14px;color:var(--muted);text-align:center}
+.ph>svg{width:84px;color:var(--accent)}
+.ph figcaption{font-size:14px}
+.ph b{display:block;font-size:22px;color:var(--ink);letter-spacing:-.02em}
+.nv{position:absolute;top:calc(37.5% - 22px);width:44px;height:44px;border-radius:50%;border:0;background:color-mix(in srgb,var(--bg) 82%,transparent);color:var(--ink);display:grid;place-items:center;cursor:pointer;backdrop-filter:blur(8px)}
+.pv{left:12px}.nx{right:12px}
+.dots{display:flex;justify-content:center;gap:2px;padding:6px 0 0}
+.dots button{width:24px;height:24px;border:0;background:none;padding:0;cursor:pointer;display:grid;place-items:center}
+.dots button::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--line)}
+.dots button[aria-current="true"]::before{background:var(--ink)}
+.slot{position:static;margin:8px 18px 18px}
+@media (prefers-reduced-motion:reduce){.sl{scroll-behavior:auto}}
 </style>
 </head>
 <body>
@@ -179,7 +197,8 @@ footer{border-top:1px solid var(--line);margin-top:10px;padding-top:22px;font-si
 <p class="facts"><span><b>Luni–Vineri</b> 10:00–20:00</span><span><b>Sâmbătă</b> cu programare</span><span><b>Consultație</b> 50 lei</span></p>
 </div>
 <div class="art">
-<svg viewBox="0 0 400 330" role="img" aria-label="Ilustrație: un dinte și un calendar de programări">
+<div class="sl" id="sl" tabindex="0" role="group" aria-roledescription="carusel" aria-label="Fotografii din cabinet">
+<figure class="s"><svg viewBox="0 0 400 330" role="img" aria-label="Ilustrație: un dinte și un calendar de programări">
 <rect x="210" y="34" width="160" height="150" rx="18" fill="var(--surface)" stroke="var(--line)"/>
 <rect x="210" y="34" width="160" height="38" rx="18" fill="var(--accent)"/>
 <rect x="210" y="56" width="160" height="16" fill="var(--accent)"/>
@@ -189,7 +208,15 @@ footer{border-top:1px solid var(--line);margin-top:10px;padding-top:22px;font-si
 <path d="M92 70c22 0 34 12 58 12s36-12 58-12c30 0 44 26 44 56 0 48-18 122-38 122-20 0-18-60-36-60h-56c-18 0-16 60-36 60-20 0-38-74-38-122 0-30 14-56 44-56z" fill="var(--surface)" stroke="var(--accent)" stroke-width="6" stroke-linejoin="round"/>
 <path d="M104 112c10-10 24-12 34-8" fill="none" stroke="var(--accent)" stroke-width="6" stroke-linecap="round" opacity=".45"/>
 <path d="M60 44l5 12 12 5-12 5-5 12-5-12-12-5 12-5z" fill="var(--warm)"/>
-</svg>
+</svg></figure>
+<figure class="s ph"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 40V16l18-9 18 9v24"/><path d="M18 40V26h12v14"/><path d="M4 40h40"/></svg><figcaption><b>Cabinetul</b>Fotografie de adăugat</figcaption></figure>
+<figure class="s ph"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="22" width="32" height="10" rx="3"/><path d="M12 32v6M36 32v6M14 22v-6a4 4 0 014-4h12a4 4 0 014 4v6"/></svg><figcaption><b>Recepția</b>Fotografie de adăugat</figcaption></figure>
+<figure class="s ph"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="17" cy="17" r="6"/><circle cx="33" cy="19" r="5"/><path d="M5 40c1-8 6-12 12-12s11 4 12 12M30 30c6-1 11 3 12 10"/></svg><figcaption><b>Echipa</b>Fotografie de adăugat</figcaption></figure>
+<figure class="s ph"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 8v14a10 10 0 0020 0V8"/><path d="M24 32v8M16 40h16"/><path d="M10 8h8M30 8h8"/></svg><figcaption><b>Aparatura</b>Fotografie de adăugat</figcaption></figure>
+</div>
+<button class="nv pv" type="button" id="pv" aria-label="Fotografia anterioară"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+<button class="nv nx" type="button" id="nx" aria-label="Fotografia următoare"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+<div class="dots" id="dots"></div>
 <div class="slot"><span><b>Mâine, 17:30</b>Consultație · Dental Privilege</span><span class="dot" aria-hidden="true"></span></div>
 </div>
 </div>
@@ -336,6 +363,25 @@ var nice=d.toLocaleDateString('ro-RO',{weekday:'long',day:'numeric',month:'long'
 sum.textContent=document.getElementById('srv').value+' · '+document.getElementById('doc').value+' · '+nice+', ora '+picked+'. Aici nu se trimite nimic; în site-ul real, cabinetul primește cererea și pacientul primește confirmarea.';
 done.classList.add('on');
 });
+})();
+</script>
+<script>
+(function(){
+var sl=document.getElementById('sl'),dots=document.getElementById('dots'),n=sl.children.length,cur=0,timer=null;
+var still=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+function go(i){cur=(i+n)%n;sl.scrollTo({left:cur*sl.clientWidth})}
+for(var i=0;i<n;i++){(function(i){var b=document.createElement('button');b.type='button';b.setAttribute('aria-label','Fotografia '+(i+1)+' din '+n);b.addEventListener('click',function(){go(i);stop()});dots.appendChild(b)})(i)}
+function mark(){cur=Math.round(sl.scrollLeft/sl.clientWidth);Array.prototype.forEach.call(dots.children,function(b,i){b.setAttribute('aria-current',i===cur?'true':'false')})}
+sl.addEventListener('scroll',mark,{passive:true});mark();
+document.getElementById('pv').addEventListener('click',function(){go(cur-1);stop()});
+document.getElementById('nx').addEventListener('click',function(){go(cur+1);stop()});
+sl.addEventListener('keydown',function(e){if(e.key==='ArrowRight'){go(cur+1);stop()}if(e.key==='ArrowLeft'){go(cur-1);stop()}});
+function start(){if(still||timer)return;timer=setInterval(function(){go(cur+1)},4500)}
+function stop(){clearInterval(timer);timer=null}
+var art=sl.parentNode;
+art.addEventListener('pointerenter',stop);art.addEventListener('pointerleave',start);
+art.addEventListener('focusin',stop);art.addEventListener('touchstart',stop,{passive:true});
+start();
 })();
 </script>
 </body>
