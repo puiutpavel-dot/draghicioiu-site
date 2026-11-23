@@ -95,16 +95,47 @@ blockquote cite{display:block;margin-top:8px;font-family:Inter,system-ui,sans-se
 .warn{margin:28px 0;padding:16px 20px;border:1px solid var(--mark);background:var(--mark-soft);border-radius:14px}
 .warn b{color:var(--mark)}
 .badge{display:inline-block;border:1.5px solid var(--mark);color:var(--mark);font-weight:700;border-radius:999px;padding:2px 10px;font-size:13px;margin-left:8px;vertical-align:middle;letter-spacing:0}
+
+.cm-box{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:18px 20px;margin-bottom:12px}
+.cm-box h3{font-size:19px;margin:0 0 10px}
+.cm-box ul{margin:0;padding-left:18px}.cm-box li{margin-bottom:4px}
+.cm-box textarea{display:block;width:100%;margin-top:4px;padding:11px 12px;font:inherit;color:var(--text);background:var(--bg);border:1px solid var(--border);border-radius:10px;min-height:110px;resize:vertical}
+.cm-box textarea:focus{outline:2px solid var(--accent);outline-offset:1px}
+.cm-lab{font-size:13.5px;font-weight:600;color:var(--muted);display:block;margin-top:10px}
+.cm-row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:14px}
+.btn{font:inherit;font-weight:600;min-height:44px;padding:0 18px;border-radius:10px;border:1px solid var(--accent);background:var(--accent);color:var(--bg);cursor:pointer}
+.btn.ghost{background:transparent;color:var(--accent)}
+.btn:disabled{opacity:.55;cursor:default}
+.lnk{font:inherit;font-size:13.5px;font-weight:600;background:none;border:0;padding:8px 0;margin-right:14px;color:var(--muted);cursor:pointer;min-height:36px}
+.lnk:hover{color:var(--text)}.lnk.danger{color:var(--mark)}
+.chk{display:flex;gap:10px;align-items:flex-start;margin-top:12px;font-size:15px}
+.chk input{width:20px;height:20px;margin:2px 0 0;accent-color:var(--accent);flex:none}
+.cm-msg{margin:10px 0 0;font-weight:600;color:var(--mark);min-height:1.2em}
+.post{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:16px 20px;margin-bottom:12px}
+.post.hid{opacity:.6;border-style:dashed}
+.post .meta{font-size:13.5px;color:var(--muted)}
+.post h3{font-size:20px;margin:4px 0 8px}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+.chip{background:var(--accent-soft);color:var(--accent);border-radius:999px;padding:3px 10px;font-size:13.5px;font-weight:600;font-variant-numeric:tabular-nums}
+.chip.neg{background:var(--mark-soft);color:var(--mark)}
+.post p.body{margin:0;white-space:pre-wrap}
+.reps{margin-top:12px;border-top:1px solid var(--border);padding-top:8px}
+.rep{padding:8px 0 8px 12px;border-left:3px solid var(--accent-soft);margin-top:8px}
+.rep.hid{opacity:.6}
+.rep p{margin:2px 0 0;white-space:pre-wrap}
+.repform{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+.repform input{flex:1 1 200px;padding:10px 12px;font:inherit;color:var(--text);background:var(--bg);border:1px solid var(--border);border-radius:10px;min-height:44px}
+.empty{color:var(--muted);padding:8px 2px}
 </style>
 </head>
 <body>
 <div class="wrap">
-<div class="top"><a href="/">← draghicioiu.ro</a><a href="#calculatoare">Calculatoare ↓</a></div>
+<div class="top"><a href="/">← draghicioiu.ro</a><span><a href="#calculatoare">Calculatoare ↓</a>&nbsp;&nbsp;&nbsp;<a href="#comunitate">Comunitate ↓</a></span></div>
 
 <p class="kicker">Pagină educativă <span class="badge">18+</span></p>
 <h1>Pariuri informate: cota nu ajunge, trebuie și priceperea</h1>
 <p class="lede">Cotele și statisticile sunt la un clic distanță. Partea grea este să le citești: ce probabilitate ascunde o cotă, cât oprește casa și când este mai bine să nu pariezi. Pagina aceasta aplică la pariuri cele zece idei din rezumatul despre <a href="/cultura-informatiei/">cultura informației</a>.</p>
-<p class="src">Aici nu găsești ponturi, bilete ale zilei sau reclame la case de pariuri. Găsești metodă și două calculatoare.</p>
+<p class="src">Aici nu găsești ponturi, bilete ale zilei sau reclame la case de pariuri. Găsești metodă, două calculatoare și o comunitate în care analizele se scriu cu cifre.</p>
 
 <div class="warn"><b>De știut de la început.</b> Fiecare cotă include marja casei, așa că pe termen lung majoritatea pariorilor pierd bani. Informarea te ajută să pierzi mai puțin și să decizi limpede. Nu transformă pariurile într-o sursă de venit.</div>
 
@@ -166,6 +197,48 @@ blockquote cite{display:block;margin-top:8px;font-family:Inter,system-ui,sans-se
 <div class="card"><h3>Avansat</h3><ul><li>Ții un jurnal: cotă, miză, șansa estimată, rezultat.</li><li>După 100 de pariuri verifici dacă estimările tale au fost corecte.</li><li>Nu mărești miza ca să recuperezi o pierdere.</li></ul></div>
 </div>
 
+<h2 id="comunitate">Comunitate</h2>
+<p class="sub">Analize de meci scrise de pariori, cu cifre și argumente. Oricine le poate citi. Ca să scrii, îți faci un cont cu nume și parolă.</p>
+
+<div class="cm-box">
+<h3>Reguli</h3>
+<ul>
+<li>Doar persoane de peste 18 ani.</li>
+<li>Fiecare analiză are cotă, șansa ta estimată și un argument. Fără „sigur intră”.</li>
+<li>Fără linkuri, fără reclame la case de pariuri, fără vânzare de ponturi și fără date de contact.</li>
+<li>Fără promisiuni de câștig și fără atacuri la persoană.</li>
+<li>O postare raportată de trei utilizatori se ascunde până o verifică moderatorul.</li>
+</ul>
+</div>
+
+<div class="cm-box" id="cmAuth" hidden>
+<h3>Intră în comunitate</h3>
+<div class="fields">
+<label>Nume de utilizator<input id="cmNick" autocomplete="username" maxlength="20"></label>
+<label>Parolă (minimum 8 caractere)<input id="cmPass" type="password" autocomplete="current-password" maxlength="72"></label>
+</div>
+<label class="chk"><input type="checkbox" id="cmAdult"><span>Confirm că am peste 18 ani și accept regulile de mai sus. Necesar doar la cont nou.</span></label>
+<div class="cm-row"><button class="btn" id="cmLogin" type="button">Intră</button><button class="btn ghost" id="cmReg" type="button">Cont nou</button></div>
+<p class="cm-msg" id="cmAuthMsg" role="status"></p>
+<p class="cap">Nu cerem e-mail, deci parola nu poate fi recuperată. Alege un nume care nu te identifică.</p>
+</div>
+
+<div class="cm-box" id="cmNew" hidden>
+<h3>Analiză nouă</h3>
+<p class="cap" style="margin:0 0 8px">Autentificat ca <b id="cmMe"></b> · <button class="lnk" id="cmOut" type="button">Ieși din cont</button></p>
+<div class="fields">
+<label>Meciul<input id="cmMatch" maxlength="80" placeholder="Echipa A – Echipa B"></label>
+<label>Pariul<input id="cmPick" maxlength="60" placeholder="1, X2, peste 2,5…"></label>
+<label>Cota<input id="cmOdds" inputmode="decimal" placeholder="2,10"></label>
+<label>Șansa ta estimată (%)<input id="cmProb" inputmode="decimal" placeholder="52"></label>
+</div>
+<label class="cm-lab">Argumentul (minimum 40 de caractere)<textarea id="cmBody" maxlength="2000"></textarea></label>
+<div class="cm-row"><button class="btn" id="cmSend" type="button">Publică analiza</button></div>
+<p class="cm-msg" id="cmNewMsg" role="status"></p>
+</div>
+
+<div id="cmFeed"><p class="empty">Se încarcă analizele…</p></div>
+
 <h2>Listă de început</h2>
 <p class="sub">Șase pași mici. Bifele rămân salvate în acest browser.</p>
 <ul class="todo" id="todo">
@@ -179,7 +252,7 @@ blockquote cite{display:block;margin-top:8px;font-family:Inter,system-ui,sans-se
 
 <div class="warn"><b>Joc responsabil.</b> Pariurile sunt permise doar persoanelor de peste 18 ani și doar la operatori licențiați de ONJN. Dacă simți că pierzi controlul, te poți autoexclude de la toți operatorii licențiați prin <a href="https://www.onjn.gov.ro/" rel="noopener">ONJN</a>.</div>
 
-<p class="foot">Pagină educativă, fără linkuri de afiliere și fără reclame la operatori. Calculatoarele fac doar aritmetică pe cifrele introduse de tine și nu prezic rezultate. Nimic de aici nu este sfat financiar. Ideile sunt adaptate după pagina <a href="/cultura-informatiei/">Cultura informației</a>. Publicată pe <a href="/">draghicioiu.ro</a>.</p>
+<p class="foot">Pagină educativă, fără linkuri de afiliere și fără reclame la operatori. Analizele din secțiunea Comunitate aparțin autorilor lor și nu sunt recomandări ale paginii. Calculatoarele fac doar aritmetică pe cifrele introduse de tine și nu prezic rezultate. Nimic de aici nu este sfat financiar. Ideile sunt adaptate după pagina <a href="/cultura-informatiei/">Cultura informației</a>. Publicată pe <a href="/">draghicioiu.ro</a>.</p>
 </div>
 
 <script>
@@ -215,6 +288,96 @@ blockquote cite{display:block;margin-top:8px;font-family:Inter,system-ui,sans-se
       try{localStorage.setItem(K,JSON.stringify(v))}catch(e){}
     });
   });
+})();
+</script>
+<script>
+(function(){
+  var SB_URL="https://qvyesymawktcrtiofroj.supabase.co";
+  var SB_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF2eWVzeW1hd2t0Y3J0aW9mcm9qIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTEwMTkwODYsImV4cCI6MjEwNjU5NTA4Nn0.oUSgTlBqvcpK52E8B74IEFNatGXB1K1AtbiFbtf88Zk";
+  var TK='pi-token',token=null,me=null;
+  try{token=localStorage.getItem(TK)}catch(e){}
+  function $(i){return document.getElementById(i)}
+  function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})}
+  function num(v){var x=parseFloat(String(v).replace(',','.'));return isFinite(x)?x:null}
+  function ro(x,d){return Number(x).toFixed(d).replace('.',',')}
+  function when(s){try{return new Date(s).toLocaleString('ro-RO',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})}catch(e){return ''}}
+  function rpc(fn,body){
+    return fetch(SB_URL+'/rest/v1/rpc/'+fn,{method:'POST',headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY,'Content-Type':'application/json'},body:JSON.stringify(body||{})})
+    .then(function(r){return r.json().catch(function(){return null}).then(function(d){
+      if(!r.ok)throw new Error((d&&d.message)||'Serverul nu a răspuns. Încearcă din nou.');
+      return d})},function(){throw new Error('Serverul nu a răspuns. Încearcă din nou.')});
+  }
+  function setToken(t){token=t;try{t?localStorage.setItem(TK,t):localStorage.removeItem(TK)}catch(e){}}
+  function ui(){
+    $('cmAuth').hidden=!!me;$('cmNew').hidden=!me;
+    if(me)$('cmMe').textContent=me.nick+(me.is_mod?' (moderator)':'');
+  }
+  function acts(kind,o){
+    var a='';
+    if(me&&!o.mine&&!o.hidden)a+='<button class="lnk" data-a="report" data-k="'+kind+'" data-id="'+o.id+'">Raportează</button>';
+    if(me&&(o.mine||me.is_mod))a+='<button class="lnk danger" data-a="remove" data-k="'+kind+'" data-id="'+o.id+'">Șterge</button>';
+    if(me&&me.is_mod&&o.hidden)a+='<button class="lnk" data-a="restore" data-k="'+kind+'" data-id="'+o.id+'">Reafișează</button>';
+    if(me&&me.is_mod&&!o.mine)a+='<button class="lnk danger" data-a="ban" data-k="'+kind+'" data-id="'+o.id+'">Blochează autorul</button>';
+    return a;
+  }
+  function render(posts){
+    if(!posts.length){$('cmFeed').innerHTML='<p class="empty">Încă nu a scris nimeni. Prima analiză poate fi a ta.</p>';return}
+    $('cmFeed').innerHTML=posts.map(function(p){
+      var imp=100/p.odds,ev=100*(p.est_prob/100*p.odds-1);
+      var reps=p.replies.map(function(r){return '<div class="rep'+(r.hidden?' hid':'')+'"><span class="meta"><b>'+esc(r.nick)+'</b> · '+when(r.created_at)+(r.hidden?' · ascuns':'')+'</span><p>'+esc(r.body)+'</p>'+acts('reply',r)+'</div>'}).join('');
+      return '<article class="post'+(p.hidden?' hid':'')+'"><span class="meta"><b>'+esc(p.nick)+'</b> · '+when(p.created_at)+(p.hidden?' · ascuns':'')+'</span>'+
+        '<h3>'+esc(p.match)+'</h3>'+
+        '<div class="chips"><span class="chip">'+esc(p.pick)+' la cota '+ro(p.odds,2)+'</span><span class="chip">șansă estimată '+ro(p.est_prob,1)+'%</span><span class="chip">șansa din cotă '+ro(imp,1)+'%</span><span class="chip'+(ev<0?' neg':'')+'">valoare '+(ev>0?'+':'')+ro(ev,1)+' lei la 100</span></div>'+
+        '<p class="body">'+esc(p.body)+'</p><div>'+acts('post',p)+'</div>'+
+        ((reps||me)?'<div class="reps">'+reps+(me&&!p.hidden?'<form class="repform" data-post="'+p.id+'"><input maxlength="1000" placeholder="Răspunde cu un argument" aria-label="Răspuns"><button class="btn ghost" type="submit">Trimite</button></form>':'')+'</div>':'')+
+        '</article>';
+    }).join('');
+  }
+  function load(){
+    return rpc('pi_feed',{p_token:token}).then(function(d){
+      me=d.me;if(!me&&token)setToken(null);ui();render(d.posts||[]);
+    },function(e){ui();$('cmFeed').innerHTML='<p class="empty">Analizele nu au putut fi încărcate. '+esc(e.message)+'</p>'});
+  }
+  function auth(fn){
+    var b={p_nick:$('cmNick').value,p_pass:$('cmPass').value};
+    if(fn==='pi_register'){
+      if(!$('cmAdult').checked){$('cmAuthMsg').textContent='Bifează confirmarea de vârstă pentru cont nou.';return}
+      b.p_adult=true;
+    }
+    $('cmAuthMsg').textContent='';
+    rpc(fn,b).then(function(d){
+      if(d&&d.error){$('cmAuthMsg').textContent=d.error;return}
+      setToken(d.token);$('cmPass').value='';load();
+    },function(e){$('cmAuthMsg').textContent=e.message});
+  }
+  $('cmLogin').addEventListener('click',function(){auth('pi_login')});
+  $('cmReg').addEventListener('click',function(){auth('pi_register')});
+  $('cmOut').addEventListener('click',function(){var t=token;setToken(null);me=null;rpc('pi_logout',{p_token:t}).then(load,load)});
+  $('cmSend').addEventListener('click',function(){
+    var o=num($('cmOdds').value),p=num($('cmProb').value),btn=this;
+    if(o===null||p===null){$('cmNewMsg').textContent='Completează cota și șansa estimată cu cifre.';return}
+    btn.disabled=true;$('cmNewMsg').textContent='';
+    rpc('pi_post',{p_token:token,p_match:$('cmMatch').value,p_pick:$('cmPick').value,p_odds:o,p_prob:p,p_body:$('cmBody').value}).then(function(){
+      ['cmMatch','cmPick','cmOdds','cmProb','cmBody'].forEach(function(i){$(i).value=''});
+      $('cmNewMsg').textContent='Analiza a fost publicată.';return load();
+    },function(e){$('cmNewMsg').textContent=e.message}).then(function(){btn.disabled=false});
+  });
+  $('cmFeed').addEventListener('submit',function(ev){
+    var f=ev.target.closest('.repform');if(!f)return;ev.preventDefault();
+    var inp=f.querySelector('input');
+    rpc('pi_reply',{p_token:token,p_post:+f.dataset.post,p_body:inp.value}).then(load,function(e){inp.value='';inp.placeholder=e.message});
+  });
+  $('cmFeed').addEventListener('click',function(ev){
+    var b=ev.target.closest('button[data-a]');if(!b)return;
+    var a=b.dataset.a,k=b.dataset.k,id=+b.dataset.id;
+    if((a==='remove'||a==='ban')&&!b.dataset.sure){b.dataset.sure='1';b.textContent='Sigur? Apasă din nou';return}
+    var call=a==='report'?rpc('pi_report',{p_token:token,p_kind:k,p_id:id}):
+             a==='remove'?rpc('pi_remove',{p_token:token,p_kind:k,p_id:id}):
+             rpc('pi_mod',{p_token:token,p_action:a,p_kind:k,p_id:id});
+    b.disabled=true;
+    call.then(function(){if(a==='report'){b.textContent='Raportat'}else load()},function(e){b.disabled=false;b.textContent=e.message});
+  });
+  load();
 })();
 </script>
 </body>
