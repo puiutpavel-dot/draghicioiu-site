@@ -126,6 +126,12 @@ blockquote cite{display:block;margin-top:8px;font-family:Inter,system-ui,sans-se
 .repform{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
 .repform input{flex:1 1 200px;padding:10px 12px;font:inherit;color:var(--text);background:var(--bg);border:1px solid var(--border);border-radius:10px;min-height:44px}
 .empty{color:var(--muted);padding:8px 2px}
+.priv summary{cursor:pointer;font-family:Fraunces,Georgia,serif;font-size:19px;font-weight:700;min-height:44px;display:flex;align-items:center;gap:8px}
+.priv summary::marker{content:""}.priv summary::-webkit-details-marker{display:none}
+.priv summary::after{content:"+";margin-left:auto;color:var(--accent);font-family:Inter,system-ui,sans-serif}
+.priv[open] summary::after{content:"–"}
+.priv h4{font-family:Inter,system-ui,sans-serif;font-size:15px;margin:16px 0 4px}
+.priv p{margin:0 0 6px}.priv .upd{font-size:13.5px;color:var(--muted)}
 </style>
 </head>
 <body>
@@ -220,7 +226,7 @@ blockquote cite{display:block;margin-top:8px;font-family:Inter,system-ui,sans-se
 <label class="chk"><input type="checkbox" id="cmAdult"><span>Confirm că am peste 18 ani și accept regulile de mai sus. Necesar doar la cont nou.</span></label>
 <div class="cm-row"><button class="btn" id="cmLogin" type="button">Intră</button><button class="btn ghost" id="cmReg" type="button">Cont nou</button></div>
 <p class="cm-msg" id="cmAuthMsg" role="status"></p>
-<p class="cap">Nu cerem e-mail, deci parola nu poate fi recuperată. Alege un nume care nu te identifică.</p>
+<p class="cap">Nu cerem e-mail, deci parola nu poate fi recuperată. Alege un nume care nu te identifică. Vezi <a href="#confidentialitate" id="cmPrivLink">ce date păstrăm</a>.</p>
 </div>
 
 <div class="cm-box" id="cmNew" hidden>
@@ -236,6 +242,34 @@ blockquote cite{display:block;margin-top:8px;font-family:Inter,system-ui,sans-se
 <div class="cm-row"><button class="btn" id="cmSend" type="button">Publică analiza</button></div>
 <p class="cm-msg" id="cmNewMsg" role="status"></p>
 </div>
+
+<details class="cm-box priv" id="confidentialitate">
+<summary>Confidențialitate: ce date păstrăm</summary>
+<p class="upd">Ultima actualizare: 23 noiembrie 2026</p>
+<h4>Pe scurt</h4>
+<p>Pentru cont păstrăm un nume de utilizator, parola în formă criptată și adresa IP de la înregistrare. Nu cerem e-mail, nume real sau telefon. Pagina nu are reclame și nu urmărește vizitatorii.</p>
+<h4>Ce date păstrăm și de ce</h4>
+<ul>
+<li><b>Numele de utilizator</b>, ca să semneze postările. Este public.</li>
+<li><b>Parola</b>, păstrată doar ca amprentă criptografică. Nu o poate citi nimeni, nici administratorul.</li>
+<li><b>Adresa IP de la înregistrare</b>, folosită doar pentru limita de conturi noi de pe aceeași conexiune.</li>
+<li><b>Data la care ai confirmat că ai peste 18 ani.</b></li>
+<li><b>Analizele, răspunsurile și raportările tale.</b> Analizele și răspunsurile sunt publice.</li>
+<li><b>Sesiunea de autentificare</b>: un cod păstrat în browserul tău, iar pe server doar amprenta lui.</li>
+</ul>
+<h4>Ce rămâne doar în browserul tău</h4>
+<p>Codul de sesiune și bifele din „Lista de început”. Le ștergi ieșind din cont sau ștergând datele site-ului din browser. Cifrele scrise în calculatoare nu se trimit nicăieri.</p>
+<h4>Unde stau datele și cine le vede</h4>
+<p>Datele contului și postările stau pe serverele Supabase din Uniunea Europeană (Irlanda). Nu le vindem și nu le dăm altcuiva. Ca la orice pagină web, serverul care găzduiește site-ul și Google Fonts, de unde se încarcă literele, văd adresa IP a dispozitivului tău.</p>
+<h4>Cât timp le păstrăm</h4>
+<p>Cât există contul. Îți poți șterge oricând propriile analize și răspunsuri din pagină. Pentru ștergerea întregului cont scrie la adresa de mai jos și spune numele de utilizator. Ștergem contul și tot ce ai postat în cel mult 30 de zile.</p>
+<h4>Drepturile tale</h4>
+<p>Poți cere să afli ce date avem despre tine, să le corectăm sau să le ștergem. Dacă socotești că datele îți sunt folosite greșit, poți depune plângere la Autoritatea Națională de Supraveghere a Prelucrării Datelor cu Caracter Personal (ANSPDCP).</p>
+<h4>Vârstă</h4>
+<p>Comunitatea este doar pentru persoane de peste 18 ani. Conturile despre care aflăm că aparțin unor minori sunt șterse.</p>
+<h4>Contact</h4>
+<p>Daniel Drăghicioiu · <a href="mailto:danieldraghicioiu@gmail.com">danieldraghicioiu@gmail.com</a></p>
+</details>
 
 <div id="cmFeed"><p class="empty">Se încarcă analizele…</p></div>
 
@@ -377,6 +411,8 @@ blockquote cite{display:block;margin-top:8px;font-family:Inter,system-ui,sans-se
     b.disabled=true;
     call.then(function(){if(a==='report'){b.textContent='Raportat'}else load()},function(e){b.disabled=false;b.textContent=e.message});
   });
+  $('cmPrivLink').addEventListener('click',function(){$('confidentialitate').open=true});
+  if(location.hash==='#confidentialitate')$('confidentialitate').open=true;
   load();
 })();
 </script>
