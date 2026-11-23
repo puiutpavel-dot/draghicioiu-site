@@ -68,18 +68,58 @@ h2{font-size:clamp(26px,3.6vw,34px);margin:56px 0 8px}
 .ans{margin-top:14px}
 .ans summary{cursor:pointer;font-weight:600;color:var(--accent);min-height:44px;display:inline-flex;align-items:center}
 .ans ol{margin-top:4px}
+.hero{display:grid;grid-template-columns:1fr 300px;gap:24px;align-items:end}
+.hero .kicker{margin-top:36px}
+.prof{width:100%;max-width:300px;height:auto;display:block;justify-self:center;overflow:hidden;border-bottom:3px solid var(--border)}
+.prof .bob{animation:bob 4s ease-in-out infinite}
+.prof .arm{transform-origin:214px 176px;animation:arm 3s ease-in-out infinite}
+.eyes{transform-box:fill-box;transform-origin:center;animation:blink 4.5s infinite}
+.talk{display:none;transform-box:fill-box;transform-origin:center}
+.talking .smile{display:none}
+.talking .talk{display:block;animation:talk .32s ease-in-out infinite alternate}
+#tabla{transition:opacity .4s}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+@keyframes arm{0%,100%{transform:rotate(-5deg)}50%{transform:rotate(7deg)}}
+@keyframes blink{0%,93%,100%{transform:scaleY(1)}96%{transform:scaleY(.1)}}
+@keyframes talk{from{transform:scaleY(.25)}to{transform:scaleY(1)}}
+.prof-row{display:flex;gap:14px;align-items:flex-start;margin-top:18px}
+.avatar{flex:none;width:64px;height:auto;border-radius:50%;background:var(--accent-soft)}
+.bubble{position:relative;flex:1;min-width:0;background:var(--accent-soft);border-radius:4px 16px 16px 16px;padding:2px 16px 12px}
+.bubble h4{margin-top:12px}
+.say{margin-top:6px;font:inherit;font-weight:600;font-size:15px;min-height:44px;padding:8px 16px;border-radius:999px;border:1px solid var(--accent);background:var(--surface);color:var(--accent);cursor:pointer}
+.say:hover{background:var(--accent);color:var(--surface)}
+.say[aria-pressed="true"]{background:var(--accent);color:var(--surface)}
+@media (prefers-reduced-motion: reduce){.prof .bob,.prof .arm,.eyes,.talking .talk{animation:none}html{scroll-behavior:auto}}
 .foot{margin-top:48px;font-size:14px;color:var(--muted)}
-@media (max-width:720px){.steps{grid-template-columns:1fr 1fr}.chaps{grid-template-columns:1fr}}
-@media (max-width:420px){.steps{grid-template-columns:1fr}.lesson>summary{padding:12px 14px;gap:10px}.body{padding:0 14px 16px}}
+@media (max-width:720px){.steps{grid-template-columns:1fr 1fr}.chaps{grid-template-columns:1fr}.hero{grid-template-columns:1fr}.prof{max-width:240px;margin-top:20px}}
+@media (max-width:420px){.steps{grid-template-columns:1fr}.lesson>summary{padding:12px 14px;gap:10px}.body{padding:0 14px 16px}.avatar{width:44px}.prof-row{gap:8px}.bubble{padding:2px 12px 10px}}
 </style>
 </head>
 <body>
 <div class="wrap">
 <div class="top"><a href="/">← draghicioiu.ro</a><a href="#lectii">Lecțiile ↓</a></div>
 
+<div class="hero"><div>
 <p class="kicker">Profesor virtual · clasa a V-a</p>
 <h1>Matematică de clasa a V&#8209;a, explicată pas cu pas</h1>
 <p class="lede">Un curs în ordinea capitolelor din programa școlară, cu explicații pe înțelesul unui copil de 11 ani, exemple rezolvate și exerciții cu răspunsuri. Primul capitol este scris complet, celelalte urmează.</p>
+</div><svg class="prof" viewBox="0 0 320 300" role="img" aria-label="Profesorul de matematică arată un calcul la tablă">
+<rect x="8" y="38" width="184" height="124" rx="10" fill="#8A6A45"/>
+<rect x="16" y="46" width="168" height="108" rx="5" fill="#24503F"/>
+<text id="tabla" x="100" y="110" text-anchor="middle" fill="#F4F2EC" font-family="Fraunces,Georgia,serif" font-size="24" font-weight="700">2³ = 8</text>
+<rect x="60" y="160" width="80" height="6" rx="3" fill="#6E5334"/>
+<g class="bob">
+<rect x="205" y="150" width="90" height="170" rx="32" fill="#24456B"/>
+<path d="M238 152 L250 172 L262 152Z" fill="#FFFEFA"/>
+<g class="arm"><path d="M214 176 L182 146" stroke="#24456B" stroke-width="18" stroke-linecap="round"/><circle cx="180" cy="144" r="8" fill="#F2C9A0"/><path d="M180 144 L136 112" stroke="#C9A36B" stroke-width="4" stroke-linecap="round"/></g>
+<circle cx="250" cy="110" r="34" fill="#F2C9A0"/>
+<path d="M215 106 Q214 68 250 68 Q286 68 285 108 Q272 84 250 87 Q230 85 215 106Z" fill="#3A2E2A"/>
+<g fill="none" stroke="#1B2028" stroke-width="2.5"><circle cx="238" cy="112" r="10"/><circle cx="262" cy="112" r="10"/><path d="M248 112h4"/></g>
+<g class="eyes" fill="#1B2028"><circle cx="238" cy="112" r="3"/><circle cx="262" cy="112" r="3"/></g>
+<path class="smile" d="M240 129 Q250 137 260 129" fill="none" stroke="#7A3B2E" stroke-width="3" stroke-linecap="round"/>
+<ellipse class="talk" cx="250" cy="131" rx="7" ry="5" fill="#7A3B2E"/>
+</g>
+</svg></div>
 
 <div class="stats">
 <div class="stat"><b>6</b><span>capitole în tot anul</span></div>
@@ -91,7 +131,7 @@ h2{font-size:clamp(26px,3.6vw,34px);margin:56px 0 8px}
 <h2>Cum arată o lecție</h2>
 <p class="sub">Toate lecțiile au aceiași patru pași, în aceeași ordine.</p>
 <ol class="steps">
-<li><b>Explicația</b><span>Ideea lecției, spusă simplu, cu cuvintele profesorului.</span></li>
+<li><b>Explicația</b><span>Ideea lecției, spusă simplu. Profesorul o poate citi cu voce tare.</span></li>
 <li><b>Exemplul rezolvat</b><span>O problemă lucrată de la început până la sfârșit.</span></li>
 <li><b>Exercițiile</b><span>Cinci, de la ușor la greu, cu răspunsurile ascunse până le ceri.</span></li>
 <li><b>Întrebarea de verificare</b><span>Arată dacă ai înțeles ideea, nu doar calculul.</span></li>
@@ -112,7 +152,12 @@ h2{font-size:clamp(26px,3.6vw,34px);margin:56px 0 8px}
 <p class="sub">Apasă pe o lecție ca să o deschizi. Rezolvă exercițiile pe caiet, apoi verifică răspunsurile.</p>
 <details class="lesson" id="lectia-1"><summary><span class="n">1</span><span class="t">Scrierea și citirea numerelor naturale</span></summary>
 <div class="body">
-<h4>Explicația</h4><p>Avem doar zece cifre, de la 0 la 9, dar cu ele putem scrie orice număr. Secretul este locul: aceeași cifră valorează altceva în funcție de poziția ei. De la dreapta la stânga avem unități, zeci, sute, apoi mii, zeci de mii, sute de mii, apoi milioane. Ca să citim ușor un număr mare, îl despărțim în grupe de câte trei cifre, pornind din dreapta.</p>
+<div class="prof-row"><svg class="avatar" viewBox="208 62 84 88" aria-hidden="true"><circle cx="250" cy="110" r="34" fill="#F2C9A0"/>
+<path d="M215 106 Q214 68 250 68 Q286 68 285 108 Q272 84 250 87 Q230 85 215 106Z" fill="#3A2E2A"/>
+<g fill="none" stroke="#1B2028" stroke-width="2.5"><circle cx="238" cy="112" r="10"/><circle cx="262" cy="112" r="10"/><path d="M248 112h4"/></g>
+<g class="eyes" fill="#1B2028"><circle cx="238" cy="112" r="3"/><circle cx="262" cy="112" r="3"/></g>
+<path class="smile" d="M240 129 Q250 137 260 129" fill="none" stroke="#7A3B2E" stroke-width="3" stroke-linecap="round"/>
+<ellipse class="talk" cx="250" cy="131" rx="7" ry="5" fill="#7A3B2E"/></svg><div class="bubble"><h4>Explicația</h4><p class="expl">Avem doar zece cifre, de la 0 la 9, dar cu ele putem scrie orice număr. Secretul este locul: aceeași cifră valorează altceva în funcție de poziția ei. De la dreapta la stânga avem unități, zeci, sute, apoi mii, zeci de mii, sute de mii, apoi milioane. Ca să citim ușor un număr mare, îl despărțim în grupe de câte trei cifre, pornind din dreapta.</p><button type="button" class="say" hidden>▶ Ascultă explicația</button></div></div>
 <div class="ex"><h4>Exemplul rezolvat</h4><p>Numărul 3 406 215 are trei grupe: 3 milioane, 406 mii și 215 unități. Îl citim „trei milioane patru sute șase mii două sute cincisprezece”. Cifra 4 stă pe locul sutelor de mii, deci valorează 400 000.</p></div>
 <h4>Exerciții</h4><ol><li>Scrie cu cifre numărul „patru mii șaptezeci și doi”.</li><li>Scrie în cuvinte numărul 30 508.</li><li>Ce valoare are cifra 8 în numărul 582 914?</li><li>Care este cel mai mare număr de patru cifre diferite? Dar cel mai mic?</li><li>Câte numere de două cifre au cifra unităților 7?</li></ol>
 <p class="check"><b>Întrebarea de verificare.</b> Numerele 205 și 250 sunt scrise cu aceleași cifre. De ce nu sunt egale?</p>
@@ -120,7 +165,12 @@ h2{font-size:clamp(26px,3.6vw,34px);margin:56px 0 8px}
 </div></details>
 <details class="lesson" id="lectia-2"><summary><span class="n">2</span><span class="t">Axa numerelor, compararea, ordonarea și aproximările</span></summary>
 <div class="body">
-<h4>Explicația</h4><p>Axa numerelor este o dreaptă pe care numerele stau la distanțe egale, începând cu 0. Cu cât un număr este mai la dreapta, cu atât este mai mare. Ca să comparăm două numere, ne uităm întâi câte cifre au: cel cu mai multe cifre este mai mare. Dacă au la fel de multe, comparăm cifrele de la stânga la dreapta până găsim prima diferență. Rotunjirea înseamnă să înlocuim numărul cu unul apropiat și mai simplu: dacă cifra de după locul ales este 5 sau mai mare, rotunjim în sus, altfel în jos.</p>
+<div class="prof-row"><svg class="avatar" viewBox="208 62 84 88" aria-hidden="true"><circle cx="250" cy="110" r="34" fill="#F2C9A0"/>
+<path d="M215 106 Q214 68 250 68 Q286 68 285 108 Q272 84 250 87 Q230 85 215 106Z" fill="#3A2E2A"/>
+<g fill="none" stroke="#1B2028" stroke-width="2.5"><circle cx="238" cy="112" r="10"/><circle cx="262" cy="112" r="10"/><path d="M248 112h4"/></g>
+<g class="eyes" fill="#1B2028"><circle cx="238" cy="112" r="3"/><circle cx="262" cy="112" r="3"/></g>
+<path class="smile" d="M240 129 Q250 137 260 129" fill="none" stroke="#7A3B2E" stroke-width="3" stroke-linecap="round"/>
+<ellipse class="talk" cx="250" cy="131" rx="7" ry="5" fill="#7A3B2E"/></svg><div class="bubble"><h4>Explicația</h4><p class="expl">Axa numerelor este o dreaptă pe care numerele stau la distanțe egale, începând cu 0. Cu cât un număr este mai la dreapta, cu atât este mai mare. Ca să comparăm două numere, ne uităm întâi câte cifre au: cel cu mai multe cifre este mai mare. Dacă au la fel de multe, comparăm cifrele de la stânga la dreapta până găsim prima diferență. Rotunjirea înseamnă să înlocuim numărul cu unul apropiat și mai simplu: dacă cifra de după locul ales este 5 sau mai mare, rotunjim în sus, altfel în jos.</p><button type="button" class="say" hidden>▶ Ascultă explicația</button></div></div>
 <div class="ex"><h4>Exemplul rezolvat</h4><p>Rotunjim 3 862 la sute. Cifra sutelor este 8, iar după ea urmează 6. Cum 6 este cel puțin 5, rotunjim în sus și obținem 3 900.</p></div>
 <h4>Exerciții</h4><ol><li>Compară numerele 45 987 și 45 897.</li><li>Ordonează crescător: 3 210, 3 021, 3 201, 3 120.</li><li>Rotunjește 6 748 la sute, apoi la mii.</li><li>Ce numere naturale se află pe axă între 98 și 103?</li><li>Un stadion are 23 640 de locuri. Rotunjește numărul la zeci de mii, apoi la mii.</li></ol>
 <p class="check"><b>Întrebarea de verificare.</b> Două numere au fiecare cinci cifre. Cum afli care este mai mare fără să le desenezi pe axă?</p>
@@ -128,7 +178,12 @@ h2{font-size:clamp(26px,3.6vw,34px);margin:56px 0 8px}
 </div></details>
 <details class="lesson" id="lectia-3"><summary><span class="n">3</span><span class="t">Adunarea și scăderea</span></summary>
 <div class="body">
-<h4>Explicația</h4><p>La adunare, numerele pe care le adunăm se numesc termeni, iar rezultatul se numește sumă. Adunarea are două proprietăți care ne ajută să calculăm repede: putem schimba ordinea termenilor și îi putem grupa cum vrem. Scăderea nu are aceste proprietăți: 9 − 4 nu este totuna cu 4 − 9. Adunarea și scăderea se verifică una prin cealaltă, așa că un termen necunoscut dintr-o sumă se află prin scădere.</p>
+<div class="prof-row"><svg class="avatar" viewBox="208 62 84 88" aria-hidden="true"><circle cx="250" cy="110" r="34" fill="#F2C9A0"/>
+<path d="M215 106 Q214 68 250 68 Q286 68 285 108 Q272 84 250 87 Q230 85 215 106Z" fill="#3A2E2A"/>
+<g fill="none" stroke="#1B2028" stroke-width="2.5"><circle cx="238" cy="112" r="10"/><circle cx="262" cy="112" r="10"/><path d="M248 112h4"/></g>
+<g class="eyes" fill="#1B2028"><circle cx="238" cy="112" r="3"/><circle cx="262" cy="112" r="3"/></g>
+<path class="smile" d="M240 129 Q250 137 260 129" fill="none" stroke="#7A3B2E" stroke-width="3" stroke-linecap="round"/>
+<ellipse class="talk" cx="250" cy="131" rx="7" ry="5" fill="#7A3B2E"/></svg><div class="bubble"><h4>Explicația</h4><p class="expl">La adunare, numerele pe care le adunăm se numesc termeni, iar rezultatul se numește sumă. Adunarea are două proprietăți care ne ajută să calculăm repede: putem schimba ordinea termenilor și îi putem grupa cum vrem. Scăderea nu are aceste proprietăți: 9 − 4 nu este totuna cu 4 − 9. Adunarea și scăderea se verifică una prin cealaltă, așa că un termen necunoscut dintr-o sumă se află prin scădere.</p><button type="button" class="say" hidden>▶ Ascultă explicația</button></div></div>
 <div class="ex"><h4>Exemplul rezolvat</h4><p>Calculăm 198 + 467 + 2. Schimbăm ordinea și grupăm numerele care dau o sumă rotundă: (198 + 2) + 467 = 200 + 467 = 667.</p></div>
 <h4>Exerciții</h4><ol><li>Calculează 4 578 + 2 364.</li><li>Calculează 9 003 − 4 765.</li><li>Calculează cât mai repede: 37 + 85 + 63 + 15.</li><li>Află numărul x din egalitatea x + 1 250 = 3 000.</li><li>O bibliotecă are 2 845 de cărți. Primește încă 360 și împrumută 1 127. Câte cărți rămân pe rafturi?</li></ol>
 <p class="check"><b>Întrebarea de verificare.</b> Cum verifici, fără calculator, dacă o scădere a fost făcută corect?</p>
@@ -136,7 +191,12 @@ h2{font-size:clamp(26px,3.6vw,34px);margin:56px 0 8px}
 </div></details>
 <details class="lesson" id="lectia-4"><summary><span class="n">4</span><span class="t">Înmulțirea și factorul comun</span></summary>
 <div class="body">
-<h4>Explicația</h4><p>Înmulțirea este o adunare repetată: 4 × 6 înseamnă 6 + 6 + 6 + 6. Numerele pe care le înmulțim se numesc factori, iar rezultatul se numește produs. Ca la adunare, putem schimba ordinea factorilor și îi putem grupa. În plus, înmulțirea se „împarte” peste adunare și scădere: 5 × (10 + 2) = 5 × 10 + 5 × 2. Citită invers, regula se numește scoaterea factorului comun: 5 × 10 + 5 × 2 = 5 × (10 + 2).</p>
+<div class="prof-row"><svg class="avatar" viewBox="208 62 84 88" aria-hidden="true"><circle cx="250" cy="110" r="34" fill="#F2C9A0"/>
+<path d="M215 106 Q214 68 250 68 Q286 68 285 108 Q272 84 250 87 Q230 85 215 106Z" fill="#3A2E2A"/>
+<g fill="none" stroke="#1B2028" stroke-width="2.5"><circle cx="238" cy="112" r="10"/><circle cx="262" cy="112" r="10"/><path d="M248 112h4"/></g>
+<g class="eyes" fill="#1B2028"><circle cx="238" cy="112" r="3"/><circle cx="262" cy="112" r="3"/></g>
+<path class="smile" d="M240 129 Q250 137 260 129" fill="none" stroke="#7A3B2E" stroke-width="3" stroke-linecap="round"/>
+<ellipse class="talk" cx="250" cy="131" rx="7" ry="5" fill="#7A3B2E"/></svg><div class="bubble"><h4>Explicația</h4><p class="expl">Înmulțirea este o adunare repetată: 4 × 6 înseamnă 6 + 6 + 6 + 6. Numerele pe care le înmulțim se numesc factori, iar rezultatul se numește produs. Ca la adunare, putem schimba ordinea factorilor și îi putem grupa. În plus, înmulțirea se „împarte” peste adunare și scădere: 5 × (10 + 2) = 5 × 10 + 5 × 2. Citită invers, regula se numește scoaterea factorului comun: 5 × 10 + 5 × 2 = 5 × (10 + 2).</p><button type="button" class="say" hidden>▶ Ascultă explicația</button></div></div>
 <div class="ex"><h4>Exemplul rezolvat</h4><p>Calculăm 7 × 98 fără înmulțire lungă. Scriem 98 ca 100 − 2: 7 × 98 = 7 × 100 − 7 × 2 = 700 − 14 = 686.</p></div>
 <h4>Exerciții</h4><ol><li>Calculează 326 × 7.</li><li>Calculează 45 × 23.</li><li>Calculează cât mai repede: 25 × 17 × 4.</li><li>Scoate factorul comun și calculează: 36 × 8 + 36 × 2.</li><li>În fiecare dintre cele 15 cutii sunt 24 de creioane și 6 radiere. Câte obiecte sunt în total?</li></ol>
 <p class="check"><b>Întrebarea de verificare.</b> De ce este mai ușor să calculezi 25 × 4 × 17 decât 25 × 17 × 4, deși rezultatul este același?</p>
@@ -144,7 +204,12 @@ h2{font-size:clamp(26px,3.6vw,34px);margin:56px 0 8px}
 </div></details>
 <details class="lesson" id="lectia-5"><summary><span class="n">5</span><span class="t">Împărțirea exactă și împărțirea cu rest</span></summary>
 <div class="body">
-<h4>Explicația</h4><p>Împărțirea răspunde la întrebarea „de câte ori încape?”. Numărul pe care îl împărțim se numește deîmpărțit, cel la care împărțim este împărțitorul, iar rezultatul este câtul. Uneori rămâne ceva pe dinafară, numit rest. Regula care leagă totul este: deîmpărțitul = împărțitorul × câtul + restul, iar restul este întotdeauna mai mic decât împărțitorul. Când restul este 0, împărțirea este exactă. La 0 nu se poate împărți.</p>
+<div class="prof-row"><svg class="avatar" viewBox="208 62 84 88" aria-hidden="true"><circle cx="250" cy="110" r="34" fill="#F2C9A0"/>
+<path d="M215 106 Q214 68 250 68 Q286 68 285 108 Q272 84 250 87 Q230 85 215 106Z" fill="#3A2E2A"/>
+<g fill="none" stroke="#1B2028" stroke-width="2.5"><circle cx="238" cy="112" r="10"/><circle cx="262" cy="112" r="10"/><path d="M248 112h4"/></g>
+<g class="eyes" fill="#1B2028"><circle cx="238" cy="112" r="3"/><circle cx="262" cy="112" r="3"/></g>
+<path class="smile" d="M240 129 Q250 137 260 129" fill="none" stroke="#7A3B2E" stroke-width="3" stroke-linecap="round"/>
+<ellipse class="talk" cx="250" cy="131" rx="7" ry="5" fill="#7A3B2E"/></svg><div class="bubble"><h4>Explicația</h4><p class="expl">Împărțirea răspunde la întrebarea „de câte ori încape?”. Numărul pe care îl împărțim se numește deîmpărțit, cel la care împărțim este împărțitorul, iar rezultatul este câtul. Uneori rămâne ceva pe dinafară, numit rest. Regula care leagă totul este: deîmpărțitul = împărțitorul × câtul + restul, iar restul este întotdeauna mai mic decât împărțitorul. Când restul este 0, împărțirea este exactă. La 0 nu se poate împărți.</p><button type="button" class="say" hidden>▶ Ascultă explicația</button></div></div>
 <div class="ex"><h4>Exemplul rezolvat</h4><p>Împărțim 47 la 5. Cinci încape în 47 de 9 ori, pentru că 5 × 9 = 45, și rămân 2. Verificăm: 5 × 9 + 2 = 47, iar 2 este mai mic decât 5.</p></div>
 <h4>Exerciții</h4><ol><li>Calculează 936 : 4.</li><li>Află câtul și restul împărțirii lui 1 547 la 6.</li><li>Egalitatea 85 = 7 × 11 + 8 este adevărată. Arată ea câtul și restul împărțirii lui 85 la 7? Explică.</li><li>Ce resturi pot apărea la împărțirea unui număr la 5?</li><li>În excursie merg 250 de elevi, cu autocare de câte 48 de locuri. De câte autocare este nevoie?</li></ol>
 <p class="check"><b>Întrebarea de verificare.</b> De ce restul nu poate fi niciodată egal cu împărțitorul sau mai mare decât el?</p>
@@ -152,7 +217,12 @@ h2{font-size:clamp(26px,3.6vw,34px);margin:56px 0 8px}
 </div></details>
 <details class="lesson" id="lectia-6"><summary><span class="n">6</span><span class="t">Puterea cu exponent natural</span></summary>
 <div class="body">
-<h4>Explicația</h4><p>Așa cum înmulțirea scurtează o adunare repetată, puterea scurtează o înmulțire repetată. În loc de 2 × 2 × 2 scriem 2³ și citim „2 la puterea a treia”. Numărul care se repetă este baza, iar numărul care arată de câte ori se repetă este exponentul. Două cazuri speciale: orice număr la puterea 1 rămâne el însuși, iar orice număr diferit de zero la puterea 0 este 1. Puterea a doua se mai numește pătrat, pentru că dă numărul de pătrățele dintr-un pătrat cu latura respectivă.</p>
+<div class="prof-row"><svg class="avatar" viewBox="208 62 84 88" aria-hidden="true"><circle cx="250" cy="110" r="34" fill="#F2C9A0"/>
+<path d="M215 106 Q214 68 250 68 Q286 68 285 108 Q272 84 250 87 Q230 85 215 106Z" fill="#3A2E2A"/>
+<g fill="none" stroke="#1B2028" stroke-width="2.5"><circle cx="238" cy="112" r="10"/><circle cx="262" cy="112" r="10"/><path d="M248 112h4"/></g>
+<g class="eyes" fill="#1B2028"><circle cx="238" cy="112" r="3"/><circle cx="262" cy="112" r="3"/></g>
+<path class="smile" d="M240 129 Q250 137 260 129" fill="none" stroke="#7A3B2E" stroke-width="3" stroke-linecap="round"/>
+<ellipse class="talk" cx="250" cy="131" rx="7" ry="5" fill="#7A3B2E"/></svg><div class="bubble"><h4>Explicația</h4><p class="expl">Așa cum înmulțirea scurtează o adunare repetată, puterea scurtează o înmulțire repetată. În loc de 2 × 2 × 2 scriem 2³ și citim „2 la puterea a treia”. Numărul care se repetă este baza, iar numărul care arată de câte ori se repetă este exponentul. Două cazuri speciale: orice număr la puterea 1 rămâne el însuși, iar orice număr diferit de zero la puterea 0 este 1. Puterea a doua se mai numește pătrat, pentru că dă numărul de pătrățele dintr-un pătrat cu latura respectivă.</p><button type="button" class="say" hidden>▶ Ascultă explicația</button></div></div>
 <div class="ex"><h4>Exemplul rezolvat</h4><p>Calculăm 4³. Baza este 4, exponentul este 3, deci înmulțim 4 de trei ori: 4 × 4 × 4 = 16 × 4 = 64. Atenție, 4³ nu este 4 × 3.</p></div>
 <h4>Exerciții</h4><ol><li>Calculează 2⁵.</li><li>Calculează 3⁴.</li><li>Scrie ca putere: 7 × 7 × 7 × 7 × 7 × 7.</li><li>Calculează pătratele numerelor 11, 12 și 15.</li><li>O foaie de hârtie se îndoaie în două de 6 ori la rând. Câte straturi are la final?</li></ol>
 <p class="check"><b>Întrebarea de verificare.</b> Care este diferența dintre 5 × 2 și 5²?</p>
@@ -160,7 +230,12 @@ h2{font-size:clamp(26px,3.6vw,34px);margin:56px 0 8px}
 </div></details>
 <details class="lesson" id="lectia-7"><summary><span class="n">7</span><span class="t">Reguli de calcul cu puteri, baza 10 și baza 2</span></summary>
 <div class="body">
-<h4>Explicația</h4><p>Când puterile au aceeași bază, calculele se fac cu exponenții. La înmulțire exponenții se adună: 2³ × 2⁴ = 2⁷. La împărțire se scad: 5⁹ : 5⁷ = 5². La putere ridicată la altă putere se înmulțesc: (3²)³ = 3⁶. Două puteri cu aceeași bază se compară după exponent, iar două puteri cu același exponent se compară după bază. Scrierea noastră obișnuită este în baza 10: fiecare cifră se înmulțește cu o putere a lui 10. Calculatoarele folosesc baza 2, cu doar două cifre, 0 și 1, iar fiecare loc valorează o putere a lui 2.</p>
+<div class="prof-row"><svg class="avatar" viewBox="208 62 84 88" aria-hidden="true"><circle cx="250" cy="110" r="34" fill="#F2C9A0"/>
+<path d="M215 106 Q214 68 250 68 Q286 68 285 108 Q272 84 250 87 Q230 85 215 106Z" fill="#3A2E2A"/>
+<g fill="none" stroke="#1B2028" stroke-width="2.5"><circle cx="238" cy="112" r="10"/><circle cx="262" cy="112" r="10"/><path d="M248 112h4"/></g>
+<g class="eyes" fill="#1B2028"><circle cx="238" cy="112" r="3"/><circle cx="262" cy="112" r="3"/></g>
+<path class="smile" d="M240 129 Q250 137 260 129" fill="none" stroke="#7A3B2E" stroke-width="3" stroke-linecap="round"/>
+<ellipse class="talk" cx="250" cy="131" rx="7" ry="5" fill="#7A3B2E"/></svg><div class="bubble"><h4>Explicația</h4><p class="expl">Când puterile au aceeași bază, calculele se fac cu exponenții. La înmulțire exponenții se adună: 2³ × 2⁴ = 2⁷. La împărțire se scad: 5⁹ : 5⁷ = 5². La putere ridicată la altă putere se înmulțesc: (3²)³ = 3⁶. Două puteri cu aceeași bază se compară după exponent, iar două puteri cu același exponent se compară după bază. Scrierea noastră obișnuită este în baza 10: fiecare cifră se înmulțește cu o putere a lui 10. Calculatoarele folosesc baza 2, cu doar două cifre, 0 și 1, iar fiecare loc valorează o putere a lui 2.</p><button type="button" class="say" hidden>▶ Ascultă explicația</button></div></div>
 <div class="ex"><h4>Exemplul rezolvat</h4><p>În baza 10, 4 207 = 4 × 10³ + 2 × 10² + 0 × 10 + 7. În baza 2, scriem numărul 6 ca sumă de puteri ale lui 2: 6 = 4 + 2 = 1 × 2² + 1 × 2 + 0. Cifrele sunt 1, 1 și 0, deci 6 se scrie 110 în baza 2.</p></div>
 <h4>Exerciții</h4><ol><li>Scrie ca o singură putere și calculează: 2³ × 2⁴.</li><li>Scrie ca o singură putere și calculează: 5⁹ : 5⁷.</li><li>Scrie ca o singură putere și calculează: (3²)³.</li><li>Compară 3⁴ cu 4³.</li><li>Scrie numărul 13 în baza 2.</li></ol>
 <p class="check"><b>Întrebarea de verificare.</b> De ce nu putem aduna exponenții la 2³ × 5⁴?</p>
@@ -168,7 +243,12 @@ h2{font-size:clamp(26px,3.6vw,34px);margin:56px 0 8px}
 </div></details>
 <details class="lesson" id="lectia-8"><summary><span class="n">8</span><span class="t">Ordinea operațiilor și parantezele</span></summary>
 <div class="body">
-<h4>Explicația</h4><p>Dacă fiecare ar calcula în ordinea care îi place, același exercițiu ar avea mai multe rezultate. De aceea există o regulă comună. Întâi se calculează puterile, apoi înmulțirile și împărțirile, de la stânga la dreapta, și la final adunările și scăderile, tot de la stânga la dreapta. Parantezele schimbă ordinea: ce este în paranteză se calculează primul. Când sunt mai multe feluri de paranteze, începem cu cele rotunde, continuăm cu cele pătrate și terminăm cu acoladele.</p>
+<div class="prof-row"><svg class="avatar" viewBox="208 62 84 88" aria-hidden="true"><circle cx="250" cy="110" r="34" fill="#F2C9A0"/>
+<path d="M215 106 Q214 68 250 68 Q286 68 285 108 Q272 84 250 87 Q230 85 215 106Z" fill="#3A2E2A"/>
+<g fill="none" stroke="#1B2028" stroke-width="2.5"><circle cx="238" cy="112" r="10"/><circle cx="262" cy="112" r="10"/><path d="M248 112h4"/></g>
+<g class="eyes" fill="#1B2028"><circle cx="238" cy="112" r="3"/><circle cx="262" cy="112" r="3"/></g>
+<path class="smile" d="M240 129 Q250 137 260 129" fill="none" stroke="#7A3B2E" stroke-width="3" stroke-linecap="round"/>
+<ellipse class="talk" cx="250" cy="131" rx="7" ry="5" fill="#7A3B2E"/></svg><div class="bubble"><h4>Explicația</h4><p class="expl">Dacă fiecare ar calcula în ordinea care îi place, același exercițiu ar avea mai multe rezultate. De aceea există o regulă comună. Întâi se calculează puterile, apoi înmulțirile și împărțirile, de la stânga la dreapta, și la final adunările și scăderile, tot de la stânga la dreapta. Parantezele schimbă ordinea: ce este în paranteză se calculează primul. Când sunt mai multe feluri de paranteze, începem cu cele rotunde, continuăm cu cele pătrate și terminăm cu acoladele.</p><button type="button" class="say" hidden>▶ Ascultă explicația</button></div></div>
 <div class="ex"><h4>Exemplul rezolvat</h4><p>Calculăm 5 + 2 × 3². Întâi puterea: 3² = 9. Apoi înmulțirea: 2 × 9 = 18. La final adunarea: 5 + 18 = 23.</p></div>
 <h4>Exerciții</h4><ol><li>Calculează 20 − 4 × 3.</li><li>Calculează 48 : 6 + 2 × 5.</li><li>Calculează (15 + 9) : 4 × 3.</li><li>Calculează 100 − [3 × (8 + 2²) − 6].</li><li>Pune o pereche de paranteze astfel încât egalitatea să fie adevărată: 7 + 3 × 5 − 1 = 49.</li></ol>
 <p class="check"><b>Întrebarea de verificare.</b> Doi elevi calculează 6 + 4 × 2. Unul obține 20, celălalt 14. Cine are dreptate și ce a greșit celălalt?</p>
@@ -176,7 +256,12 @@ h2{font-size:clamp(26px,3.6vw,34px);margin:56px 0 8px}
 </div></details>
 <details class="lesson" id="lectia-9"><summary><span class="n">9</span><span class="t">Metoda reducerii la unitate</span></summary>
 <div class="body">
-<h4>Explicația</h4><p>Multe probleme spun cât costă sau cât fac mai multe lucruri la fel și întreabă despre alt număr de lucruri. Trucul este să aflăm întâi cât revine unuia singur, adică unității. Facem doi pași: împărțim ca să ajungem la unul, apoi înmulțim ca să ajungem la câți ne trebuie.</p>
+<div class="prof-row"><svg class="avatar" viewBox="208 62 84 88" aria-hidden="true"><circle cx="250" cy="110" r="34" fill="#F2C9A0"/>
+<path d="M215 106 Q214 68 250 68 Q286 68 285 108 Q272 84 250 87 Q230 85 215 106Z" fill="#3A2E2A"/>
+<g fill="none" stroke="#1B2028" stroke-width="2.5"><circle cx="238" cy="112" r="10"/><circle cx="262" cy="112" r="10"/><path d="M248 112h4"/></g>
+<g class="eyes" fill="#1B2028"><circle cx="238" cy="112" r="3"/><circle cx="262" cy="112" r="3"/></g>
+<path class="smile" d="M240 129 Q250 137 260 129" fill="none" stroke="#7A3B2E" stroke-width="3" stroke-linecap="round"/>
+<ellipse class="talk" cx="250" cy="131" rx="7" ry="5" fill="#7A3B2E"/></svg><div class="bubble"><h4>Explicația</h4><p class="expl">Multe probleme spun cât costă sau cât fac mai multe lucruri la fel și întreabă despre alt număr de lucruri. Trucul este să aflăm întâi cât revine unuia singur, adică unității. Facem doi pași: împărțim ca să ajungem la unul, apoi înmulțim ca să ajungem la câți ne trebuie.</p><button type="button" class="say" hidden>▶ Ascultă explicația</button></div></div>
 <div class="ex"><h4>Exemplul rezolvat</h4><p>Patru caiete costă 28 de lei. Cât costă 7 caiete? Un caiet costă 28 : 4 = 7 lei. Șapte caiete costă 7 × 7 = 49 de lei.</p></div>
 <h4>Exerciții</h4><ol><li>Șase pixuri costă 18 lei. Cât costă 10 pixuri?</li><li>O mașină consumă 21 de litri de benzină la 300 km. Cât consumă la 500 km?</li><li>Trei robinete la fel umplu 45 de găleți într-o oră. Câte găleți umplu 8 robinete într-o oră?</li><li>Opt kilograme de mere costă 40 de lei. Câte kilograme poți cumpăra cu 65 de lei?</li><li>O imprimantă scoate 240 de pagini în 4 minute. Câte pagini scoate în 15 minute?</li></ol>
 <p class="check"><b>Întrebarea de verificare.</b> De ce aflăm întâi prețul unui singur obiect, în loc să trecem direct de la 4 la 7?</p>
@@ -184,7 +269,12 @@ h2{font-size:clamp(26px,3.6vw,34px);margin:56px 0 8px}
 </div></details>
 <details class="lesson" id="lectia-10"><summary><span class="n">10</span><span class="t">Metoda comparației</span></summary>
 <div class="body">
-<h4>Explicația</h4><p>Uneori avem două cumpărături cu aceleași două feluri de obiecte și nu știm niciun preț. Le așezăm una sub alta și le comparăm. Dacă un fel de obiect apare în același număr în ambele, diferența de preț vine doar de la celălalt fel. Dacă nu apare în același număr, înmulțim una dintre cumpărături până când apare.</p>
+<div class="prof-row"><svg class="avatar" viewBox="208 62 84 88" aria-hidden="true"><circle cx="250" cy="110" r="34" fill="#F2C9A0"/>
+<path d="M215 106 Q214 68 250 68 Q286 68 285 108 Q272 84 250 87 Q230 85 215 106Z" fill="#3A2E2A"/>
+<g fill="none" stroke="#1B2028" stroke-width="2.5"><circle cx="238" cy="112" r="10"/><circle cx="262" cy="112" r="10"/><path d="M248 112h4"/></g>
+<g class="eyes" fill="#1B2028"><circle cx="238" cy="112" r="3"/><circle cx="262" cy="112" r="3"/></g>
+<path class="smile" d="M240 129 Q250 137 260 129" fill="none" stroke="#7A3B2E" stroke-width="3" stroke-linecap="round"/>
+<ellipse class="talk" cx="250" cy="131" rx="7" ry="5" fill="#7A3B2E"/></svg><div class="bubble"><h4>Explicația</h4><p class="expl">Uneori avem două cumpărături cu aceleași două feluri de obiecte și nu știm niciun preț. Le așezăm una sub alta și le comparăm. Dacă un fel de obiect apare în același număr în ambele, diferența de preț vine doar de la celălalt fel. Dacă nu apare în același număr, înmulțim una dintre cumpărături până când apare.</p><button type="button" class="say" hidden>▶ Ascultă explicația</button></div></div>
 <div class="ex"><h4>Exemplul rezolvat</h4><p>Trei caiete și 2 pixuri costă 23 de lei. Trei caiete și 5 pixuri costă 35 de lei. Caietele sunt la fel de multe, deci diferența de 35 − 23 = 12 lei vine de la cele 3 pixuri în plus. Un pix costă 12 : 3 = 4 lei. Apoi 3 caiete costă 23 − 2 × 4 = 15 lei, deci un caiet costă 5 lei.</p></div>
 <h4>Exerciții</h4><ol><li>Două kilograme de mere și 3 kg de pere costă 26 de lei. Două kilograme de mere și 5 kg de pere costă 38 de lei. Cât costă un kilogram din fiecare?</li><li>Patru bilete de adult și unul de copil costă 95 de lei. Patru bilete de adult și 3 de copil costă 125 de lei. Cât costă fiecare fel de bilet?</li><li>Cinci creioane și 2 gume costă 16 lei. Trei creioane și 2 gume costă 12 lei. Cât costă un creion și cât costă o gumă?</li><li>Un caiet și 2 pixuri costă 13 lei. Două caiete și 3 pixuri costă 22 de lei. Cât costă un caiet și cât costă un pix?</li><li>Trei saci de făină și 4 saci de zahăr cântăresc 310 kg. Șase saci de făină și 4 saci de zahăr cântăresc 460 kg. Cât cântărește un sac din fiecare?</li></ol>
 <p class="check"><b>Întrebarea de verificare.</b> La exercițiul 4 niciun obiect nu apare în același număr în cele două cumpărături. Ce faci înainte să compari?</p>
@@ -192,7 +282,12 @@ h2{font-size:clamp(26px,3.6vw,34px);margin:56px 0 8px}
 </div></details>
 <details class="lesson" id="lectia-11"><summary><span class="n">11</span><span class="t">Metoda figurativă</span></summary>
 <div class="body">
-<h4>Explicația</h4><p>Când o problemă vorbește despre numere „cu atât mai mari” sau „de atâtea ori mai mari”, un desen ajută mai mult decât un calcul. Desenăm numărul cel mai mic ca un segment. Celelalte numere se desenează folosind același segment, repetat sau prelungit. Apoi numărăm câte segmente egale avem în total și aflăm cât valorează unul.</p>
+<div class="prof-row"><svg class="avatar" viewBox="208 62 84 88" aria-hidden="true"><circle cx="250" cy="110" r="34" fill="#F2C9A0"/>
+<path d="M215 106 Q214 68 250 68 Q286 68 285 108 Q272 84 250 87 Q230 85 215 106Z" fill="#3A2E2A"/>
+<g fill="none" stroke="#1B2028" stroke-width="2.5"><circle cx="238" cy="112" r="10"/><circle cx="262" cy="112" r="10"/><path d="M248 112h4"/></g>
+<g class="eyes" fill="#1B2028"><circle cx="238" cy="112" r="3"/><circle cx="262" cy="112" r="3"/></g>
+<path class="smile" d="M240 129 Q250 137 260 129" fill="none" stroke="#7A3B2E" stroke-width="3" stroke-linecap="round"/>
+<ellipse class="talk" cx="250" cy="131" rx="7" ry="5" fill="#7A3B2E"/></svg><div class="bubble"><h4>Explicația</h4><p class="expl">Când o problemă vorbește despre numere „cu atât mai mari” sau „de atâtea ori mai mari”, un desen ajută mai mult decât un calcul. Desenăm numărul cel mai mic ca un segment. Celelalte numere se desenează folosind același segment, repetat sau prelungit. Apoi numărăm câte segmente egale avem în total și aflăm cât valorează unul.</p><button type="button" class="say" hidden>▶ Ascultă explicația</button></div></div>
 <div class="ex"><h4>Exemplul rezolvat</h4><p>Suma a două numere este 48, iar unul este de 3 ori mai mare decât celălalt. Numărul mic este un segment, cel mare este trei segmente, deci în total sunt 4 segmente egale. Un segment valorează 48 : 4 = 12. Numerele sunt 12 și 36.</p></div>
 <h4>Exerciții</h4><ol><li>Suma a două numere este 60, iar diferența lor este 14. Află numerele.</li><li>Ana are de 4 ori mai multe timbre decât Dan. Împreună au 85 de timbre. Câte are fiecare?</li><li>Suma a trei numere consecutive este 72. Află numerele.</li><li>Tatăl este cu 36 de ani mai mare decât fiul și are de 4 ori vârsta lui. Câți ani are fiecare?</li><li>Într-o curte sunt 54 de găini și rațe. Găinile sunt cu 6 mai multe decât dublul rațelor. Câte păsări sunt de fiecare fel?</li></ol>
 <p class="check"><b>Întrebarea de verificare.</b> La exercițiul 1, de ce scădem întâi diferența din sumă și abia apoi împărțim la 2?</p>
@@ -200,7 +295,12 @@ h2{font-size:clamp(26px,3.6vw,34px);margin:56px 0 8px}
 </div></details>
 <details class="lesson" id="lectia-12"><summary><span class="n">12</span><span class="t">Metoda mersului invers și metoda falsei ipoteze</span></summary>
 <div class="body">
-<h4>Explicația</h4><p>Mersul invers se folosește când știm rezultatul final și pașii făcuți, dar nu știm numărul de la care s-a pornit. Parcurgem pașii de la sfârșit spre început și facem de fiecare dată operația opusă: în loc de adunare scădem, în loc de înmulțire împărțim. Falsa ipoteză se folosește când avem două feluri de lucruri amestecate. Presupunem că toate sunt de un singur fel, vedem cu cât am greșit față de datele problemei și aflăm câte trebuie schimbate ca să dispară greșeala.</p>
+<div class="prof-row"><svg class="avatar" viewBox="208 62 84 88" aria-hidden="true"><circle cx="250" cy="110" r="34" fill="#F2C9A0"/>
+<path d="M215 106 Q214 68 250 68 Q286 68 285 108 Q272 84 250 87 Q230 85 215 106Z" fill="#3A2E2A"/>
+<g fill="none" stroke="#1B2028" stroke-width="2.5"><circle cx="238" cy="112" r="10"/><circle cx="262" cy="112" r="10"/><path d="M248 112h4"/></g>
+<g class="eyes" fill="#1B2028"><circle cx="238" cy="112" r="3"/><circle cx="262" cy="112" r="3"/></g>
+<path class="smile" d="M240 129 Q250 137 260 129" fill="none" stroke="#7A3B2E" stroke-width="3" stroke-linecap="round"/>
+<ellipse class="talk" cx="250" cy="131" rx="7" ry="5" fill="#7A3B2E"/></svg><div class="bubble"><h4>Explicația</h4><p class="expl">Mersul invers se folosește când știm rezultatul final și pașii făcuți, dar nu știm numărul de la care s-a pornit. Parcurgem pașii de la sfârșit spre început și facem de fiecare dată operația opusă: în loc de adunare scădem, în loc de înmulțire împărțim. Falsa ipoteză se folosește când avem două feluri de lucruri amestecate. Presupunem că toate sunt de un singur fel, vedem cu cât am greșit față de datele problemei și aflăm câte trebuie schimbate ca să dispară greșeala.</p><button type="button" class="say" hidden>▶ Ascultă explicația</button></div></div>
 <div class="ex"><h4>Exemplul rezolvat</h4><p>Mers invers: m-am gândit la un număr, l-am înmulțit cu 3, am adunat 7 și am obținut 31. Mergem înapoi: 31 − 7 = 24, apoi 24 : 3 = 8. Numărul este 8.</p><p>Falsa ipoteză: într-o curte sunt 20 de găini și iepuri, cu 56 de picioare în total. Presupunem că toate sunt găini: ar fi 20 × 2 = 40 de picioare, cu 16 mai puține. Fiecare iepure aduce 2 picioare în plus față de o găină, deci sunt 16 : 2 = 8 iepuri și 12 găini.</p></div>
 <h4>Exerciții</h4><ol><li>M-am gândit la un număr, am scăzut 5, am înmulțit cu 4 și am obținut 48. Care este numărul?</li><li>M-am gândit la un număr, l-am împărțit la 2, am adunat 9, am înmulțit cu 3 și am obținut 60. Care este numărul?</li><li>Maria cheltuie jumătate din bani pe o carte, apoi 12 lei pe un suc și rămâne cu 18 lei. Câți lei a avut la început?</li><li>Într-o parcare sunt 30 de mașini și motociclete, cu 96 de roți în total. Câte vehicule sunt de fiecare fel?</li><li>La un test cu 20 de întrebări primești 5 puncte pentru un răspuns corect și pierzi 2 puncte pentru unul greșit. Un elev răspunde la toate și obține 72 de puncte. Câte răspunsuri corecte are?</li></ol>
 <p class="check"><b>Întrebarea de verificare.</b> La exercițiul 5, de ce un răspuns greșit înseamnă 7 puncte mai puțin, nu 2?</p>
@@ -216,6 +316,58 @@ h2{font-size:clamp(26px,3.6vw,34px);margin:56px 0 8px}
     if(el&&el.tagName==='DETAILS'){el.open=true;el.scrollIntoView();}
   }
   window.addEventListener('hashchange',openHash);openHash();
+
+  // tabla: calculele se schimba pe rand
+  var tabla=document.getElementById('tabla'),calc=['2³ = 8','7 × 98 = 686','47 : 5 = 9 r. 2','5 + 2 × 3² = 23','3⁴ > 4³'],ci=0;
+  var still=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(tabla&&!still){setInterval(function(){
+    tabla.style.opacity=0;
+    setTimeout(function(){ci=(ci+1)%calc.length;tabla.textContent=calc[ci];tabla.style.opacity=1;},400);
+  },3200);}
+
+  // profesorul citeste explicatia cu voce tare
+  var synth=window.speechSynthesis;
+  if(!synth||!window.SpeechSynthesisUtterance)return;
+  var btns=[].slice.call(document.querySelectorAll('.say')),current=null,voice=null;
+  function pick(){
+    var v=synth.getVoices();
+    if(!v.length)return;
+    voice=null;
+    for(var i=0;i<v.length;i++){if(/^ro/i.test(v[i].lang)){voice=v[i];break;}}
+    btns.forEach(function(b){b.hidden=!voice;});
+  }
+  btns.forEach(function(b){b.hidden=false;});
+  pick();
+  if('onvoiceschanged' in synth)synth.onvoiceschanged=pick;
+  var sup={'⁰':'0','¹':'1','²':'2','³':'3','⁴':'4','⁵':'5','⁶':'6','⁷':'7','⁸':'8','⁹':'9'};
+  function spoken(t){
+    return t.replace(/[⁰¹²³⁴⁵⁶⁷⁸⁹]+/g,function(m){return ' la puterea '+m.split('').map(function(c){return sup[c];}).join('')+' ';})
+      .replace(/(\d)\s(?=\d{3}(?!\d))/g,'$1')
+      .replace(/×/g,' ori ').replace(/\s:\s/g,' împărțit la ').replace(/−/g,' minus ')
+      .replace(/[+]/g,' plus ').replace(/=/g,' egal ').replace(/>/g,' mai mare decât ');
+  }
+  function reset(){
+    if(!current)return;
+    current.setAttribute('aria-pressed','false');current.textContent='▶ Ascultă explicația';
+    current.closest('.prof-row').classList.remove('talking');current=null;
+  }
+  btns.forEach(function(b){
+    b.addEventListener('click',function(){
+      var same=current===b;
+      synth.cancel();reset();
+      if(same)return;
+      var u=new SpeechSynthesisUtterance(spoken(b.parentNode.querySelector('.expl').textContent));
+      u.lang='ro-RO';u.rate=.95;if(voice)u.voice=voice;
+      u.onend=u.onerror=function(){if(current===b)reset();};
+      current=b;b.setAttribute('aria-pressed','true');b.textContent='■ Oprește';
+      b.closest('.prof-row').classList.add('talking');
+      synth.speak(u);
+    });
+  });
+  document.querySelectorAll('.lesson').forEach(function(d){
+    d.addEventListener('toggle',function(){if(!d.open&&current&&d.contains(current)){synth.cancel();reset();}});
+  });
+  window.addEventListener('pagehide',function(){synth.cancel();});
 })();
 </script>
 </body>
