@@ -3,8 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Aplicația cumpărătorului pentru rezidențial premium · concept · draghicioiu.ro</title>
-<meta name="description" content="Concept pentru dezvoltatori imobiliari: cumpărătorul alege apartamentul pe etaje, urmărește șantierul cu poze, își găsește documentele și vede ratele. Demonstrație cu un ansamblu inventat.">
+<title>Aplicația cumpărătorului · concept pentru Britwood 144 · draghicioiu.ro</title>
+<meta name="robots" content="noindex">
+<meta name="description" content="Concept independent pentru dezvoltatori imobiliari, exemplificat pe Britwood 144: cumpărătorul alege apartamentul, urmărește șantierul, își găsește documentele și vede ratele.">
 <meta name="theme-color" content="#1F3A34">
 <link rel="canonical" href="https://draghicioiu.ro/rezidential-premium/">
 <meta property="og:title" content="Aplicația cumpărătorului pentru rezidențial premium">
@@ -35,7 +36,7 @@ h3{font-size:21px}
 :focus-visible{outline:3px solid var(--gold);outline-offset:2px}
 section{margin-top:76px}
 .sub{color:var(--muted);max-width:680px;margin:0 0 22px}
-.note{display:inline-block;padding:7px 12px;border-radius:10px;background:var(--gold-soft);color:var(--gold);font-weight:600;font-size:14px;margin-bottom:16px}
+.note{display:block;max-width:760px;margin-top:0;font-weight:500;padding:7px 12px;border-radius:10px;background:var(--gold-soft);color:var(--gold);font-size:14px;margin-bottom:16px}
 .shell{background:var(--surface);border:1px solid var(--border);border-radius:24px;overflow:hidden}
 .shell-h{background:var(--deep);color:var(--deep-ink);padding:18px 20px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
 .shell-h b{font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;font-size:22px;font-weight:600}
@@ -113,9 +114,9 @@ td.n,th.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
 <div class="top"><a href="/">← draghicioiu.ro</a><span><a href="#demo">Vezi demo ↓</a></span></div>
 
 <header>
-<p class="kicker">Concept · pentru dezvoltatori de rezidențial premium</p>
+<p class="kicker">Concept independent · exemplificat pe Britwood 144</p>
 <h1>Cumpărătorul vede tot, fără să sune pe nimeni.</h1>
-<p class="lede">Un site și o aplicație de iPhone cu numele ansamblului dumneavoastră: clientul alege apartamentul pe etaje, urmărește șantierul cu poze, își găsește documentele și știe exact ce rată urmează.</p>
+<p class="lede">Un site și o aplicație de iPhone cu numele ansamblului dumneavoastră: clientul alege apartamentul, urmărește șantierul cu poze, își găsește documentele și știe exact ce rată urmează.</p>
 <div class="cta">
 <a class="btn primary" href="#demo">Vezi demo-ul</a>
 <a class="btn" id="waTop" href="https://wa.me/40765373595">Discutăm despre proiectul dumneavoastră</a>
@@ -124,10 +125,10 @@ td.n,th.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
 
 <section id="demo" aria-labelledby="h-demo">
 <h2 id="h-demo">Demo: încercați-l ca un cumpărător</h2>
-<p class="sub">Patru ecrane, aceleași pe care le-ar avea clientul în aplicație. Apăsați pe etaje, pe apartamente și pe file.</p>
-<span class="note">Demonstrație: ansamblu, apartamente, prețuri și client inventate.</span>
+<p class="sub">Patru ecrane, aceleași pe care le-ar avea clientul în aplicație. Apăsați pe tipurile de apartamente, pe unități și pe file.</p>
+<p class="note">Datele despre proiect (adresă, 6 imobile, 139 de apartamente, suprafețe, finalizare 2027) sunt preluate de pe <a href="https://britwood144.ro/" rel="noopener">britwood144.ro</a> la 24 noiembrie 2026. Unitățile, disponibilitatea, etapele de șantier și contul de client sunt exemple de afișare, nu informații reale.</p>
 <div class="shell">
-<div class="shell-h"><b>Reședința Demo</b><span>24 de apartamente · P+5</span></div>
+<div class="shell-h"><b>Britwood 144 · concept</b><span>6 imobile · 139 apartamente · 199 locuri de parcare</span></div>
 <div class="tabs" role="tablist" aria-label="Ecranele aplicației">
 <button role="tab" id="t-apt" aria-controls="p-apt" aria-selected="true">Apartamente</button>
 <button role="tab" id="t-san" aria-controls="p-san" aria-selected="false" tabindex="-1">Șantier</button>
@@ -137,7 +138,7 @@ td.n,th.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
 
 <div class="panel" id="p-apt" role="tabpanel" aria-labelledby="t-apt">
 <div class="pick">
-<div><div class="roof" aria-hidden="true"></div><div class="tower" id="tower"></div></div>
+<div><div class="tower" id="tower"></div></div>
 <div>
 <p class="legend"><span><i style="background:var(--free)"></i>Disponibil</span><span><i style="background:var(--hold)"></i>Rezervat</span><span><i style="background:var(--sold)"></i>Vândut</span></p>
 <div class="apts" id="apts"></div>
@@ -147,22 +148,21 @@ td.n,th.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
 </div>
 
 <div class="panel" id="p-san" role="tabpanel" aria-labelledby="t-san" hidden>
-<p class="who">Cont client: <b>familia Exemplu</b> · apartamentul 14, etajul 3</p>
-<div class="kpis"><div class="kpi"><b>62%</b><span>lucrări executate</span></div><div class="kpi"><b>Fațadă</b><span>etapa în lucru</span></div><div class="kpi"><b>T4 2027</b><span>predare estimată</span></div></div>
-<div class="bar" role="img" aria-label="Lucrări executate: 62%"><i style="width:62%"></i></div>
+<p class="who">Cont client (exemplu): <b>familia Exemplu</b> · Imobilul 3, apartament cu 3 camere</p>
+<div class="kpis"><div class="kpi"><b>2027</b><span>finalizare anunțată de dezvoltator</span></div><div class="kpi"><b>6 etape</b><span>exemplu de afișare, nu stadiul real</span></div></div>
 <div id="stages" style="margin-top:14px"></div>
 </div>
 
 <div class="panel" id="p-doc" role="tabpanel" aria-labelledby="t-doc" hidden>
-<p class="who">Cont client: <b>familia Exemplu</b> · apartamentul 14, etajul 3</p>
+<p class="who">Cont client (exemplu): <b>familia Exemplu</b> · Imobilul 3, apartament cu 3 camere</p>
 <div id="docs"></div>
 </div>
 
 <div class="panel" id="p-rat" role="tabpanel" aria-labelledby="t-rat" hidden>
-<p class="who">Cont client: <b>familia Exemplu</b> · apartamentul 14, etajul 3</p>
+<p class="who">Cont client (exemplu): <b>familia Exemplu</b> · Imobilul 3, apartament cu 3 camere</p>
 <div class="kpis" id="rk"></div>
 <div class="bar" id="rbar" role="img"><i></i></div>
-<div class="tw"><table style="margin-top:14px"><thead><tr><th>Tranșă</th><th>Scadentă la</th><th class="n">Sumă</th><th>Stare</th></tr></thead><tbody id="rates"></tbody></table></div>
+<div class="tw"><table style="margin-top:14px"><thead><tr><th>Tranșă</th><th>Scadentă</th><th class="n">Din preț</th><th>Stare</th></tr></thead><tbody id="rates"></tbody></table></div>
 </div>
 </div>
 </section>
@@ -188,88 +188,91 @@ td.n,th.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
 <section aria-labelledby="h-fin">
 <div class="final">
 <h2 id="h-fin">Îl construiesc pe proiectul dumneavoastră</h2>
-<p>Ce vedeți mai sus este un concept, nu un produs livrat. Dacă dezvoltați un ansamblu rezidențial și vreți să vedeți demo-ul cu planurile și apartamentele reale, scrieți-mi și îl pregătesc pentru o întâlnire.</p>
+<p>Ce vedeți mai sus este un concept, nu un produs livrat. Cu planurile, stocul și stadiul real al lucrărilor, îl pregătesc pentru o întâlnire.</p>
 <div class="cta"><a class="btn" id="waBottom" href="https://wa.me/40765373595">Scrieți-mi pe WhatsApp</a></div>
 </div>
 </section>
 
-<p class="foot">Concept realizat de Daniel Drăghicioiu. „Reședința Demo” nu este un proiect imobiliar real, iar pagina nu reprezintă niciun dezvoltator. Publicat pe <a href="/">draghicioiu.ro</a>.</p>
+<p class="foot">Concept independent realizat de Daniel Drăghicioiu. Pagina nu este site-ul oficial Britwood 144 și nu este afiliată cu ANSI Holding; pentru oferte și informații reale despre proiect, vizitați <a href="https://britwood144.ro/" rel="noopener">britwood144.ro</a>. Publicat pe <a href="/">draghicioiu.ro</a>.</p>
 </div>
 
 <script>
 (function(){
 var $=function(i){return document.getElementById(i)};
 function el(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e}
-function eur(x){return x.toLocaleString('ro-RO')+' €'}
 
-/* apartamente */
-var T=[{k:'A',cam:2,mp:68,or:'Est'},{k:'B',cam:3,mp:96,or:'Sud'},{k:'C',cam:3,mp:104,or:'Vest'},{k:'D',cam:4,mp:138,or:'Sud-Vest'}];
-var S=['sold','sold','hold','sold', 'sold','free','sold','hold', 'free','sold','free','sold', 'free','sold','free','free', 'free','free','sold','free', 'hold','free','free','free'];
+/* apartamente: tipuri si suprafete de pe britwood144.ro; unitatile si starea lor sunt exemple */
+var T=[
+{k:'Studio',cam:1,mpc:47,mpu:37,ter:6,gr:48},
+{k:'2 camere',cam:2,mpc:84,mpu:69,ter:28,gr:0},
+{k:'3 camere',cam:3,mpc:122,mpu:100,ter:31,gr:213},
+{k:'4 camere',cam:4,mpc:175,mpu:148,ter:62,gr:0}];
+var S=[['free','sold','hold','free'],['sold','free','free','hold'],['free','hold','sold','free'],['free','free','sold','hold']];
 var SL={free:'Disponibil',hold:'Rezervat',sold:'Vândut'};
-var FL=['Parter','Etajul 1','Etajul 2','Etajul 3','Etajul 4','Etajul 5'];
 var A=[];
-for(var f=0;f<6;f++)for(var i=0;i<4;i++){var t=T[i],n=f*4+i+1;
-A.push({n:n,f:f,t:t,s:S[n-1],terasa:f===5?Math.round(t.mp*0.35):(f===0?Math.round(t.mp*0.25):8+i*2),pret:Math.round(t.mp*(3200+f*130)/1000)*1000})}
-var curF=3,curA=15;
+T.forEach(function(t,ti){for(var i=0;i<4;i++){var im=(ti+i*2)%6+1;A.push({id:ti*4+i,ti:ti,t:t,im:im,nr:im+'.'+('0'+(ti*3+i+2)).slice(-2),s:S[ti][i]})}});
+var curT=2,curA=8;
 function drawTower(){
 var box=$('tower');box.textContent='';
-for(var f=5;f>=0;f--)(function(f){
-var free=A.filter(function(a){return a.f===f&&a.s==='free'}).length;
-var b=el('button');b.type='button';b.setAttribute('aria-pressed',f===curF?'true':'false');
-b.appendChild(el('span',null,FL[f]));b.appendChild(el('small',null,free?free+' libere':'ocupat'));
-b.onclick=function(){curF=f;curA=A.filter(function(a){return a.f===f})[0].n;drawTower();drawApts()};
-box.appendChild(b)})(f);
+T.forEach(function(t,ti){
+var b=el('button');b.type='button';b.setAttribute('aria-pressed',ti===curT?'true':'false');
+b.appendChild(el('span',null,t.k));b.appendChild(el('small',null,'până la '+t.mpu+' mpu'));
+b.onclick=function(){curT=ti;curA=ti*4;drawTower();drawApts()};
+box.appendChild(b)});
 }
 function drawApts(){
 var box=$('apts');box.textContent='';
-A.filter(function(a){return a.f===curF}).forEach(function(a){
-var b=el('button','apt');b.type='button';b.setAttribute('aria-pressed',a.n===curA?'true':'false');
-b.appendChild(el('b',null,'Ap. '+a.n));b.appendChild(el('small',null,a.t.cam+' camere · '+a.t.mp+' m²'));
+A.filter(function(a){return a.ti===curT}).forEach(function(a){
+var b=el('button','apt');b.type='button';b.setAttribute('aria-pressed',a.id===curA?'true':'false');
+b.appendChild(el('b',null,'Ap. '+a.nr));b.appendChild(el('small',null,'Imobilul '+a.im+' · '+a.t.k));
 b.appendChild(el('span','pill s-'+a.s,SL[a.s]));
-b.onclick=function(){curA=a.n;drawApts()};box.appendChild(b)});
+b.onclick=function(){curA=a.id;drawApts()};box.appendChild(b)});
 drawDetail();
 }
 function planSvg(a){
 var ns='http://www.w3.org/2000/svg',s=document.createElementNS(ns,'svg');
 s.setAttribute('viewBox','0 0 200 140');s.setAttribute('class','plan');s.setAttribute('role','img');
-s.setAttribute('aria-label','Schiță orientativă a apartamentului');
-var R=[[4,4,112,78,'Living'],[116,4,80,78,'Dormitor'],[4,82,60,54,'Bucătărie'],[64,82,44,54,'Baie']];
-if(a.t.cam>=3)R.push([108,82,88,54,'Dormitor']);else R.push([108,82,88,54,'Terasă']);
+s.setAttribute('aria-label','Schiță ilustrativă, nu planul real');
+var R=a.t.cam===1?[[4,4,192,78,'Living cu loc de dormit'],[4,82,96,54,'Bucătărie'],[100,82,96,54,'Baie']]:
+[[4,4,112,78,'Living'],[116,4,80,78,'Dormitor'],[4,82,60,54,'Bucătărie'],[64,82,44,54,'Baie'],[108,82,88,54,a.t.cam>=3?'Dormitor':'Terasă']];
 R.forEach(function(r){var q=document.createElementNS(ns,'rect');q.setAttribute('x',r[0]);q.setAttribute('y',r[1]);q.setAttribute('width',r[2]);q.setAttribute('height',r[3]);s.appendChild(q);
 var t=document.createElementNS(ns,'text');t.setAttribute('x',r[0]+6);t.setAttribute('y',r[1]+14);t.textContent=r[4];s.appendChild(t)});
 return s}
 function drawDetail(){
-var a=A[curA-1],box=$('detail');box.textContent='';
-var l=el('div');l.appendChild(el('h3',null,'Apartamentul '+a.n+' · '+FL[a.f]));
+var a=A[curA],t=a.t,box=$('detail');box.textContent='';
+var l=el('div');l.appendChild(el('h3',null,'Ap. '+a.nr+' · Imobilul '+a.im));
 var dl=el('dl');
-[['Camere',a.t.cam],['Suprafață utilă',a.t.mp+' m²'],['Terasă',a.terasa+' m²'],['Orientare',a.t.or],['Stare',SL[a.s]],['Preț',a.s==='sold'?'—':eur(a.pret)+' + TVA']].forEach(function(r){dl.appendChild(el('dt',null,r[0]));dl.appendChild(el('dd',null,String(r[1])))});
+var rows=[['Tip',t.k],['Suprafață construită','până la '+t.mpc+' mp'],['Suprafață utilă','până la '+t.mpu+' mp'],['Terasă','până la '+t.ter+' mp']];
+if(t.gr)rows.push(['Grădină','până la '+t.gr+' mp']);
+rows.push(['Stare (exemplu)',SL[a.s]],['Preț','la cerere']);
+rows.forEach(function(r){dl.appendChild(el('dt',null,r[0]));dl.appendChild(el('dd',null,String(r[1])))});
 l.appendChild(dl);box.appendChild(l);box.appendChild(planSvg(a));
 }
 
-/* santier */
+/* santier: etape generice, ca exemplu */
 var ST=[
-['done','Fundație și subsol','finalizat · martie 2026',['Radier','Subsol']],
-['done','Structură de rezistență','finalizat · septembrie 2026',['Etajul 3','Ultimul planșeu']],
-['done','Închideri și acoperiș','finalizat · noiembrie 2026',['Tâmplărie']],
-['now','Fațadă și instalații','în lucru · estimat martie 2027',['Fațada sud','Instalații et. 3']],
-['','Finisaje interioare','urmează · estimat august 2027',[]],
-['','Recepție și predare','urmează · T4 2027',[]]];
+['done','Fundație și subsol','finalizat',['Radier','Subsol']],
+['done','Structură de rezistență','finalizat',['Planșeu','Ultimul nivel']],
+['now','Închideri și acoperiș','în lucru',['Tâmplărie']],
+['','Fațadă și instalații','urmează',[]],
+['','Finisaje interioare','urmează',[]],
+['','Recepție și predare','urmează · 2027',[]]];
 var G=['linear-gradient(135deg,#7C8A84,#39463F)','linear-gradient(135deg,#B49A6A,#5C4A2A)','linear-gradient(135deg,#8FA3B0,#3F525E)','linear-gradient(135deg,#A9A08E,#55503F)'];
 function drawStages(){
 var box=$('stages'),g=0;
 ST.forEach(function(s){
 var r=el('div','stage');r.appendChild(el('div','tick '+s[0],s[0]==='done'?'✓':s[0]==='now'?'•':''));
 var m=el('div');m.appendChild(el('b',null,s[1]));m.appendChild(el('small',null,s[2]));
-if(s[3].length){var sh=el('div','shots');s[3].forEach(function(c){var p=el('div','shot','Foto: '+c);p.style.background=G[g++%4];sh.appendChild(p)});m.appendChild(sh)}
+if(s[3].length){var sh=el('div','shots');s[3].forEach(function(c){var p=el('div','shot','Loc foto: '+c);p.style.background=G[g++%4];sh.appendChild(p)});m.appendChild(sh)}
 r.appendChild(m);box.appendChild(r)});
 }
 
 /* documente */
 var D=[
-['Promisiune de vânzare','semnată · 12 ianuarie 2026','Semnat','free'],
-['Planul apartamentului 14','PDF · versiunea de execuție','Disponibil','free'],
-['Lista de finisaje alese','actualizată · 3 octombrie 2026','Disponibil','free'],
-['Proces-verbal de vizită pe șantier','20 noiembrie 2026','Nou','hold'],
+['Promisiune de vânzare','semnată','Semnat','free'],
+['Planul apartamentului','PDF · versiunea de execuție','Disponibil','free'],
+['Lista de finisaje alese','actualizată după ultima întâlnire','Disponibil','free'],
+['Proces-verbal de vizită pe șantier','adăugat săptămâna aceasta','Nou','hold'],
 ['Contract de vânzare-cumpărare','se încarcă la predare','În așteptare','sold']];
 function drawDocs(){
 var box=$('docs');
@@ -277,17 +280,16 @@ D.forEach(function(d){var r=el('div','doc'),m=el('div');m.appendChild(el('b',nul
 r.appendChild(m);r.appendChild(el('span','s-'+d[3],d[2]));box.appendChild(r)});
 }
 
-/* rate */
+/* rate: doar procente, fara sume */
 function drawRates(){
-var a=A[13],P=a.pret;
-var R=[['Avans la semnare',15,'12 ian. 2026',1],['La finalizarea fundației',15,'31 mar. 2026',1],['La finalizarea structurii',20,'30 sept. 2026',1],['La închideri și acoperiș',15,'15 dec. 2026',0],['La finisaje',15,'31 aug. 2027',0],['La predare',20,'T4 2027',0]];
+var R=[['Avans',15,'la semnare',1],['Tranșa 2',15,'la finalizarea fundației',1],['Tranșa 3',20,'la finalizarea structurii',1],['Tranșa 4',15,'la închideri și acoperiș',0],['Tranșa 5',15,'la finisaje',0],['Tranșa finală',20,'la predare',0]];
 var paid=0,next=null,tb=$('rates');
-R.forEach(function(r){var s=Math.round(P*r[1]/100);if(r[3])paid+=s;else if(!next)next={s:s,d:r[2]};
-var tr=el('tr');tr.appendChild(el('td',null,r[0]+' ('+r[1]+'%)'));tr.appendChild(el('td',null,r[2]));tr.appendChild(el('td','n',eur(s)));
-var td=el('td');td.appendChild(el('span','pill '+(r[3]?'s-free':(next&&next.d===r[2]?'s-hold':'s-sold')),r[3]?'Plătită':(next&&next.d===r[2]?'Urmează':'Programată')));td.firstChild.style.marginTop='0';
+R.forEach(function(r){if(r[3])paid+=r[1];else if(!next)next=r;
+var tr=el('tr');tr.appendChild(el('td',null,r[0]));tr.appendChild(el('td',null,r[2]));tr.appendChild(el('td','n',r[1]+'%'));
+var td=el('td');td.appendChild(el('span','pill '+(r[3]?'s-free':(next===r?'s-hold':'s-sold')),r[3]?'Plătită':(next===r?'Urmează':'Programată')));td.firstChild.style.marginTop='0';
 tr.appendChild(td);tb.appendChild(tr)});
-var k=$('rk');[[eur(P),'preț fără TVA'],[eur(paid),'plătit până acum'],[eur(next.s),'următoarea rată · '+next.d]].forEach(function(x){var d=el('div','kpi');d.appendChild(el('b',null,x[0]));d.appendChild(el('span',null,x[1]));k.appendChild(d)});
-var pc=Math.round(paid/P*100);$('rbar').firstChild.style.width=pc+'%';$('rbar').setAttribute('aria-label','Plătit: '+pc+'%');
+var k=$('rk');[[paid+'%','plătit din preț'],[next[1]+'%','următoarea tranșă · '+next[2]],['Sume','se preiau din contractul clientului']].forEach(function(x){var d=el('div','kpi');d.appendChild(el('b',null,x[0]));d.appendChild(el('span',null,x[1]));k.appendChild(d)});
+$('rbar').firstChild.style.width=paid+'%';$('rbar').setAttribute('aria-label','Plătit: '+paid+'%');
 }
 
 /* file */
