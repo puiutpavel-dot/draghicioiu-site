@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Aplicația cumpărătorului pentru rezidențial premium · concept · draghicioiu.ro</title>
+<meta name="description" content="Concept pentru dezvoltatori imobiliari: cumpărătorul alege apartamentul pe etaje, urmărește șantierul cu poze, își găsește documentele și vede ratele. Demonstrație cu un ansamblu inventat.">
+<meta name="theme-color" content="#1F3A34">
+<link rel="canonical" href="https://draghicioiu.ro/rezidential-premium/">
+<meta property="og:title" content="Aplicația cumpărătorului pentru rezidențial premium">
+<meta property="og:description" content="Apartamente pe etaje, stadiul șantierului, documente și rate, într-un singur loc. Concept cu demo funcțional.">
+<meta property="og:url" content="https://draghicioiu.ro/rezidential-premium/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect x='3' y='3' width='18' height='18' rx='6' fill='%231F3A34'/%3E%3Cpath d='M8 17V8h8v9M8 11h8M8 14h8' stroke='%23E9D9B5' stroke-width='1.4' fill='none'/%3E%3C/svg%3E">
+<style>
+:root{--bg:#F5F1E8;--surface:#FFFDF8;--ink:#1B2421;--muted:#5F6A65;--deep:#1F3A34;--deep-ink:#F3EBD8;--gold:#8A6A2B;--gold-soft:#EFE4C8;--free:#1E6B4A;--free-soft:#DCEEE3;--hold:#8A6A2B;--hold-soft:#F1E6C9;--sold:#7B8480;--sold-soft:#E6E6E0;--border:#DDD5C3;color-scheme:light}
+@media (prefers-color-scheme: dark){:root{--bg:#101614;--surface:#18201D;--ink:#EEEADF;--muted:#A2ADA7;--deep:#24443C;--deep-ink:#F3EBD8;--gold:#D9BC7C;--gold-soft:#33301F;--free:#86D3AC;--free-soft:#1A3227;--hold:#E0C078;--hold-soft:#342D18;--sold:#8D9692;--sold-soft:#252B29;--border:#2C3632;color-scheme:dark}}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;font-size:17px;line-height:1.6;overflow-wrap:break-word}
+a{color:var(--gold)}
+.wrap{max-width:1080px;margin:0 auto;padding:20px 16px 72px}
+.top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.top a{color:var(--muted);text-decoration:none;font-weight:600;min-height:44px;display:inline-flex;align-items:center}
+.top a:hover{color:var(--ink)}
+h1,h2,h3{font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;font-weight:600;line-height:1.12;letter-spacing:-.01em;margin:0}
+h1{font-size:clamp(36px,6.4vw,64px);max-width:16ch}
+h2{font-size:clamp(27px,4vw,40px);margin-bottom:10px}
+h3{font-size:21px}
+.kicker{margin:44px 0 14px;color:var(--gold);font-weight:700;font-size:13px;letter-spacing:.14em;text-transform:uppercase}
+.lede{font-size:clamp(18px,2.3vw,21px);color:var(--muted);max-width:650px;margin:18px 0 0}
+.cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:50px;padding:0 22px;border-radius:12px;font:inherit;font-weight:700;text-decoration:none;border:1px solid var(--border);background:var(--surface);color:var(--ink);cursor:pointer}
+.btn.primary{background:var(--deep);border-color:var(--deep);color:var(--deep-ink)}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+section{margin-top:76px}
+.sub{color:var(--muted);max-width:680px;margin:0 0 22px}
+.note{display:inline-block;padding:7px 12px;border-radius:10px;background:var(--gold-soft);color:var(--gold);font-weight:600;font-size:14px;margin-bottom:16px}
+.shell{background:var(--surface);border:1px solid var(--border);border-radius:24px;overflow:hidden}
+.shell-h{background:var(--deep);color:var(--deep-ink);padding:18px 20px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.shell-h b{font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;font-size:22px;font-weight:600}
+.shell-h span{font-size:13px;letter-spacing:.1em;text-transform:uppercase;opacity:.8}
+.tabs{display:flex;gap:4px;padding:8px;border-bottom:1px solid var(--border);overflow-x:auto}
+.tabs button{flex:1 0 auto;min-height:46px;padding:0 16px;border-radius:10px;border:0;background:transparent;color:var(--muted);font:inherit;font-weight:700;cursor:pointer;white-space:nowrap}
+.tabs button[aria-selected="true"]{background:var(--gold-soft);color:var(--gold)}
+.panel{padding:20px}
+.panel[hidden]{display:none}
+.pick{display:grid;grid-template-columns:220px minmax(0,1fr);gap:20px;align-items:start}
+@media (max-width:760px){.pick{grid-template-columns:1fr}}
+.tower{display:flex;flex-direction:column;gap:5px}
+.tower button{display:flex;justify-content:space-between;align-items:center;gap:8px;min-height:46px;padding:0 14px;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--ink);font:inherit;font-weight:600;cursor:pointer;text-align:left}
+.tower button small{color:var(--muted);font-weight:500;font-size:13px}
+.tower button[aria-pressed="true"]{background:var(--deep);border-color:var(--deep);color:var(--deep-ink)}
+.tower button[aria-pressed="true"] small{color:var(--deep-ink);opacity:.8}
+.roof{height:10px;border-radius:8px 8px 0 0;background:var(--border);margin:0 18px}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:14px;color:var(--muted);margin:0 0 12px}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px}
+.apts{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.apt{display:block;width:100%;text-align:left;padding:14px;border-radius:14px;border:1px solid var(--border);background:var(--bg);color:var(--ink);font:inherit;cursor:pointer}
+.apt[aria-pressed="true"]{border-color:var(--gold);box-shadow:0 0 0 2px var(--gold) inset}
+.apt b{display:block;font-size:17px}
+.apt small{display:block;color:var(--muted);font-size:14px}
+.pill{display:inline-block;margin-top:8px;padding:2px 9px;border-radius:999px;font-size:12px;font-weight:700}
+.s-free{background:var(--free-soft);color:var(--free)}
+.s-hold{background:var(--hold-soft);color:var(--hold)}
+.s-sold{background:var(--sold-soft);color:var(--sold)}
+.detail{margin-top:16px;padding:18px;border-radius:16px;border:1px solid var(--border);display:grid;grid-template-columns:minmax(0,1fr) 200px;gap:18px;align-items:center}
+@media (max-width:620px){.detail{grid-template-columns:1fr}}
+.detail dl{display:grid;grid-template-columns:auto 1fr;gap:4px 16px;margin:10px 0 0;font-size:16px}
+.detail dt{color:var(--muted)}
+.detail dd{margin:0;font-weight:600;font-variant-numeric:tabular-nums}
+.plan{width:100%;height:auto;color:var(--muted)}
+.plan rect{fill:none;stroke:currentColor;stroke-width:1.5}
+.plan text{fill:currentColor;font-size:9px;font-family:system-ui,sans-serif}
+.who{font-size:15px;color:var(--muted);margin:0 0 16px}
+.who b{color:var(--ink)}
+.bar{height:10px;border-radius:999px;background:var(--border);overflow:hidden}
+.bar i{display:block;height:100%;background:var(--free);border-radius:999px}
+.stage{display:grid;grid-template-columns:28px minmax(0,1fr);gap:12px;padding:14px 0;border-top:1px solid var(--border)}
+.tick{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;border:2px solid var(--border);color:var(--muted)}
+.tick.done{background:var(--free);border-color:var(--free);color:var(--surface)}
+.tick.now{border-color:var(--gold);color:var(--gold)}
+.stage b{display:block}
+.stage small{color:var(--muted);font-size:14px}
+.shots{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.shot{width:104px;height:72px;border-radius:10px;display:flex;align-items:flex-end;padding:6px;font-size:11px;font-weight:600;color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.5)}
+.doc{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 0;border-top:1px solid var(--border)}
+.doc b{display:block}
+.doc small{color:var(--muted);font-size:14px}
+.doc span{flex:none;font-size:13px;font-weight:700;padding:4px 10px;border-radius:999px}
+table{width:100%;border-collapse:collapse;font-size:16px}
+th,td{text-align:left;padding:12px 8px;border-top:1px solid var(--border);vertical-align:top}
+th{font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);border-top:0}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.tw{overflow-x:auto}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:16px}
+.kpi{background:var(--bg);border-radius:14px;padding:12px 14px}
+.kpi b{display:block;font-size:22px;font-variant-numeric:tabular-nums;line-height:1.15}
+.kpi span{font-size:13px;color:var(--muted)}
+.grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:22px}
+.card p{margin:8px 0 0;color:var(--muted);font-size:16px}
+.final{background:var(--deep);color:var(--deep-ink);border-radius:24px;padding:clamp(24px,4vw,44px)}
+.final p{max-width:620px;opacity:.85}
+.final .btn{background:var(--deep-ink);border-color:var(--deep-ink);color:#1F3A34}
+.foot{margin-top:56px;font-size:14px;color:var(--muted)}
+@media (max-width:560px){.tabs button{padding:0 9px;font-size:15px}.panel{padding:16px}thead{display:none}tbody tr{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 12px;padding:12px 0;border-top:1px solid var(--border)}td{border:0;padding:0}td:nth-child(1){font-weight:600}td:nth-child(2){grid-row:2;grid-column:1;color:var(--muted);font-size:14px}td.n{grid-row:1;grid-column:2;font-weight:700}td:nth-child(4){grid-row:2;grid-column:2;text-align:right}}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="top"><a href="/">← draghicioiu.ro</a><span><a href="#demo">Vezi demo ↓</a></span></div>
+
+<header>
+<p class="kicker">Concept · pentru dezvoltatori de rezidențial premium</p>
+<h1>Cumpărătorul vede tot, fără să sune pe nimeni.</h1>
+<p class="lede">Un site și o aplicație de iPhone cu numele ansamblului dumneavoastră: clientul alege apartamentul pe etaje, urmărește șantierul cu poze, își găsește documentele și știe exact ce rată urmează.</p>
+<div class="cta">
+<a class="btn primary" href="#demo">Vezi demo-ul</a>
+<a class="btn" id="waTop" href="https://wa.me/40765373595">Discutăm despre proiectul dumneavoastră</a>
+</div>
+</header>
+
+<section id="demo" aria-labelledby="h-demo">
+<h2 id="h-demo">Demo: încercați-l ca un cumpărător</h2>
+<p class="sub">Patru ecrane, aceleași pe care le-ar avea clientul în aplicație. Apăsați pe etaje, pe apartamente și pe file.</p>
+<span class="note">Demonstrație: ansamblu, apartamente, prețuri și client inventate.</span>
+<div class="shell">
+<div class="shell-h"><b>Reședința Demo</b><span>24 de apartamente · P+5</span></div>
+<div class="tabs" role="tablist" aria-label="Ecranele aplicației">
+<button role="tab" id="t-apt" aria-controls="p-apt" aria-selected="true">Apartamente</button>
+<button role="tab" id="t-san" aria-controls="p-san" aria-selected="false" tabindex="-1">Șantier</button>
+<button role="tab" id="t-doc" aria-controls="p-doc" aria-selected="false" tabindex="-1">Documente</button>
+<button role="tab" id="t-rat" aria-controls="p-rat" aria-selected="false" tabindex="-1">Rate</button>
+</div>
+
+<div class="panel" id="p-apt" role="tabpanel" aria-labelledby="t-apt">
+<div class="pick">
+<div><div class="roof" aria-hidden="true"></div><div class="tower" id="tower"></div></div>
+<div>
+<p class="legend"><span><i style="background:var(--free)"></i>Disponibil</span><span><i style="background:var(--hold)"></i>Rezervat</span><span><i style="background:var(--sold)"></i>Vândut</span></p>
+<div class="apts" id="apts"></div>
+<div class="detail" id="detail" aria-live="polite"></div>
+</div>
+</div>
+</div>
+
+<div class="panel" id="p-san" role="tabpanel" aria-labelledby="t-san" hidden>
+<p class="who">Cont client: <b>familia Exemplu</b> · apartamentul 14, etajul 3</p>
+<div class="kpis"><div class="kpi"><b>62%</b><span>lucrări executate</span></div><div class="kpi"><b>Fațadă</b><span>etapa în lucru</span></div><div class="kpi"><b>T4 2027</b><span>predare estimată</span></div></div>
+<div class="bar" role="img" aria-label="Lucrări executate: 62%"><i style="width:62%"></i></div>
+<div id="stages" style="margin-top:14px"></div>
+</div>
+
+<div class="panel" id="p-doc" role="tabpanel" aria-labelledby="t-doc" hidden>
+<p class="who">Cont client: <b>familia Exemplu</b> · apartamentul 14, etajul 3</p>
+<div id="docs"></div>
+</div>
+
+<div class="panel" id="p-rat" role="tabpanel" aria-labelledby="t-rat" hidden>
+<p class="who">Cont client: <b>familia Exemplu</b> · apartamentul 14, etajul 3</p>
+<div class="kpis" id="rk"></div>
+<div class="bar" id="rbar" role="img"><i></i></div>
+<div class="tw"><table style="margin-top:14px"><thead><tr><th>Tranșă</th><th>Scadentă la</th><th class="n">Sumă</th><th>Stare</th></tr></thead><tbody id="rates"></tbody></table></div>
+</div>
+</div>
+</section>
+
+<section aria-labelledby="h-ce">
+<h2 id="h-ce">Ce câștigă dezvoltatorul</h2>
+<div class="grid3">
+<div class="card"><h3>Mai puține telefoane</h3><p>„Cât mai durează?” și „Când am următoarea rată?” primesc răspuns în aplicație, nu la echipa de vânzări.</p></div>
+<div class="card"><h3>Stoc mereu la zi</h3><p>Un apartament rezervat apare ca rezervat peste tot, în aceeași clipă. Fără liste trimise pe e-mail.</p></div>
+<div class="card"><h3>Argument de vânzare</h3><p>La un apartament premium, clientul se așteaptă la aceeași grijă și după semnare. Aplicația o arată în fiecare săptămână.</p></div>
+</div>
+</section>
+
+<section aria-labelledby="h-cum">
+<h2 id="h-cum">Cum lucrăm</h2>
+<div class="grid3">
+<div class="card"><h3>1. Planuri și stoc</h3><p>Primesc planurile pe etaje și lista de apartamente. Le pun în site și în aplicație cu identitatea ansamblului.</p></div>
+<div class="card"><h3>2. Pilot pe un proiect</h3><p>Pornim cu un singur ansamblu. Echipa dumneavoastră actualizează stadiul și pozele dintr-un panou simplu.</p></div>
+<div class="card"><h3>3. Aplicația în App Store</h3><p>Aplicația de iPhone se publică sub numele dezvoltatorului, cu acces pe bază de cont pentru fiecare cumpărător.</p></div>
+</div>
+</section>
+
+<section aria-labelledby="h-fin">
+<div class="final">
+<h2 id="h-fin">Îl construiesc pe proiectul dumneavoastră</h2>
+<p>Ce vedeți mai sus este un concept, nu un produs livrat. Dacă dezvoltați un ansamblu rezidențial și vreți să vedeți demo-ul cu planurile și apartamentele reale, scrieți-mi și îl pregătesc pentru o întâlnire.</p>
+<div class="cta"><a class="btn" id="waBottom" href="https://wa.me/40765373595">Scrieți-mi pe WhatsApp</a></div>
+</div>
+</section>
+
+<p class="foot">Concept realizat de Daniel Drăghicioiu. „Reședința Demo” nu este un proiect imobiliar real, iar pagina nu reprezintă niciun dezvoltator. Publicat pe <a href="/">draghicioiu.ro</a>.</p>
+</div>
+
+<script>
+(function(){
+var $=function(i){return document.getElementById(i)};
+function el(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e}
+function eur(x){return x.toLocaleString('ro-RO')+' €'}
+
+/* apartamente */
+var T=[{k:'A',cam:2,mp:68,or:'Est'},{k:'B',cam:3,mp:96,or:'Sud'},{k:'C',cam:3,mp:104,or:'Vest'},{k:'D',cam:4,mp:138,or:'Sud-Vest'}];
+var S=['sold','sold','hold','sold', 'sold','free','sold','hold', 'free','sold','free','sold', 'free','sold','free','free', 'free','free','sold','free', 'hold','free','free','free'];
+var SL={free:'Disponibil',hold:'Rezervat',sold:'Vândut'};
+var FL=['Parter','Etajul 1','Etajul 2','Etajul 3','Etajul 4','Etajul 5'];
+var A=[];
+for(var f=0;f<6;f++)for(var i=0;i<4;i++){var t=T[i],n=f*4+i+1;
+A.push({n:n,f:f,t:t,s:S[n-1],terasa:f===5?Math.round(t.mp*0.35):(f===0?Math.round(t.mp*0.25):8+i*2),pret:Math.round(t.mp*(3200+f*130)/1000)*1000})}
+var curF=3,curA=15;
+function drawTower(){
+var box=$('tower');box.textContent='';
+for(var f=5;f>=0;f--)(function(f){
+var free=A.filter(function(a){return a.f===f&&a.s==='free'}).length;
+var b=el('button');b.type='button';b.setAttribute('aria-pressed',f===curF?'true':'false');
+b.appendChild(el('span',null,FL[f]));b.appendChild(el('small',null,free?free+' libere':'ocupat'));
+b.onclick=function(){curF=f;curA=A.filter(function(a){return a.f===f})[0].n;drawTower();drawApts()};
+box.appendChild(b)})(f);
+}
+function drawApts(){
+var box=$('apts');box.textContent='';
+A.filter(function(a){return a.f===curF}).forEach(function(a){
+var b=el('button','apt');b.type='button';b.setAttribute('aria-pressed',a.n===curA?'true':'false');
+b.appendChild(el('b',null,'Ap. '+a.n));b.appendChild(el('small',null,a.t.cam+' camere · '+a.t.mp+' m²'));
+b.appendChild(el('span','pill s-'+a.s,SL[a.s]));
+b.onclick=function(){curA=a.n;drawApts()};box.appendChild(b)});
+drawDetail();
+}
+function planSvg(a){
+var ns='http://www.w3.org/2000/svg',s=document.createElementNS(ns,'svg');
+s.setAttribute('viewBox','0 0 200 140');s.setAttribute('class','plan');s.setAttribute('role','img');
+s.setAttribute('aria-label','Schiță orientativă a apartamentului');
+var R=[[4,4,112,78,'Living'],[116,4,80,78,'Dormitor'],[4,82,60,54,'Bucătărie'],[64,82,44,54,'Baie']];
+if(a.t.cam>=3)R.push([108,82,88,54,'Dormitor']);else R.push([108,82,88,54,'Terasă']);
+R.forEach(function(r){var q=document.createElementNS(ns,'rect');q.setAttribute('x',r[0]);q.setAttribute('y',r[1]);q.setAttribute('width',r[2]);q.setAttribute('height',r[3]);s.appendChild(q);
+var t=document.createElementNS(ns,'text');t.setAttribute('x',r[0]+6);t.setAttribute('y',r[1]+14);t.textContent=r[4];s.appendChild(t)});
+return s}
+function drawDetail(){
+var a=A[curA-1],box=$('detail');box.textContent='';
+var l=el('div');l.appendChild(el('h3',null,'Apartamentul '+a.n+' · '+FL[a.f]));
+var dl=el('dl');
+[['Camere',a.t.cam],['Suprafață utilă',a.t.mp+' m²'],['Terasă',a.terasa+' m²'],['Orientare',a.t.or],['Stare',SL[a.s]],['Preț',a.s==='sold'?'—':eur(a.pret)+' + TVA']].forEach(function(r){dl.appendChild(el('dt',null,r[0]));dl.appendChild(el('dd',null,String(r[1])))});
+l.appendChild(dl);box.appendChild(l);box.appendChild(planSvg(a));
+}
+
+/* santier */
+var ST=[
+['done','Fundație și subsol','finalizat · martie 2026',['Radier','Subsol']],
+['done','Structură de rezistență','finalizat · septembrie 2026',['Etajul 3','Ultimul planșeu']],
+['done','Închideri și acoperiș','finalizat · noiembrie 2026',['Tâmplărie']],
+['now','Fațadă și instalații','în lucru · estimat martie 2027',['Fațada sud','Instalații et. 3']],
+['','Finisaje interioare','urmează · estimat august 2027',[]],
+['','Recepție și predare','urmează · T4 2027',[]]];
+var G=['linear-gradient(135deg,#7C8A84,#39463F)','linear-gradient(135deg,#B49A6A,#5C4A2A)','linear-gradient(135deg,#8FA3B0,#3F525E)','linear-gradient(135deg,#A9A08E,#55503F)'];
+function drawStages(){
+var box=$('stages'),g=0;
+ST.forEach(function(s){
+var r=el('div','stage');r.appendChild(el('div','tick '+s[0],s[0]==='done'?'✓':s[0]==='now'?'•':''));
+var m=el('div');m.appendChild(el('b',null,s[1]));m.appendChild(el('small',null,s[2]));
+if(s[3].length){var sh=el('div','shots');s[3].forEach(function(c){var p=el('div','shot','Foto: '+c);p.style.background=G[g++%4];sh.appendChild(p)});m.appendChild(sh)}
+r.appendChild(m);box.appendChild(r)});
+}
+
+/* documente */
+var D=[
+['Promisiune de vânzare','semnată · 12 ianuarie 2026','Semnat','free'],
+['Planul apartamentului 14','PDF · versiunea de execuție','Disponibil','free'],
+['Lista de finisaje alese','actualizată · 3 octombrie 2026','Disponibil','free'],
+['Proces-verbal de vizită pe șantier','20 noiembrie 2026','Nou','hold'],
+['Contract de vânzare-cumpărare','se încarcă la predare','În așteptare','sold']];
+function drawDocs(){
+var box=$('docs');
+D.forEach(function(d){var r=el('div','doc'),m=el('div');m.appendChild(el('b',null,d[0]));m.appendChild(el('small',null,d[1]));
+r.appendChild(m);r.appendChild(el('span','s-'+d[3],d[2]));box.appendChild(r)});
+}
+
+/* rate */
+function drawRates(){
+var a=A[13],P=a.pret;
+var R=[['Avans la semnare',15,'12 ian. 2026',1],['La finalizarea fundației',15,'31 mar. 2026',1],['La finalizarea structurii',20,'30 sept. 2026',1],['La închideri și acoperiș',15,'15 dec. 2026',0],['La finisaje',15,'31 aug. 2027',0],['La predare',20,'T4 2027',0]];
+var paid=0,next=null,tb=$('rates');
+R.forEach(function(r){var s=Math.round(P*r[1]/100);if(r[3])paid+=s;else if(!next)next={s:s,d:r[2]};
+var tr=el('tr');tr.appendChild(el('td',null,r[0]+' ('+r[1]+'%)'));tr.appendChild(el('td',null,r[2]));tr.appendChild(el('td','n',eur(s)));
+var td=el('td');td.appendChild(el('span','pill '+(r[3]?'s-free':(next&&next.d===r[2]?'s-hold':'s-sold')),r[3]?'Plătită':(next&&next.d===r[2]?'Urmează':'Programată')));td.firstChild.style.marginTop='0';
+tr.appendChild(td);tb.appendChild(tr)});
+var k=$('rk');[[eur(P),'preț fără TVA'],[eur(paid),'plătit până acum'],[eur(next.s),'următoarea rată · '+next.d]].forEach(function(x){var d=el('div','kpi');d.appendChild(el('b',null,x[0]));d.appendChild(el('span',null,x[1]));k.appendChild(d)});
+var pc=Math.round(paid/P*100);$('rbar').firstChild.style.width=pc+'%';$('rbar').setAttribute('aria-label','Plătit: '+pc+'%');
+}
+
+/* file */
+var tabs=[].slice.call(document.querySelectorAll('[role=tab]'));
+function sel(t){tabs.forEach(function(x){var on=x===t;x.setAttribute('aria-selected',on?'true':'false');x.tabIndex=on?0:-1;$(x.getAttribute('aria-controls')).hidden=!on})}
+tabs.forEach(function(t,i){t.onclick=function(){sel(t)};
+t.onkeydown=function(e){var d=e.key==='ArrowRight'?1:e.key==='ArrowLeft'?-1:0;if(d){var n=tabs[(i+d+tabs.length)%tabs.length];sel(n);n.focus()}}});
+
+var txt=encodeURIComponent('Bună ziua! Am văzut conceptul de aplicație pentru cumpărătorii de apartamente și aș vrea să discutăm.');
+['waTop','waBottom'].forEach(function(i){$(i).href='https://wa.me/40765373595?text='+txt});
+drawTower();drawApts();drawStages();drawDocs();drawRates();
+})();
+</script>
+</body>
+</html>
