@@ -1,4 +1,4 @@
-/* Conținut preluat din aplicația Dracula's Realm (tours.json, pois.json, routes.json, stories.json). */
+/* Content taken from the Dracula's Realm app (tours.json, pois.json, routes.json, stories.json). */
 window.DR={
 tours:[
 {name:"The Dracula Trail",tagline:"Five days in the footsteps of Vlad III, from his capital to his fortress and his grave.",kind:"privateTour",days:5,startCity:"Bucharest",
