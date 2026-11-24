@@ -11,7 +11,7 @@ itinerary:[
 ["The Castle of the Legend","Bran Castle at opening time, before the crowds. Drop-off in Bucharest in the evening."]],
 included:["4 nights in 3–4★ hotels","Daily breakfast","Private car or minivan","English-speaking guide-driver"],
 excluded:["Entrance fees (about €75 per person)","Lunches and dinners","Travel insurance"],
-from:550,departure:{kind:"onRequest",leadDays:7},maxTravelers:8},
+pricing:{tiers:[[1,1650],[2,1050],[4,760],[6,550]],singleSupplement:170},departure:{kind:"onRequest",leadDays:7},maxTravelers:8},
 {name:"Weekend in the Realm",tagline:"Three days, small group, the essential Transylvania.",kind:"smallGroup",days:3,startCity:"Bucharest",
 summary:"Join a small group of at most seven travellers for the highlights: Bran Castle, the citadels of Sighișoara and Râșnov, and the Saxon towns of Brașov and Sibiu. Guaranteed departures every Thursday in season.",
 itinerary:[
@@ -20,7 +20,7 @@ itinerary:[
 ["Dracula's Castle","Bran Castle in the morning, return to Bucharest by early evening."]],
 included:["2 nights in a 3★ hotel in Brașov","2 breakfasts","Minivan transport","English-speaking guide","Entrance tickets"],
 excluded:["Lunches and dinners","Travel insurance"],
-from:690,departure:{kind:"weekly",weekday:5,seasonStartMonth:3,seasonEndMonth:11,leadDays:5},maxTravelers:7},
+pricing:{doubleRoom:690,singleRoom:790},departure:{kind:"weekly",weekday:5,seasonStartMonth:3,seasonEndMonth:11,leadDays:5},maxTravelers:7},
 {name:"Halloween in Transylvania",tagline:"The one night of the year when the legend comes alive.",kind:"special",days:5,startCity:"Bucharest",
 summary:"Celebrate Halloween where it feels most at home: a costume night near Bran Castle, candle-lit dinners in Sighișoara and the haunted forest of Hoia-Baciu.",
 itinerary:[
@@ -31,14 +31,14 @@ itinerary:[
 ["Return","Corvin Castle on the way back, drop-off in Bucharest."]],
 included:["4 nights accommodation","4 breakfasts and 3 dinners","Halloween party entry","Minivan transport","English-speaking guide"],
 excluded:["Flights","Costumes","Travel insurance","Personal expenses"],
-from:1090,departure:{kind:"fixed",fixedDate:"2027-10-29",leadDays:2},maxTravelers:16},
+pricing:{doubleRoom:1090,singleRoom:1270},departure:{kind:"fixed",fixedDate:"2027-10-29",leadDays:2},maxTravelers:16},
 {name:"Bran Castle Day Trip",tagline:"Dracula's Castle and Râșnov Citadel in one day from Bucharest.",kind:"privateTour",days:1,startCity:"Bucharest",
 summary:"A private day trip for travellers short on time: the castle the world calls Dracula's, the peasant fortress of Râșnov and a stroll through Brașov.",
 itinerary:[
 ["Castles of the Carpathians","Hotel pick-up at 7:30, Bran Castle, Râșnov Citadel, an hour in Brașov, back in Bucharest around 21:00."]],
 included:["Private car","English-speaking guide-driver","Hotel pick-up and drop-off"],
 excluded:["Entrance fees (about €25 per person)","Meals"],
-from:95,departure:{kind:"onRequest",leadDays:2},maxTravelers:7}
+pricing:{tiers:[[1,260],[2,145],[4,95]]},departure:{kind:"onRequest",leadDays:2},maxTravelers:7}
 ],
 pois:[
 {id:"bran-castle",name:"Bran Castle",region:"Brașov County",kind:"castle",categories:["fiction","history"],latitude:45.5150,longitude:25.3672,
