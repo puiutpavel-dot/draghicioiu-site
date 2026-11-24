@@ -61,19 +61,38 @@ section{margin-top:80px}
 .map{position:relative;width:100%;max-width:440px;aspect-ratio:1/1;margin:0 auto;border-radius:18px;background:var(--soft);border:1px solid var(--line);overflow:hidden}
 .map svg{position:absolute;inset:0;width:100%;height:100%}
 .map text{font:600 3.4px -apple-system,"Segoe UI",sans-serif;fill:var(--muted);letter-spacing:.3px;text-transform:uppercase}
-.pin{position:absolute;width:44px;height:44px;margin:-22px 0 0 -22px;border:0;background:transparent;padding:0;cursor:pointer}
-.pin i{display:block;width:20px;height:20px;margin:12px;border-radius:50%;background:var(--accent);border:3px solid var(--surface);box-shadow:0 2px 6px rgba(0,0,0,.3)}
-.pin[data-c="Fiction"] i{background:#B4232A}
-.pin[data-c="Mystery"] i{background:#6B4BC4}
-.pin[aria-pressed="true"] i{transform:scale(1.35);outline:2px solid var(--ink)}
+.pin{position:absolute;width:30px;height:30px;margin:-15px 0 0 -15px;border:0;background:transparent;padding:0;cursor:pointer}
+.pin i{display:block;width:16px;height:16px;margin:7px;border-radius:50%;background:var(--accent);border:3px solid var(--surface);box-shadow:0 2px 6px rgba(0,0,0,.3)}
+.pin[data-c="fiction"] i{background:#B4232A}
+.pin[data-c="mystery"] i{background:#6B4BC4}
+.pin[aria-pressed="true"]{z-index:2}
+.pin[aria-pressed="true"] i{transform:scale(1.4);outline:2px solid var(--ink)}
+.plist{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.plist button{min-height:44px;padding:0 14px;border-radius:999px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font:inherit;font-size:15px;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:8px}
+.plist button::before{content:"";width:10px;height:10px;border-radius:50%;background:var(--accent)}
+.plist button[data-c="fiction"]::before{background:#B4232A}
+.plist button[data-c="mystery"]::before{background:#6B4BC4}
+.plist button[aria-pressed="true"]{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent) inset}
+.plist button[hidden]{display:none}
+.tags{display:flex;gap:6px;flex-wrap:wrap}
+h4{margin:16px 0 0;font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+h4+p{margin-top:4px}
+.item .tagline{font-weight:600}
+.plain{margin:6px 0 0;padding-left:20px;font-size:16px}
+.item details{background:var(--surface);margin-top:12px}
+.price{display:flex;justify-content:space-between;align-items:baseline;gap:6px 14px;flex-wrap:wrap;margin-top:14px;padding-top:12px;border-top:1px solid var(--line)}
+.price b{font-size:18px}
+.price span{color:var(--muted);font-size:15px}
+summary small{color:var(--muted);font-weight:500;white-space:nowrap}
 .pin[hidden]{display:none}
 .legend{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;font-size:13px;color:var(--muted);margin:10px 0 0}
 .legend b{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:5px}
 .place{margin-top:14px}
 .cat{display:inline-block;padding:2px 10px;border-radius:999px;background:var(--soft);color:var(--link);font-size:12.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase}
 .acts{display:flex;gap:8px;flex-wrap:wrap}
-.stops{margin:8px 0 0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:6px;font-size:15px}
-.stops li{padding:4px 10px;border-radius:999px;background:var(--surface);border:1px solid var(--line)}
+.stops{margin:10px 0 0;padding:0;list-style:none;font-size:16px}
+.stops li{display:grid;grid-template-columns:54px minmax(0,1fr);gap:10px;padding:9px 0;border-top:1px solid var(--line)}
+.stops .day{color:var(--muted);font-size:14px;font-weight:600;padding-top:1px}
 details{padding:14px 16px;border:1px solid var(--line);border-radius:18px;background:var(--bg);margin-top:10px}
 details:first-of-type{margin-top:0}
 summary{cursor:pointer;font-weight:700;min-height:30px}
@@ -112,7 +131,7 @@ details p{margin:10px 0 0;font-size:16px}
 
 <section id="demo" aria-labelledby="h-demo">
 <h2 id="h-demo">Demo: cele cinci ecrane</h2>
-<p class="sub">Aplicația este în engleză, pentru turiști străini, așa că și demo-ul este în engleză. Apasă pe un punct de pe hartă, ascultă povestea și fă check-in ca să câștigi insigna.</p>
+<p class="sub">Conținutul este cel din aplicație: 4 tururi, 12 locuri, 4 trasee și 12 povești, în engleză, pentru turiști străini. Apasă pe un loc de pe hartă, ascultă povestea și fă check-in ca să câștigi insigna.</p>
 <div class="shell">
 <div class="shell-h"><svg viewBox="0 0 104 104" aria-hidden="true"><rect width="104" height="104" rx="24" fill="rgba(255,255,255,.14)"/><path d="M24 82V50h7v-7h6v7h9V36h4v-9h4v9h4v14h9v-7h6v7h7v32H58V68a6 6 0 0 0-12 0v14z" fill="#fff"/></svg><div><b>Dracula's Realm</b><span>Castles &amp; Legends Audio Guide</span></div></div>
 <div class="tabs" role="tablist" aria-label="Ecranele aplicației">
@@ -130,9 +149,10 @@ details p{margin:10px 0 0;font-size:16px}
 <div class="panel" id="p-exp" role="tabpanel" aria-labelledby="t-exp" lang="en">
 <div class="chips" id="chips"></div>
 <div class="map" id="map">
-<svg viewBox="0 0 100 100" aria-hidden="true"><path d="M62 6Q74 24 80 44Q83 58 72 63Q60 66 48 62Q36 62 20 71" fill="none" stroke="var(--line)" stroke-width="5" stroke-linecap="round"/><text x="20" y="38">Transylvania</text><text x="46" y="80">Wallachia</text><text x="84" y="34" transform="rotate(72 84 34)">Carpathians</text><circle cx="82" cy="93.4" r="1.1" fill="var(--muted)"/><text x="62" y="96.5">Bucharest</text></svg>
+<svg viewBox="0 0 100 100" aria-hidden="true"><path d="M62 6Q74 24 80 44Q83 58 72 63Q60 66 48 62Q36 62 20 71" fill="none" stroke="var(--line)" stroke-width="5" stroke-linecap="round"/><text x="20" y="38">Transylvania</text><text x="24" y="84">Wallachia</text><text x="84" y="34" transform="rotate(72 84 34)">Carpathians</text><circle cx="82" cy="93.4" r="1.1" fill="var(--muted)"/><text x="62" y="96.5">Bucharest</text></svg>
 </div>
 <p class="legend"><span><b style="background:var(--accent)"></b>History</span><span><b style="background:#B4232A"></b>Fiction</span><span><b style="background:#6B4BC4"></b>Mystery</span><span>Schematic map</span></p>
+<div class="plist" id="plist"></div>
 <div class="place" id="place" aria-live="polite"></div>
 </div>
 
@@ -142,7 +162,6 @@ details p{margin:10px 0 0;font-size:16px}
 
 <div class="panel" id="p-leg" role="tabpanel" aria-labelledby="t-leg" lang="en" hidden>
 <div id="legends"></div>
-<p style="margin:14px 0 0;color:var(--muted);font-size:14px">4 of the 12 stories in the app.</p>
 </div>
 
 <div class="panel" id="p-my" role="tabpanel" aria-labelledby="t-my" lang="en" hidden>
@@ -158,7 +177,7 @@ details p{margin:10px 0 0;font-size:16px}
 <div class="grid3">
 <div class="card"><h3>Audio-ghid care pornește singur</h3><p>Când turistul se apropie de un obiectiv, povestea locului începe fără să caute nimic în telefon.</p></div>
 <div class="card"><h3>Istorie și mit, separat</h3><p>Fiecare loc este marcat: istorie (Vlad Țepeș), ficțiune (Bram Stoker) sau mister. Bran nu este prezentat drept „casa lui Dracula” fără explicație.</p></div>
-<div class="card"><h3>Trasee gata făcute</h3><p>De la o zi din București până la circuitul de șapte zile, cu opririle în ordine și insigne pentru fiecare loc vizitat.</p></div>
+<div class="card"><h3>Trasee gata făcute</h3><p>De la weekendul de două zile din București până la circuitul de șapte zile, cu opririle în ordine și o insignă pentru fiecare loc vizitat.</p></div>
 </div>
 </section>
 
@@ -170,85 +189,102 @@ details p{margin:10px 0 0;font-size:16px}
 </div>
 </section>
 
-<p class="foot">Dracula's Realm este un proiect în lucru, realizat de Daniel Drăghicioiu. Tururile și traseele din demo sunt exemple, nu oferte. Publicat pe <a href="/">draghicioiu.ro</a>.</p>
+<p class="foot">Dracula's Realm este un proiect în lucru, realizat de Daniel Drăghicioiu. Tururile și prețurile din demo sunt cele pregătite în aplicație și sunt orientative: nu sunt oferte și nu se pot rezerva de aici. Publicat pe <a href="/">draghicioiu.ro</a>.</p>
 </div>
 
+<script src="data.js"></script>
 <script>
 (function(){
+var D=window.DR,P=D.pois;
 var $=function(i){return document.getElementById(i)};
 function el(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e}
-
-/* locuri: [nume, categorie, x%, y%, text, insigna, emoji] */
-var P=[
-['Bran Castle','Fiction',67.3,62.4,'First recorded in 1377, built by the Saxons of Brașov to guard the pass into Wallachia. Bram Stoker never saw it, and Vlad\'s own ties to it are thin. But its towers on the rock look so much like the castle in the novel that the world decided this is Dracula\'s home.','Bran Inquisitor','🏰'],
-['Sighișoara Citadel','History',55.8,42.3,'A medieval citadel where people still live, and a UNESCO World Heritage site. Vlad the Third is believed to have been born here around 1431, while his father, Vlad Dracul, was staying in the town.','Sighișoara Survivor','🗝️'],
-['Corvin Castle, Hunedoara','History',17.8,55.7,'The Gothic stronghold of John Hunyadi, raised in the fifteenth century. Tradition says Vlad was once held prisoner here. Historians have found no proof, but the story refuses to leave.','Corvin Knight','🛡️'],
-['Sibiu Old Town','History',43,54.3,'Vlad lived among the Saxons of Sibiu in the 1450s, before he took back the throne of Wallachia. A few years later he turned on the Saxon merchants and raided the villages around the city.','Saxon Walls','🧱'],
-['Poenari Citadel','History',52.7,67.1,'The real fortress of Vlad the Impaler, on a cliff above the Argeș river. It stands in Wallachia, just south of the Transylvanian border. About 1,480 steps lead to the top.','1,480 Steps','⛰️'],
-['Borgo Pass (Tihuța)','Fiction',59,12.3,'This is where Stoker placed Count Dracula\'s castle. Jonathan Harker crosses the pass by coach at night, after leaving Bistritz. No medieval castle ever stood here.','Borgo Night Rider','🐺'],
-['Hoia Baciu Forest, Cluj','Mystery',30.4,26.4,'Crooked trees and a round clearing where, locals say, nothing grows. It has been Romania\'s most talked-about haunted forest since a UFO photograph taken here in 1968.','Hoia Wanderer','🌲'],
-['Snagov Monastery','Mystery',83.6,84.9,'An island monastery north of Bucharest and, by tradition, the burial place of Vlad. Excavations in the 1930s did not settle the question.','Island Pilgrim','🕯️']];
-var F='All',cur=-1,got={};
+function cap(s){return s.charAt(0).toUpperCase()+s.slice(1)}
+function poi(id){for(var i=0;i<P.length;i++)if(P[i].id===id)return P[i]}
+var ICON={castle:'🏰',citadel:'🛡️',town:'🏘️',monastery:'🕯️',church:'⛪',nature:'🌲'};
+var F='all',cur=-1,got={};
 var canSpeak='speechSynthesis' in window&&'SpeechSynthesisUtterance' in window;
+function stop(){if(canSpeak)speechSynthesis.cancel()}
+function shown(p){return F==='all'||p.categories.indexOf(F)>=0}
 
+/* explore */
 function drawChips(){
 var c=$('chips');c.textContent='';
-['All','History','Fiction','Mystery'].forEach(function(k){var b=el('button',null,k);b.type='button';b.setAttribute('aria-pressed',k===F?'true':'false');
-b.onclick=function(){F=k;if(cur>=0&&F!=='All'&&P[cur][1]!==F)cur=-1;drawChips();drawPins();drawPlace()};c.appendChild(b)});
+['all','history','fiction','mystery'].forEach(function(k){var b=el('button',null,cap(k));b.type='button';b.setAttribute('aria-pressed',k===F?'true':'false');
+b.onclick=function(){F=k;if(cur>=0&&!shown(P[cur]))cur=-1;drawChips();drawPins();drawPlace()};c.appendChild(b)});
 }
-var pins=P.map(function(p,i){var b=el('button','pin');b.type='button';b.dataset.c=p[1];b.style.left=p[2]+'%';b.style.top=p[3]+'%';
-b.setAttribute('aria-label',p[0]+' ('+p[1]+')');b.appendChild(el('i'));
-b.onclick=function(){cur=i;drawPins();drawPlace()};$('map').appendChild(b);return b});
-function drawPins(){pins.forEach(function(b,i){b.hidden=F!=='All'&&P[i][1]!==F;b.setAttribute('aria-pressed',i===cur?'true':'false')})}
-function stop(){if(canSpeak)speechSynthesis.cancel()}
+function pick(i){cur=i;drawPins();drawPlace()}
+var pins=P.map(function(p,i){var b=el('button','pin');b.type='button';b.dataset.c=p.categories[0];
+b.style.left=((p.longitude-22)/5*100)+'%';b.style.top=((47.7-p.latitude)/3.5*100)+'%';
+b.setAttribute('aria-label',p.name);b.appendChild(el('i'));b.onclick=function(){pick(i)};$('map').appendChild(b);return b});
+var rows=P.map(function(p,i){var b=el('button',null,p.name);b.type='button';b.dataset.c=p.categories[0];b.onclick=function(){pick(i);$('place').scrollIntoView({block:'nearest'})};$('plist').appendChild(b);return b});
+function drawPins(){P.forEach(function(p,i){var h=!shown(p),s=i===cur?'true':'false';
+pins[i].hidden=h;rows[i].hidden=h;pins[i].setAttribute('aria-pressed',s);rows[i].setAttribute('aria-pressed',s)})}
 function drawPlace(){
 stop();var box=$('place');box.textContent='';
-if(cur<0){box.appendChild(el('p',null,'Tap a pin to open a place.')).style.cssText='margin:0;color:var(--muted);text-align:center';return}
-var p=P[cur],w=el('div','item');
-w.appendChild(el('span','cat',p[1]));
-var h=el('h3',null,p[0]);h.style.marginTop='8px';w.appendChild(h);
-w.appendChild(el('p',null,p[4]));
+if(cur<0)return;
+var p=P[cur],w=el('div','item'),tg=el('div','tags');
+p.categories.forEach(function(c){tg.appendChild(el('span','cat',c))});w.appendChild(tg);
+var h=el('h3',null,p.name);h.style.marginTop='8px';w.appendChild(h);
+w.appendChild(el('small',null,p.region+' · about '+p.visitMinutes+' min visit'));
+w.appendChild(el('p',null,p.summary));
+w.appendChild(el('h4',null,'The facts'));w.appendChild(el('p',null,p.fact));
+w.appendChild(el('h4',null,'The legend'));w.appendChild(el('p',null,p.legend));
 var a=el('div','acts');
 if(canSpeak){var l=el('button','btn','▶ Listen');l.type='button';var on=false;
-l.onclick=function(){if(on){stop();return}var u=new SpeechSynthesisUtterance(p[4]);u.lang='en-GB';u.rate=.95;
+l.onclick=function(){if(on){stop();return}var u=new SpeechSynthesisUtterance(p.name+'. '+p.summary+' '+p.fact+' '+p.legend);u.lang='en-GB';u.rate=.95;
 u.onend=u.onerror=function(){on=false;l.textContent='▶ Listen'};stop();speechSynthesis.speak(u);on=true;l.textContent='■ Stop'};a.appendChild(l)}
 var c=el('button','btn primary',got[cur]?'Checked in ✓':'Check in');c.type='button';c.disabled=!!got[cur];
 c.onclick=function(){got[cur]=1;drawPlace();drawBadges()};a.appendChild(c);
 w.appendChild(a);
-if(got[cur])w.appendChild(el('p','msg','Badge unlocked: '+p[5]+'. See it in My Trip.'));
+if(got[cur])w.appendChild(el('p','msg','Badge unlocked: '+p.badgeName+'. See it in My Trip.'));
 box.appendChild(w);
 }
 function drawBadges(){
-var n=Object.keys(got).length;$('bcount').textContent=n+' of '+P.length+' badges';
+$('bcount').textContent=Object.keys(got).length+' of '+P.length+' badges';
 var box=$('badges');box.textContent='';
-P.forEach(function(p,i){var b=el('div','badge'+(got[i]?' on':''));b.appendChild(el('b',null,p[6]));b.appendChild(document.createTextNode(p[5]));box.appendChild(b)});
+P.forEach(function(p,i){var b=el('div','badge'+(got[i]?' on':''));b.appendChild(el('b',null,ICON[p.kind]||'📍'));b.appendChild(document.createTextNode(p.badgeName));box.appendChild(b)});
 }
 
-/* tururi exemplu */
-[['Castles in a Day','1 day · from Bucharest','Bran Castle and the old town of Brașov, with the mountain road in between.'],
-['Vlad\'s Trail','3 days · small group','Sighișoara, Sibiu and Corvin Castle: the places tied to the real prince.'],
-['The Full Realm','7 days · private','From Bucharest and Snagov through the Carpathians to the Borgo Pass and back.']].forEach(function(t){
-var w=el('div','item');w.appendChild(el('h3',null,t[0]));w.appendChild(el('small',null,t[1]));w.appendChild(el('p',null,t[2]));
+/* tours */
+var KIND={privateTour:'Private tour',smallGroup:'Small group',special:'Special departure'};
+var WD=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+var MO=['January','February','March','April','May','June','July','August','September','October','November','December'];
+function dep(d){
+if(d.kind==='weekly')return 'Every '+WD[d.weekday-1]+', '+MO[d.seasonStartMonth-1]+' to '+MO[d.seasonEndMonth-1];
+if(d.kind==='fixed'){var x=d.fixedDate.split('-');return (+x[2])+' '+MO[x[1]-1]+' '+x[0]}
+return 'On request, '+d.leadDays+' days ahead';
+}
+function ul(a){var u=el('ul','plain');a.forEach(function(s){u.appendChild(el('li',null,s))});return u}
+D.tours.forEach(function(t){
+var w=el('div','item'),tg=el('div','tags');tg.appendChild(el('span','cat',KIND[t.kind]||t.kind));w.appendChild(tg);
+var h=el('h3',null,t.name);h.style.marginTop='8px';w.appendChild(h);
+w.appendChild(el('small',null,t.days+(t.days===1?' day':' days')+' · from '+t.startCity+' · up to '+t.maxTravelers+' travellers'));
+w.appendChild(el('p','tagline',t.tagline));w.appendChild(el('p',null,t.summary));
+var d=el('details'),s=el('summary',null,'Itinerary and what is included');d.appendChild(s);
+t.itinerary.forEach(function(x,i){var p=el('p');p.appendChild(el('b',null,'Day '+(i+1)+' · '+x[0]+'. '));p.appendChild(document.createTextNode(x[1]));d.appendChild(p)});
+d.appendChild(el('h4',null,'Included'));d.appendChild(ul(t.included));
+d.appendChild(el('h4',null,'Not included'));d.appendChild(ul(t.excluded));
+w.appendChild(d);
+var r=el('div','price');r.appendChild(el('b',null,'From €'+t.from+' per person'));r.appendChild(el('span',null,dep(t.departure)));w.appendChild(r);
 var b=el('button','btn','Request a quote');b.type='button';var m=el('p','msg');m.setAttribute('aria-live','polite');
 b.onclick=function(){m.textContent='Demo only. In the app this sends a free quote request by email. No payment is taken in the app.'};
 w.appendChild(b);w.appendChild(m);$('tours').appendChild(w)});
 
-/* trasee */
-[['Weekend from Bucharest','2 days',['Snagov','Bran','Brașov']],
-['Saxon Transylvania','4 days',['Brașov','Sighișoara','Sibiu','Corvin Castle']],
-['The Complete Circuit','7 days',['Snagov','Poenari','Sibiu','Corvin Castle','Cluj & Hoia Baciu','Borgo Pass','Sighișoara','Bran']]].forEach(function(r){
-var w=el('div','item');w.appendChild(el('h3',null,r[0]));w.appendChild(el('small',null,r[1]+' · '+r[2].length+' stops'));
-var u=el('ol','stops');r[2].forEach(function(s,i){u.appendChild(el('li',null,(i+1)+'. '+s))});w.appendChild(u);$('routes').appendChild(w)});
+/* routes */
+D.routes.forEach(function(r){
+var w=el('div','item');w.appendChild(el('h3',null,r.name));
+w.appendChild(el('small',null,r.days+' days · from '+r.startCity+' · '+r.stops.length+' stops'));
+w.appendChild(el('p','tagline',r.tagline));
+var o=el('ol','stops');r.stops.forEach(function(s){var li=el('li');li.appendChild(el('span','day','Day '+s[0]));
+var x=el('span');x.appendChild(el('b',null,poi(s[1]).name));x.appendChild(document.createTextNode(' · '+s[2]));li.appendChild(x);o.appendChild(li)});
+w.appendChild(o);$('routes').appendChild(w)});
 
-/* legende */
-[['History','Where the name Dracula comes from','In 1431 Vlad\'s father joined the Order of the Dragon and became known as Vlad Dracul. Dracula simply means "son of Dracul".'],
-['History','Why "the Impaler"','Impalement was the punishment Vlad became known for. The nickname Țepeș spread after his death; the Ottomans called him Kazıklı Bey, the Impaler Prince.'],
-['Fiction','Stoker never came to Romania','Bram Stoker wrote the novel, published in 1897, from books and maps, with notes taken in libraries and on holiday in Whitby. He never set foot in Transylvania.'],
-['Folklore','The strigoi','Long before the novel, Romanian villages told of strigoi: the restless dead who leave the grave to trouble the living. Stoker\'s vampire is a different creature.']].forEach(function(g){
-var d=el('details'),s=el('summary');s.appendChild(el('span','cat',g[0]));s.appendChild(document.createTextNode(' '+g[1]));
-d.appendChild(s);d.appendChild(el('p',null,g[2]));$('legends').appendChild(d)});
+/* legends */
+D.stories.forEach(function(g){
+var d=el('details'),s=el('summary');s.appendChild(el('span','cat',g.category));s.appendChild(document.createTextNode(' '+g.title+' '));s.appendChild(el('small',null,g.readMinutes+' min'));
+d.appendChild(s);g.body.split('\n\n').forEach(function(x){d.appendChild(el('p',null,x))});$('legends').appendChild(d)});
 
-/* file */
+/* tabs */
 var tabs=[].slice.call(document.querySelectorAll('[role=tab]'));
 function sel(t){stop();tabs.forEach(function(x){var on=x===t;x.setAttribute('aria-selected',on?'true':'false');x.tabIndex=on?0:-1;$(x.getAttribute('aria-controls')).hidden=!on})}
 tabs.forEach(function(t,i){t.onclick=function(){sel(t)};
